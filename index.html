@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Route Mapper — Minimal Leaflet PoC</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-sA+e2e2p8Vb5vYb3g1y+XHcQxL6Q4wDQ2m7f2w6X0sM="
+    crossorigin=""
+  />
+  <style>
+    :root { --panel-w: 320px; --gap: 12px; --muted: #666; --bg:#fff; --accent:#2b8cbe; }
+    body { margin:0; height:100vh; display:flex; font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial; }
+    #panel {
+      width:var(--panel-w); padding:16px; box-sizing:border-box;
+      border-right:1px solid #e6e6e6; background:var(--bg); overflow:auto;
+    }
+    h2 { margin:0 0 8px 0; font-size:16px; }
+    #map { flex:1; }
+    .btn { display:inline-block; padding:8px 10px; margin:4px 0; background:var(--accent); color:#fff; border-radius:6px; border:none; cursor:pointer; }
+    .btn.secondary { background:#6c757d; }
+    .controls { margin-bottom:12px; }
+    label { font-size:13px; color:var(--muted); display:block; margin-top:8px; }
+    input[type="number"], input[type="text"], select { width:100%; padding:6px 8px; box-sizing:border-box; margin-top:6px; }
+    ul { padding-left:18px; margin:8px 0; }
+    .stop-item { display:flex; justify-content:space-between; align-items:center; gap:8px; padding:6px 0; border-bottom:1px dashed #eee; }
+    .small { font-size:12px; color:var(--muted); }
+    .color-dot { width:12px;height:12px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:middle; }
+    footer { margin-top:12px; font-size:12px; color:var(--muted); }
+    a.link { color:var(--accent); text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div id="panel" aria-labelledby="title">
+    <h2 id="title">Route Mapper — Minimal PoC</h2>
+
+    <div class="controls">
+      <div class="small">Click on the map to add stops. Drag markers to tweak positions.</div>
+
+      <label>Vehicle count</label>
+      <input id="vehicleCount" type="number" min="1" value="1" />
+
+      <label><input id="returnToDepot" type="checkbox" checked /> Return vehicles to depot</label>
+
+      <label>Depot location (click 'Set depot from center' to use map center)</label>
+      <input id="depotCoords" type="text" value="37.7749,-122.4194" />
+      <button class="btn secondary" id="setDepotFromCenter">Set depot from center</button>
+    </div>
+
+    <div style="margin-bottom:8px; display:flex; gap:8px; align-items:center;">
+      <button class="btn" id="optimizeBtn">Optimize (mock)</button>
+      <button class="btn" id="optimizeSrvBtn">Optimize (serverless)</button>
+      <label style="margin:0; font-size:13px; display:flex; align-items:center;"><input id="useServerless" type="checkbox" style="margin-right:6px;"/> Use serverless by default</label>
+    </div>
+
+    <div style="margin-top:8px;">
+      <button class="btn secondary" id="clearBtn">Clear stops</button>
+    </div>
+
+    <div style="margin-top:8px;">
+      <label>Import GeoJSON (Point features)</label>
+      <input id="importGeo" type="file" accept=".geojson,.json" />
+      <button class="btn" id="exportBtn">Export stops as GeoJSON</button>
+    </div>
+
+    <h3 style="margin-top:12px;">Stops</h3>
+    <div id="stopList" aria-live="polite"></div>
+
+    <h3 style="margin-top:12px;">Routes</h3>
+    <div id="routeList" class="small"></div>
+
+    <footer>
+      Built as a minimal demo. Swap the mock optimizer with a server-side proxy to use a third-party optimization API. Netlify serverless function scaffold is included in <code>netlify/functions/optimize.js</code>. Never commit API keys — use environment variables.
+    </footer>
+  </div>
+
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-o9N1j7kz7H4G2nUqEf9n0t+6qk2qWgk5Q3QH3y0f2XY=" crossorigin=""></script>
+  <script>
+    /* ---------------------------
+       Minimal, readable state & helpers
+       --------------------------- */
+    const state = {
+      stops: [],            // {id,name,lat,lng,service_time}
+      markers: new Map(),   // id -> leaflet marker
+      routes: [],           // result routes
+      vehicleCount: 1,
+      returnToDepot: true,
+      depot: { lat: 37.7749, lng: -122.4194 } // default center (SF)
+    };
+
+    const COLORS = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#a65628','#f781bf'];
+
+    function uid(prefix='s') { return prefix + '-' + Math.random().toString(36).slice(2,9); }
+
+    function toLatLng(obj) { return [obj.lat, obj.lng]; }
+
+    function haversine(aLat, aLng, bLat, bLng) {
+      const toRad = v => v * Math.PI / 180;
+      const R = 6371e3; // meters
+      const φ1 = toRad(aLat), φ2 = toRad(bLat);
+      const Δφ = toRad(bLat - aLat), Δλ = toRad(bLng - aLng);
+      const aa = Math.sin(Δφ/2)*Math.sin(Δφ/2) + Math.cos(φ1)*Math.cos(φ2)*Math.sin(Δλ/2)*Math.sin(Δλ/2);
+      const c = 2 * Math.atan2(Math.sqrt(aa), Math.sqrt(1-aa));
+      return R * c;
+    }
+
+    /* ---------------------------
+       Map setup
+       --------------------------- */
+    const map = L.map('map').setView([state.depot.lat, state.depot.lng], 12);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // depot marker
+    let depotMarker = L.marker([state.depot.lat, state.depot.lng], { draggable: true, title: 'Depot' })
+      .addTo(map)
+      .bindPopup('Depot (drag to reposition)').openPopup();
+
+    depotMarker.on('dragend', () => {
+      const p = depotMarker.getLatLng();
+      state.depot = { lat: p.lat, lng: p.lng };
+      document.getElementById('depotCoords').value = `${p.lat.toFixed(6)},${p.lng.toFixed(6)}`;
+    });
+
+    map.on('click', (e) => {
+      addStopAt(e.latlng.lat, e.latlng.lng);
+    });
+
+    map.on('moveend', ()=> {
+      // keep UI consistent if needed
+    });
+
+    /* ---------------------------
+       Stop management & UI
+       --------------------------- */
+    function addStopAt(lat, lng, name = '') {
+      const id = uid('stop');
+      const stop = { id, name: name || id, lat, lng, service_time: 10 };
+      state.stops.push(stop);
+      const marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+      marker.bindPopup(popupForStop(stop), { minWidth: 220 });
+      marker.on('dragend', () => {
+        const p = marker.getLatLng();
+        stop.lat = p.lat; stop.lng = p.lng;
+        renderStops();
+      });
+      state.markers.set(id, marker);
+      renderStops();
+    }
+
+    function popupForStop(stop) {
+      // return HTML string for popup (small editable form)
+      return `
+        <div style="font-size:13px">
+          <strong>Stop</strong><div class="small">${stop.id}</div>
+          <label style="display:block;margin-top:6px">Name</label>
+          <input id="inp-name-${stop.id}" type="text" value="${escapeHtml(stop.name)}" style="width:100%;padding:6px"/>
+          <label style="display:block;margin-top:6px">Service time (min)</label>
+          <input id="inp-st-${stop.id}" type="number" value="${stop.service_time}" style="width:100%;padding:6px"/>
+          <div style="margin-top:8px; display:flex; gap:8px;">
+            <button onclick="saveStop('${stop.id}')" class="btn">Save</button>
+            <button onclick="deleteStop('${stop.id}')" class="btn secondary">Delete</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // small sanitizer for html injection in popup strings
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+    }
+
+    window.saveStop = function(id) {
+      const stop = state.stops.find(s => s.id === id);
+      if (!stop) return;
+      const nameEl = document.getElementById(`inp-name-${id}`);
+      const stEl = document.getElementById(`inp-st-${id}`);
+      if (nameEl) stop.name = nameEl.value;
+      if (stEl) stop.service_time = Number(stEl.value) || 0;
+      const marker = state.markers.get(id);
+      if (marker) marker.closePopup();
+      renderStops();
+    };
+
+    window.deleteStop = function(id) {
+      const idx = state.stops.findIndex(s => s.id === id);
+      if (idx === -1) return;
+      state.stops.splice(idx, 1);
+      const m = state.markers.get(id);
+      if (m) { map.removeLayer(m); state.markers.delete(id); }
+      renderStops();
+    };
+
+    function renderStops() {
+      const container = document.getElementById('stopList');
+      container.innerHTML = '';
+      if (state.stops.length === 0) {
+        container.innerHTML = '<div class="small">No stops yet. Click map to add one.</div>';
+        return;
+      }
+      const ul = document.createElement('div');
+      state.stops.forEach(s => {
+        const div = document.createElement('div');
+        div.className = 'stop-item';
+        div.innerHTML = `
+          <div>
+            <div><strong>${escapeHtml(s.name)}</strong></div>
+            <div class="small">${s.lat.toFixed(5)}, ${s.lng.toFixed(5)} • ${s.service_time}m</div>
+          </div>
+          <div style="text-align:right">
+            <button class="btn secondary" onclick="zoomToStop('${s.id}')">Zoom</button>
+          </div>
+        `;
+        ul.appendChild(div);
+      });
+      container.appendChild(ul);
+    }
+
+    window.zoomToStop = function(id) {
+      const m = state.markers.get(id);
+      if (m) {
+        map.setView(m.getLatLng(), 15);
+        m.openPopup();
+      }
+    };
+
+    /* ---------------------------
+       Optimize: mock optimizer (k-means + nearest neighbor)
+       Replace mockOptimize() with real API calls when ready.
+       --------------------------- */
+
+    // k-means on lat/lng (very small, simple impl)
+    function kMeans(points, k, maxIter = 20) {
+      // points: [{lat,lng, id}]
+      if (points.length === 0) return { assignments: [], centers: [] };
+      if (k <= 1) {
+        return { assignments: new Array(points.length).fill(0), centers: [{...points[0]}] };
+      }
+      // initialize centers as random unique points
+      const centers = [];
+      const used = new Set();
+      while (centers.length < Math.min(k, points.length)) {
+        const idx = Math.floor(Math.random() * points.length);
+        if (!used.has(idx)) { used.add(idx); centers.push({ lat: points[idx].lat, lng: points[idx].lng }); }
+      }
+      const assignments = new Array(points.length).fill(0);
+      for (let iter=0; iter<maxIter; iter++) {
+        let changed = false;
+        // assign
+        for (let i=0;i<points.length;i++){
+          let best = 0, bestD = Infinity;
+          for (let c=0;c<centers.length;c++){
+            const d = haversine(points[i].lat, points[i].lng, centers[c].lat, centers[c].lng);
+            if (d < bestD) { bestD = d; best = c; }
+          }
+          if (assignments[i] !== best) { assignments[i] = best; changed = true; }
+        }
+        // recompute centers
+        const sums = new Array(centers.length).fill(0).map(()=>({lat:0,lng:0,c:0}));
+        for (let i=0;i<points.length;i++){
+          const a = assignments[i];
+          sums[a].lat += points[i].lat;
+          sums[a].lng += points[i].lng;
+          sums[a].c += 1;
+        }
+        for (let c=0;c<centers.length;c++){
+          if (sums[c].c > 0) {
+            centers[c].lat = sums[c].lat / sums[c].c;
+            centers[c].lng = sums[c].lng / sums[c].c;
+          }
+        }
+        if (!changed) break;
+      }
+      return { assignments, centers };
+    }
+
+    // nearest neighbor order starting from depot
+    function nearestNeighborOrder(points, depot, returnToDepot = true) {
+      // points: array of {id,lat,lng}
+      const remaining = points.slice();
+      const order = [];
+      let cur = { lat: depot.lat, lng: depot.lng };
+      while (remaining.length > 0) {
+        let bestIdx = 0, bestD = Infinity;
+        for (let i=0;i<remaining.length;i++){
+          const p = remaining[i];
+          const d = haversine(cur.lat, cur.lng, p.lat, p.lng);
+          if (d < bestD) { bestD = d; bestIdx = i; }
+        }
+        const chosen = remaining.splice(bestIdx,1)[0];
+        order.push(chosen);
+        cur = { lat: chosen.lat, lng: chosen.lng };
+      }
+      // optionally return to depot (we'll include depot when making polyline)
+      return order;
+    }
+
+    // mock optimizer: clusters stops by vehicleCount, then orders each cluster
+    function mockOptimize({ stops, vehicleCount, depot, returnToDepot }) {
+      // if fewer stops than vehicles, assign one per vehicle until exhausted
+      if (stops.length === 0) return [];
+      if (vehicleCount <= 1) {
+        const order = nearestNeighborOrder(stops, depot, returnToDepot);
+        return [{ vehicle_id: 'veh-1', stops: order, coordinates: buildRouteCoords(order, depot, returnToDepot) }];
+      }
+      // run kmeans on stops
+      const { assignments } = kMeans(stops, Math.min(vehicleCount, stops.length));
+      const clusters = new Array(vehicleCount).fill(0).map(()=>[]);
+      for (let i=0;i<stops.length;i++){
+        const c = assignments[i];
+        clusters[c].push(stops[i]);
+      }
+      const routes = [];
+      for (let i=0;i<vehicleCount;i++){
+        const clusterStops = clusters[i];
+        if (clusterStops.length === 0) {
+          routes.push({ vehicle_id: `veh-${i+1}`, stops: [], coordinates: [] });
+          continue;
+        }
+        const order = nearestNeighborOrder(clusterStops, depot, returnToDepot);
+        routes.push({ vehicle_id: `veh-${i+1}`, stops: order, coordinates: buildRouteCoords(order, depot, returnToDepot) });
+      }
+      return routes;
+    }
+
+    function buildRouteCoords(order, depot, returnToDepot) {
+      const coords = [];
+      coords.push([depot.lat, depot.lng]);
+      order.forEach(s => coords.push([s.lat, s.lng]));
+      if (returnToDepot) coords.push([depot.lat, depot.lng]);
+      return coords;
+    }
+
+    /* ---------------------------
+       Render routes on map + UI
+       --------------------------- */
+    let routeLayers = [];
+
+    function clearRouteLayers() {
+      routeLayers.forEach(l => map.removeLayer(l));
+      routeLayers = [];
+      document.getElementById('routeList').innerText = '';
+    }
+
+    function renderRoutes(routes) {
+      clearRouteLayers();
+      const routeList = document.getElementById('routeList');
+      if (!routes || routes.length === 0) {
+        routeList.innerText = 'No routes yet.';
+        return;
+      }
+      // show each route
+      const frag = document.createDocumentFragment();
+      routes.forEach((r, idx) => {
+        if (r.coordinates && r.coordinates.length > 0) {
+          const poly = L.polyline(r.coordinates, { color: COLORS[idx % COLORS.length], weight: 4, opacity: 0.85 }).addTo(map);
+          routeLayers.push(poly);
+          // popup with simple summary
+          poly.bindPopup(`<strong>${r.vehicle_id}</strong><div class="small">${r.stops.length} stops</div>`);
+        }
+        const row = document.createElement('div');
+        row.innerHTML = `<span class="color-dot" style="background:${COLORS[idx % COLORS.length]}"></span><strong>${r.vehicle_id}</strong>
+          <div class="small">${r.stops.length} stops • ${r.coordinates.length} points</div>`;
+        frag.appendChild(row);
+      });
+      routeList.appendChild(frag);
+    }
+
+    /* ---------------------------
+       Serverless proxy call (Netlify functions)
+       --------------------------- */
+    async function callServerlessOptimize(payload) {
+      try {
+        const res = await fetch('/.netlify/functions/optimize', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (!res.ok) {
+          const txt = await res.text();
+          throw new Error(`Serverless error ${res.status}: ${txt}`);
+        }
+        return await res.json();
+      } catch (err) {
+        console.error('Serverless optimize error', err);
+        throw err;
+      }
+    }
+
+    /* ---------------------------
+       UI wiring & import/export/controls
+       --------------------------- */
+    document.getElementById('vehicleCount').addEventListener('change', e => {
+      state.vehicleCount = Math.max(1, Number(e.target.value) || 1);
+    });
+
+    document.getElementById('returnToDepot').addEventListener('change', e => {
+      state.returnToDepot = e.target.checked;
+    });
+
+    document.getElementById('setDepotFromCenter').addEventListener('click', () => {
+      const c = map.getCenter();
+      state.depot = { lat: c.lat, lng: c.lng };
+      depotMarker.setLatLng(c);
+      document.getElementById('depotCoords').value = `${c.lat.toFixed(6)},${c.lng.toFixed(6)}`;
+    });
+
+    document.getElementById('optimizeBtn').addEventListener('click', async () => {
+      // mock optimize
+      const btn = document.getElementById('optimizeBtn');
+      btn.disabled = true; btn.innerText = 'Optimizing…';
+      const stops = state.stops.map(s => ({ id: s.id, lat: s.lat, lng: s.lng, name: s.name, service_time: s.service_time }));
+      const result = mockOptimize({ stops, vehicleCount: state.vehicleCount, depot: state.depot, returnToDepot: state.returnToDepot });
+      state.routes = result;
+      renderRoutes(result);
+      btn.disabled = false; btn.innerText = 'Optimize (mock)';
+      const allCoords = result.flatMap(r => r.coordinates || []);
+      if (allCoords.length) map.fitBounds(allCoords);
+    });
+
+    document.getElementById('optimizeSrvBtn').addEventListener('click', async () => {
+      const btn = document.getElementById('optimizeSrvBtn');
+      btn.disabled = true; btn.innerText = 'Optimizing…';
+      const payload = {
+        vehicles: [
+          {
+            id: 'veh-1',
+            start_location: state.depot,
+            end_location: state.depot,
+            capacity: { volume: 1000 },
+            time_window: { start: '08:00', end: '18:00' }
+          }
+        ],
+        stops: state.stops.map(s => ({ id: s.id, location: { lat: s.lat, lng: s.lng }, service_time: s.service_time })),
+        constraints: { return_to_hub: state.returnToDepot }
+      };
+
+      try {
+        const data = await callServerlessOptimize(payload);
+        // Expecting either { routes: [...] } or { job_id, status }
+        if (data.routes) {
+          state.routes = data.routes;
+          renderRoutes(data.routes);
+          const allCoords = data.routes.flatMap(r => r.coordinates || []);
+          if (allCoords.length) map.fitBounds(allCoords);
+        } else {
+          alert('Optimization submitted. Server response: ' + JSON.stringify(data).slice(0,200));
+        }
+      } catch (err) {
+        alert('Serverless optimization failed: ' + err.message);
+      } finally {
+        btn.disabled = false; btn.innerText = 'Optimize (serverless)';
+      }
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      state.markers.forEach(m => map.removeLayer(m));
+      state.markers.clear();
+      state.stops = [];
+      renderStops();
+      clearRouteLayers();
+    });
+
+    // import GeoJSON (Point features)
+    document.getElementById('importGeo').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const obj = JSON.parse(reader.result);
+          if (obj.type === 'FeatureCollection') {
+            const pts = obj.features.filter(f => f.geometry && f.geometry.type === 'Point');
+            pts.forEach(f => {
+              const [lng, lat] = f.geometry.coordinates;
+              const name = f.properties && (f.properties.name || f.properties.title || '');
+              addStopAt(lat, lng, name);
+            });
+          } else {
+            alert('Expected FeatureCollection of Point features');
+          }
+        } catch (err) {
+          alert('Invalid JSON: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+      e.target.value = '';
+    });
+
+    // export stops as GeoJSON
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      const fc = {
+        type: 'FeatureCollection',
+        features: state.stops.map(s => ({
+          type: 'Feature',
+          properties: { id: s.id, name: s.name, service_time: s.service_time },
+          geometry: { type: 'Point', coordinates: [s.lng, s.lat] }
+        }))
+      };
+      const blob = new Blob([JSON.stringify(fc, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'stops.geojson'; document.body.appendChild(a); a.click();
+      a.remove(); URL.revokeObjectURL(url);
+    });
+
+    /* ---------------------------
+       Sampler / initial sample data for convenience
+       --------------------------- */
+    function addSampleData() {
+      const samples = [
+        { name: 'Market St', lat: 37.7749, lng: -122.4194 },
+        { name: 'Mission', lat: 37.7599, lng: -122.4148 },
+        { name: 'Embarcadero', lat: 37.7955, lng: -122.3937 },
+        { name: 'Haight', lat: 37.7690, lng: -122.4483 },
+        { name: 'Castro', lat: 37.7609, lng: -122.4350 }
+      ];
+      samples.forEach(s => addStopAt(s.lat, s.lng, s.name));
+    }
+
+    // initialize UI values
+    document.getElementById('vehicleCount').value = state.vehicleCount;
+    document.getElementById('returnToDepot').checked = state.returnToDepot;
+    document.getElementById('depotCoords').value = `${state.depot.lat.toFixed(6)},${state.depot.lng.toFixed(6)}`;
+
+    // small convenience: load a few sample stops
+    addSampleData();
+  </script>
+</body>
+</html>
