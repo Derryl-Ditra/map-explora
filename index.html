@@ -2,403 +2,338 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="MapExplora — Offline Jakarta route optimizer">
-  <title>MapExplora — Jakarta Route Optimizer</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <title>EV Tracker — Jakarta Magnetic HUD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
     :root {
-      --bg: #0b1120; --surface: rgba(15,23,42,0.9); --glass: rgba(30,41,59,0.75);
-      --border: rgba(148,163,184,0.15); --accent: #38bdf8; --accent-glow: rgba(56,189,248,0.3);
-      --text: #f1f5f9; --muted: #94a3b8; --danger: #ef4444;
+      --bg: #05070a;
+      --card: rgba(15, 18, 23, 0.92);
+      --card-active: rgba(34, 197, 94, 0.1);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f8fafc;
+      --muted: #8492a6;
+      --accent: #22c55e;
+      --accent-glow: rgba(34, 197, 94, 0.3);
+      --trans: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { height: 100vh; display: flex; font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); overflow: hidden; }
 
-    #sidebar {
-      width: 340px; flex-shrink: 0; background: var(--surface); backdrop-filter: blur(20px);
-      border-right: 1px solid var(--border); display: flex; flex-direction: column;
-      z-index: 1000; box-shadow: 4px 0 40px rgba(0,0,0,0.5);
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body { height: 100vh; width: 100vw; font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); overflow: hidden; position: fixed; }
+
+    #map { height: 100%; width: 100%; background: var(--bg); z-index: 1; transition: var(--trans); }
+
+    .header-overlay {
+      position: absolute; top: 16px; left: 16px; z-index: 1001;
+      display: flex; align-items: center; gap: 12px; pointer-events: none;
+      transition: var(--trans);
     }
-    .sidebar-header { padding: 20px; border-bottom: 1px solid var(--border); }
-    h1 { font-size: 22px; font-weight: 700; background: linear-gradient(120deg,#e2e8f0,var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .tagline { font-size: 11px; color: var(--muted); margin-top: 2px; }
-
-    .sidebar-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; flex: 1; overflow-y: auto; }
-    .sidebar-body::-webkit-scrollbar { width: 4px; }
-    .sidebar-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-
-    .field-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 5px; }
-    input[type="number"] {
-      width: 100%; background: rgba(0,0,0,0.35); border: 1px solid var(--border);
-      color: #fff; padding: 10px 14px; border-radius: 8px; font-size: 18px;
-      font-weight: 600; font-family: 'Outfit', sans-serif; outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
+    .brand-pill {
+      background: var(--card); backdrop-filter: blur(20px) saturate(1.4); border: 1px solid var(--border);
+      padding: 8px 16px; border-radius: 100px; display: flex; align-items: center; gap: 8px;
+      pointer-events: auto; box-shadow: 0 8px 30px rgba(0,0,0,0.5);
     }
-    input[type="number"]:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+    .brand-pill b { color: var(--accent); font-weight: 600; font-size: 13px; letter-spacing: 0.8px; }
 
-    .btn {
-      width: 100%; padding: 12px; border-radius: 10px; border: none;
-      font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 600;
-      cursor: pointer; transition: all 0.25s; display: flex; align-items: center;
-      justify-content: center; gap: 8px;
+    .panel-toggle {
+      width: 24px; height: 48px; background: var(--accent); border: none; 
+      border-radius: 6px; display: flex; align-items: center; justify-content: center;
+      color: #fff; pointer-events: auto; cursor: pointer;
+      box-shadow: 2px 0 15px var(--accent-glow); transition: var(--trans);
+      position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+      z-index: 1005;
     }
-    #optimizeBtn { background: var(--accent); color: #0b1120; box-shadow: 0 4px 20px var(--accent-glow); }
-    #optimizeBtn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow); }
-    #optimizeBtn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
-    #clearBtn { background: rgba(239,68,68,0.1); color: #fca5a5; border: 1px solid rgba(239,68,68,0.2); }
-    #clearBtn:hover { background: rgba(239,68,68,0.2); }
 
-    .hint { font-size: 11px; color: var(--muted); text-align: center; padding: 8px; background: rgba(56,189,248,0.04); border: 1px dashed rgba(56,189,248,0.15); border-radius: 8px; }
-
-    /* Stop list */
-    #stopList { display: flex; flex-direction: column; gap: 6px; }
-    .stop-item {
-      display: flex; align-items: center; gap: 8px; padding: 9px 10px;
-      border-radius: 8px; border: 1px solid var(--border); background: rgba(255,255,255,0.02);
-      font-size: 13px; animation: slideIn 0.2s ease-out; transition: border-color 0.3s;
+    .fab-group { position: absolute; z-index: 1010; display: flex; flex-direction: column; gap: 10px; transition: var(--trans); }
+    .fab {
+      width: 44px; height: 44px; border-radius: 14px; background: var(--card);
+      backdrop-filter: blur(20px); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text); box-shadow: 0 10px 30px rgba(0,0,0,0.6); cursor: pointer;
+      transition: all 0.2s;
     }
-    @keyframes slideIn { from { opacity:0; transform:translateX(-8px); } to { opacity:1; transform:translateX(0); } }
-
-    .stop-num {
-      width: 22px; height: 22px; border-radius: 50%; background: var(--accent);
-      color: #0b1120; font-size: 11px; font-weight: 700; display: flex;
-      align-items: center; justify-content: center; flex-shrink: 0;
+    .fab svg { width: 20px; height: 20px; }
+    .fab-primary { background: var(--accent); border: none; color: #fff; box-shadow: 0 5px 15px var(--accent-glow); }
+    
+    #main-panel {
+      position: absolute; z-index: 1000;
+      background: var(--card); backdrop-filter: blur(30px) saturate(1.6);
+      border: 1px solid var(--border); 
+      display: flex; flex-direction: column; box-shadow: 0 15px 50px rgba(0,0,0,0.7);
+      transition: var(--trans);
+      overflow: hidden;
     }
-    .stop-info { flex: 1; min-width: 0; }
-    .stop-name {
-      font-weight: 600; cursor: pointer; white-space: nowrap; overflow: hidden;
-      text-overflow: ellipsis; border-bottom: 1px dashed transparent;
-      transition: border-color 0.2s;
+
+    @media (min-width: 768px) {
+      #main-panel { left: 16px; top: 16px; bottom: 16px; border-radius: 22px; width: 300px; }
+      .top-handle { display: none; }
+      .panel-content { padding-top: 10px; }
+      .fab-group { right: 16px; bottom: 16px; }
+      .station-card { background: transparent !important; border-color: transparent !important; box-shadow: none !important; }
+      .station-card.active { border-left: 3px solid var(--accent) !important; border-radius: 0; background: rgba(255,255,255,0.02) !important; }
     }
-    .stop-name:hover { border-color: var(--muted); }
-    .stop-name-input {
-      background: rgba(0,0,0,0.3); border: 1px solid var(--accent); color: #fff;
-      padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Outfit', sans-serif;
-      width: 100%; outline: none;
+
+    @media (max-width: 767px) {
+      #main-panel { left: 0; right: 0; bottom: 0; border-radius: 32px 32px 0 0; border-bottom: 0; border-left: 0; border-right: 0; }
+      .panel-toggle { display: none; }
+      .top-handle { width: 100%; height: 50px; flex-shrink:0; display: flex; flex-direction: column; align-items: center; cursor: grab; padding-top: 16px; }
+      .handle-line { width: 40px; height: 5px; background: rgba(255,255,255,0.25); border-radius: 2px; }
+      .fab-group { right: 16px; bottom: 120px; }
     }
-    .stop-coords { color: var(--muted); font-size: 10px; margin-top: 1px; }
-    .stop-delete { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 16px; padding: 2px 4px; border-radius: 4px; transition: color 0.2s, background 0.2s; flex-shrink: 0; }
-    .stop-delete:hover { color: var(--danger); background: rgba(239,68,68,0.1); }
 
-    /* Stats panel */
-    #statsPanel {
-      padding: 12px 16px; border-top: 1px solid var(--border);
-      background: rgba(0,0,0,0.2); font-size: 12px; color: var(--muted);
+    /* Magnetic HUD Selector */
+    .hud-selector {
+      margin: 0 12px 16px 12px; background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; flex-shrink: 0; transition: var(--trans);
+      max-height: 44px; position: relative;
     }
-    .stat-row { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
-    .stat-row:last-child { border-bottom: none; }
-    .stat-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .stat-label { flex: 1; }
-    .stat-val { font-weight: 600; color: var(--text); }
+    .hud-selector.expanded { max-height: 220px; } /* 44px * 5 items */
+    
+    .selector-wheel {
+      height: 220px; overflow-y: scroll; scroll-snap-type: y mandatory;
+      scrollbar-width: none; cursor: pointer;
+    }
+    .selector-wheel::-webkit-scrollbar { display: none; }
+    
+    .selector-item {
+      height: 44px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 16px; font-size: 13px; color: var(--muted);
+      scroll-snap-align: start; transition: all 0.2s;
+    }
+    .selector-item.active { color: #fff; font-weight: 600; background: rgba(255,255,255,0.05); }
+    .selector-item:hover { background: rgba(255,255,255,0.08); }
+    
+    .chevron { width: 12px; height: 12px; transition: transform 0.3s; }
+    .expanded .chevron { transform: rotate(180deg); }
 
-    #map { flex: 1; background: #050e1a; }
+    .panel-content { padding: 0 12px 24px 12px; overflow-y: auto; flex: 1; }
+    .panel-content::-webkit-scrollbar { display: none; }
 
-    /* Leaflet dark overrides */
-    .leaflet-popup-content-wrapper { background: #1e293b; color: #f1f5f9; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-    .leaflet-popup-tip { background: #1e293b; }
-    .leaflet-control-zoom a { background: #1e293b !important; color: #fff !important; border-color: var(--border) !important; }
+    .station-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 14px; margin-bottom: 8px; transition: all 0.2s;
+      cursor: pointer;
+    }
+    .station-card.active { border-color: var(--accent); background: var(--card-active); }
+    
+    .station-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .station-name { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .station-dist { font-size: 13px; color: var(--accent); font-weight: 600; }
+    
+    .station-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .tag { font-size: 9px; padding: 2px 8px; border-radius: 6px; background: rgba(0,0,0,0.2); color: var(--muted); border: 1px solid var(--border); font-weight: 600; }
+    .tag.high-power { color: var(--accent); border-color: var(--accent-glow); }
+    
+    .mission-row { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid var(--border); margin-top: 8px; }
+    .mission-label { font-size: 10px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+    .mission-value { font-size: 11px; font-weight: 600; color: #fff; }
 
-    /* Animated polyline */
-    .animated-path { stroke-dasharray: 10000; stroke-dashoffset: 10000; transition: stroke-dashoffset 1.5s ease-in-out; }
+    .user-marker { width: 18px; height: 18px; background: #3b82f6; border: 3px solid #fff; border-radius: 50%; box-shadow: 0 0 15px rgba(59, 130, 246, 0.7); }
+    .station-marker { width: 24px; height: 24px; background: #1a1d23; border: 1.5px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .station-marker.active { background: var(--accent); border-color: #fff; transform: scale(1.2); box-shadow: 0 0 20px var(--accent-glow); }
   </style>
 </head>
 <body>
-<div id="sidebar">
-  <div class="sidebar-header">
-    <h1>MapExplora</h1>
-    <div class="tagline">Offline Jakarta route optimizer · Local brain</div>
+
+<div class="header-overlay" id="header-overlay">
+  <div class="brand-pill">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    <b>TRACKER</b>
   </div>
-  <div class="sidebar-body">
-    <div>
-      <div class="field-label">Fleet Size</div>
-      <input type="number" id="vehicleCount" value="2" min="1" max="10" />
-    </div>
-    <button class="btn" id="optimizeBtn">🚀 Run Local Brain</button>
-    <button class="btn" id="clearBtn">🗑 Clear All Stops</button>
-    <div class="hint">Click map to add stops · Drag depot marker to reposition</div>
-    <div>
-      <div class="field-label">Delivery Queue (<span id="stopCount">0</span>)</div>
-      <div id="stopList"></div>
-    </div>
-  </div>
-  <div id="statsPanel">Waiting for stops…</div>
 </div>
+
 <div id="map"></div>
+
+<button class="panel-toggle" id="sidebar-toggle">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path id="toggle-path" d="M15 18l-6-6 6-6"/></svg>
+</button>
+
+<div class="fab-group" id="fab-group">
+  <button class="fab" id="locate-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></button>
+  <button class="fab fab-primary" id="search-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+</div>
+
+<div id="main-panel">
+  <div class="top-handle" id="top-handle"><div class="handle-line"></div></div>
+  
+  <!-- Magnetic Selector -->
+  <div class="hud-selector" id="hud-selector">
+    <div class="selector-wheel" id="selector-wheel">
+      <!-- Items generated by JS -->
+    </div>
+  </div>
+
+  <div class="panel-content" id="panel-list"></div>
+</div>
 
 <script src="data.js"></script>
 <script>
-/* ── STATE ── */
-const state = {
-  stops: [],       // {id, name, lat, lng}
-  markers: new Map(), // id -> L.marker
-  routeLayers: [],
-  depot: { lat: -6.2088, lng: 106.8456 }
-};
-const COLORS = ['#38bdf8','#a855f7','#22c55e','#f59e0b','#ef4444','#06b6d4','#ec4899','#84cc16'];
+const SNAPS = { V: { MIN: 110, MID: 280, MAX: window.innerHeight * 0.75 }, H: { MIN: 0, MAX: 300 } };
+const STANDARDS = [
+    { id: 'all', name: 'All Charger Types', plug: 'all', cars: 'All EVs' },
+    { id: 'ccs2', name: 'CCS2 (DC Fast)', plug: 'CCS2', cars: 'Ioniq 5/6, Binguo, MG, BYD' },
+    { id: 'type2', name: 'Type 2 (AC)', plug: 'Type 2', cars: 'Air EV, Daily AC' },
+    { id: 'chademo', name: 'CHAdeMO', plug: 'CHAdeMO', cars: 'Nissan Leaf' },
+    { id: 'gbt', name: 'GB/T (China Std)', plug: 'GB/T', cars: 'Direct Imports' },
+    { id: 'schuko', name: 'Schuko (Home)', plug: 'Type 2', cars: 'Portable Wallbox' }
+];
+const state = { pos: { lat: -6.2088, lng: 106.8456 }, stations: [], activeId: null, isLocating: false, mode: window.innerWidth >= 768 ? 'H' : 'V', watchId: null, filter: 'all' };
 
-/* ── MAP ── */
-const map = L.map('map', { zoomControl: true }).setView([state.depot.lat, state.depot.lng], 12);
+const map = L.map('map', { zoomControl: false, attributionControl: false }).setView([state.pos.lat, state.pos.lng], 14);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
 
-if (typeof JAKARTA_GEOJSON !== 'undefined') {
-  L.geoJSON(JAKARTA_GEOJSON, {
-    style: { color: '#334155', weight: 1.5, fillColor: '#0f172a', fillOpacity: 0.3 },
-    onEachFeature: (f, l) => { if (f.properties?.name) l.bindTooltip(f.properties.name, { permanent: false }); }
-  }).addTo(map);
+function renderSelector() {
+    const wheel = document.getElementById('selector-wheel');
+    wheel.innerHTML = STANDARDS.map(s => `
+        <div class="selector-item ${state.filter === s.plug ? 'active' : ''}" onclick="setFilter('${s.plug}', event)">
+            <span>${s.name}</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+    `).join('');
 }
 
-/* ── DEPOT MARKER (draggable) ── */
-const depotIcon = L.divIcon({
-  html: `<div style="width:18px;height:18px;background:#38bdf8;border:3px solid #fff;border-radius:50%;box-shadow:0 0 12px rgba(56,189,248,0.9);cursor:grab"></div>`,
-  className: '', iconSize: [18,18], iconAnchor: [9,9]
-});
-const depotMarker = L.marker([state.depot.lat, state.depot.lng], { icon: depotIcon, draggable: true })
-  .addTo(map).bindPopup('<b>Depot</b><br>Drag to reposition');
-
-depotMarker.on('dragend', () => {
-  const p = depotMarker.getLatLng();
-  state.depot = { lat: p.lat, lng: p.lng };
-});
-
-/* ── STOP NUMBER ICON ── */
-function makeStopIcon(num, color = '#64748b') {
-  return L.divIcon({
-    html: `<div style="width:26px;height:26px;background:${color};border:2px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;color:#fff;box-shadow:0 0 8px ${color}88">${num}</div>`,
-    className: '', iconSize: [26,26], iconAnchor: [13,13]
-  });
+function setFilter(plug, e) {
+    const selector = document.getElementById('hud-selector');
+    if (!selector.classList.contains('expanded')) {
+        selector.classList.add('expanded');
+        return;
+    }
+    state.filter = plug;
+    selector.classList.remove('expanded');
+    renderSelector();
+    findStations();
 }
 
-/* ── ADD STOP ── */
-map.on('click', e => {
-  const id = 'stop-' + Date.now();
-  const num = state.stops.length + 1;
-  const stop = { id, name: `Stop ${num}`, lat: e.latlng.lat, lng: e.latlng.lng };
-  state.stops.push(stop);
-
-  const marker = L.marker(e.latlng, { icon: makeStopIcon(num), draggable: true })
-    .addTo(map).bindPopup(`<b>${stop.name}</b>`);
-
-  marker.on('dragend', () => {
-    const p = marker.getLatLng();
-    stop.lat = p.lat; stop.lng = p.lng;
-    renderStopList();
-  });
-
-  state.markers.set(id, marker);
-  renderStopList();
-});
-
-/* ── RENDER STOP LIST ── */
-function renderStopList() {
-  document.getElementById('stopCount').textContent = state.stops.length;
-  const container = document.getElementById('stopList');
-  container.innerHTML = '';
-  state.stops.forEach((s, i) => {
-    const div = document.createElement('div');
-    div.className = 'stop-item';
-    div.dataset.id = s.id;
-    div.innerHTML = `
-      <div class="stop-num" id="num-${s.id}">${i + 1}</div>
-      <div class="stop-info">
-        <div class="stop-name" id="name-${s.id}" title="Click to rename">${s.name}</div>
-        <div class="stop-coords">${s.lat.toFixed(4)}, ${s.lng.toFixed(4)}</div>
-      </div>
-      <button class="stop-delete" title="Delete stop" onclick="deleteStop('${s.id}')">×</button>
-    `;
-    container.appendChild(div);
-
-    // Rename on click
-    div.querySelector(`#name-${s.id}`).addEventListener('click', () => startRename(s.id));
-  });
+function calcChargeTime(kw) {
+    if (kw >= 150) return "15-20 min";
+    if (kw >= 50) return "40-50 min";
+    if (kw >= 22) return "2-3 hrs";
+    return "6+ hrs";
 }
 
-/* ── RENAME ── */
-function startRename(id) {
-  const stop = state.stops.find(s => s.id === id);
-  if (!stop) return;
-  const nameEl = document.getElementById(`name-${id}`);
-  const input = document.createElement('input');
-  input.className = 'stop-name-input';
-  input.value = stop.name;
-  nameEl.replaceWith(input);
-  input.focus(); input.select();
+function setPanelSize(val, animate=true) {
+    const p = document.getElementById('main-panel'), h = document.getElementById('header-overlay'), tP = document.getElementById('toggle-path'), t = document.getElementById('sidebar-toggle'), f = document.getElementById('fab-group'), m = document.getElementById('map');
+    p.style.transition = animate ? 'var(--trans)' : 'none';
+    h.style.transition = animate ? 'var(--trans)' : 'none';
+    f.style.transition = animate ? 'var(--trans)' : 'none';
+    m.style.transition = animate ? 'var(--trans)' : 'none';
 
-  const commit = () => {
-    const newName = input.value.trim() || stop.name;
-    stop.name = newName;
-    const marker = state.markers.get(id);
-    if (marker) marker.setPopupContent(`<b>${newName}</b>`);
-    renderStopList();
-  };
-  input.addEventListener('blur', commit);
-  input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); commit(); } });
+    if (state.mode === 'V') {
+        p.style.height = val + 'px'; p.style.width = '100%'; m.style.paddingBottom = val + 'px'; m.style.paddingLeft = '0px';
+        f.style.bottom = (val + 16) + 'px'; f.style.right = '16px'; f.style.left = 'auto'; h.style.transform = 'translateX(0)';
+    } else {
+        p.style.width = val + 'px'; p.style.height = 'calc(100% - 32px)'; m.style.paddingLeft = val + 'px'; m.style.paddingBottom = '0px';
+        const shift = val === 0 ? 0 : val + 8; h.style.transform = `translateX(${shift}px)`;
+        t.style.transform = `translate(${val === 0 ? 0 : val + 8}px, -50%)`;
+        tP.setAttribute('d', val < 10 ? 'M9 18l6-6-6-6' : 'M15 18l-6-6 6-6');
+    }
 }
 
-/* ── DELETE STOP ── */
-window.deleteStop = function(id) {
-  const idx = state.stops.findIndex(s => s.id === id);
-  if (idx === -1) return;
-  state.stops.splice(idx, 1);
-  const m = state.markers.get(id);
-  if (m) { map.removeLayer(m); state.markers.delete(id); }
-  // Renumber remaining markers
-  state.stops.forEach((s, i) => {
-    const m = state.markers.get(s.id);
-    if (m) m.setIcon(makeStopIcon(i + 1));
-  });
-  renderStopList();
+async function findStations() {
+    const btn = document.getElementById('search-btn'); btn.classList.add('loading');
+    try {
+        state.stations.forEach(s => { if(s.marker) map.removeLayer(s.marker); if(s.route) map.removeLayer(s.route); });
+        let data = SPKLU_DATA;
+        if (state.filter !== 'all') { data = data.filter(s => s.connectors.includes(state.filter)); }
+        const nearest = data.map(s => ({ ...s, dist: getDist(state.pos, s) })).sort((a,b)=>a.dist-b.dist).slice(0, 12);
+        state.stations = []; const list = document.getElementById('panel-list'); list.innerHTML = '';
+        for (let s of nearest) {
+            const coords = await fetchRoute(state.pos, s);
+            const marker = L.marker([s.lat, s.lng], { icon: L.divIcon({ className:'', html:`<div class="station-marker" id="m-${s.id}"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>`, iconSize:[24,24], iconAnchor:[12,12] }) }).addTo(map).on('click', () => selectStation(s.id));
+            const route = coords ? L.polyline(coords, { color:'var(--muted)', weight:2, opacity:0.15 }).addTo(map).on('click', () => selectStation(s.id)) : null;
+            state.stations.push({ ...s, marker, route });
+            
+            const card = document.createElement('div'); card.className = 'station-card'; card.id = `c-${s.id}`;
+            const tt80 = calcChargeTime(s.kw);
+            const feeTag = s.fee > 0 ? `<span class="tag">Rp${s.fee.toLocaleString()}/hr</span>` : `<span class="tag">Free Parking</span>`;
+            const gateIcon = s.is_gated ? '🚧 Gated' : '🔓 Public';
+            const powerClass = s.kw >= 100 ? 'high-power' : '';
+
+            card.innerHTML = `
+                <div class="station-header"><div class="station-name">${s.name}</div><div class="station-dist">${s.dist.toFixed(1)}km</div></div>
+                <div class="station-meta">
+                    <span class="tag ${powerClass}">${s.power}</span>
+                    <span class="tag">${s.brand}</span>
+                    <span class="tag">${s.connectors.join(', ')}</span>
+                </div>
+                <div class="mission-row">
+                    <div class="mission-label">⏱ Est. to 80%</div>
+                    <div class="mission-value">${tt80}</div>
+                </div>
+                <div class="mission-row">
+                    <div class="mission-label">${gateIcon}</div>
+                    <div class="mission-value">${feeTag}</div>
+                </div>`;
+            card.onclick = () => selectStation(s.id); list.appendChild(card);
+        }
+        if (state.stations.length) { selectStation(state.stations[0].id); }
+    } finally { btn.classList.remove('loading'); }
+}
+
+function selectStation(id) {
+    state.activeId = id;
+    state.stations.forEach(s => {
+        const active = s.id === id;
+        const mEl = document.getElementById(`m-${s.id}`); if(mEl) mEl.classList.toggle('active', active);
+        if(s.route) { s.route.setStyle({ color: active ? 'var(--accent)' : 'var(--muted)', weight: active ? 6 : 2, opacity: active ? 0.9 : 0.15 }); if(active) s.route.bringToFront(); }
+        const cEl = document.getElementById(`c-${s.id}`); if(cEl) cEl.classList.toggle('active', active);
+    });
+    const target = state.stations.find(s => s.id === id);
+    if(target && target.route) {
+        const pSize = state.mode === 'H' ? document.getElementById('main-panel').offsetWidth : document.getElementById('main-panel').offsetHeight;
+        const padding = state.mode === 'H' ? { paddingLeft: pSize + 40, paddingTop: 60, paddingBottom: 60, paddingRight: 40 } : { paddingBottom: pSize + 40, paddingTop: 100, paddingLeft: 40, paddingRight: 40 };
+        map.fitBounds(target.route.getBounds(), padding);
+    }
+}
+
+function getDist(a, b) { const R = 6371; const dLat = (b.lat-a.lat)*Math.PI/180; const dLon = (b.lng-a.lng)*Math.PI/180; const x = Math.sin(dLat/2)**2 + Math.cos(a.lat*Math.PI/180)*Math.cos(b.lat*Math.PI/180)*Math.sin(dLon/2)**2; return R * 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1-x)); }
+async function fetchRoute(start, end) { try { const r = await fetch(`https://router.project-osrm.org/route/v1/driving/${start.lng},${start.lat};${end.lng},${end.lat}?overview=full&geometries=geojson`); const d = await r.json(); return d.routes[0].geometry.coordinates.map(c=>[c[1],c[0]]); } catch { return null; } }
+
+let sY = 0, sH = 0, moved = false;
+const tH = document.getElementById('top-handle');
+tH.ontouchstart = e => { sY = e.touches[0].clientY; sH = document.getElementById('main-panel').offsetHeight; moved = false; };
+tH.ontouchmove = e => { if (state.mode === 'H') return; moved = true; setPanelSize(Math.max(SNAPS.V.MIN, Math.min(SNAPS.V.MAX, sH + (sY - e.touches[0].clientY))), false); };
+tH.ontouchend = e => {
+    if (state.mode === 'H') return;
+    if (!moved) { handleTap(); return; }
+    const d = sY - e.changedTouches[0].clientY;
+    let f = SNAPS.V.MIN;
+    if (Math.abs(d) > 40) { f = d > 0 ? (sH < SNAPS.V.MID ? SNAPS.V.MID : SNAPS.V.MAX) : (sH > SNAPS.V.MID ? SNAPS.V.MID : SNAPS.V.MIN); }
+    else f = (document.getElementById('main-panel').offsetHeight > (SNAPS.V.MIN + SNAPS.V.MAX)/2) ? SNAPS.V.MAX : SNAPS.V.MIN;
+    setPanelSize(f);
+};
+tH.onclick = handleTap;
+function handleTap() {
+    if (state.mode === 'H') return;
+    const cur = document.getElementById('main-panel').offsetHeight;
+    let next = SNAPS.V.MID;
+    if (Math.abs(cur - SNAPS.V.MIN) < 10) next = SNAPS.V.MID;
+    else if (Math.abs(cur - SNAPS.V.MID) < 10) next = SNAPS.V.MAX;
+    else next = SNAPS.V.MIN;
+    setPanelSize(next);
+}
+
+document.getElementById('sidebar-toggle').onclick = () => setPanelSize(document.getElementById('main-panel').offsetWidth < 10 ? SNAPS.H.MAX : SNAPS.H.MIN);
+document.getElementById('search-btn').onclick = findStations;
+document.getElementById('locate-btn').onclick = () => {
+    const btn = document.getElementById('locate-btn');
+    if (state.isLocating) { state.isLocating = false; btn.classList.remove('active'); if(state.watchId) navigator.geolocation.clearWatch(state.watchId); }
+    else { state.isLocating = true; btn.classList.add('active'); state.watchId = navigator.geolocation.watchPosition(p => {
+        state.pos = { lat: p.coords.latitude, lng: p.coords.longitude };
+        if(!state.userMarker) state.userMarker = L.marker([state.pos.lat, state.pos.lng], { icon: L.divIcon({ className:'', html:'<div class="user-marker"></div>', iconSize:[18,18], iconAnchor:[9,9] }) }).addTo(map);
+        else state.userMarker.setLatLng([state.pos.lat, state.pos.lng]);
+        map.panTo([state.pos.lat, state.pos.lng]); findStations();
+    }, null, { enableHighAccuracy: true }); }
 };
 
-/* ── ALGORITHMS ── */
-function dist(a, b) {
-  const R = 6371000, dLat = (b.lat - a.lat) * Math.PI / 180, dLng = (b.lng - a.lng) * Math.PI / 180;
-  const x = Math.sin(dLat/2)**2 + Math.cos(a.lat*Math.PI/180)*Math.cos(b.lat*Math.PI/180)*Math.sin(dLng/2)**2;
-  return R * 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1-x));
-}
-
-function kMeans(stops, k) {
-  const n = Math.min(k, stops.length);
-  const centers = [{ ...stops[Math.floor(Math.random() * stops.length)] }];
-  while (centers.length < n) {
-    const ds = stops.map(s => Math.min(...centers.map(c => dist(s,c))));
-    const total = ds.reduce((a,b) => a+b, 0);
-    let r = Math.random() * total;
-    for (let i = 0; i < stops.length; i++) { r -= ds[i]; if (r <= 0) { centers.push({...stops[i]}); break; } }
-  }
-  const asgn = new Array(stops.length).fill(0);
-  for (let iter = 0; iter < 15; iter++) {
-    stops.forEach((s,i) => { let b=0, bd=Infinity; centers.forEach((c,ci)=>{ const d=dist(s,c); if(d<bd){bd=d;b=ci;} }); asgn[i]=b; });
-    centers.forEach((_,ci) => {
-      const m = stops.filter((_,i) => asgn[i]===ci);
-      if (m.length) { centers[ci].lat = m.reduce((a,b)=>a+b.lat,0)/m.length; centers[ci].lng = m.reduce((a,b)=>a+b.lng,0)/m.length; }
-    });
-  }
-  return asgn;
-}
-
-function nnTour(stops, depot) {
-  const rem = [...stops]; const tour = []; let cur = depot;
-  while (rem.length) {
-    rem.sort((a,b) => dist(cur,a)-dist(cur,b));
-    const next = rem.shift(); tour.push(next); cur = next;
-  }
-  return tour;
-}
-
-function twoOpt(tour, depot) {
-  let route = [depot, ...tour, depot]; let improved = true, passes = 0;
-  while (improved && passes++ < 50) {
-    improved = false;
-    for (let i=1; i<route.length-2; i++) {
-      for (let j=i+1; j<route.length-1; j++) {
-        if (dist(route[i-1],route[j])+dist(route[i],route[j+1]) < dist(route[i-1],route[i])+dist(route[j],route[j+1])-0.1) {
-          route.splice(i, j-i+1, ...route.slice(i,j+1).reverse()); improved = true;
-        }
-      }
-    }
-  }
-  return route;
-}
-
-/* ── ANIMATED POLYLINE ── */
-function drawAnimated(latLngs, color, delay = 0) {
-  const poly = L.polyline(latLngs, { color, weight: 4, opacity: 0.85, lineJoin: 'round' }).addTo(map);
-  setTimeout(() => {
-    const el = poly.getElement();
-    if (!el) return;
-    const len = el.getTotalLength ? el.getTotalLength() : 5000;
-    el.style.strokeDasharray = len;
-    el.style.strokeDashoffset = len;
-    el.style.transition = 'none';
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        el.style.transition = 'stroke-dashoffset 0.9s cubic-bezier(0.4,0,0.2,1)';
-        el.style.strokeDashoffset = '0';
-      });
-    });
-  }, delay);
-  return poly;
-}
-
-/* ── OPTIMIZE ── */
-document.getElementById('optimizeBtn').addEventListener('click', () => {
-  if (!state.stops.length) { alert('Add stops first!'); return; }
-  const btn = document.getElementById('optimizeBtn');
-  btn.disabled = true; btn.innerHTML = '⏳ Optimizing…';
-
-  state.routeLayers.forEach(l => map.removeLayer(l));
-  state.routeLayers = [];
-
-  // Reset marker colors to neutral
-  state.stops.forEach((s, i) => {
-    const m = state.markers.get(s.id);
-    if (m) m.setIcon(makeStopIcon(i+1));
-  });
-
-  const k = Math.max(1, parseInt(document.getElementById('vehicleCount').value) || 2);
-  const asgn = kMeans(state.stops, k);
-  const statsRows = [];
-  let totalDist = 0;
-
-  for (let v = 0; v < k; v++) {
-    const vs = state.stops.filter((_,i) => asgn[i]===v);
-    if (!vs.length) continue;
-    const color = COLORS[v % COLORS.length];
-
-    const tour = twoOpt(nnTour(vs, state.depot), state.depot);
-    const latLngs = tour.map(p => [p.lat, p.lng]);
-
-    // Animate polyline with staggered delay
-    const poly = drawAnimated(latLngs, color, v * 300);
-    state.routeLayers.push(poly);
-
-    // Color stop markers by vehicle
-    vs.forEach((s, i) => {
-      const m = state.markers.get(s.id);
-      if (m) m.setIcon(makeStopIcon(i+1, color));
-    });
-
-    // Distance & time
-    let km = 0;
-    for (let i=0; i<tour.length-1; i++) km += dist(tour[i], tour[i+1]);
-    km = km / 1000;
-    totalDist += km;
-    const mins = Math.round((km / 22.8) * 60);
-    const h = Math.floor(mins/60), m2 = mins % 60;
-    const timeStr = h > 0 ? `${h}h ${m2}m` : `${m2}m`;
-    statsRows.push({ color, label: `Vehicle ${v+1}`, stops: vs.length, km: km.toFixed(1), time: timeStr });
-  }
-
-  // Stats panel
-  const panel = document.getElementById('statsPanel');
-  panel.innerHTML = statsRows.map(r => `
-    <div class="stat-row">
-      <div class="stat-dot" style="background:${r.color};box-shadow:0 0 6px ${r.color}"></div>
-      <div class="stat-label">Vehicle ${r.label.split(' ')[1]} · ${r.stops} stops</div>
-      <div class="stat-val">${r.km} km · ${r.time}</div>
-    </div>
-  `).join('') + `<div class="stat-row" style="margin-top:4px"><div class="stat-dot" style="background:var(--muted)"></div><div class="stat-label" style="color:var(--text);font-weight:600">Total fleet</div><div class="stat-val">${totalDist.toFixed(1)} km</div></div>`;
-
-  // Fit bounds
-  const allLatLngs = state.routeLayers.flatMap(l => l.getLatLngs ? l.getLatLngs() : []);
-  if (allLatLngs.length) map.fitBounds(L.latLngBounds(allLatLngs), { padding: [40,40] });
-
-  btn.disabled = false; btn.innerHTML = '🚀 Run Local Brain';
-});
-
-/* ── CLEAR ── */
-document.getElementById('clearBtn').addEventListener('click', () => {
-  state.markers.forEach(m => map.removeLayer(m));
-  state.markers.clear();
-  state.routeLayers.forEach(l => map.removeLayer(l));
-  state.routeLayers = [];
-  state.stops = [];
-  renderStopList();
-  document.getElementById('statsPanel').textContent = 'Waiting for stops…';
-});
+window.addEventListener('resize', () => { const n = window.innerWidth >= 768 ? 'H' : 'V'; if (n !== state.mode) { state.mode = n; setPanelSize(n === 'V' ? SNAPS.V.MIN : SNAPS.H.MAX); } });
+setPanelSize(state.mode === 'V' ? SNAPS.V.MIN : SNAPS.H.MAX);
+renderSelector();
+setTimeout(findStations, 500);
 </script>
 </body>
 </html>
