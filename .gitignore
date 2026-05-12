@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!doctype html>
 <html lang="en">
 <head>
@@ -170,3 +171,11 @@
     // small sanitizer for html injection in popup strings
     function escapeHtml(str) {
       return String(str).replace(/[&<>\
+=======
+.env
+node_modules/
+.netlify/
+dist/
+repo.zip
+map-explora-main/
+>>>>>>> feat/12-may-draft

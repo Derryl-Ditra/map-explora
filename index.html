@@ -1,536 +1,339 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Route Mapper — Minimal Leaflet PoC</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-sA+e2e2p8Vb5vYb3g1y+XHcQxL6Q4wDQ2m7f2w6X0sM="
-    crossorigin=""
-  />
+  <meta charset="UTF-8">
+  <title>EV Tracker — Jakarta Magnetic HUD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
-    :root { --panel-w: 320px; --gap: 12px; --muted: #666; --bg:#fff; --accent:#2b8cbe; }
-    body { margin:0; height:100vh; display:flex; font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial; }
-    #panel {
-      width:var(--panel-w); padding:16px; box-sizing:border-box;
-      border-right:1px solid #e6e6e6; background:var(--bg); overflow:auto;
+    :root {
+      --bg: #05070a;
+      --card: rgba(15, 18, 23, 0.92);
+      --card-active: rgba(34, 197, 94, 0.1);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f8fafc;
+      --muted: #8492a6;
+      --accent: #22c55e;
+      --accent-glow: rgba(34, 197, 94, 0.3);
+      --trans: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    h2 { margin:0 0 8px 0; font-size:16px; }
-    #map { flex:1; }
-    .btn { display:inline-block; padding:8px 10px; margin:4px 0; background:var(--accent); color:#fff; border-radius:6px; border:none; cursor:pointer; }
-    .btn.secondary { background:#6c757d; }
-    .controls { margin-bottom:12px; }
-    label { font-size:13px; color:var(--muted); display:block; margin-top:8px; }
-    input[type="number"], input[type="text"], select { width:100%; padding:6px 8px; box-sizing:border-box; margin-top:6px; }
-    ul { padding-left:18px; margin:8px 0; }
-    .stop-item { display:flex; justify-content:space-between; align-items:center; gap:8px; padding:6px 0; border-bottom:1px dashed #eee; }
-    .small { font-size:12px; color:var(--muted); }
-    .color-dot { width:12px;height:12px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:middle; }
-    footer { margin-top:12px; font-size:12px; color:var(--muted); }
-    a.link { color:var(--accent); text-decoration:none; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body { height: 100vh; width: 100vw; font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); overflow: hidden; position: fixed; }
+
+    #map { height: 100%; width: 100%; background: var(--bg); z-index: 1; transition: var(--trans); }
+
+    .header-overlay {
+      position: absolute; top: 16px; left: 16px; z-index: 1001;
+      display: flex; align-items: center; gap: 12px; pointer-events: none;
+      transition: var(--trans);
+    }
+    .brand-pill {
+      background: var(--card); backdrop-filter: blur(20px) saturate(1.4); border: 1px solid var(--border);
+      padding: 8px 16px; border-radius: 100px; display: flex; align-items: center; gap: 8px;
+      pointer-events: auto; box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    }
+    .brand-pill b { color: var(--accent); font-weight: 600; font-size: 13px; letter-spacing: 0.8px; }
+
+    .panel-toggle {
+      width: 24px; height: 48px; background: var(--accent); border: none; 
+      border-radius: 6px; display: flex; align-items: center; justify-content: center;
+      color: #fff; pointer-events: auto; cursor: pointer;
+      box-shadow: 2px 0 15px var(--accent-glow); transition: var(--trans);
+      position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+      z-index: 1005;
+    }
+
+    .fab-group { position: absolute; z-index: 1010; display: flex; flex-direction: column; gap: 10px; transition: var(--trans); }
+    .fab {
+      width: 44px; height: 44px; border-radius: 14px; background: var(--card);
+      backdrop-filter: blur(20px); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text); box-shadow: 0 10px 30px rgba(0,0,0,0.6); cursor: pointer;
+      transition: all 0.2s;
+    }
+    .fab svg { width: 20px; height: 20px; }
+    .fab-primary { background: var(--accent); border: none; color: #fff; box-shadow: 0 5px 15px var(--accent-glow); }
+    
+    #main-panel {
+      position: absolute; z-index: 1000;
+      background: var(--card); backdrop-filter: blur(30px) saturate(1.6);
+      border: 1px solid var(--border); 
+      display: flex; flex-direction: column; box-shadow: 0 15px 50px rgba(0,0,0,0.7);
+      transition: var(--trans);
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      #main-panel { left: 16px; top: 16px; bottom: 16px; border-radius: 22px; width: 300px; }
+      .top-handle { display: none; }
+      .panel-content { padding-top: 10px; }
+      .fab-group { right: 16px; bottom: 16px; }
+      .station-card { background: transparent !important; border-color: transparent !important; box-shadow: none !important; }
+      .station-card.active { border-left: 3px solid var(--accent) !important; border-radius: 0; background: rgba(255,255,255,0.02) !important; }
+    }
+
+    @media (max-width: 767px) {
+      #main-panel { left: 0; right: 0; bottom: 0; border-radius: 32px 32px 0 0; border-bottom: 0; border-left: 0; border-right: 0; }
+      .panel-toggle { display: none; }
+      .top-handle { width: 100%; height: 50px; flex-shrink:0; display: flex; flex-direction: column; align-items: center; cursor: grab; padding-top: 16px; }
+      .handle-line { width: 40px; height: 5px; background: rgba(255,255,255,0.25); border-radius: 2px; }
+      .fab-group { right: 16px; bottom: 120px; }
+    }
+
+    /* Magnetic HUD Selector */
+    .hud-selector {
+      margin: 0 12px 16px 12px; background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; flex-shrink: 0; transition: var(--trans);
+      max-height: 44px; position: relative;
+    }
+    .hud-selector.expanded { max-height: 220px; } /* 44px * 5 items */
+    
+    .selector-wheel {
+      height: 220px; overflow-y: scroll; scroll-snap-type: y mandatory;
+      scrollbar-width: none; cursor: pointer;
+    }
+    .selector-wheel::-webkit-scrollbar { display: none; }
+    
+    .selector-item {
+      height: 44px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 16px; font-size: 13px; color: var(--muted);
+      scroll-snap-align: start; transition: all 0.2s;
+    }
+    .selector-item.active { color: #fff; font-weight: 600; background: rgba(255,255,255,0.05); }
+    .selector-item:hover { background: rgba(255,255,255,0.08); }
+    
+    .chevron { width: 12px; height: 12px; transition: transform 0.3s; }
+    .expanded .chevron { transform: rotate(180deg); }
+
+    .panel-content { padding: 0 12px 24px 12px; overflow-y: auto; flex: 1; }
+    .panel-content::-webkit-scrollbar { display: none; }
+
+    .station-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 14px; margin-bottom: 8px; transition: all 0.2s;
+      cursor: pointer;
+    }
+    .station-card.active { border-color: var(--accent); background: var(--card-active); }
+    
+    .station-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .station-name { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .station-dist { font-size: 13px; color: var(--accent); font-weight: 600; }
+    
+    .station-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .tag { font-size: 9px; padding: 2px 8px; border-radius: 6px; background: rgba(0,0,0,0.2); color: var(--muted); border: 1px solid var(--border); font-weight: 600; }
+    .tag.high-power { color: var(--accent); border-color: var(--accent-glow); }
+    
+    .mission-row { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid var(--border); margin-top: 8px; }
+    .mission-label { font-size: 10px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+    .mission-value { font-size: 11px; font-weight: 600; color: #fff; }
+
+    .user-marker { width: 18px; height: 18px; background: #3b82f6; border: 3px solid #fff; border-radius: 50%; box-shadow: 0 0 15px rgba(59, 130, 246, 0.7); }
+    .station-marker { width: 24px; height: 24px; background: #1a1d23; border: 1.5px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .station-marker.active { background: var(--accent); border-color: #fff; transform: scale(1.2); box-shadow: 0 0 20px var(--accent-glow); }
   </style>
 </head>
 <body>
-  <div id="panel" aria-labelledby="title">
-    <h2 id="title">Route Mapper — Minimal PoC</h2>
 
-    <div class="controls">
-      <div class="small">Click on the map to add stops. Drag markers to tweak positions.</div>
+<div class="header-overlay" id="header-overlay">
+  <div class="brand-pill">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    <b>TRACKER</b>
+  </div>
+</div>
 
-      <label>Vehicle count</label>
-      <input id="vehicleCount" type="number" min="1" value="1" />
+<div id="map"></div>
 
-      <label><input id="returnToDepot" type="checkbox" checked /> Return vehicles to depot</label>
+<button class="panel-toggle" id="sidebar-toggle">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path id="toggle-path" d="M15 18l-6-6 6-6"/></svg>
+</button>
 
-      <label>Depot location (click 'Set depot from center' to use map center)</label>
-      <input id="depotCoords" type="text" value="37.7749,-122.4194" />
-      <button class="btn secondary" id="setDepotFromCenter">Set depot from center</button>
+<div class="fab-group" id="fab-group">
+  <button class="fab" id="locate-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></button>
+  <button class="fab fab-primary" id="search-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+</div>
+
+<div id="main-panel">
+  <div class="top-handle" id="top-handle"><div class="handle-line"></div></div>
+  
+  <!-- Magnetic Selector -->
+  <div class="hud-selector" id="hud-selector">
+    <div class="selector-wheel" id="selector-wheel">
+      <!-- Items generated by JS -->
     </div>
-
-    <div style="margin-bottom:8px; display:flex; gap:8px; align-items:center;">
-      <button class="btn" id="optimizeBtn">Optimize (mock)</button>
-      <button class="btn" id="optimizeSrvBtn">Optimize (serverless)</button>
-      <label style="margin:0; font-size:13px; display:flex; align-items:center;"><input id="useServerless" type="checkbox" style="margin-right:6px;"/> Use serverless by default</label>
-    </div>
-
-    <div style="margin-top:8px;">
-      <button class="btn secondary" id="clearBtn">Clear stops</button>
-    </div>
-
-    <div style="margin-top:8px;">
-      <label>Import GeoJSON (Point features)</label>
-      <input id="importGeo" type="file" accept=".geojson,.json" />
-      <button class="btn" id="exportBtn">Export stops as GeoJSON</button>
-    </div>
-
-    <h3 style="margin-top:12px;">Stops</h3>
-    <div id="stopList" aria-live="polite"></div>
-
-    <h3 style="margin-top:12px;">Routes</h3>
-    <div id="routeList" class="small"></div>
-
-    <footer>
-      Built as a minimal demo. Swap the mock optimizer with a server-side proxy to use a third-party optimization API. Netlify serverless function scaffold is included in <code>netlify/functions/optimize.js</code>. Never commit API keys — use environment variables.
-    </footer>
   </div>
 
-  <div id="map"></div>
+  <div class="panel-content" id="panel-list"></div>
+</div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-o9N1j7kz7H4G2nUqEf9n0t+6qk2qWgk5Q3QH3y0f2XY=" crossorigin=""></script>
-  <script>
-    /* ---------------------------
-       Minimal, readable state & helpers
-       --------------------------- */
-    const state = {
-      stops: [],            // {id,name,lat,lng,service_time}
-      markers: new Map(),   // id -> leaflet marker
-      routes: [],           // result routes
-      vehicleCount: 1,
-      returnToDepot: true,
-      depot: { lat: 37.7749, lng: -122.4194 } // default center (SF)
-    };
+<script src="data.js"></script>
+<script>
+const SNAPS = { V: { MIN: 110, MID: 280, MAX: window.innerHeight * 0.75 }, H: { MIN: 0, MAX: 300 } };
+const STANDARDS = [
+    { id: 'all', name: 'All Charger Types', plug: 'all', cars: 'All EVs' },
+    { id: 'ccs2', name: 'CCS2 (DC Fast)', plug: 'CCS2', cars: 'Ioniq 5/6, Binguo, MG, BYD' },
+    { id: 'type2', name: 'Type 2 (AC)', plug: 'Type 2', cars: 'Air EV, Daily AC' },
+    { id: 'chademo', name: 'CHAdeMO', plug: 'CHAdeMO', cars: 'Nissan Leaf' },
+    { id: 'gbt', name: 'GB/T (China Std)', plug: 'GB/T', cars: 'Direct Imports' },
+    { id: 'schuko', name: 'Schuko (Home)', plug: 'Type 2', cars: 'Portable Wallbox' }
+];
+const state = { pos: { lat: -6.2088, lng: 106.8456 }, stations: [], activeId: null, isLocating: false, mode: window.innerWidth >= 768 ? 'H' : 'V', watchId: null, filter: 'all' };
 
-    const COLORS = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#a65628','#f781bf'];
+const map = L.map('map', { zoomControl: false, attributionControl: false }).setView([state.pos.lat, state.pos.lng], 14);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
 
-    function uid(prefix='s') { return prefix + '-' + Math.random().toString(36).slice(2,9); }
-
-    function toLatLng(obj) { return [obj.lat, obj.lng]; }
-
-    function haversine(aLat, aLng, bLat, bLng) {
-      const toRad = v => v * Math.PI / 180;
-      const R = 6371e3; // meters
-      const φ1 = toRad(aLat), φ2 = toRad(bLat);
-      const Δφ = toRad(bLat - aLat), Δλ = toRad(bLng - aLng);
-      const aa = Math.sin(Δφ/2)*Math.sin(Δφ/2) + Math.cos(φ1)*Math.cos(φ2)*Math.sin(Δλ/2)*Math.sin(Δλ/2);
-      const c = 2 * Math.atan2(Math.sqrt(aa), Math.sqrt(1-aa));
-      return R * c;
-    }
-
-    /* ---------------------------
-       Map setup
-       --------------------------- */
-    const map = L.map('map').setView([state.depot.lat, state.depot.lng], 12);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    // depot marker
-    let depotMarker = L.marker([state.depot.lat, state.depot.lng], { draggable: true, title: 'Depot' })
-      .addTo(map)
-      .bindPopup('Depot (drag to reposition)').openPopup();
-
-    depotMarker.on('dragend', () => {
-      const p = depotMarker.getLatLng();
-      state.depot = { lat: p.lat, lng: p.lng };
-      document.getElementById('depotCoords').value = `${p.lat.toFixed(6)},${p.lng.toFixed(6)}`;
-    });
-
-    map.on('click', (e) => {
-      addStopAt(e.latlng.lat, e.latlng.lng);
-    });
-
-    map.on('moveend', ()=> {
-      // keep UI consistent if needed
-    });
-
-    /* ---------------------------
-       Stop management & UI
-       --------------------------- */
-    function addStopAt(lat, lng, name = '') {
-      const id = uid('stop');
-      const stop = { id, name: name || id, lat, lng, service_time: 10 };
-      state.stops.push(stop);
-      const marker = L.marker([lat, lng], { draggable: true }).addTo(map);
-      marker.bindPopup(popupForStop(stop), { minWidth: 220 });
-      marker.on('dragend', () => {
-        const p = marker.getLatLng();
-        stop.lat = p.lat; stop.lng = p.lng;
-        renderStops();
-      });
-      state.markers.set(id, marker);
-      renderStops();
-    }
-
-    function popupForStop(stop) {
-      // return HTML string for popup (small editable form)
-      return `
-        <div style="font-size:13px">
-          <strong>Stop</strong><div class="small">${stop.id}</div>
-          <label style="display:block;margin-top:6px">Name</label>
-          <input id="inp-name-${stop.id}" type="text" value="${escapeHtml(stop.name)}" style="width:100%;padding:6px"/>
-          <label style="display:block;margin-top:6px">Service time (min)</label>
-          <input id="inp-st-${stop.id}" type="number" value="${stop.service_time}" style="width:100%;padding:6px"/>
-          <div style="margin-top:8px; display:flex; gap:8px;">
-            <button onclick="saveStop('${stop.id}')" class="btn">Save</button>
-            <button onclick="deleteStop('${stop.id}')" class="btn secondary">Delete</button>
-          </div>
+function renderSelector() {
+    const wheel = document.getElementById('selector-wheel');
+    wheel.innerHTML = STANDARDS.map(s => `
+        <div class="selector-item ${state.filter === s.plug ? 'active' : ''}" onclick="setFilter('${s.plug}', event)">
+            <span>${s.name}</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 9l6 6 6-6"/></svg>
         </div>
-      `;
-    }
+    `).join('');
+}
 
-    // small sanitizer for html injection in popup strings
-    function escapeHtml(str) {
-      return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
-    }
-
-    window.saveStop = function(id) {
-      const stop = state.stops.find(s => s.id === id);
-      if (!stop) return;
-      const nameEl = document.getElementById(`inp-name-${id}`);
-      const stEl = document.getElementById(`inp-st-${id}`);
-      if (nameEl) stop.name = nameEl.value;
-      if (stEl) stop.service_time = Number(stEl.value) || 0;
-      const marker = state.markers.get(id);
-      if (marker) marker.closePopup();
-      renderStops();
-    };
-
-    window.deleteStop = function(id) {
-      const idx = state.stops.findIndex(s => s.id === id);
-      if (idx === -1) return;
-      state.stops.splice(idx, 1);
-      const m = state.markers.get(id);
-      if (m) { map.removeLayer(m); state.markers.delete(id); }
-      renderStops();
-    };
-
-    function renderStops() {
-      const container = document.getElementById('stopList');
-      container.innerHTML = '';
-      if (state.stops.length === 0) {
-        container.innerHTML = '<div class="small">No stops yet. Click map to add one.</div>';
+function setFilter(plug, e) {
+    const selector = document.getElementById('hud-selector');
+    if (!selector.classList.contains('expanded')) {
+        selector.classList.add('expanded');
         return;
-      }
-      const ul = document.createElement('div');
-      state.stops.forEach(s => {
-        const div = document.createElement('div');
-        div.className = 'stop-item';
-        div.innerHTML = `
-          <div>
-            <div><strong>${escapeHtml(s.name)}</strong></div>
-            <div class="small">${s.lat.toFixed(5)}, ${s.lng.toFixed(5)} • ${s.service_time}m</div>
-          </div>
-          <div style="text-align:right">
-            <button class="btn secondary" onclick="zoomToStop('${s.id}')">Zoom</button>
-          </div>
-        `;
-        ul.appendChild(div);
-      });
-      container.appendChild(ul);
     }
+    state.filter = plug;
+    selector.classList.remove('expanded');
+    renderSelector();
+    findStations();
+}
 
-    window.zoomToStop = function(id) {
-      const m = state.markers.get(id);
-      if (m) {
-        map.setView(m.getLatLng(), 15);
-        m.openPopup();
-      }
-    };
+function calcChargeTime(kw) {
+    if (kw >= 150) return "15-20 min";
+    if (kw >= 50) return "40-50 min";
+    if (kw >= 22) return "2-3 hrs";
+    return "6+ hrs";
+}
 
-    /* ---------------------------
-       Optimize: mock optimizer (k-means + nearest neighbor)
-       Replace mockOptimize() with real API calls when ready.
-       --------------------------- */
+function setPanelSize(val, animate=true) {
+    const p = document.getElementById('main-panel'), h = document.getElementById('header-overlay'), tP = document.getElementById('toggle-path'), t = document.getElementById('sidebar-toggle'), f = document.getElementById('fab-group'), m = document.getElementById('map');
+    p.style.transition = animate ? 'var(--trans)' : 'none';
+    h.style.transition = animate ? 'var(--trans)' : 'none';
+    f.style.transition = animate ? 'var(--trans)' : 'none';
+    m.style.transition = animate ? 'var(--trans)' : 'none';
 
-    // k-means on lat/lng (very small, simple impl)
-    function kMeans(points, k, maxIter = 20) {
-      // points: [{lat,lng, id}]
-      if (points.length === 0) return { assignments: [], centers: [] };
-      if (k <= 1) {
-        return { assignments: new Array(points.length).fill(0), centers: [{...points[0]}] };
-      }
-      // initialize centers as random unique points
-      const centers = [];
-      const used = new Set();
-      while (centers.length < Math.min(k, points.length)) {
-        const idx = Math.floor(Math.random() * points.length);
-        if (!used.has(idx)) { used.add(idx); centers.push({ lat: points[idx].lat, lng: points[idx].lng }); }
-      }
-      const assignments = new Array(points.length).fill(0);
-      for (let iter=0; iter<maxIter; iter++) {
-        let changed = false;
-        // assign
-        for (let i=0;i<points.length;i++){
-          let best = 0, bestD = Infinity;
-          for (let c=0;c<centers.length;c++){
-            const d = haversine(points[i].lat, points[i].lng, centers[c].lat, centers[c].lng);
-            if (d < bestD) { bestD = d; best = c; }
-          }
-          if (assignments[i] !== best) { assignments[i] = best; changed = true; }
+    if (state.mode === 'V') {
+        p.style.height = val + 'px'; p.style.width = '100%'; m.style.paddingBottom = val + 'px'; m.style.paddingLeft = '0px';
+        f.style.bottom = (val + 16) + 'px'; f.style.right = '16px'; f.style.left = 'auto'; h.style.transform = 'translateX(0)';
+    } else {
+        p.style.width = val + 'px'; p.style.height = 'calc(100% - 32px)'; m.style.paddingLeft = val + 'px'; m.style.paddingBottom = '0px';
+        const shift = val === 0 ? 0 : val + 8; h.style.transform = `translateX(${shift}px)`;
+        t.style.transform = `translate(${val === 0 ? 0 : val + 8}px, -50%)`;
+        tP.setAttribute('d', val < 10 ? 'M9 18l6-6-6-6' : 'M15 18l-6-6 6-6');
+    }
+}
+
+async function findStations() {
+    const btn = document.getElementById('search-btn'); btn.classList.add('loading');
+    try {
+        state.stations.forEach(s => { if(s.marker) map.removeLayer(s.marker); if(s.route) map.removeLayer(s.route); });
+        let data = SPKLU_DATA;
+        if (state.filter !== 'all') { data = data.filter(s => s.connectors.includes(state.filter)); }
+        const nearest = data.map(s => ({ ...s, dist: getDist(state.pos, s) })).sort((a,b)=>a.dist-b.dist).slice(0, 12);
+        state.stations = []; const list = document.getElementById('panel-list'); list.innerHTML = '';
+        for (let s of nearest) {
+            const coords = await fetchRoute(state.pos, s);
+            const marker = L.marker([s.lat, s.lng], { icon: L.divIcon({ className:'', html:`<div class="station-marker" id="m-${s.id}"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>`, iconSize:[24,24], iconAnchor:[12,12] }) }).addTo(map).on('click', () => selectStation(s.id));
+            const route = coords ? L.polyline(coords, { color:'var(--muted)', weight:2, opacity:0.15 }).addTo(map).on('click', () => selectStation(s.id)) : null;
+            state.stations.push({ ...s, marker, route });
+            
+            const card = document.createElement('div'); card.className = 'station-card'; card.id = `c-${s.id}`;
+            const tt80 = calcChargeTime(s.kw);
+            const feeTag = s.fee > 0 ? `<span class="tag">Rp${s.fee.toLocaleString()}/hr</span>` : `<span class="tag">Free Parking</span>`;
+            const gateIcon = s.is_gated ? '🚧 Gated' : '🔓 Public';
+            const powerClass = s.kw >= 100 ? 'high-power' : '';
+
+            card.innerHTML = `
+                <div class="station-header"><div class="station-name">${s.name}</div><div class="station-dist">${s.dist.toFixed(1)}km</div></div>
+                <div class="station-meta">
+                    <span class="tag ${powerClass}">${s.power}</span>
+                    <span class="tag">${s.brand}</span>
+                    <span class="tag">${s.connectors.join(', ')}</span>
+                </div>
+                <div class="mission-row">
+                    <div class="mission-label">⏱ Est. to 80%</div>
+                    <div class="mission-value">${tt80}</div>
+                </div>
+                <div class="mission-row">
+                    <div class="mission-label">${gateIcon}</div>
+                    <div class="mission-value">${feeTag}</div>
+                </div>`;
+            card.onclick = () => selectStation(s.id); list.appendChild(card);
         }
-        // recompute centers
-        const sums = new Array(centers.length).fill(0).map(()=>({lat:0,lng:0,c:0}));
-        for (let i=0;i<points.length;i++){
-          const a = assignments[i];
-          sums[a].lat += points[i].lat;
-          sums[a].lng += points[i].lng;
-          sums[a].c += 1;
-        }
-        for (let c=0;c<centers.length;c++){
-          if (sums[c].c > 0) {
-            centers[c].lat = sums[c].lat / sums[c].c;
-            centers[c].lng = sums[c].lng / sums[c].c;
-          }
-        }
-        if (!changed) break;
-      }
-      return { assignments, centers };
-    }
+        if (state.stations.length) { selectStation(state.stations[0].id); }
+    } finally { btn.classList.remove('loading'); }
+}
 
-    // nearest neighbor order starting from depot
-    function nearestNeighborOrder(points, depot, returnToDepot = true) {
-      // points: array of {id,lat,lng}
-      const remaining = points.slice();
-      const order = [];
-      let cur = { lat: depot.lat, lng: depot.lng };
-      while (remaining.length > 0) {
-        let bestIdx = 0, bestD = Infinity;
-        for (let i=0;i<remaining.length;i++){
-          const p = remaining[i];
-          const d = haversine(cur.lat, cur.lng, p.lat, p.lng);
-          if (d < bestD) { bestD = d; bestIdx = i; }
-        }
-        const chosen = remaining.splice(bestIdx,1)[0];
-        order.push(chosen);
-        cur = { lat: chosen.lat, lng: chosen.lng };
-      }
-      // optionally return to depot (we'll include depot when making polyline)
-      return order;
-    }
-
-    // mock optimizer: clusters stops by vehicleCount, then orders each cluster
-    function mockOptimize({ stops, vehicleCount, depot, returnToDepot }) {
-      // if fewer stops than vehicles, assign one per vehicle until exhausted
-      if (stops.length === 0) return [];
-      if (vehicleCount <= 1) {
-        const order = nearestNeighborOrder(stops, depot, returnToDepot);
-        return [{ vehicle_id: 'veh-1', stops: order, coordinates: buildRouteCoords(order, depot, returnToDepot) }];
-      }
-      // run kmeans on stops
-      const { assignments } = kMeans(stops, Math.min(vehicleCount, stops.length));
-      const clusters = new Array(vehicleCount).fill(0).map(()=>[]);
-      for (let i=0;i<stops.length;i++){
-        const c = assignments[i];
-        clusters[c].push(stops[i]);
-      }
-      const routes = [];
-      for (let i=0;i<vehicleCount;i++){
-        const clusterStops = clusters[i];
-        if (clusterStops.length === 0) {
-          routes.push({ vehicle_id: `veh-${i+1}`, stops: [], coordinates: [] });
-          continue;
-        }
-        const order = nearestNeighborOrder(clusterStops, depot, returnToDepot);
-        routes.push({ vehicle_id: `veh-${i+1}`, stops: order, coordinates: buildRouteCoords(order, depot, returnToDepot) });
-      }
-      return routes;
-    }
-
-    function buildRouteCoords(order, depot, returnToDepot) {
-      const coords = [];
-      coords.push([depot.lat, depot.lng]);
-      order.forEach(s => coords.push([s.lat, s.lng]));
-      if (returnToDepot) coords.push([depot.lat, depot.lng]);
-      return coords;
-    }
-
-    /* ---------------------------
-       Render routes on map + UI
-       --------------------------- */
-    let routeLayers = [];
-
-    function clearRouteLayers() {
-      routeLayers.forEach(l => map.removeLayer(l));
-      routeLayers = [];
-      document.getElementById('routeList').innerText = '';
-    }
-
-    function renderRoutes(routes) {
-      clearRouteLayers();
-      const routeList = document.getElementById('routeList');
-      if (!routes || routes.length === 0) {
-        routeList.innerText = 'No routes yet.';
-        return;
-      }
-      // show each route
-      const frag = document.createDocumentFragment();
-      routes.forEach((r, idx) => {
-        if (r.coordinates && r.coordinates.length > 0) {
-          const poly = L.polyline(r.coordinates, { color: COLORS[idx % COLORS.length], weight: 4, opacity: 0.85 }).addTo(map);
-          routeLayers.push(poly);
-          // popup with simple summary
-          poly.bindPopup(`<strong>${r.vehicle_id}</strong><div class="small">${r.stops.length} stops</div>`);
-        }
-        const row = document.createElement('div');
-        row.innerHTML = `<span class="color-dot" style="background:${COLORS[idx % COLORS.length]}"></span><strong>${r.vehicle_id}</strong>
-          <div class="small">${r.stops.length} stops • ${r.coordinates.length} points</div>`;
-        frag.appendChild(row);
-      });
-      routeList.appendChild(frag);
-    }
-
-    /* ---------------------------
-       Serverless proxy call (Netlify functions)
-       --------------------------- */
-    async function callServerlessOptimize(payload) {
-      try {
-        const res = await fetch('/.netlify/functions/optimize', {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        if (!res.ok) {
-          const txt = await res.text();
-          throw new Error(`Serverless error ${res.status}: ${txt}`);
-        }
-        return await res.json();
-      } catch (err) {
-        console.error('Serverless optimize error', err);
-        throw err;
-      }
-    }
-
-    /* ---------------------------
-       UI wiring & import/export/controls
-       --------------------------- */
-    document.getElementById('vehicleCount').addEventListener('change', e => {
-      state.vehicleCount = Math.max(1, Number(e.target.value) || 1);
+function selectStation(id) {
+    state.activeId = id;
+    state.stations.forEach(s => {
+        const active = s.id === id;
+        const mEl = document.getElementById(`m-${s.id}`); if(mEl) mEl.classList.toggle('active', active);
+        if(s.route) { s.route.setStyle({ color: active ? 'var(--accent)' : 'var(--muted)', weight: active ? 6 : 2, opacity: active ? 0.9 : 0.15 }); if(active) s.route.bringToFront(); }
+        const cEl = document.getElementById(`c-${s.id}`); if(cEl) cEl.classList.toggle('active', active);
     });
-
-    document.getElementById('returnToDepot').addEventListener('change', e => {
-      state.returnToDepot = e.target.checked;
-    });
-
-    document.getElementById('setDepotFromCenter').addEventListener('click', () => {
-      const c = map.getCenter();
-      state.depot = { lat: c.lat, lng: c.lng };
-      depotMarker.setLatLng(c);
-      document.getElementById('depotCoords').value = `${c.lat.toFixed(6)},${c.lng.toFixed(6)}`;
-    });
-
-    document.getElementById('optimizeBtn').addEventListener('click', async () => {
-      // mock optimize
-      const btn = document.getElementById('optimizeBtn');
-      btn.disabled = true; btn.innerText = 'Optimizing…';
-      const stops = state.stops.map(s => ({ id: s.id, lat: s.lat, lng: s.lng, name: s.name, service_time: s.service_time }));
-      const result = mockOptimize({ stops, vehicleCount: state.vehicleCount, depot: state.depot, returnToDepot: state.returnToDepot });
-      state.routes = result;
-      renderRoutes(result);
-      btn.disabled = false; btn.innerText = 'Optimize (mock)';
-      const allCoords = result.flatMap(r => r.coordinates || []);
-      if (allCoords.length) map.fitBounds(allCoords);
-    });
-
-    document.getElementById('optimizeSrvBtn').addEventListener('click', async () => {
-      const btn = document.getElementById('optimizeSrvBtn');
-      btn.disabled = true; btn.innerText = 'Optimizing…';
-      const payload = {
-        vehicles: [
-          {
-            id: 'veh-1',
-            start_location: state.depot,
-            end_location: state.depot,
-            capacity: { volume: 1000 },
-            time_window: { start: '08:00', end: '18:00' }
-          }
-        ],
-        stops: state.stops.map(s => ({ id: s.id, location: { lat: s.lat, lng: s.lng }, service_time: s.service_time })),
-        constraints: { return_to_hub: state.returnToDepot }
-      };
-
-      try {
-        const data = await callServerlessOptimize(payload);
-        // Expecting either { routes: [...] } or { job_id, status }
-        if (data.routes) {
-          state.routes = data.routes;
-          renderRoutes(data.routes);
-          const allCoords = data.routes.flatMap(r => r.coordinates || []);
-          if (allCoords.length) map.fitBounds(allCoords);
-        } else {
-          alert('Optimization submitted. Server response: ' + JSON.stringify(data).slice(0,200));
-        }
-      } catch (err) {
-        alert('Serverless optimization failed: ' + err.message);
-      } finally {
-        btn.disabled = false; btn.innerText = 'Optimize (serverless)';
-      }
-    });
-
-    document.getElementById('clearBtn').addEventListener('click', () => {
-      state.markers.forEach(m => map.removeLayer(m));
-      state.markers.clear();
-      state.stops = [];
-      renderStops();
-      clearRouteLayers();
-    });
-
-    // import GeoJSON (Point features)
-    document.getElementById('importGeo').addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        try {
-          const obj = JSON.parse(reader.result);
-          if (obj.type === 'FeatureCollection') {
-            const pts = obj.features.filter(f => f.geometry && f.geometry.type === 'Point');
-            pts.forEach(f => {
-              const [lng, lat] = f.geometry.coordinates;
-              const name = f.properties && (f.properties.name || f.properties.title || '');
-              addStopAt(lat, lng, name);
-            });
-          } else {
-            alert('Expected FeatureCollection of Point features');
-          }
-        } catch (err) {
-          alert('Invalid JSON: ' + err.message);
-        }
-      };
-      reader.readAsText(file);
-      e.target.value = '';
-    });
-
-    // export stops as GeoJSON
-    document.getElementById('exportBtn').addEventListener('click', () => {
-      const fc = {
-        type: 'FeatureCollection',
-        features: state.stops.map(s => ({
-          type: 'Feature',
-          properties: { id: s.id, name: s.name, service_time: s.service_time },
-          geometry: { type: 'Point', coordinates: [s.lng, s.lat] }
-        }))
-      };
-      const blob = new Blob([JSON.stringify(fc, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = 'stops.geojson'; document.body.appendChild(a); a.click();
-      a.remove(); URL.revokeObjectURL(url);
-    });
-
-    /* ---------------------------
-       Sampler / initial sample data for convenience
-       --------------------------- */
-    function addSampleData() {
-      const samples = [
-        { name: 'Market St', lat: 37.7749, lng: -122.4194 },
-        { name: 'Mission', lat: 37.7599, lng: -122.4148 },
-        { name: 'Embarcadero', lat: 37.7955, lng: -122.3937 },
-        { name: 'Haight', lat: 37.7690, lng: -122.4483 },
-        { name: 'Castro', lat: 37.7609, lng: -122.4350 }
-      ];
-      samples.forEach(s => addStopAt(s.lat, s.lng, s.name));
+    const target = state.stations.find(s => s.id === id);
+    if(target && target.route) {
+        const pSize = state.mode === 'H' ? document.getElementById('main-panel').offsetWidth : document.getElementById('main-panel').offsetHeight;
+        const padding = state.mode === 'H' ? { paddingLeft: pSize + 40, paddingTop: 60, paddingBottom: 60, paddingRight: 40 } : { paddingBottom: pSize + 40, paddingTop: 100, paddingLeft: 40, paddingRight: 40 };
+        map.fitBounds(target.route.getBounds(), padding);
     }
+}
 
-    // initialize UI values
-    document.getElementById('vehicleCount').value = state.vehicleCount;
-    document.getElementById('returnToDepot').checked = state.returnToDepot;
-    document.getElementById('depotCoords').value = `${state.depot.lat.toFixed(6)},${state.depot.lng.toFixed(6)}`;
+function getDist(a, b) { const R = 6371; const dLat = (b.lat-a.lat)*Math.PI/180; const dLon = (b.lng-a.lng)*Math.PI/180; const x = Math.sin(dLat/2)**2 + Math.cos(a.lat*Math.PI/180)*Math.cos(b.lat*Math.PI/180)*Math.sin(dLon/2)**2; return R * 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1-x)); }
+async function fetchRoute(start, end) { try { const r = await fetch(`https://router.project-osrm.org/route/v1/driving/${start.lng},${start.lat};${end.lng},${end.lat}?overview=full&geometries=geojson`); const d = await r.json(); return d.routes[0].geometry.coordinates.map(c=>[c[1],c[0]]); } catch { return null; } }
 
-    // small convenience: load a few sample stops
-    addSampleData();
-  </script>
+let sY = 0, sH = 0, moved = false;
+const tH = document.getElementById('top-handle');
+tH.ontouchstart = e => { sY = e.touches[0].clientY; sH = document.getElementById('main-panel').offsetHeight; moved = false; };
+tH.ontouchmove = e => { if (state.mode === 'H') return; moved = true; setPanelSize(Math.max(SNAPS.V.MIN, Math.min(SNAPS.V.MAX, sH + (sY - e.touches[0].clientY))), false); };
+tH.ontouchend = e => {
+    if (state.mode === 'H') return;
+    if (!moved) { handleTap(); return; }
+    const d = sY - e.changedTouches[0].clientY;
+    let f = SNAPS.V.MIN;
+    if (Math.abs(d) > 40) { f = d > 0 ? (sH < SNAPS.V.MID ? SNAPS.V.MID : SNAPS.V.MAX) : (sH > SNAPS.V.MID ? SNAPS.V.MID : SNAPS.V.MIN); }
+    else f = (document.getElementById('main-panel').offsetHeight > (SNAPS.V.MIN + SNAPS.V.MAX)/2) ? SNAPS.V.MAX : SNAPS.V.MIN;
+    setPanelSize(f);
+};
+tH.onclick = handleTap;
+function handleTap() {
+    if (state.mode === 'H') return;
+    const cur = document.getElementById('main-panel').offsetHeight;
+    let next = SNAPS.V.MID;
+    if (Math.abs(cur - SNAPS.V.MIN) < 10) next = SNAPS.V.MID;
+    else if (Math.abs(cur - SNAPS.V.MID) < 10) next = SNAPS.V.MAX;
+    else next = SNAPS.V.MIN;
+    setPanelSize(next);
+}
+
+document.getElementById('sidebar-toggle').onclick = () => setPanelSize(document.getElementById('main-panel').offsetWidth < 10 ? SNAPS.H.MAX : SNAPS.H.MIN);
+document.getElementById('search-btn').onclick = findStations;
+document.getElementById('locate-btn').onclick = () => {
+    const btn = document.getElementById('locate-btn');
+    if (state.isLocating) { state.isLocating = false; btn.classList.remove('active'); if(state.watchId) navigator.geolocation.clearWatch(state.watchId); }
+    else { state.isLocating = true; btn.classList.add('active'); state.watchId = navigator.geolocation.watchPosition(p => {
+        state.pos = { lat: p.coords.latitude, lng: p.coords.longitude };
+        if(!state.userMarker) state.userMarker = L.marker([state.pos.lat, state.pos.lng], { icon: L.divIcon({ className:'', html:'<div class="user-marker"></div>', iconSize:[18,18], iconAnchor:[9,9] }) }).addTo(map);
+        else state.userMarker.setLatLng([state.pos.lat, state.pos.lng]);
+        map.panTo([state.pos.lat, state.pos.lng]); findStations();
+    }, null, { enableHighAccuracy: true }); }
+};
+
+window.addEventListener('resize', () => { const n = window.innerWidth >= 768 ? 'H' : 'V'; if (n !== state.mode) { state.mode = n; setPanelSize(n === 'V' ? SNAPS.V.MIN : SNAPS.H.MAX); } });
+setPanelSize(state.mode === 'V' ? SNAPS.V.MIN : SNAPS.H.MAX);
+renderSelector();
+setTimeout(findStations, 500);
+</script>
 </body>
 </html>
