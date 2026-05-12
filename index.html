@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="MapExplora — Offline Jakarta route optimizer with local brain">
+    <title>MapExplora — Jakarta Route Optimizer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        :root {
+            --bg: #0b1120;
+            --surface: rgba(15, 23, 42, 0.85);
+            --glass: rgba(30, 41, 59, 0.75);
+            --border: rgba(148, 163, 184, 0.15);
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.35);
+            --text: #f1f5f9;
+            --muted: #94a3b8;
+            --success: #22c55e;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            height: 100vh;
+            display: flex;
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow: hidden;
+        }
+
+        /* ── Sidebar ── */
+        #sidebar {
+            width: 340px;
+            flex-shrink: 0;
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            z-index: 1000;
+            box-shadow: 4px 0 40px rgba(0,0,0,0.5);
+        }
+
+        .sidebar-header {
+            padding: 22px 20px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h1 {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(120deg, #e2e8f0 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 3px;
+        }
+
+        .sidebar-body {
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .field-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        .field-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        input[type="number"] {
+            flex: 1;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        input[type="number"]:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 13px;
+            border-radius: 10px;
+            border: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        #optimizeBtn {
+            background: var(--accent);
+            color: #0b1120;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+        #optimizeBtn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+        #optimizeBtn:active:not(:disabled) { transform: translateY(0); }
+        #optimizeBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        #clearBtn {
+            background: rgba(239, 68, 68, 0.1);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.25);
+        }
+        #clearBtn:hover { background: rgba(239, 68, 68, 0.2); }
+
+        /* Stop list */
+        #stopList {
+            flex: 1;
+            overflow-y: auto;
+        }
+        #stopList::-webkit-scrollbar { width: 4px; }
+        #stopList::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+        .stop-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.02);
+            margin-bottom: 6px;
+            font-size: 13px;
+            animation: slideIn 0.2s ease-out;
+        }
+        @keyframes slideIn { from { opacity:0; transform: translateX(-8px); } to { opacity:1; transform: translateX(0); } }
+
+        .stop-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            box-shadow: 0 0 6px currentColor;
+        }
+
+        .stop-coords { color: var(--muted); font-size: 11px; margin-top: 1px; }
+
+        /* Route summary */
+        #routeSummary {
+            padding: 12px 20px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--muted);
+            background: rgba(0,0,0,0.2);
+        }
+
+        .route-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(56,189,248,0.1);
+            border: 1px solid rgba(56,189,248,0.2);
+            color: var(--accent);
+            padding: 3px 9px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin: 3px 3px 3px 0;
+        }
+
+        .hint {
+            font-size: 11px;
+            color: var(--muted);
+            text-align: center;
+            padding: 8px;
+            background: rgba(56,189,248,0.04);
+            border: 1px dashed rgba(56,189,248,0.15);
+            border-radius: 8px;
+        }
+
+        /* Map */
+        #map { flex: 1; background: #050e1a; }
+
+        /* Leaflet dark overrides */
+        .leaflet-popup-content-wrapper {
+            background: #1e293b;
+            color: #f1f5f9;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        .leaflet-popup-tip { background: #1e293b; }
+    </style>
+</head>
+<body>
+
+<div id="sidebar">
+    <div class="sidebar-header">
+        <h1>MapExplora</h1>
+        <div class="tagline">Offline Jakarta route optimizer · Local brain</div>
+    </div>
+
+    <div class="sidebar-body">
+
+        <!-- Vehicle count -->
+        <div>
+            <div class="field-label">Fleet Size (Vehicles)</div>
+            <div class="field-row">
+                <input type="number" id="vehicleCount" value="2" min="1" max="10" />
+                <span style="color:var(--muted); font-size:13px;">vehicles</span>
+            </div>
+        </div>
+
+        <!-- Optimize -->
+        <button class="btn" id="optimizeBtn">🚀 Run Local Brain</button>
+        <button class="btn" id="clearBtn">🗑 Clear All Stops</button>
+
+        <div class="hint">Click anywhere on the map to add delivery stops</div>
+
+        <!-- Stop list -->
+        <div class="field-label">Delivery Queue (<span id="stopCount">0</span> stops)</div>
+        <div id="stopList"></div>
+
+    </div>
+
+    <div id="routeSummary">Waiting for stops…</div>
+</div>
+
+<div id="map"></div>
+
+<!-- Jakarta map data (offline) -->
+<script src="data.js"></script>
+
+<script>
+/* ============================================================
+   STATE
+   ============================================================ */
+const state = {
+    stops: [],
+    markers: [],
+    routeLayers: [],
+    depot: { lat: -6.2088, lng: 106.8456 }
+};
+
+const ROUTE_COLORS = [
+    '#38bdf8', // sky blue
+    '#a855f7', // purple
+    '#22c55e', // green
+    '#f59e0b', // amber
+    '#ef4444', // red
+    '#06b6d4', // cyan
+    '#ec4899', // pink
+    '#84cc16', // lime
+];
+
+/* ============================================================
+   MAP INIT
+   ============================================================ */
+const map = L.map('map', {
+    zoomControl: true,
+    attributionControl: false
+}).setView([state.depot.lat, state.depot.lng], 12);
+
+// Dark tile layer from CartoDB
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+}).addTo(map);
+
+// Jakarta district boundaries (offline GeoJSON)
+if (typeof JAKARTA_GEOJSON !== 'undefined') {
+    L.geoJSON(JAKARTA_GEOJSON, {
+        style: {
+            color: '#334155',
+            weight: 1.5,
+            fillColor: '#0f172a',
+            fillOpacity: 0.3,
+            opacity: 0.8
+        },
+        onEachFeature: (feature, layer) => {
+            if (feature.properties && feature.properties.name) {
+                layer.bindTooltip(feature.properties.name, {
+                    permanent: false,
+                    direction: 'center',
+                    className: 'district-label'
+                });
+            }
+        }
+    }).addTo(map);
+}
+
+// Depot marker
+const depotIcon = L.divIcon({
+    html: `<div style="width:18px;height:18px;background:#38bdf8;border:3px solid #fff;border-radius:50%;box-shadow:0 0 12px rgba(56,189,248,0.8)"></div>`,
+    className: '',
+    iconSize: [18, 18],
+    iconAnchor: [9, 9]
+});
+L.marker([state.depot.lat, state.depot.lng], { icon: depotIcon })
+    .addTo(map)
+    .bindPopup('<b>Depot</b><br>Routes start & end here');
+
+/* ============================================================
+   ADD STOPS ON MAP CLICK
+   ============================================================ */
+map.on('click', (e) => {
+    const id = 'stop-' + Date.now();
+    const stop = { id, lat: e.latlng.lat, lng: e.latlng.lng };
+    state.stops.push(stop);
+
+    const stopIcon = L.divIcon({
+        html: `<div style="width:12px;height:12px;background:#fff;border:2px solid #38bdf8;border-radius:50%;box-shadow:0 0 8px rgba(56,189,248,0.6)"></div>`,
+        className: '',
+        iconSize: [12, 12],
+        iconAnchor: [6, 6]
+    });
+    const marker = L.marker(e.latlng, { icon: stopIcon })
+        .addTo(map)
+        .bindPopup(`<b>Stop #${state.stops.length}</b><br>${stop.lat.toFixed(5)}, ${stop.lng.toFixed(5)}`);
+    state.markers.push({ id, marker });
+
+    renderStopList();
+    document.getElementById('routeSummary').textContent = `${state.stops.length} stop(s) added. Click "Run Local Brain" to optimize.`;
+});
+
+/* ============================================================
+   RENDER STOP LIST
+   ============================================================ */
+function renderStopList() {
+    document.getElementById('stopCount').textContent = state.stops.length;
+    const container = document.getElementById('stopList');
+    container.innerHTML = '';
+    state.stops.forEach((s, i) => {
+        const div = document.createElement('div');
+        div.className = 'stop-item';
+        div.innerHTML = `
+            <div class="stop-dot" style="background:#38bdf8;color:#38bdf8"></div>
+            <div>
+                <div style="font-weight:600">Stop #${i + 1}</div>
+                <div class="stop-coords">${s.lat.toFixed(4)}, ${s.lng.toFixed(4)}</div>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
+
+/* ============================================================
+   LOCAL BRAIN — ALGORITHMS
+   ============================================================ */
+
+/** Haversine distance in meters between two {lat,lng} points */
+function dist(a, b) {
+    const R = 6371000;
+    const dLat = (b.lat - a.lat) * Math.PI / 180;
+    const dLng = (b.lng - a.lng) * Math.PI / 180;
+    const x = Math.sin(dLat / 2) ** 2 +
+              Math.cos(a.lat * Math.PI / 180) * Math.cos(b.lat * Math.PI / 180) *
+              Math.sin(dLng / 2) ** 2;
+    return R * 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1 - x));
+}
+
+/** K-Means++ clustering — returns array of cluster indices (one per stop) */
+function kMeansCluster(stops, k) {
+    if (stops.length === 0) return [];
+    const numClusters = Math.min(k, stops.length);
+
+    // K-Means++ initialization
+    const centers = [{ ...stops[Math.floor(Math.random() * stops.length)] }];
+    while (centers.length < numClusters) {
+        const dists = stops.map(s => Math.min(...centers.map(c => dist(s, c))));
+        const total = dists.reduce((a, b) => a + b, 0);
+        let r = Math.random() * total;
+        for (let i = 0; i < stops.length; i++) {
+            r -= dists[i];
+            if (r <= 0) { centers.push({ ...stops[i] }); break; }
+        }
+    }
+
+    // Assign & recompute for 15 iterations
+    const assignments = new Array(stops.length).fill(0);
+    for (let iter = 0; iter < 15; iter++) {
+        // Assign each stop to closest center
+        stops.forEach((s, i) => {
+            let best = 0, bestD = Infinity;
+            centers.forEach((c, ci) => {
+                const d = dist(s, c);
+                if (d < bestD) { bestD = d; best = ci; }
+            });
+            assignments[i] = best;
+        });
+        // Recompute centers
+        for (let ci = 0; ci < numClusters; ci++) {
+            const members = stops.filter((_, i) => assignments[i] === ci);
+            if (members.length > 0) {
+                centers[ci].lat = members.reduce((s, m) => s + m.lat, 0) / members.length;
+                centers[ci].lng = members.reduce((s, m) => s + m.lng, 0) / members.length;
+            }
+        }
+    }
+    return assignments;
+}
+
+/** Nearest-neighbor tour starting and ending at depot */
+function nearestNeighborTour(stops, depot) {
+    if (stops.length === 0) return [];
+    const remaining = [...stops];
+    const tour = [];
+    let current = depot;
+
+    while (remaining.length > 0) {
+        let bestIdx = 0, bestD = Infinity;
+        remaining.forEach((s, i) => {
+            const d = dist(current, s);
+            if (d < bestD) { bestD = d; bestIdx = i; }
+        });
+        const chosen = remaining.splice(bestIdx, 1)[0];
+        tour.push(chosen);
+        current = chosen;
+    }
+    return tour;
+}
+
+/** 2-Opt improvement — reduces route crossings */
+function twoOpt(tour, depot) {
+    // Full route: depot → stops → depot
+    let route = [depot, ...tour, depot];
+    let improved = true;
+    let passes = 0;
+
+    while (improved && passes < 50) {
+        improved = false;
+        passes++;
+        for (let i = 1; i < route.length - 2; i++) {
+            for (let j = i + 1; j < route.length - 1; j++) {
+                const before = dist(route[i - 1], route[i]) + dist(route[j], route[j + 1]);
+                const after  = dist(route[i - 1], route[j]) + dist(route[i], route[j + 1]);
+                if (after < before - 0.1) {
+                    // Reverse the segment between i and j
+                    const reversed = route.slice(i, j + 1).reverse();
+                    route.splice(i, j - i + 1, ...reversed);
+                    improved = true;
+                }
+            }
+        }
+    }
+    return route; // includes depot at start and end
+}
+
+/** Total distance of a route array in km */
+function routeDistance(route) {
+    let d = 0;
+    for (let i = 0; i < route.length - 1; i++) d += dist(route[i], route[i + 1]);
+    return (d / 1000).toFixed(2);
+}
+
+/* ============================================================
+   OPTIMIZE & RENDER ROUTES
+   ============================================================ */
+document.getElementById('optimizeBtn').addEventListener('click', () => {
+    if (state.stops.length === 0) {
+        alert('Add at least one stop by clicking on the map.');
+        return;
+    }
+
+    const btn = document.getElementById('optimizeBtn');
+    btn.disabled = true;
+    btn.innerHTML = '⏳ Optimizing…';
+
+    // Clear previous routes
+    state.routeLayers.forEach(l => map.removeLayer(l));
+    state.routeLayers = [];
+
+    const k = Math.max(1, parseInt(document.getElementById('vehicleCount').value) || 2);
+
+    // Step 1: Cluster stops to vehicles
+    const assignments = kMeansCluster(state.stops, k);
+
+    const summaryBadges = [];
+    let totalDist = 0;
+
+    for (let v = 0; v < k; v++) {
+        // Get stops assigned to this vehicle
+        const vehicleStops = state.stops.filter((_, i) => assignments[i] === v);
+        if (vehicleStops.length === 0) continue;
+
+        const color = ROUTE_COLORS[v % ROUTE_COLORS.length];
+
+        // Step 2: Nearest-neighbor initial tour
+        const nnTour = nearestNeighborTour(vehicleStops, state.depot);
+
+        // Step 3: 2-Opt refinement
+        const optimizedRoute = twoOpt(nnTour, state.depot);
+
+        // Build LatLng array for polyline
+        const latLngs = optimizedRoute.map(p => [p.lat, p.lng]);
+
+        // Draw the route polyline
+        const poly = L.polyline(latLngs, {
+            color,
+            weight: 4,
+            opacity: 0.85,
+            lineJoin: 'round',
+            lineCap: 'round'
+        }).addTo(map);
+
+        // Draw colored stop markers for this vehicle
+        vehicleStops.forEach((s, idx) => {
+            const icon = L.divIcon({
+                html: `<div style="width:13px;height:13px;background:${color};border:2px solid #fff;border-radius:50%;box-shadow:0 0 8px ${color}"></div>`,
+                className: '',
+                iconSize: [13, 13],
+                iconAnchor: [6.5, 6.5]
+            });
+            const m = L.marker([s.lat, s.lng], { icon })
+                .addTo(map)
+                .bindPopup(`<b>Vehicle ${v + 1} — Stop ${idx + 1}</b>`);
+            state.routeLayers.push(m);
+        });
+
+        const km = routeDistance(optimizedRoute);
+        totalDist += parseFloat(km);
+        summaryBadges.push(`<span class="route-badge" style="color:${color};background:${color}18;border-color:${color}35">V${v + 1}: ${vehicleStops.length} stops · ${km} km</span>`);
+        state.routeLayers.push(poly);
+    }
+
+    // Fit map to all routes
+    if (state.routeLayers.length > 0) {
+        try {
+            const group = L.featureGroup(state.routeLayers.filter(l => l.getBounds));
+            if (group.getLayers().length > 0) map.fitBounds(group.getBounds(), { padding: [40, 40] });
+        } catch(e) {}
+    }
+
+    // Update route summary
+    document.getElementById('routeSummary').innerHTML = `
+        <div style="margin-bottom:6px;font-weight:600;color:var(--text)">Optimization complete ✓</div>
+        <div>${summaryBadges.join('')}</div>
+        <div style="margin-top:6px">Total fleet distance: <b>${totalDist.toFixed(2)} km</b></div>
+    `;
+
+    // Color the stop list items by vehicle
+    const listItems = document.querySelectorAll('.stop-item');
+    listItems.forEach((el, i) => {
+        const ci = assignments[i];
+        const color = ROUTE_COLORS[ci % ROUTE_COLORS.length];
+        el.querySelector('.stop-dot').style.background = color;
+        el.querySelector('.stop-dot').style.boxShadow = `0 0 6px ${color}`;
+        el.querySelector('.stop-dot').style.color = color;
+        el.style.borderColor = `${color}30`;
+    });
+
+    btn.disabled = false;
+    btn.innerHTML = '🚀 Run Local Brain';
+});
+
+/* ============================================================
+   CLEAR ALL
+   ============================================================ */
+document.getElementById('clearBtn').addEventListener('click', () => {
+    // Remove stop markers
+    state.markers.forEach(({ marker }) => map.removeLayer(marker));
+    state.markers = [];
+
+    // Remove route layers
+    state.routeLayers.forEach(l => map.removeLayer(l));
+    state.routeLayers = [];
+
+    state.stops = [];
+    renderStopList();
+    document.getElementById('routeSummary').textContent = 'Waiting for stops…';
+});
+</script>
+</body>
+</html>

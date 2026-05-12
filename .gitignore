@@ -1,0 +1,6 @@
+.env
+node_modules/
+.netlify/
+dist/
+repo.zip
+map-explora-main/
