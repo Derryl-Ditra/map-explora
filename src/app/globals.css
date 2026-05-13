@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: #3b82f6;
+  --color-border: #27272a;
+  
+  --font-sans: var(--font-plus-jakarta-sans);
+}
+
+:root {
+  --background: #0d0d0d;
+  --foreground: #ffffff;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar for RaaS Aesthetic */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* Hide Next.js Dev Indicator/Portal */
+nextjs-portal, 
+[data-nextjs-toast-wrapper],
+.nextjs-static-indicator {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}

@@ -1,45 +1,36 @@
-# map-explora
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Minimal Leaflet proof-of-concept for route optimization. This repository contains a single-file demo (index.html) and a Netlify serverless function scaffold to proxy optimization requests to a third-party optimization provider.
+## Getting Started
 
-## Quick start (local)
+First, run the development server:
 
-1. Clone the repo
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-   git clone git@github.com:Derryl-Ditra/map-explora.git
-   cd map-explora
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-2. Serve the static demo
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-   python3 -m http.server 8000
-   # open http://localhost:8000/index.html
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-3. (Optional) Run Netlify dev to test serverless functions locally
+## Learn More
 
-   - Install Netlify CLI: `npm i -g netlify-cli` or `npx netlify-cli`
-   - Copy `.env.example` -> `.env` and set your `OPTIMIZER_API_KEY`
-   - Start dev server:
-     ```sh
-     netlify dev
-     ```
-   - Open http://localhost:8888
+To learn more about Next.js, take a look at the following resources:
 
-## Deploy to Netlify
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-- Connect this GitHub repository to Netlify (New site from Git → select repo `Derryl-Ditra/map-explora`).
-- In Site settings → Build & deploy → Environment, add `OPTIMIZER_API_KEY` (do NOT commit keys to git).
-- The included `netlify/functions/optimize.js` implements a small proxy that forwards optimization requests to your configured endpoint (adjust endpoint if needed).
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Notes
+## Deploy on Vercel
 
-- The client UI includes two optimization modes:
-  - Mock optimizer (client-side, instant) — good for demos.
-  - Serverless optimizer (POSTs to `/.netlify/functions/optimize`) — proxies to a configured optimization provider when deployed with `OPTIMIZER_API_KEY`.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-- You should review the serverless function payload mapping and adjust fields to match the provider's live API (field names in this scaffold are intentionally generic).
-
-## Next steps
-
-- Break the single file into modules (map, UI, optimizer).
-- Add tests and linting.
-- Add authentication and a simple moderation UI for user-contributed stops.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
