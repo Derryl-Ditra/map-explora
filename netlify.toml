@@ -1,9 +1,9 @@
 [build]
   command = "npm run build"
-  publish = ".next"
+  publish = "netlify-deploy"
 
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-
-[build.environment]
-  NEXT_USE_NETLIFY_EDGE = "true"
+# Standard redirects for Single Page Applications (SPAs)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
