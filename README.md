@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Jakarta EV HUD — Logistics Dispatch Interface
 
-## Getting Started
+A high-fidelity, interactive logistics dashboard designed for tracking and navigating to EV charging stations across Jakarta. This project serves as a technical demonstration of **Spatial-Logic** principles and **Antigravity RaaS (Robotics-as-a-Service)** design aesthetics.
 
-First, run the development server:
+![Live Deployment](https://img.shields.io/badge/Status-Live-blue?style=for-the-badge)
+![Tech Stack](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
+![Design](https://img.shields.io/badge/Design-Zinc_Dark_Mode-09090b?style=for-the-badge)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🌌 The Concept
+The **Jakarta EV HUD** is designed for the modern logistics dispatcher or EV owner who needs real-time spatial intelligence. Unlike generic map applications, this interface prioritizes **high-contrast telemetry** and **optimistic motion feedback**, providing a "command center" feel for Jakarta's urban swarm.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Core Features:
+- **Intelligent Proximity Engine**: Automatically calculates and sorts the closest charging stations based on the user's real-time position.
+- **Urban Swarm ETA**: Real-time routing via OSRM (Open Source Routing Machine) with dynamic distance and duration calculations.
+- **HUD-First Interactivity**: A minimalist dark interface (Zinc-950) that reduces visual fatigue and emphasizes critical data points like power output and connector types.
+- **Optimized Mobile UX**: A responsive "Drawer" interface with hardware-accelerated transitions for seamless touch interaction.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠 Tech Decisions & Architecture
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🗺️ Geospatial Logic (Leaflet.js)
+- **Decision**: Used Leaflet.js over heavier alternatives for its performance and extensibility.
+- **Implementation**: Custom SVG marker rendering with selective updates. Markers utilize `z-index` offsets and halo-pulse animations to maintain visual hierarchy during map movement.
 
-## Learn More
+### ⚡ Performance & Motion (Framer Motion)
+- **Decision**: Implemented a "Motion-First" approach using Framer Motion for state transitions.
+- **Optimization**: Utilized `will-change` hardware acceleration and debounced routing requests to maintain a consistent 60fps, even on low-power mobile devices.
 
-To learn more about Next.js, take a look at the following resources:
+### 🎨 Design System (RaaS Aesthetic)
+- **Palette**: A curated Zinc-based dark mode (`#09090b` background) with high-visibility blue accents (`#3b82f6`) for active navigation elements.
+- **Typography**: Plus Jakarta Sans for high readability in high-density data environments.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deployment
-
-The project is automatically deployed to GitHub Pages via GitHub Actions.
+## 🚀 Deployment
+This project is built as a **Static HTML Export** and is automatically deployed via **GitHub Actions**.
 
 **Live URL**: [https://Derryl-Ditra.github.io/map-explora/](https://Derryl-Ditra.github.io/map-explora/)
+
+---
+*Built with precision for the Jakarta Logistics Ecosystem.*
