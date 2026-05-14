@@ -80,27 +80,39 @@ export default function LeafletMap({
     // 1. Update Stations/Markers (Optimized)
     stations.forEach((s) => {
       const isActive = s.id === activeId;
-      const markerHtml = `
-        <div class="w-5 h-5 ${isActive ? 'bg-blue-600' : 'bg-zinc-700'} border border-zinc-900 rounded flex items-center justify-center transition-colors">
-          <div class="w-2 h-2 bg-white rounded-full"></div>
-        </div>
-      `;
+      const markerHtml = isActive 
+        ? `
+          <div class="animate-marker-pulse flex items-center justify-center" style="z-index: 1000;">
+            <svg width="32" height="42" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));">
+              <path d="M12 32C12 32 24 20 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 20 12 32 12 32Z" fill="#3B82F6" stroke="white" stroke-width="2"/>
+              <circle cx="12" cy="12" r="4" fill="white"/>
+            </svg>
+          </div>
+        `
+        : `
+          <div class="w-4 h-4 bg-zinc-700 border border-zinc-900 rounded-sm flex items-center justify-center transition-colors hover:bg-zinc-600">
+            <div class="w-1.5 h-1.5 bg-zinc-400 rounded-full"></div>
+          </div>
+        `;
 
       if (markersRef.current[s.id]) {
         markersRef.current[s.id].setIcon(L.divIcon({
           className: "",
           html: markerHtml,
-          iconSize: [20, 20],
-          iconAnchor: [10, 10],
+          iconSize: isActive ? [32, 42] : [16, 16],
+          iconAnchor: isActive ? [16, 42] : [8, 8],
         }));
+        if (isActive) markersRef.current[s.id].setZIndexOffset(1000);
+        else markersRef.current[s.id].setZIndexOffset(0);
       } else {
         const marker = L.marker([s.lat, s.lng], {
           icon: L.divIcon({
             className: "",
             html: markerHtml,
-            iconSize: [20, 20],
-            iconAnchor: [10, 10],
+            iconSize: isActive ? [32, 42] : [16, 16],
+            iconAnchor: isActive ? [16, 42] : [8, 8],
           }),
+          zIndexOffset: isActive ? 1000 : 0
         })
         .addTo(map)
         .on("click", () => onStationSelect(s.id));
@@ -123,9 +135,11 @@ export default function LeafletMap({
       userMarkerRef.current = L.marker(userPos, {
         icon: L.divIcon({
           className: "",
-          html: `<div class="w-3 h-3 bg-white border-2 border-blue-600 rounded-full"></div>`,
-          iconSize: [12, 12],
-          iconAnchor: [6, 6],
+          html: `<div class="w-4 h-4 bg-blue-600 border-2 border-white rounded-full animate-user-glow flex items-center justify-center">
+            <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
+          </div>`,
+          iconSize: [16, 16],
+          iconAnchor: [8, 8],
         }),
       }).addTo(map);
     }

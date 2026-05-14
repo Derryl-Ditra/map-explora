@@ -45,3 +45,36 @@ nextjs-portal,
   visibility: hidden !important;
   pointer-events: none !important;
 }
+
+/* Marker Animations */
+@keyframes marker-pulse {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0px rgba(59, 130, 246, 0));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0px rgba(59, 130, 246, 0));
+  }
+}
+
+.animate-marker-pulse {
+  animation: marker-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes user-glow {
+  0%, 100% {
+    box-shadow: 0 0 4px rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.8);
+  }
+}
+
+.animate-user-glow {
+  animation: user-glow 3s ease-in-out infinite;
+}
