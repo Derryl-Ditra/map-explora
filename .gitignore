@@ -1,181 +1,43 @@
-<<<<<<< HEAD
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>MileRoute Mapper — Minimal Leaflet PoC</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-sA+e2e2p8Vb5vYb3g1y+XHcQxL6Q4wDQ2m7f2w6X0sM="
-    crossorigin=""
-  />
-  <style>
-    :root { --panel-w: 320px; --gap: 12px; --muted: #666; --bg:#fff; --accent:#2b8cbe; }
-    body { margin:0; height:100vh; display:flex; font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial; }
-    #panel {
-      width:var(--panel-w); padding:16px; box-sizing:border-box;
-      border-right:1px solid #e6e6e6; background:var(--bg); overflow:auto;
-    }
-    h2 { margin:0 0 8px 0; font-size:16px; }
-    #map { flex:1; }
-    .btn { display:inline-block; padding:8px 10px; margin:4px 0; background:var(--accent); color:#fff; border-radius:6px; border:none; cursor:pointer; }
-    .btn.secondary { background:#6c757d; }
-    .controls { margin-bottom:12px; }
-    label { font-size:13px; color:var(--muted); display:block; margin-top:8px; }
-    input[type="number"], input[type="text"], select { width:100%; padding:6px 8px; box-sizing:border-box; margin-top:6px; }
-    ul { padding-left:18px; margin:8px 0; }
-    .stop-item { display:flex; justify-content:space-between; align-items:center; gap:8px; padding:6px 0; border-bottom:1px dashed #eee; }
-    .small { font-size:12px; color:var(--muted); }
-    .color-dot { width:12px;height:12px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:middle; }
-    footer { margin-top:12px; font-size:12px; color:var(--muted); }
-    a.link { color:var(--accent); text-decoration:none; }
-  </style>
-</head>
-<body>
-  <div id="panel" aria-labelledby="title">
-    <h2 id="title">MileRoute Mapper — Minimal PoC</h2>
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
 
-    <div class="controls">
-      <div class="small">Click on the map to add stops. Drag markers to tweak positions.</div>
+# testing
+/coverage
 
-      <label>Vehicle count</label>
-      <input id="vehicleCount" type="number" min="1" value="1" />
+# next.js
+/.next/
+/out/
 
-      <label><input id="returnToDepot" type="checkbox" checked /> Return vehicles to depot</label>
+# production
+/build
 
-      <label>Depot location (click 'Set depot from center' to use map center)</label>
-      <input id="depotCoords" type="text" value="37.7749,-122.4194" />
-      <button class="btn secondary" id="setDepotFromCenter">Set depot from center</button>
-    </div>
+# misc
+.DS_Store
+*.pem
 
-    <div style="margin-bottom:8px;">
-      <button class="btn" id="optimizeBtn">Optimize</button>
-      <button class="btn secondary" id="clearBtn">Clear stops</button>
-    </div>
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-    <div style="margin-top:8px;">
-      <label>Import GeoJSON (Point features)</label>
-      <input id="importGeo" type="file" accept=".geojson,.json" />
-      <button class="btn" id="exportBtn">Export stops as GeoJSON</button>
-    </div>
+# local env files
+.env*
+!.env.example
 
-    <h3 style="margin-top:12px;">Stops</h3>
-    <div id="stopList" aria-live="polite"></div>
+# vercel
+.vercel
 
-    <h3 style="margin-top:12px;">Routes</h3>
-    <div id="routeList" class="small"></div>
+# typescript
+*.tsbuildinfo
+next-env.d.ts
 
-    <footer>
-      Built as a minimal demo. Swap the mock optimizer with a MileApp proxy call to use real optimization. Repo-style ideas: separate modules (ui, map, optimizer), add tests, and a small server-side proxy to keep API key secret.
-    </footer>
-  </div>
-
-  <div id="map"></div>
-
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-o9N1j7kz7H4G2nUqEf9n0t+6qk2qWgk5Q3QH3y0f2XY=" crossorigin=""></script>
-  <script>
-    /* ---------------------------
-       Minimal, readable state & helpers
-       --------------------------- */
-    const state = {
-      stops: [],            // {id,name,lat,lng,service_time}
-      markers: new Map(),   // id -> leaflet marker
-      routes: [],           // result routes
-      vehicleCount: 1,
-      returnToDepot: true,
-      depot: { lat: 37.7749, lng: -122.4194 } // default center (SF)
-    };
-
-    const COLORS = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#a65628','#f781bf'];
-
-    function uid(prefix='s') { return prefix + '-' + Math.random().toString(36).slice(2,9); }
-
-    function toLatLng(obj) { return [obj.lat, obj.lng]; }
-
-    function haversine(aLat, aLng, bLat, bLng) {
-      const toRad = v => v * Math.PI / 180;
-      const R = 6371e3; // meters
-      const φ1 = toRad(aLat), φ2 = toRad(bLat);
-      const Δφ = toRad(bLat - aLat), Δλ = toRad(bLng - aLng);
-      const aa = Math.sin(Δφ/2)*Math.sin(Δφ/2) + Math.cos(φ1)*Math.cos(φ2)*Math.sin(Δλ/2)*Math.sin(Δλ/2);
-      const c = 2 * Math.atan2(Math.sqrt(aa), Math.sqrt(1-aa));
-      return R * c;
-    }
-
-    /* ---------------------------
-       Map setup
-       --------------------------- */
-    const map = L.map('map').setView([state.depot.lat, state.depot.lng], 12);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    // depot marker
-    let depotMarker = L.marker([state.depot.lat, state.depot.lng], { draggable: true, title: 'Depot' })
-      .addTo(map)
-      .bindPopup('Depot (drag to reposition)').openPopup();
-
-    depotMarker.on('dragend', () => {
-      const p = depotMarker.getLatLng();
-      state.depot = { lat: p.lat, lng: p.lng };
-      document.getElementById('depotCoords').value = `${p.lat.toFixed(6)},${p.lng.toFixed(6)}`;
-    });
-
-    map.on('click', (e) => {
-      addStopAt(e.latlng.lat, e.latlng.lng);
-    });
-
-    map.on('moveend', ()=> {
-      // keep UI consistent if needed
-    });
-
-    /* ---------------------------
-       Stop management & UI
-       --------------------------- */
-    function addStopAt(lat, lng, name = '') {
-      const id = uid('stop');
-      const stop = { id, name: name || id, lat, lng, service_time: 10 };
-      state.stops.push(stop);
-      const marker = L.marker([lat, lng], { draggable: true }).addTo(map);
-      marker.bindPopup(popupForStop(stop), { minWidth: 220 });
-      marker.on('dragend', () => {
-        const p = marker.getLatLng();
-        stop.lat = p.lat; stop.lng = p.lng;
-        renderStops();
-      });
-      state.markers.set(id, marker);
-      renderStops();
-    }
-
-    function popupForStop(stop) {
-      // return HTML string for popup (small editable form)
-      return `
-        <div style="font-size:13px">
-          <strong>Stop</strong><div class="small">${stop.id}</div>
-          <label style="display:block;margin-top:6px">Name</label>
-          <input id="inp-name-${stop.id}" type="text" value="${escapeHtml(stop.name)}" style="width:100%;padding:6px"/>
-          <label style="display:block;margin-top:6px">Service time (min)</label>
-          <input id="inp-st-${stop.id}" type="number" value="${stop.service_time}" style="width:100%;padding:6px"/>
-          <div style="margin-top:8px; display:flex; gap:8px;">
-            <button onclick="saveStop('${stop.id}')" class="btn">Save</button>
-            <button onclick="deleteStop('${stop.id}')" class="btn secondary">Delete</button>
-          </div>
-        </div>
-      `;
-    }
-
-    // small sanitizer for html injection in popup strings
-    function escapeHtml(str) {
-      return String(str).replace(/[&<>\
-=======
-.env
-node_modules/
-.netlify/
+# netlify
+.netlify
 dist/
+
+# temp/artifacts
 repo.zip
 map-explora-main/
->>>>>>> feat/12-may-draft
+.gemini/
