@@ -110,6 +110,7 @@ export default function MapHUD() {
           flex flex-col
           ${isPanelExpanded ? 'h-[80vh]' : 'h-[120px] md:h-full'}
         `}
+        style={{ willChange: "height, transform" }}
       >
         {/* Mobile Handle - Improved Hit Area */}
         <div 
@@ -147,6 +148,7 @@ export default function MapHUD() {
           absolute right-4 z-[1000] flex flex-col gap-2 transition-all duration-300
           ${isPanelExpanded ? 'bottom-[82vh]' : 'bottom-36 md:bottom-6'}
         `}
+        style={{ willChange: "bottom, transform" }}
       >
         <button 
           onClick={handleLocate}

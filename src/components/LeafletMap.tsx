@@ -77,46 +77,52 @@ export default function LeafletMap({
     const map = mapRef.current;
     if (!map) return;
 
-    // 1. Update Stations/Markers (Optimized)
+    // 1. Update Stations/Markers (Optimized Selective Updates)
     stations.forEach((s) => {
       const isActive = s.id === activeId;
-      const markerHtml = isActive 
-        ? `
-          <div class="animate-marker-pulse flex items-center justify-center" style="z-index: 1000;">
-            <svg width="32" height="42" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));">
-              <path d="M12 32C12 32 24 20 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 20 12 32 12 32Z" fill="#3B82F6" stroke="white" stroke-width="2"/>
-              <circle cx="12" cy="12" r="4" fill="white"/>
-            </svg>
-          </div>
-        `
-        : `
-          <div class="w-4 h-4 bg-zinc-700 border border-zinc-900 rounded-sm flex items-center justify-center transition-colors hover:bg-zinc-600">
-            <div class="w-1.5 h-1.5 bg-zinc-400 rounded-full"></div>
-          </div>
-        `;
+      
+      // Only update if marker doesn't exist OR if its active state has changed
+      const existingMarker = markersRef.current[s.id];
+      const wasActive = existingMarker?.options?.alt === "active";
+      
+      if (!existingMarker || wasActive !== isActive) {
+        const markerHtml = isActive 
+          ? `
+            <div class="animate-marker-pulse flex items-center justify-center" style="z-index: 1000;">
+              <svg width="32" height="42" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));">
+                <path d="M12 32C12 32 24 20 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 20 12 32 12 32Z" fill="#3B82F6" stroke="white" stroke-width="2"/>
+                <circle cx="12" cy="12" r="4" fill="white"/>
+              </svg>
+            </div>
+          `
+          : `
+            <div class="w-4 h-4 bg-zinc-700 border border-zinc-900 rounded-sm flex items-center justify-center transition-colors hover:bg-zinc-600">
+              <div class="w-1.5 h-1.5 bg-zinc-400 rounded-full"></div>
+            </div>
+          `;
 
-      if (markersRef.current[s.id]) {
-        markersRef.current[s.id].setIcon(L.divIcon({
+        const icon = L.divIcon({
           className: "",
           html: markerHtml,
           iconSize: isActive ? [32, 42] : [16, 16],
           iconAnchor: isActive ? [16, 42] : [8, 8],
-        }));
-        if (isActive) markersRef.current[s.id].setZIndexOffset(1000);
-        else markersRef.current[s.id].setZIndexOffset(0);
-      } else {
-        const marker = L.marker([s.lat, s.lng], {
-          icon: L.divIcon({
-            className: "",
-            html: markerHtml,
-            iconSize: isActive ? [32, 42] : [16, 16],
-            iconAnchor: isActive ? [16, 42] : [8, 8],
-          }),
-          zIndexOffset: isActive ? 1000 : 0
-        })
-        .addTo(map)
-        .on("click", () => onStationSelect(s.id));
-        markersRef.current[s.id] = marker;
+        });
+
+        if (existingMarker) {
+          existingMarker.setIcon(icon);
+          existingMarker.setZIndexOffset(isActive ? 1000 : 0);
+          // @ts-ignore
+          existingMarker.options.alt = isActive ? "active" : "inactive";
+        } else {
+          const marker = L.marker([s.lat, s.lng], {
+            icon,
+            zIndexOffset: isActive ? 1000 : 0,
+            alt: isActive ? "active" : "inactive"
+          })
+          .addTo(map)
+          .on("click", () => onStationSelect(s.id));
+          markersRef.current[s.id] = marker;
+        }
       }
     });
 
@@ -176,30 +182,35 @@ export default function LeafletMap({
       
       const url = `https://router.project-osrm.org/route/v1/driving/${userPos[1]},${userPos[0]};${station.lng},${station.lat}?overview=full&geometries=geojson`;
       
-      fetch(url)
-        .then(res => res.json())
-        .then(data => {
-          if (data.routes && data.routes.length > 0) {
-            const route = data.routes[0];
-            const coordinates = route.geometry.coordinates.map((coord: [number, number]) => [coord[1], coord[0]]);
-            routeLineRef.current = L.polyline(coordinates, {
-              color: '#2563eb',
-              weight: 4,
-              opacity: 0.9,
-            }).addTo(map);
+      // Add a small delay to prevent rapid-fire requests during movement
+      const timeoutId = setTimeout(() => {
+        fetch(url)
+          .then(res => res.json())
+          .then(data => {
+            if (data.routes && data.routes.length > 0) {
+              const route = data.routes[0];
+              const coordinates = route.geometry.coordinates.map((coord: [number, number]) => [coord[1], coord[0]]);
+              routeLineRef.current = L.polyline(coordinates, {
+                color: '#2563eb',
+                weight: 4,
+                opacity: 0.9,
+              }).addTo(map);
 
-            if (onRouteFound) {
-              onRouteFound(route.distance / 1000, route.duration);
+              if (onRouteFound) {
+                onRouteFound(route.distance / 1000, route.duration);
+              }
+              
+              lastRouteParams.current = { activeId, userPos: [...userPos] };
+
+              // Automatically show the entire route with comfortable padding
+              const routePolyline = L.polyline(coordinates);
+              map.fitBounds(routePolyline.getBounds(), { padding: [100, 100] });
             }
-            
-            lastRouteParams.current = { activeId, userPos: [...userPos] };
+          })
+          .catch(err => console.error("Routing error:", err));
+      }, 300);
 
-            // Automatically show the entire route with comfortable padding
-            const routePolyline = L.polyline(coordinates);
-            map.fitBounds(routePolyline.getBounds(), { padding: [100, 100] });
-          }
-        })
-        .catch(err => console.error("Routing error:", err));
+      return () => clearTimeout(timeoutId);
     }
   }, [stations, activeId, userPos]);
 
