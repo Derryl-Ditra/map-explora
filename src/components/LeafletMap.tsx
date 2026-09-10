@@ -27,42 +27,77 @@ export default function LeafletMap({
 }: LeafletMapProps) {
   const mapRef = useRef<L.Map | null>(null);
   const markersRef = useRef<{ [key: string]: L.Marker }>({});
+  const markerActiveStates = useRef<{ [key: string]: boolean }>({});
   const routeLineRef = useRef<L.Polyline | null>(null);
   const userMarkerRef = useRef<L.Marker | null>(null);
   const lastRouteParams = useRef<{ activeId: string; userPos: [number, number] } | null>(null);
+  const osmLayerRef = useRef<L.TileLayer | null>(null);
+  const streetsLayerRef = useRef<L.TileLayer | null>(null);
 
-  const tileLayerRef = useRef<L.TileLayer | null>(null);
-
+  // Initialize Map and create cached tile layers once (Zero API keys required)
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     if (!mapRef.current) {
-      mapRef.current = L.map("map-container", {
+      const map = L.map("map-container", {
         zoomControl: false,
-        attributionControl: false,
+        attributionControl: true,
       }).setView(center, 13);
+      mapRef.current = map;
+
+      // 1. High-speed base OpenStreetMap layer (used for clean dark & clean light)
+      const osmLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        subdomains: ["a", "b", "c"],
+        maxZoom: 19,
+        keepBuffer: 6,
+        className: "map-tiles-dark",
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors',
+      });
+      osmLayerRef.current = osmLayer;
+
+      // 2. Humanitarian OpenStreetMap layer (used for rich street view - untouched)
+      const streetsLayer = L.tileLayer("https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", {
+        subdomains: ["a", "b"],
+        maxZoom: 19,
+        keepBuffer: 6,
+        className: "map-tiles-streets",
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors, Tiles by <a href="https://www.hotosm.org/" target="_blank" rel="noreferrer">HOT</a>',
+      });
+      streetsLayer.on("tileerror", () => {
+        streetsLayer.setUrl("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
+      });
+      streetsLayerRef.current = streetsLayer;
+
+      // Attach initial layer
+      osmLayer.addTo(map);
     }
+  }, [center]);
 
-    // Update Tile Layer based on mapMode
-    if (tileLayerRef.current) {
-      mapRef.current.removeLayer(tileLayerRef.current);
+  // Instant mode switcher (Zero network reload when toggling styles)
+  useEffect(() => {
+    const map = mapRef.current;
+    const osmLayer = osmLayerRef.current;
+    const streetsLayer = streetsLayerRef.current;
+    if (!map || !osmLayer || !streetsLayer) return;
+
+    if (mapMode === 'streets') {
+      if (map.hasLayer(osmLayer)) map.removeLayer(osmLayer);
+      if (!map.hasLayer(streetsLayer)) map.addLayer(streetsLayer);
+      const container = streetsLayer.getContainer();
+      if (container) {
+        container.className = "leaflet-layer map-tiles-streets";
+      }
+    } else {
+      if (map.hasLayer(streetsLayer)) map.removeLayer(streetsLayer);
+      if (!map.hasLayer(osmLayer)) map.addLayer(osmLayer);
+      const container = osmLayer.getContainer();
+      if (container) {
+        container.className = `leaflet-layer ${mapMode === 'dark' ? 'map-tiles-dark' : 'map-tiles-light'}`;
+      }
     }
-
-    const layers = {
-      dark: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
-      light: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-      streets: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-    };
-
-    tileLayerRef.current = L.tileLayer(layers[mapMode], {
-      attribution: '&copy; OpenStreetMap'
-    }).addTo(mapRef.current);
-
-    return () => {
-      // Cleanup on unmount
-    };
   }, [mapMode]);
 
+  // Teardown map on unmount
   useEffect(() => {
     return () => {
       if (mapRef.current) {
@@ -72,31 +107,29 @@ export default function LeafletMap({
     };
   }, []);
 
-  // Unified State Sync (Markers, Route, UserPos)
+  // Sync Markers, User Position, and Routing
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
 
-    // 1. Update Stations/Markers (Optimized Selective Updates)
+    // 1. Update Stations & Markers
     stations.forEach((s) => {
       const isActive = s.id === activeId;
-      
-      // Only update if marker doesn't exist OR if its active state has changed
       const existingMarker = markersRef.current[s.id];
-      const wasActive = existingMarker?.options?.alt === "active";
-      
-      if (!existingMarker || wasActive !== isActive) {
+      const previousActive = markerActiveStates.current[s.id];
+
+      if (!existingMarker || previousActive !== isActive) {
         const markerHtml = isActive 
           ? `
             <div class="animate-marker-pulse flex items-center justify-center" style="z-index: 1000;">
-              <svg width="32" height="42" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));">
+              <svg width="32" height="42" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));" aria-hidden="true">
                 <path d="M12 32C12 32 24 20 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 20 12 32 12 32Z" fill="#3B82F6" stroke="white" stroke-width="2"/>
                 <circle cx="12" cy="12" r="4" fill="white"/>
               </svg>
             </div>
           `
           : `
-            <div class="w-4 h-4 bg-zinc-700 border border-zinc-900 rounded-sm flex items-center justify-center transition-colors hover:bg-zinc-600">
+            <div class="w-4 h-4 bg-zinc-700 border border-zinc-900 rounded-sm flex items-center justify-center transition-colors hover:bg-zinc-600" aria-hidden="true">
               <div class="w-1.5 h-1.5 bg-zinc-400 rounded-full"></div>
             </div>
           `;
@@ -111,18 +144,19 @@ export default function LeafletMap({
         if (existingMarker) {
           existingMarker.setIcon(icon);
           existingMarker.setZIndexOffset(isActive ? 1000 : 0);
-          // @ts-ignore
-          existingMarker.options.alt = isActive ? "active" : "inactive";
         } else {
           const marker = L.marker([s.lat, s.lng], {
             icon,
+            title: `${s.name} (${s.power})`,
+            alt: `${s.name} charging station`,
             zIndexOffset: isActive ? 1000 : 0,
-            alt: isActive ? "active" : "inactive"
           })
           .addTo(map)
           .on("click", () => onStationSelect(s.id));
           markersRef.current[s.id] = marker;
         }
+
+        markerActiveStates.current[s.id] = isActive;
       }
     });
 
@@ -132,6 +166,7 @@ export default function LeafletMap({
       if (!stationIds.has(id)) {
         map.removeLayer(markersRef.current[id]);
         delete markersRef.current[id];
+        delete markerActiveStates.current[id];
       }
     });
 
@@ -139,9 +174,11 @@ export default function LeafletMap({
     if (userMarkerRef.current) map.removeLayer(userMarkerRef.current);
     if (userPos) {
       userMarkerRef.current = L.marker(userPos, {
+        title: "Your Location",
+        alt: "Current user location",
         icon: L.divIcon({
           className: "",
-          html: `<div class="w-4 h-4 bg-blue-600 border-2 border-white rounded-full animate-user-glow flex items-center justify-center">
+          html: `<div class="w-4 h-4 bg-blue-600 border-2 border-white rounded-full animate-user-glow flex items-center justify-center" aria-hidden="true">
             <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
           </div>`,
           iconSize: [16, 16],
@@ -163,7 +200,6 @@ export default function LeafletMap({
     const station = stations.find(s => s.id === activeId);
     if (!station) return;
 
-    // Check if we need to re-fetch
     const hasActiveIdChanged = lastRouteParams.current?.activeId !== activeId;
     let hasUserMovedSignificantly = true;
 
@@ -174,7 +210,7 @@ export default function LeafletMap({
         userPos[0],
         userPos[1]
       );
-      hasUserMovedSignificantly = distMoved > 1; // 1km threshold
+      hasUserMovedSignificantly = distMoved > 1;
     }
 
     if (hasActiveIdChanged || hasUserMovedSignificantly) {
@@ -182,7 +218,6 @@ export default function LeafletMap({
       
       const url = `https://router.project-osrm.org/route/v1/driving/${userPos[1]},${userPos[0]};${station.lng},${station.lat}?overview=full&geometries=geojson`;
       
-      // Add a small delay to prevent rapid-fire requests during movement
       const timeoutId = setTimeout(() => {
         fetch(url)
           .then(res => res.json())
@@ -202,7 +237,6 @@ export default function LeafletMap({
               
               lastRouteParams.current = { activeId, userPos: [...userPos] };
 
-              // Automatically show the entire route with comfortable padding
               const routePolyline = L.polyline(coordinates);
               map.fitBounds(routePolyline.getBounds(), { padding: [100, 100] });
             }
@@ -212,7 +246,17 @@ export default function LeafletMap({
 
       return () => clearTimeout(timeoutId);
     }
-  }, [stations, activeId, userPos]);
+  }, [stations, activeId, userPos, onRouteFound, onStationSelect]);
 
-  return <div id="map-container" className="h-full w-full bg-zinc-900" />;
+  return (
+    <div 
+      id="map-container" 
+      role="region"
+      aria-label="Interactive EV charging station map"
+      tabIndex={0}
+      className={`h-full w-full transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${
+        mapMode === 'dark' ? 'bg-[#121216]' : 'bg-[#e5e7eb]'
+      }`} 
+    />
+  );
 }

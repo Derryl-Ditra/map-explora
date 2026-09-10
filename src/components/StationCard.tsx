@@ -24,10 +24,14 @@ function StationCard({
   };
 
   return (
-    <div
+    <button
+      type="button"
       onClick={onClick}
+      aria-pressed={active}
+      aria-label={`${station.name}, ${station.brand}, ${station.power}, ${distance.toFixed(1)} kilometers away, ETA ${eta} minutes`}
       className={`
-        cursor-pointer p-4 border-b border-zinc-800 transition-colors
+        w-full text-left cursor-pointer p-4 border-b border-zinc-800 transition-colors
+        focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-inset
         ${active ? 'bg-zinc-800' : 'hover:bg-zinc-800/50'}
       `}
     >
@@ -36,21 +40,21 @@ function StationCard({
           {station.name}
         </h3>
         <div className="flex flex-col items-end">
-          <span className="text-xs text-blue-500 font-medium">
+          <span className="text-xs text-blue-400 font-medium">
             {distance.toFixed(1)}km
           </span>
-          <span className="text-[9px] text-zinc-500 font-medium uppercase">
+          <span className="text-[9px] text-zinc-400 font-medium uppercase">
             {eta} min
           </span>
         </div>
       </div>
 
       <div className="flex gap-2 mb-3">
-        <span className="text-[10px] text-zinc-400 uppercase font-bold">{station.power}</span>
-        <span className="text-[10px] text-zinc-500 uppercase">{station.brand}</span>
+        <span className="text-[10px] text-zinc-300 uppercase font-bold">{station.power}</span>
+        <span className="text-[10px] text-zinc-400 uppercase">{station.brand}</span>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 text-[10px] uppercase tracking-tight text-zinc-500">
+      <div className="grid grid-cols-2 gap-2 text-[10px] uppercase tracking-tight text-zinc-400">
         <div className="flex items-center gap-1">
           <span>{calcChargeTime(station.kw)}</span>
         </div>
@@ -58,7 +62,7 @@ function StationCard({
           <span>{station.fee > 0 ? `Rp${station.fee}` : 'Free'}</span>
         </div>
       </div>
-    </div>
+    </button>
   );
 }
 

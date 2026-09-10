@@ -10,10 +10,7 @@ const nextConfig: NextConfig = {
     position: 'bottom-right',
   },
   typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
+    ignoreBuildErrors: false,
   },
 };
 
