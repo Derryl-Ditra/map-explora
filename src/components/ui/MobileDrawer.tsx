@@ -20,6 +20,7 @@ interface MobileDrawerProps {
   route: RouteData | null;
   isRouting: boolean;
   onOpenShare: () => void;
+  onStartNavigation?: () => void;
 }
 
 export default function MobileDrawer({
@@ -32,12 +33,20 @@ export default function MobileDrawer({
   route,
   isRouting,
   onOpenShare,
+  onStartNavigation,
 }: MobileDrawerProps) {
   // Mobile snap state: 'collapsed' (approx 130px), 'half' (48vh), 'full' (85vh)
   const [drawerSnap, setDrawerSnap] = useState<"collapsed" | "half" | "full">("half");
 
   const toggleSnap = () => {
     setDrawerSnap((prev) => (prev === "collapsed" ? "half" : prev === "half" ? "full" : "collapsed"));
+  };
+
+  const handleStartInAppNav = () => {
+    setDrawerSnap("collapsed");
+    if (onStartNavigation) {
+      onStartNavigation();
+    }
   };
 
   return (
@@ -114,7 +123,7 @@ export default function MobileDrawer({
             isRouting={isRouting}
             onBack={onClearActiveStation}
             onOpenShare={onOpenShare}
-            onStartInAppNavigation={() => setDrawerSnap("collapsed")}
+            onStartInAppNavigation={handleStartInAppNav}
           />
         ) : (
           /* Station Explorer List View */

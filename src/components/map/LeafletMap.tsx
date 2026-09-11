@@ -14,6 +14,7 @@ interface LeafletMapProps {
   route: RouteData | null;
   mapStyle?: "dark" | "bright";
   locateTrigger?: number;
+  isNavigating?: boolean;
 }
 
 export default function LeafletMap({
@@ -24,12 +25,15 @@ export default function LeafletMap({
   route,
   mapStyle = "dark",
   locateTrigger,
+  isNavigating = false,
 }: LeafletMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
+  const tileLayerRef = useRef<L.TileLayer | null>(null);
   const markersRef = useRef<Map<string, L.Marker>>(new Map());
   const userMarkerRef = useRef<L.Marker | null>(null);
-  const routeLayerRef = useRef<L.Polyline | null>(null);
+  const routeLineRef = useRef<L.Polyline | null>(null);
+  const routeGlowRef = useRef<L.Polyline | null>(null);
 
   useEffect(() => {
     const container = mapContainerRef.current;
@@ -42,22 +46,21 @@ export default function LeafletMap({
       attributionControl: false,
     });
 
-    const tileLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      subdomains: ["a", "b", "c"],
-      maxZoom: 19,
-      keepBuffer: 6,
-      className: mapStyle === "dark" ? "map-tiles-dark" : "map-tiles-light",
-    });
+    // CartoDB Dark Matter / Positron - 100% Free, Clean, Minimalist, Zero Garish Colors
+    const tileUrl =
+      mapStyle === "dark"
+        ? "https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png"
+        : "https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}{r}.png";
 
-    tileLayer.on("tileerror", (errorEvent: L.TileErrorEvent) => {
-      const tile = errorEvent.tile as HTMLImageElement;
-      if (tile && !tile.dataset.retried) {
-        tile.dataset.retried = "true";
-        tile.src = tile.src.replace("tile.openstreetmap.org", "tile.openstreetmap.fr/hot");
-      }
+    const tileLayer = L.tileLayer(tileUrl, {
+      subdomains: ["a", "b", "c", "d"],
+      maxZoom: 20,
+      keepBuffer: 6,
+      attribution: "&copy; OpenStreetMap &copy; CARTO",
     });
 
     tileLayer.addTo(map);
+    tileLayerRef.current = tileLayer;
     mapRef.current = map;
 
     // Force invalidateSize to guarantee rendering in dynamic Next.js containers
@@ -80,6 +83,19 @@ export default function LeafletMap({
       mapRef.current = null;
     };
   }, []);
+
+  // Update Tile Layer URL on Theme Switch
+  useEffect(() => {
+    const tileLayer = tileLayerRef.current;
+    if (!tileLayer) return;
+
+    const nextUrl =
+      mapStyle === "dark"
+        ? "https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png"
+        : "https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}{r}.png";
+
+    tileLayer.setUrl(nextUrl);
+  }, [mapStyle]);
 
   // Update User Location
   useEffect(() => {
@@ -186,30 +202,50 @@ export default function LeafletMap({
     });
   }, [stations, activeStationId, onSelectStation]);
 
-  // Update Route Polyline
+  // Update In-App Route Polyline
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
 
-    if (routeLayerRef.current) {
-      routeLayerRef.current.remove();
-      routeLayerRef.current = null;
+    if (routeGlowRef.current) {
+      routeGlowRef.current.remove();
+      routeGlowRef.current = null;
+    }
+    if (routeLineRef.current) {
+      routeLineRef.current.remove();
+      routeLineRef.current = null;
     }
 
     if (route && route.geometry && route.geometry.length > 0) {
       const latLngs = route.geometry.map(([lng, lat]) => [lat, lng] as [number, number]);
-      routeLayerRef.current = L.polyline(latLngs, {
-        color: "#0284c7",
-        weight: 4,
-        opacity: 0.95,
+
+      // Cyan neon glow line
+      routeGlowRef.current = L.polyline(latLngs, {
+        color: "#38bdf8",
+        weight: isNavigating ? 8 : 6,
+        opacity: isNavigating ? 0.5 : 0.3,
+        lineCap: "round",
+        lineJoin: "round",
       }).addTo(map);
 
-      map.fitBounds(routeLayerRef.current.getBounds(), {
-        paddingTopLeft: [30, 70],
-        paddingBottomRight: [30, 260],
+      // Core crisp driving line
+      routeLineRef.current = L.polyline(latLngs, {
+        color: "#0284c7",
+        weight: isNavigating ? 5 : 4,
+        opacity: 0.95,
+        lineCap: "round",
+        lineJoin: "round",
+      }).addTo(map);
+
+      // Fit bounds appropriately
+      const bounds = routeLineRef.current.getBounds();
+      map.fitBounds(bounds, {
+        paddingTopLeft: isNavigating ? [20, 100] : [30, 70],
+        paddingBottomRight: isNavigating ? [20, 140] : [30, 260],
+        maxZoom: 16,
       });
     }
-  }, [route]);
+  }, [route, isNavigating]);
 
   return (
     <div

@@ -47,19 +47,15 @@ nextjs-portal,
   pointer-events: none !important;
 }
 
-/* OpenStreetMap 100% Free - Clean, Fast, Elegant Minimalist Map Styles */
-
-/* 1. DARK: Clean, Simple Slate-Dark Minimalist Map (Single GPU pass, zero lag) */
+/* CartoDB Clean Minimalist Vector/Raster Styles (100% Free, Zero Filter Artifacts) */
 .leaflet-layer.map-tiles-dark {
-  filter: invert(1) hue-rotate(180deg) brightness(0.82) contrast(1.12) grayscale(0.55);
+  filter: none;
 }
 
-/* 2. LIGHT: Clean, Simple Modern Minimalist Daylight Map */
 .leaflet-layer.map-tiles-light {
-  filter: grayscale(0.85) brightness(1.06) contrast(1.05);
+  filter: none;
 }
 
-/* 3. STREETS: Natural Humanitarian Street Logistics Map (Untouched) */
 .leaflet-layer.map-tiles-streets {
   filter: none;
 }

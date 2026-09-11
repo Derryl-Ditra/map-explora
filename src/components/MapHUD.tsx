@@ -29,6 +29,7 @@ export default function MapHUD() {
   const [mapStyle, setMapStyle] = useState<"dark" | "bright">("dark");
 
   const [locateTrigger, setLocateTrigger] = useState(0);
+  const [isNavigating, setIsNavigating] = useState(false);
 
   const handleLocate = useCallback(() => {
     locateUser();
@@ -46,11 +47,65 @@ export default function MapHUD() {
 
   const handleClearActiveStation = useCallback(() => {
     setActiveStation(null);
+    setIsNavigating(false);
+  }, []);
+
+  const handleStartNavigation = useCallback(() => {
+    setIsNavigating(true);
+  }, []);
+
+  const handleExitNavigation = useCallback(() => {
+    setIsNavigating(false);
   }, []);
 
   return (
     <div className="relative h-screen w-screen bg-zinc-950 overflow-hidden flex flex-col font-sans select-none">
       <h1 className="sr-only">Map Explora — Jakarta Executive EV Charging Station Navigator</h1>
+
+      {/* Active Navigation HUD Banner (Top of Screen) */}
+      {isNavigating && activeStation && (
+        <div className="absolute top-4 left-4 right-16 md:left-24 md:right-auto md:w-[380px] z-[1001] animate-in fade-in slide-in-from-top-3 duration-300">
+          <div className="bg-zinc-950/95 border border-cyan-500/60 rounded-2xl p-3.5 shadow-2xl backdrop-blur-xl flex flex-col gap-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                </span>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-cyan-400 font-bold">
+                  In-App Navigation Active
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={handleExitNavigation}
+                className="text-[10px] font-semibold text-zinc-400 hover:text-white bg-zinc-900 hover:bg-zinc-800 px-2 py-0.5 rounded-lg border border-zinc-800 transition-colors"
+              >
+                Exit
+              </button>
+            </div>
+
+            <div className="flex justify-between items-end">
+              <div>
+                <h3 className="text-xs font-bold text-white leading-tight truncate max-w-[200px]">
+                  {activeStation.name}
+                </h3>
+                <p className="text-[10px] text-zinc-400 truncate max-w-[200px]">
+                  {activeStation.parking_type} • {activeStation.kw}kW
+                </p>
+              </div>
+              <div className="text-right shrink-0">
+                <div className="text-sm font-mono font-bold text-cyan-300">
+                  {route ? `${route.distance_km} km` : `${activeStation.distance || 0} km`}
+                </div>
+                <div className="text-[9px] font-mono text-zinc-400">
+                  {route ? `~${route.duration_min} min` : `${activeStation.eta || 15} min`}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Leaflet Map Canvas */}
       <div className="absolute inset-0 z-0">
@@ -62,6 +117,7 @@ export default function MapHUD() {
           route={route}
           mapStyle={mapStyle}
           locateTrigger={locateTrigger}
+          isNavigating={isNavigating}
         />
       </div>
 
@@ -107,6 +163,7 @@ export default function MapHUD() {
         route={route}
         isRouting={isRouting}
         onOpenShare={() => setShowShareCard(true)}
+        onStartNavigation={handleStartNavigation}
       />
 
       {/* Meta Threads Share Card Modal */}
