@@ -20,16 +20,16 @@ interface VectorMapProps {
   mapStyle?: "dark" | "bright";
 }
 
-// OpenFreeMap vector styles (100% free, zero API key, zero watermark)
+// Carto vector styles (Reliable, high uptime, zero API key)
 const PRIMARY_STYLES = {
-  dark: "https://tiles.openfreemap.org/styles/dark",
-  bright: "https://tiles.openfreemap.org/styles/bright",
-};
-
-// Bulletproof fallback vector style if primary host is slow or blocked
-const FALLBACK_STYLES = {
   dark: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
   bright: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
+};
+
+// OpenFreeMap fallback vector style
+const FALLBACK_STYLES = {
+  dark: "https://tiles.openfreemap.org/styles/dark",
+  bright: "https://tiles.openfreemap.org/styles/bright",
 };
 
 export default function VectorMap({
@@ -101,6 +101,7 @@ export default function VectorMap({
 
     let isDisposed = false;
     isReadyRef.current = false;
+    let hasFallenBack = false;
 
     const map = new MapLibreMap({
       container,
@@ -128,9 +129,13 @@ export default function VectorMap({
     // Fallback if primary tile server fails
     map.on("error", (e) => {
       console.warn("MapLibre tile/style warning:", e);
-      if (!isReadyRef.current && !isDisposed) {
+      if (!hasFallenBack && !isDisposed && e.error) {
+        hasFallenBack = true;
         try {
           map.setStyle(FALLBACK_STYLES[mapStyle]);
+          map.once("style.load", () => {
+            if (!isDisposed) initMapLayers(map);
+          });
         } catch {
           // Ignore fallback errors
         }
