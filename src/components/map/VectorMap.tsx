@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import maplibregl, {
+import {
+  addProtocol,
   Map as MapLibreMap,
   Marker,
   NavigationControl,
@@ -111,7 +112,7 @@ export default function VectorMap({
 
     if (!protocolRegistered) {
       const protocol = new pmtiles.Protocol();
-      maplibregl.addProtocol("pmtiles", protocol.tile);
+      addProtocol("pmtiles", protocol.tile);
       protocolRegistered = true;
     }
 
