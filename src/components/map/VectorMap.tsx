@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import {
+import maplibregl, {
   Map as MapLibreMap,
   Marker,
   NavigationControl,
@@ -20,16 +20,22 @@ interface VectorMapProps {
   mapStyle?: "dark" | "bright";
 }
 
-// Carto vector styles (Reliable, high uptime, zero API key)
-const PRIMARY_STYLES = {
-  dark: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
-  bright: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
-};
+import * as pmtiles from "pmtiles";
+import mapLayers from "@/constants/map-styles.json";
 
-// OpenFreeMap fallback vector style
-const FALLBACK_STYLES = {
-  dark: "https://tiles.openfreemap.org/styles/dark",
-  bright: "https://tiles.openfreemap.org/styles/bright",
+let protocolRegistered = false;
+
+const LOCAL_STYLE: any = {
+  version: 8,
+  glyphs: "https://protomaps.github.io/basemaps-assets/fonts/{fontstack}/{range}.pbf",
+  sources: {
+    protomaps: {
+      type: "vector",
+      url: "pmtiles:///jakarta.pmtiles",
+      attribution: '<a href="https://protomaps.com">Protomaps</a> © OSM'
+    }
+  },
+  layers: mapLayers
 };
 
 export default function VectorMap({
@@ -103,9 +109,15 @@ export default function VectorMap({
     isReadyRef.current = false;
     let hasFallenBack = false;
 
+    if (!protocolRegistered) {
+      const protocol = new pmtiles.Protocol();
+      maplibregl.addProtocol("pmtiles", protocol.tile);
+      protocolRegistered = true;
+    }
+
     const map = new MapLibreMap({
       container,
-      style: PRIMARY_STYLES[mapStyle],
+      style: LOCAL_STYLE,
       center: [106.8271, -6.1751], // Jakarta [lng, lat]
       zoom: 12,
       attributionControl: false,
@@ -126,20 +138,8 @@ export default function VectorMap({
     map.on("style.load", onStyleReady);
     map.on("load", onStyleReady);
 
-    // Fallback if primary tile server fails
     map.on("error", (e) => {
       console.warn("MapLibre tile/style warning:", e);
-      if (!hasFallenBack && !isDisposed && e.error) {
-        hasFallenBack = true;
-        try {
-          map.setStyle(FALLBACK_STYLES[mapStyle]);
-          map.once("style.load", () => {
-            if (!isDisposed) initMapLayers(map);
-          });
-        } catch {
-          // Ignore fallback errors
-        }
-      }
     });
 
     // Handle container resize & orientation changes
