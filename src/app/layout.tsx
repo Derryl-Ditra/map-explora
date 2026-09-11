@@ -1,15 +1,20 @@
-import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta-sans",
-  subsets: ["latin"],
-});
+export const viewport: Viewport = {
+  themeColor: "#09090b",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
 
 export const metadata: Metadata = {
-  title: "EV Tracker — Jakarta HUD",
-  description: "High-fidelity EV charging station tracker for Jakarta.",
+  title: "Map Explora — Jakarta Executive EV Navigator",
+  description: "SPKLU charging scout for BYD Denza D9 and luxury electric MPVs in Jakarta.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -18,8 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${plusJakartaSans.variable} h-full antialiased`} suppressHydrationWarning>
-      <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
+    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+      <body className="min-h-full flex flex-col font-sans bg-zinc-950 text-white" suppressHydrationWarning>
         {children}
       </body>
     </html>

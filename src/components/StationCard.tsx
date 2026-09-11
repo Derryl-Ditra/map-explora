@@ -59,7 +59,7 @@ function StationCard({
           <span>{calcChargeTime(station.kw)}</span>
         </div>
         <div className="flex items-center gap-1 justify-end">
-          <span>{station.fee > 0 ? `Rp${station.fee}` : 'Free'}</span>
+          <span>{station.fee && station.fee > 0 ? `Rp${station.fee}` : station.fee_per_kwh ? `Rp${station.fee_per_kwh}/kWh` : 'Standard'}</span>
         </div>
       </div>
     </button>
