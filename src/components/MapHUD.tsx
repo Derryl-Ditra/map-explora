@@ -10,13 +10,13 @@ import MobileDrawer from "./ui/MobileDrawer";
 import ShareCard from "./ui/ShareCard";
 import { Crosshair, Loader2, Moon, Sun } from "lucide-react";
 
-// Dynamic import for MapLibre vector map (WebGL client-only)
-const VectorMap = dynamic(() => import("./map/VectorMap"), {
+// Dynamic import for Leaflet map (client-only)
+const LeafletMap = dynamic(() => import("./map/LeafletMap"), {
   ssr: false,
   loading: () => (
     <div className="h-full w-full bg-zinc-950 flex flex-col items-center justify-center gap-3 text-zinc-500">
       <Loader2 className="w-8 h-8 text-cyan-400 animate-spin" />
-      <span className="text-xs font-mono tracking-wider uppercase">Loading Vector Map...</span>
+      <span className="text-xs font-mono tracking-wider uppercase">Loading Map...</span>
     </div>
   ),
 });
@@ -45,9 +45,9 @@ export default function MapHUD() {
     <div className="relative h-screen w-screen bg-zinc-950 overflow-hidden flex flex-col font-sans select-none">
       <h1 className="sr-only">Map Explora — Jakarta Executive EV Charging Station Navigator</h1>
 
-      {/* Vector Map Canvas */}
+      {/* Leaflet Map Canvas */}
       <div className="absolute inset-0 z-0">
-        <VectorMap
+        <LeafletMap
           stations={filteredStations}
           activeStationId={activeStation?.id || null}
           onSelectStation={handleSelectStation}
