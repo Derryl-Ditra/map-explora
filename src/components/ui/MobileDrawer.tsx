@@ -114,6 +114,7 @@ export default function MobileDrawer({
             isRouting={isRouting}
             onBack={onClearActiveStation}
             onOpenShare={onOpenShare}
+            onStartInAppNavigation={() => setDrawerSnap("collapsed")}
           />
         ) : (
           /* Station Explorer List View */

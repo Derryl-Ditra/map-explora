@@ -19,6 +19,7 @@ interface StationDetailsProps {
   isRouting: boolean;
   onBack: () => void;
   onOpenShare: () => void;
+  onStartInAppNavigation?: () => void;
 }
 
 export default function StationDetails({
@@ -27,6 +28,7 @@ export default function StationDetails({
   isRouting,
   onBack,
   onOpenShare,
+  onStartInAppNavigation,
 }: StationDetailsProps) {
   const openGoogleMaps = () => {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${station.lat},${station.lng}`;
@@ -169,15 +171,23 @@ export default function StationDetails({
       </div>
 
       {/* Action CTA */}
-      <div className="pt-2">
+      <div className="pt-2 flex flex-col gap-2">
+        <button
+          type="button"
+          onClick={onStartInAppNavigation}
+          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-zinc-950 font-bold text-xs tracking-tight transition-all shadow-lg"
+        >
+          <Navigation className="w-4 h-4 text-zinc-950 fill-zinc-950" />
+          <span>Navigate In-App</span>
+        </button>
+
         <button
           type="button"
           onClick={openGoogleMaps}
-          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white hover:bg-zinc-200 text-zinc-950 font-bold text-xs tracking-tight transition-all shadow-lg"
+          className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-white text-[11px] font-medium transition-all"
         >
-          <Navigation className="w-4 h-4 text-zinc-950 fill-zinc-950" />
-          <span>Drive with Google Maps</span>
-          <ExternalLink className="w-3.5 h-3.5 text-zinc-500 ml-1" />
+          <span>Open in Google Maps</span>
+          <ExternalLink className="w-3 h-3 text-zinc-500" />
         </button>
       </div>
     </div>

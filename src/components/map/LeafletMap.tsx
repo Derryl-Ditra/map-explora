@@ -13,6 +13,7 @@ interface LeafletMapProps {
   userPos: [number, number] | null; // [lat, lng]
   route: RouteData | null;
   mapStyle?: "dark" | "bright";
+  locateTrigger?: number;
 }
 
 export default function LeafletMap({
@@ -22,6 +23,7 @@ export default function LeafletMap({
   userPos,
   route,
   mapStyle = "dark",
+  locateTrigger,
 }: LeafletMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
@@ -30,26 +32,54 @@ export default function LeafletMap({
   const routeLayerRef = useRef<L.Polyline | null>(null);
 
   useEffect(() => {
-    if (!mapContainerRef.current || mapRef.current) return;
+    const container = mapContainerRef.current;
+    if (!container || mapRef.current) return;
 
-    const map = L.map(mapContainerRef.current, {
-      center: [-6.1751, 106.8271],
-      zoom: 12,
+    const map = L.map(container, {
+      center: userPos || [-6.2088, 106.8456],
+      zoom: 13,
       zoomControl: false,
+      attributionControl: false,
     });
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '&copy; <a href="https://openstreetmap.org/copyright">OSM</a>',
+    const tileLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      subdomains: ["a", "b", "c"],
+      maxZoom: 19,
+      keepBuffer: 6,
       className: mapStyle === "dark" ? "map-tiles-dark" : "map-tiles-light",
-    }).addTo(map);
+    });
 
+    tileLayer.on("tileerror", (errorEvent: L.TileErrorEvent) => {
+      const tile = errorEvent.tile as HTMLImageElement;
+      if (tile && !tile.dataset.retried) {
+        tile.dataset.retried = "true";
+        tile.src = tile.src.replace("tile.openstreetmap.org", "tile.openstreetmap.fr/hot");
+      }
+    });
+
+    tileLayer.addTo(map);
     mapRef.current = map;
 
+    // Force invalidateSize to guarantee rendering in dynamic Next.js containers
+    const timers = [
+      setTimeout(() => map.invalidateSize(), 50),
+      setTimeout(() => map.invalidateSize(), 200),
+      setTimeout(() => map.invalidateSize(), 600),
+      setTimeout(() => map.invalidateSize(), 1200),
+    ];
+
+    const resizeObserver = new ResizeObserver(() => {
+      map.invalidateSize();
+    });
+    resizeObserver.observe(container);
+
     return () => {
+      timers.forEach(clearTimeout);
+      resizeObserver.disconnect();
       map.remove();
       mapRef.current = null;
     };
-  }, [mapStyle]);
+  }, []);
 
   // Update User Location
   useEffect(() => {
@@ -74,6 +104,16 @@ export default function LeafletMap({
       userMarkerRef.current.setLatLng([lat, lng]);
     }
   }, [userPos]);
+
+  // Pan to User Position when locate button is clicked
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !userPos) return;
+
+    if (locateTrigger && locateTrigger > 0) {
+      map.flyTo(userPos, 15, { duration: 1 });
+    }
+  }, [locateTrigger, userPos]);
 
   // Update Stations
   useEffect(() => {
@@ -108,7 +148,7 @@ export default function LeafletMap({
           <span>${station.kw}kW</span>
           ${
             isDenza
-              ? \`<span class="text-[9px] px-1 py-0.2 rounded bg-cyan-950 text-cyan-400 uppercase font-mono font-bold">D9</span>\`
+              ? '<span class="text-[9px] px-1 py-0.2 rounded bg-cyan-950 text-cyan-400 uppercase font-mono font-bold">D9</span>'
               : ""
           }
         </button>

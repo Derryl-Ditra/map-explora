@@ -28,6 +28,13 @@ export default function MapHUD() {
   const [showShareCard, setShowShareCard] = useState(false);
   const [mapStyle, setMapStyle] = useState<"dark" | "bright">("dark");
 
+  const [locateTrigger, setLocateTrigger] = useState(0);
+
+  const handleLocate = useCallback(() => {
+    locateUser();
+    setLocateTrigger((prev) => prev + 1);
+  }, [locateUser]);
+
   const { route, isLoading: isRouting } = useRouting({
     origin: userPos,
     destination: activeStation ? [activeStation.lat, activeStation.lng] : null,
@@ -54,6 +61,7 @@ export default function MapHUD() {
           userPos={userPos}
           route={route}
           mapStyle={mapStyle}
+          locateTrigger={locateTrigger}
         />
       </div>
 
@@ -62,7 +70,7 @@ export default function MapHUD() {
         {/* Locate User Button */}
         <button
           type="button"
-          onClick={locateUser}
+          onClick={handleLocate}
           title="Locate My Position"
           className="w-10 h-10 rounded-xl bg-zinc-950/90 border border-zinc-800 text-zinc-300 hover:text-cyan-400 flex items-center justify-center shadow-2xl backdrop-blur-md active:scale-95 transition-all"
         >
