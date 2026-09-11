@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import {
   Map as MapLibreMap,
   Marker,
@@ -8,7 +8,6 @@ import {
   LngLatBounds,
   GeoJSONSource,
 } from "maplibre-gl";
-import "maplibre-gl/dist/maplibre-gl.css";
 import { ChargingStation } from "@/types/station";
 import { RouteData } from "@/types/route";
 
@@ -18,13 +17,19 @@ interface VectorMapProps {
   onSelectStation: (station: ChargingStation) => void;
   userPos: [number, number] | null; // [lat, lng]
   route: RouteData | null;
-  mapStyle?: "dark" | "bright" | "liberty";
+  mapStyle?: "dark" | "bright";
 }
 
-const STYLE_URLS = {
+// OpenFreeMap vector styles (100% free, zero API key, zero watermark)
+const PRIMARY_STYLES = {
   dark: "https://tiles.openfreemap.org/styles/dark",
   bright: "https://tiles.openfreemap.org/styles/bright",
-  liberty: "https://tiles.openfreemap.org/styles/liberty",
+};
+
+// Bulletproof fallback vector style if primary host is slow or blocked
+const FALLBACK_STYLES = {
+  dark: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
+  bright: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
 };
 
 export default function VectorMap({
@@ -39,27 +44,11 @@ export default function VectorMap({
   const mapRef = useRef<MapLibreMap | null>(null);
   const markersRef = useRef<Map<string, Marker>>(new Map());
   const userMarkerRef = useRef<Marker | null>(null);
-  const [mapLoaded, setMapLoaded] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+  const isReadyRef = useRef(false);
 
-  // Initialize map
-  useEffect(() => {
-    if (!mapContainerRef.current) return;
-
-    const map = new MapLibreMap({
-      container: mapContainerRef.current,
-      style: STYLE_URLS[mapStyle],
-      center: [106.8271, -6.1751], // Jakarta center in [lng, lat]
-      zoom: 12,
-      attributionControl: false,
-    });
-
-    map.addControl(new NavigationControl({ showCompass: true }), "top-right");
-
-    map.on("load", () => {
-      mapRef.current = map;
-      setMapLoaded(true);
-
-      // Add route GeoJSON source and layer
+  const initMapLayers = useCallback((map: MapLibreMap) => {
+    if (!map.getSource("route-source")) {
       map.addSource("route-source", {
         type: "geojson",
         data: {
@@ -83,7 +72,7 @@ export default function VectorMap({
         paint: {
           "line-color": "#38bdf8",
           "line-width": 8,
-          "line-opacity": 0.35,
+          "line-opacity": 0.4,
           "line-blur": 3,
         },
       });
@@ -102,44 +91,110 @@ export default function VectorMap({
           "line-opacity": 0.95,
         },
       });
+    }
+  }, []);
+
+  // Initialize Map
+  useEffect(() => {
+    const container = mapContainerRef.current;
+    if (!container) return;
+
+    let isDisposed = false;
+    isReadyRef.current = false;
+
+    const map = new MapLibreMap({
+      container,
+      style: PRIMARY_STYLES[mapStyle],
+      center: [106.8271, -6.1751], // Jakarta [lng, lat]
+      zoom: 12,
+      attributionControl: false,
+      trackResize: true,
     });
 
+    map.addControl(new NavigationControl({ showCompass: true }), "top-right");
+
+    const onStyleReady = () => {
+      if (isDisposed) return;
+      initMapLayers(map);
+      isReadyRef.current = true;
+      setIsReady(true);
+      map.resize();
+    };
+
+    // style.load fires fast as soon as the style JSON is parsed
+    map.on("style.load", onStyleReady);
+    map.on("load", onStyleReady);
+
+    // Fallback if primary tile server fails
+    map.on("error", (e) => {
+      console.warn("MapLibre tile/style warning:", e);
+      if (!isReadyRef.current && !isDisposed) {
+        try {
+          map.setStyle(FALLBACK_STYLES[mapStyle]);
+        } catch {
+          // Ignore fallback errors
+        }
+      }
+    });
+
+    // Handle container resize & orientation changes
+    const resizeObserver = new ResizeObserver(() => {
+      if (!isDisposed && mapRef.current) {
+        mapRef.current.resize();
+      }
+    });
+    resizeObserver.observe(container);
+
+    // Force map resize at intervals to guarantee canvas sizing
+    const timers = [
+      setTimeout(() => map.resize(), 50),
+      setTimeout(() => map.resize(), 200),
+      setTimeout(() => map.resize(), 600),
+      setTimeout(() => map.resize(), 1200),
+    ];
+
+    mapRef.current = map;
+
     return () => {
+      isDisposed = true;
+      timers.forEach(clearTimeout);
+      resizeObserver.disconnect();
       map.remove();
       mapRef.current = null;
     };
-  }, [mapStyle]);
+  }, [mapStyle, initMapLayers]);
 
-  // Update user position marker
+  // Update User Location Marker
   useEffect(() => {
-    if (!mapRef.current || !userPos) return;
+    const map = mapRef.current;
+    if (!map || !userPos) return;
 
     const [lat, lng] = userPos;
 
     if (!userMarkerRef.current) {
       const el = document.createElement("div");
-      el.className = "relative flex items-center justify-center w-6 h-6";
+      el.className = "relative flex items-center justify-center w-7 h-7";
       el.innerHTML = `
-        <div class="absolute w-6 h-6 rounded-full bg-cyan-400/20 animate-ping"></div>
-        <div class="relative w-3.5 h-3.5 rounded-full bg-cyan-400 border-2 border-white shadow-lg"></div>
+        <div class="absolute w-7 h-7 rounded-full bg-cyan-400/25 animate-ping"></div>
+        <div class="relative w-4 h-4 rounded-full bg-cyan-400 border-2 border-white shadow-xl"></div>
       `;
 
       userMarkerRef.current = new Marker({ element: el })
         .setLngLat([lng, lat])
-        .addTo(mapRef.current);
+        .addTo(map);
     } else {
       userMarkerRef.current.setLngLat([lng, lat]);
     }
-  }, [userPos, mapLoaded]);
+  }, [userPos, isReady]);
 
-  // Update station markers
+  // Update Station Markers
   useEffect(() => {
-    if (!mapRef.current || !mapLoaded) return;
+    const map = mapRef.current;
+    if (!map || !isReady) return;
 
-    const currentMap = mapRef.current;
     const currentMarkerIds = new Set(stations.map((s) => s.id));
 
-    // Remove markers that are no longer in the filtered list
+    // Remove markers that are filtered out
     markersRef.current.forEach((marker, id) => {
       if (!currentMarkerIds.has(id)) {
         marker.remove();
@@ -147,7 +202,7 @@ export default function VectorMap({
       }
     });
 
-    // Add or update markers
+    // Add or update visible markers
     stations.forEach((station) => {
       const isActive = station.id === activeStationId;
       const isDenza = station.denza_approved;
@@ -158,11 +213,11 @@ export default function VectorMap({
       if (!marker) {
         const el = document.createElement("button");
         el.type = "button";
-        el.className = `group transition-transform active:scale-95 cursor-pointer select-none focus:outline-none`;
+        el.className = "group transition-transform active:scale-95 cursor-pointer select-none focus:outline-none";
 
         marker = new Marker({ element: el })
           .setLngLat([station.lng, station.lat])
-          .addTo(currentMap);
+          .addTo(map);
 
         el.addEventListener("click", (e) => {
           e.stopPropagation();
@@ -172,15 +227,15 @@ export default function VectorMap({
         markersRef.current.set(station.id, marker);
       }
 
-      // Update marker element styling
+      // Marker element styling
       const el = marker.getElement();
       el.innerHTML = `
         <div class="relative flex items-center gap-1.5 px-2 py-1 rounded-full text-[11px] font-semibold tracking-tight shadow-2xl transition-all ${
           isActive
-            ? "bg-white text-zinc-950 ring-4 ring-cyan-400/50 scale-110 z-30"
+            ? "bg-white text-zinc-950 ring-4 ring-cyan-400/50 scale-110 z-30 font-bold"
             : isDenza
-            ? "bg-zinc-900/90 text-cyan-300 border border-cyan-500/40 hover:border-cyan-400 hover:scale-105"
-            : "bg-zinc-900/80 text-zinc-400 border border-zinc-700/50 hover:text-white"
+            ? "bg-zinc-900/95 text-cyan-300 border border-cyan-500/50 hover:border-cyan-400 hover:scale-105"
+            : "bg-zinc-900/85 text-zinc-400 border border-zinc-700/60 hover:text-white"
         }">
           <span class="w-1.5 h-1.5 rounded-full ${
             isFast ? "bg-cyan-400 animate-pulse" : isDenza ? "bg-emerald-400" : "bg-zinc-500"
@@ -194,13 +249,14 @@ export default function VectorMap({
         </div>
       `;
     });
-  }, [stations, activeStationId, onSelectStation, mapLoaded]);
+  }, [stations, activeStationId, onSelectStation, isReady]);
 
   // Update Route Polyline
   useEffect(() => {
-    if (!mapRef.current || !mapLoaded) return;
+    const map = mapRef.current;
+    if (!map || !isReady) return;
 
-    const source = mapRef.current.getSource("route-source") as GeoJSONSource;
+    const source = map.getSource("route-source") as GeoJSONSource;
     if (!source) return;
 
     if (route && route.geometry && route.geometry.length > 0) {
@@ -216,10 +272,10 @@ export default function VectorMap({
       // Fit bounds to show route
       const bounds = new LngLatBounds();
       route.geometry.forEach((coord) => bounds.extend(coord));
-      mapRef.current.fitBounds(bounds, {
-        padding: { top: 80, bottom: 260, left: 40, right: 40 },
+      map.fitBounds(bounds, {
+        padding: { top: 70, bottom: 260, left: 30, right: 30 },
         maxZoom: 15,
-        duration: 1200,
+        duration: 900,
       });
     } else {
       source.setData({
@@ -231,11 +287,29 @@ export default function VectorMap({
         },
       });
     }
-  }, [route, mapLoaded]);
+  }, [route, isReady]);
 
   return (
-    <div className="relative w-full h-full bg-zinc-950">
-      <div ref={mapContainerRef} className="w-full h-full" />
+    <div
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#09090b",
+      }}
+    >
+      <div
+        ref={mapContainerRef}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+        }}
+      />
     </div>
   );
 }
