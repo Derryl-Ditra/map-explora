@@ -33,14 +33,14 @@ const REPORTS_KEY = "map-explora-venue-reports";
 
 const FIT_STATUS_LABEL: Record<string, string> = {
   "branch-confirmed-dated-term": "Current-term class schedule verified for this branch",
-  "branch-confirmed-live-undated": "Under-4 classes confirmed on this branch's live schedule (no term dates published)",
-  "branch-category-confirmed-live-undated": "Under-4 class category confirmed at this branch; exact ages not published per branch",
+  "branch-confirmed-live-undated": "Classes for ages 0-3 confirmed on this branch's official page (source undated, no term dates)",
+  "branch-category-confirmed-live-undated": "Class category for ages 0-3 confirmed at this branch; exact ages not published per branch",
   "branch-candidate-live-undated": "Location candidate: branch appears in an official address listing; offerings unconfirmed",
-  "official-chain-program": "Chain runs under-4 programs; this branch is not confirmed yet",
+  "official-chain-program": "Chain runs classes for ages 0-3; this branch is not confirmed yet",
   "media-claimed": "Reported by media; not confirmed by the provider",
   "official-global-unverified-local": "Chain program confirmed globally; this branch unverified",
   "unvalidated-extraction": "Class list for this branch is pending visual verification",
-  "unknown": "No verified under-4 information for this branch",
+  "unknown": "No verified age information for this branch",
 };
 
 function formatMonths(m: number): string {
@@ -237,18 +237,18 @@ export default function VenueDetails({
         </p>
       )}
 
-      {/* Under-4 classes: the first thing a parent scans */}
+      {/* Classes by age: the first thing a parent scans */}
       <div className="p-4 rounded-2xl border border-[#e7e0d4] bg-white flex flex-col gap-2">
         <div className="flex items-center gap-2">
           <ShieldCheck className="w-5 h-5 text-[#1a7a4a]" />
-          <span className="font-bold text-[1rem] text-[#221d18]">Under-4 classes here</span>
+          <span className="font-bold text-[1rem] text-[#221d18]">Classes here by age</span>
         </div>
         <span className="text-[1rem] text-[#6d675f]">
           {FIT_STATUS_LABEL[venue.fitStatus] ?? venue.fitStatus}
         </span>
         {offered.length === 0 && !venue.branchAge ? (
           <span className="text-[1rem] text-[#6d675f]">
-            No branch-confirmed under-4 classes in the dataset yet.
+            No branch-confirmed classes for ages 0-3 in the dataset yet.
           </span>
         ) : (
           <div className="flex flex-col gap-2.5 pt-1">
@@ -553,3 +553,4 @@ export default function VenueDetails({
     </div>
   );
                   }
+// Trailing sentinel: absorbs the web editor last-line indent artifact.

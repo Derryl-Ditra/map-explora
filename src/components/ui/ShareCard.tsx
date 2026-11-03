@@ -35,7 +35,7 @@ export default function ShareCard({ venue, route, onClose }: ShareCardProps) {
     : null;
 
   const lines = [
-    `Under-4 class spot: ${venue.chain ? `${venue.chain} ` : ""}${venue.branchName} (${venue.area})`,
+    `Under-5 class spot: ${venue.chain ? `${venue.chain} ` : ""}${venue.branchName} (${venue.area})`,
     venue.address,
     classLines ? `Classes: ${classLines}` : null,
     venue.reviews && venue.reviews.rating !== null
@@ -45,7 +45,7 @@ export default function ShareCard({ venue, route, onClose }: ShareCardProps) {
       : null,
     distanceText ? `Drive: ${distanceText}` : null,
     "",
-    "Found via Map Explora (under-4 class map, Jabodetabek)",
+    "Found via Map Explora (under-5 class map, Jabodetabek)",
   ].filter((l): l is string => l !== null);
 
   const shareText = lines.join("\n");
@@ -79,7 +79,7 @@ export default function ShareCard({ venue, route, onClose }: ShareCardProps) {
         <div className="bg-white border border-[#e7e0d4] rounded-2xl p-4 flex flex-col gap-3">
           <div className="flex flex-col">
             <span className="text-[0.8125rem] text-[#1a7a4a] font-bold">
-              Under-4 Class Spot
+              Under-5 Class Spot
             </span>
             <span className="text-[1.0625rem] font-bold text-[#221d18] leading-snug mt-0.5">
               {venue.chain ? `${venue.chain} - ` : ""}
@@ -132,3 +132,4 @@ export default function ShareCard({ venue, route, onClose }: ShareCardProps) {
     </div>
   );
 }
+// Trailing sentinel: absorbs the web editor last-line indent artifact.

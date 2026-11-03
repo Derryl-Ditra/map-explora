@@ -18,7 +18,15 @@ function ageStatus(venue: Venue): { text: string; tone: "warn" | "ok" | "muted" 
   const claims: { age: AgeClaim; note?: string }[] = [];
   if (venue.branchAge) claims.push({ age: venue.branchAge });
   for (const p of venue.programs) if (p.offering === "offered") claims.push({ age: p.age, note: p.note });
-  if (claims.length === 0) return { text: "Ages unknown. Check with the provider.", tone: "muted" };
+  if (claims.length === 0) {
+    // No per-branch age claims: say what the dataset actually knows instead
+    // of a blanket "unknown" that contradicts the details view.
+    if (venue.fitStatus === "official-chain-program")
+      return { text: "Chain runs classes for ages 0-3; this branch is not confirmed yet.", tone: "muted" };
+    if (venue.fitStatus === "branch-candidate-live-undated")
+      return { text: "Listed in an official address directory; classes unconfirmed.", tone: "muted" };
+    return { text: "Ages unknown. Check with the provider.", tone: "muted" };
+  }
   if (claims.some((c) => c.age.sourceConflict))
     return { text: "Age sources disagree. Confirm the age range before you go.", tone: "warn" };
   if (
@@ -127,3 +135,5 @@ export default function SelectionCard({
     </div>
   );
 }
+
+// Trailing sentinel: absorbs the web editor last-line indent artifact.
