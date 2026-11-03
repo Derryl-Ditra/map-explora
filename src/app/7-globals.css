@@ -1,0 +1,84 @@
+@import "tailwindcss";
+@import "maplibre-gl/dist/maplibre-gl.css";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: #3b82f6;
+  --color-border: #27272a;
+
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+:root {
+  --background: #0d0d0d;
+  --foreground: #ffffff;
+}
+
+html, body {
+  height: 100%;
+  overscroll-behavior: none;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* Hide Next.js dev indicator */
+nextjs-portal,
+[data-nextjs-toast-wrapper],
+.nextjs-static-indicator {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* MapLibre attribution: legible over the dark HUD theme */
+.maplibregl-ctrl-attrib {
+  background: rgba(9, 9, 11, 0.75);
+  color: #a1a1aa;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 6px 0 0 0;
+}
+
+.maplibregl-ctrl-attrib a {
+  color: #67e8f9;
+}
+
+/* On mobile the bottom sheet covers the map attribution; the drawer carries it instead. */
+@media (max-width: 767px) {
+  .maplibregl-ctrl-attrib {
+    display: none;
+  }
+}
+
+/* Marker pulse */
+@keyframes marker-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.animate-marker-pulse {
+  animation: marker-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
