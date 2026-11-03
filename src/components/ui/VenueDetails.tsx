@@ -23,6 +23,7 @@ interface VenueDetailsProps {
   isRouting: boolean;
   routingError?: string | null;
   onBack: () => void;
+  backLabel?: string;
   onOpenShare: () => void;
   onStartInAppNavigation?: () => void;
   canNavigate?: boolean;
@@ -145,6 +146,7 @@ export default function VenueDetails({
   isRouting,
   routingError,
   onBack,
+  backLabel = "All places",
   onOpenShare,
   onStartInAppNavigation,
   canNavigate = true,
@@ -196,7 +198,7 @@ export default function VenueDetails({
           className="flex items-center gap-1.5 text-[#1a7a4a] hover:text-[#14532d] py-2 font-semibold transition-colors"
         >
           <ArrowLeft className="w-4.5 h-4.5" />
-          <span className="text-[1rem]">All places</span>
+          <span className="text-[1rem]">{backLabel}</span>
         </button>
 
         <button
@@ -392,7 +394,7 @@ export default function VenueDetails({
               </span>
             </div>
             <div className="bg-white p-3 rounded-2xl border border-[#e7e0d4] flex-1 min-w-[min(100%,13.75rem)]">
-              <span className="text-[0.875rem] text-[#6d675f] block">Drive ETA</span>
+              <span className="text-[0.875rem] text-[#6d675f] block">Drive ETA, no traffic</span>
               <span className="font-bold text-[#1a7a4a] text-[1rem]">
                 {isRouting ? "..." : `${route?.duration_min} min`}
               </span>
@@ -418,7 +420,7 @@ export default function VenueDetails({
       {route && (
         <p className="text-[0.9375rem] text-[#6d675f]">
           Route computed by the OSRM demo server, which receives your position and the
-          destination coordinates to calculate it. This app does not store location history.
+          destination coordinates to calculate it. This app does not store location history. The drive time ignores traffic, so allow more time at busy hours.
         </p>
       )}
 
@@ -550,4 +552,4 @@ export default function VenueDetails({
       </div>
     </div>
   );
-}
+                  }
