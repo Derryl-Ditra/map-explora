@@ -10,7 +10,7 @@ import { calculateDistance } from "@/utils/geo";
 import MobileDrawer from "./ui/MobileDrawer";
 import ShareCard from "./ui/ShareCard";
 import SelectionCard from "./ui/SelectionCard";
-import { Crosshair, Loader2, Moon, Sun, MapPin } from "lucide-react";
+import { Crosshair, Loader2, Moon, Sun, MapPin, X } from "lucide-react";
 
 // Dynamic import for the map (client-only)
 const VectorMap = dynamic(() => import("./map/VectorMap"), {
@@ -67,6 +67,8 @@ export default function MapHUD() {
   const prevViewRef = useRef<{ view: "list" | "map"; detail: boolean }>({ view: "map", detail: false });
 
   const [isNavigating, setIsNavigating] = useState(false);
+  // Location notice: dismissible, auto-hides, never covers sheet controls.
+  const [locationNoticeGone, setLocationNoticeGone] = useState(false);
   // Bumped when the area or activity filter changes so the map frames all matches.
   const [fitTick, setFitTick] = useState(0);
   const [followUser, setFollowUser] = useState(false);
@@ -155,6 +157,14 @@ export default function MapHUD() {
     if (isNavigating) setFollowUser(true);
   }, [requestRecenter, isNavigating]);
 
+  // Reset the dismissal when the location state changes; auto-hide after 8s.
+  useEffect(() => {
+    setLocationNoticeGone(false);
+    if (!locationError) return;
+    const t = setTimeout(() => setLocationNoticeGone(true), 8000);
+    return () => clearTimeout(t);
+  }, [locationError]);
+
   // Arrival detection: within ~150 m of the venue while navigating.
   useEffect(() => {
     if (!isNavigating || !activeVenue || !hasActualLocation || !userPos || arrived) return;
@@ -192,12 +202,21 @@ export default function MapHUD() {
     <div className="relative h-dvh w-screen bg-[#f6f2ec] overflow-hidden flex flex-col font-sans select-none">
       <h1 className="sr-only">Map Explora - Under-5 baby, toddler and preschool classes in Jakarta and Jabodetabek</h1>
 
-      {/* Location permission notice */}
-      {locationError && (
-        <div className="absolute top-[76px] md:top-4 left-1/2 -translate-x-1/2 z-[1001] max-w-[90vw]">
-          <div className="bg-white border border-[#e7e0d4] rounded-2xl px-3.5 py-2.5 text-[0.9375rem] text-[#4a443c] shadow-sm flex items-center gap-2">
+      {/* Location permission notice: above the sheet on phones (never over
+          Back/venue names), top-center on desktop. Dismissible, auto-hides. */}
+      {locationError && !locationNoticeGone && (
+        <div className="absolute bottom-[176px] md:bottom-auto md:top-4 left-1/2 -translate-x-1/2 z-[1001] w-[min(92vw,340px)]">
+          <div className="bg-white border border-[#e7e0d4] rounded-2xl pl-3.5 pr-2 py-2.5 text-[0.9375rem] text-[#4a443c] shadow-sm flex items-center gap-2">
             <MapPin className="w-4 h-4 text-[#92400e] shrink-0" />
             <span>{locationError}</span>
+            <button
+              type="button"
+              onClick={() => setLocationNoticeGone(true)}
+              aria-label="Dismiss location notice"
+              className="w-8 h-8 shrink-0 rounded-full flex items-center justify-center text-[#6d675f] hover:text-[#221d18]"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </div>
         </div>
       )}
