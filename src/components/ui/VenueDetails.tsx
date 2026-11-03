@@ -33,7 +33,7 @@ const REPORTS_KEY = "map-explora-venue-reports";
 
 const FIT_STATUS_LABEL: Record<string, string> = {
   "branch-confirmed-dated-term": "Current-term class schedule verified for this branch",
-  "branch-confirmed-live-undated": "Under-4 classes confirmed on this branch's live schedule (no term dates published)",
+  "branch-confirmed-live-undated": "Under-4 classes confirmed on this branch's official page (source undated, no term dates)",
   "branch-category-confirmed-live-undated": "Under-4 class category confirmed at this branch; exact ages not published per branch",
   "branch-candidate-live-undated": "Location candidate: branch appears in an official address listing; offerings unconfirmed",
   "official-chain-program": "Chain runs under-4 programs; this branch is not confirmed yet",
