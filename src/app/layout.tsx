@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const viewport: Viewport = {
-  themeColor: "#09090b",
+  themeColor: "#f6f2ec",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -11,17 +11,21 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Map Explora - Jakarta Executive EV Navigator",
-  description: "SPKLU charging scout for BYD Denza D9 and luxury electric MPVs in Jakarta.",
+  title: "Map Explora - Under 4 Activities",
+  description: "Map of baby and toddler classes (under 4 years) across Jakarta, Bintaro and Jabodetabek, with branch-confirmed age eligibility.",
   manifest: "/manifest.webmanifest",
   icons: {
     icon: "/icon.svg",
   },
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "default",
     title: "Map Explora",
   },
+  // Opt in to OS-level text scaling where the browser supports it
+  // (progressive enhancement; ignored elsewhere). Root font-size is
+  // intentionally never set so the user agent preference rules.
+  other: { "text-scale": "scale" },
 };
 
 export default function RootLayout({
@@ -31,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
-      <body className="min-h-full flex flex-col font-sans bg-zinc-950 text-white" suppressHydrationWarning>
+      <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
         {children}
       </body>
     </html>
