@@ -1,6 +1,6 @@
 "use client";
 
-import { Venue } from "@/types/venue";
+import { Venue, AgeClaim } from "@/types/venue";
 import { Navigation, ExternalLink, X, ChevronRight } from "lucide-react";
 
 interface SelectionCardProps {
@@ -10,6 +10,29 @@ interface SelectionCardProps {
   onNavigate: () => void;
   onDetails: () => void;
   onClose: () => void;
+}
+
+// Worst-case age status across the branch statement and offered programs, so
+// a conflict or unconfirmed age is visible before Navigate, not only in Details.
+function ageStatus(venue: Venue): { text: string; tone: "warn" | "ok" | "muted" } {
+  const claims: { age: AgeClaim; note?: string }[] = [];
+  if (venue.branchAge) claims.push({ age: venue.branchAge });
+  for (const p of venue.programs) if (p.offering === "offered") claims.push({ age: p.age, note: p.note });
+  if (claims.length === 0) return { text: "Ages unknown. Check with the provider.", tone: "muted" };
+  if (claims.some((c) => c.age.sourceConflict))
+    return { text: "Age sources disagree. Confirm the age range before you go.", tone: "warn" };
+  if (
+    claims.some(
+      (c) =>
+        c.age.verification === "provider-confirmed" &&
+        c.age.level === "branch" &&
+        ((c.age.minMonths === null) !== (c.age.maxMonths === null) || (!!c.note && /ambigu/i.test(c.note)))
+    )
+  )
+    return { text: "Age range unclear at this branch. Confirm before you go.", tone: "warn" };
+  if (claims.every((c) => c.age.verification === "provider-confirmed" && c.age.level === "branch"))
+    return { text: "Ages confirmed by this branch", tone: "ok" };
+  return { text: "Ages not confirmed for this branch. Check before you go.", tone: "muted" };
 }
 
 /**
@@ -24,6 +47,7 @@ export default function SelectionCard({
   onDetails,
   onClose,
 }: SelectionCardProps) {
+  const age = ageStatus(venue);
   const name = `${venue.chain && venue.chain !== venue.branchName ? `${venue.chain} ` : ""}${venue.branchName}`;
   const openGoogleMaps = () => {
     const q = routable
@@ -59,6 +83,17 @@ export default function SelectionCard({
           <X className="w-4 h-4 text-[#4a443c]" />
         </button>
       </div>
+      <p
+        className={`text-[0.875rem] font-semibold px-3 py-1.5 rounded-xl ${
+          age.tone === "warn"
+            ? "bg-[#fef3c7] text-[#92400e]"
+            : age.tone === "ok"
+              ? "bg-[#e3f2e8] text-[#14532d]"
+              : "bg-[#f0ece4] text-[#6d675f]"
+        }`}
+      >
+        {age.text}
+      </p>
       <div className="flex gap-2">
         {routable && canNavigate && (
           <button
