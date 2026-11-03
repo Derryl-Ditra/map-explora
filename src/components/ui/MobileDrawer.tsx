@@ -150,7 +150,9 @@ export default function MobileDrawer({
   const isDesktop = useIsDesktop();
   const winH = useWindowHeight();
   const stops: Record<Snap, number> = {
-    peek: 156,
+    // Tall enough for BOTH summary pill rows (44px chips + gap + padding) -
+    // anything shorter clips pills mid-row and makes them look broken.
+    peek: 246,
     half: Math.round(winH * 0.52),
     full: winH - 12,
   };
@@ -326,6 +328,7 @@ export default function MobileDrawer({
               onResetFilters={onResetFilters}
               categories={categories}
               areas={areas}
+              onOpenPanel={() => { if (!isDesktop && snap === "peek") snapTo("half"); }}
             />
 
             {/* Venue List */}
