@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { VenueFilterState } from "@/types/venue";
-import { Baby, SlidersHorizontal } from "lucide-react";
+import { Baby } from "lucide-react";
 
 interface FilterBarProps {
   filters: VenueFilterState;
@@ -21,6 +20,7 @@ const AGE_PRESETS: { label: string; months: number | null }[] = [
   { label: "18 mo", months: 18 },
   { label: "24 mo", months: 24 },
   { label: "36 mo", months: 36 },
+  { label: "48 mo", months: 48 },
 ];
 
 function ageLabel(months: number): string {
@@ -54,14 +54,14 @@ function Chip({
   );
 }
 
+// Chips wrap onto as many rows as they need: nothing clips and nothing hides
+// behind a horizontal scroll, on phone or desktop.
 export default function FilterBar({
   filters,
   onUpdateFilter,
   categories,
   areas,
 }: FilterBarProps) {
-  const [moreOpen, setMoreOpen] = useState(false);
-
   return (
     <div className="w-full shrink-0 flex flex-col gap-2.5">
       {/* Primary group: child's age (always visible, first control) */}
@@ -70,7 +70,7 @@ export default function FilterBar({
           <Baby className="w-4.5 h-4.5 text-[#1a7a4a]" />
           <span>Your child&apos;s age</span>
         </span>
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+        <div className="flex flex-wrap items-center gap-2 py-0.5">
           {AGE_PRESETS.map((a) => (
             <Chip
               key={a.label}
@@ -88,7 +88,7 @@ export default function FilterBar({
           <input
             type="range"
             min={0}
-            max={47}
+            max={59}
             step={1}
             value={filters.ageMonths}
             onChange={(e) => onUpdateFilter("ageMonths", Number(e.target.value))}
@@ -101,10 +101,10 @@ export default function FilterBar({
         </div>
       )}
 
-      {/* Area: always visible, second scan dimension for parents */}
+      {/* Area */}
       <div className="flex flex-col gap-1.5">
         <span className="text-[0.9375rem] font-semibold text-[#6d675f]">Area</span>
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+        <div className="flex flex-wrap items-center gap-2 py-0.5">
           <Chip
             active={filters.area === "ALL"}
             onClick={() => onUpdateFilter("area", "ALL")}
@@ -123,41 +123,28 @@ export default function FilterBar({
         </div>
       </div>
 
-      {/* Activity type: one level down on mobile; expanded on desktop */}
-      <button
-        type="button"
-        onClick={() => setMoreOpen((v) => !v)}
-        className="md:hidden flex items-center gap-2 text-[1rem] font-semibold text-[#1a7a4a] py-1"
-      >
-        <SlidersHorizontal className="w-4 h-4" />
-        <span>
-          Activity type
-          {filters.category !== "ALL" && `: ${filters.category}`}
-        </span>
-      </button>
-
-      <div className={`${moreOpen ? "flex" : "hidden"} md:flex flex-col gap-3`}>
-        <div className="flex flex-col gap-2">
-          <span className="text-[0.9375rem] font-semibold text-[#6d675f]">Activity</span>
-          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+      {/* Activity: always visible, same weight as age and area */}
+      <div className="flex flex-col gap-1.5">
+        <span className="text-[0.9375rem] font-semibold text-[#6d675f]">Activity</span>
+        <div className="flex flex-wrap items-center gap-2 py-0.5">
+          <Chip
+            active={filters.category === "ALL"}
+            onClick={() => onUpdateFilter("category", "ALL")}
+          >
+            <span>All</span>
+          </Chip>
+          {categories.map((c) => (
             <Chip
-              active={filters.category === "ALL"}
-              onClick={() => onUpdateFilter("category", "ALL")}
+              key={c}
+              active={filters.category === c}
+              onClick={() => onUpdateFilter("category", c)}
             >
-              <span>All</span>
+              <span>{c}</span>
             </Chip>
-            {categories.map((c) => (
-              <Chip
-                key={c}
-                active={filters.category === c}
-                onClick={() => onUpdateFilter("category", c)}
-              >
-                <span>{c}</span>
-              </Chip>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
     </div>
   );
 }
+// Trailing sentinel: absorbs the web editor last-line indent artifact.
