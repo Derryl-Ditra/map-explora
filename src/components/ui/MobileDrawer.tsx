@@ -146,8 +146,6 @@ export default function MobileDrawer({
 }: MobileDrawerProps) {
   const total = confirmed.length + unconfirmed.length;
   const ageActive = filters.ageMonths !== null;
-  const filtersActive =
-    ageActive || filters.area !== "ALL" || filters.category !== "ALL" || filters.searchQuery.trim() !== "";
 
   const isDesktop = useIsDesktop();
   const winH = useWindowHeight();
@@ -325,21 +323,10 @@ export default function MobileDrawer({
             <FilterBar
               filters={filters}
               onUpdateFilter={handleFilter}
+              onResetFilters={onResetFilters}
               categories={categories}
               areas={areas}
             />
-
-            {filtersActive && (
-              <div className="flex justify-end -mt-1">
-                <button
-                  type="button"
-                  onClick={onResetFilters}
-                  className="text-[0.9375rem] font-semibold text-[#1a7a4a] underline underline-offset-2"
-                >
-                  Reset filters
-                </button>
-              </div>
-            )}
 
             {/* Venue List */}
             <div className="flex flex-col gap-2.5 pt-1 pb-4">
