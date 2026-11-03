@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef, useSyncExternalStore } from "react";
 import dynamic from "next/dynamic";
 import { useGeolocation } from "@/hooks/useGeolocation";
 import { useVenueFilters } from "@/hooks/useVenueFilters";
@@ -9,6 +9,7 @@ import { Venue } from "@/types/venue";
 import { calculateDistance } from "@/utils/geo";
 import MobileDrawer from "./ui/MobileDrawer";
 import ShareCard from "./ui/ShareCard";
+import SelectionCard from "./ui/SelectionCard";
 import { Crosshair, Loader2, Moon, Sun, MapPin } from "lucide-react";
 
 // Dynamic import for the map (client-only)
@@ -23,6 +24,18 @@ const VectorMap = dynamic(() => import("./map/VectorMap"), {
 });
 
 const ARRIVAL_RADIUS_KM = 0.15;
+
+function useIsDesktop(): boolean {
+  return useSyncExternalStore(
+    (cb) => {
+      const mq = window.matchMedia("(min-width: 768px)");
+      mq.addEventListener("change", cb);
+      return () => mq.removeEventListener("change", cb);
+    },
+    () => window.matchMedia("(min-width: 768px)").matches,
+    () => false
+  );
+}
 
 export default function MapHUD() {
   const {
@@ -42,9 +55,16 @@ export default function MapHUD() {
   const [activeVenue, setActiveVenue] = useState<Venue | null>(null);
   const [showShareCard, setShowShareCard] = useState(false);
   const [mapStyle, setMapStyle] = useState<"dark" | "light">("light");
-  // Mobile is discovery-first: list is the default view; the map takes the
-  // full viewport only when the parent chooses Map or taps Navigate.
-  const [mobileView, setMobileView] = useState<"list" | "map">("list");
+  // Mobile is map-first: the map is the default view. The list, search and
+  // filters open from the "places" bar or the List toggle.
+  const [mobileView, setMobileView] = useState<"list" | "map">("map");
+  // Full detail page open on mobile. A pin tap shows a bottom card instead,
+  // so the map stays visible.
+  const [detailOpen, setDetailOpen] = useState(false);
+  const isDesktop = useIsDesktop();
+  const showDetails = !!activeVenue && (detailOpen || isDesktop);
+  // View to restore when navigation ends.
+  const prevViewRef = useRef<{ view: "list" | "map"; detail: boolean }>({ view: "map", detail: false });
 
   const [isNavigating, setIsNavigating] = useState(false);
   const [followUser, setFollowUser] = useState(false);
@@ -69,8 +89,9 @@ export default function MapHUD() {
   });
 
   const handleSelectVenue = useCallback(
-    (venue: Venue) => {
+    (venue: Venue, openDetails = false) => {
       setActiveVenue(venue);
+      setDetailOpen(openDetails);
       // No route request on selection: routing only starts when the user
       // taps Navigate, so we never send position to the OSRM demo server
       // before they ask for directions. Straight-line distance still shows.
@@ -81,24 +102,47 @@ export default function MapHUD() {
     []
   );
 
+  const handleSelectFromList = useCallback(
+    (venue: Venue) => handleSelectVenue(venue, true),
+    [handleSelectVenue]
+  );
+
   const handleClearActiveVenue = useCallback(() => {
     setActiveVenue(null);
+    setDetailOpen(false);
     setIsNavigating(false);
     setFollowUser(false);
     setArrived(false);
     setStepIndex(0);
   }, []);
 
+  // Back from Details on a phone map returns to the map card; elsewhere it
+  // returns to the full list.
+  const handleBackFromDetails = useCallback(() => {
+    if (!isDesktop && mobileView === "map") setDetailOpen(false);
+    else handleClearActiveVenue();
+  }, [isDesktop, mobileView, handleClearActiveVenue]);
+
+  const handleSetView = useCallback((view: "list" | "map") => {
+    setMobileView(view);
+    setDetailOpen(false);
+  }, []);
+
   const handleStartNavigation = useCallback(() => {
+    prevViewRef.current = { view: mobileView, detail: detailOpen };
     setRouteOrigin(userPos);
     setMobileView("map");
+    setDetailOpen(false);
     setIsNavigating(true);
     setFollowUser(true);
     setArrived(false);
     setStepIndex(0);
-  }, [userPos]);
+  }, [userPos, mobileView, detailOpen]);
 
   const handleExitNavigation = useCallback(() => {
+    setMobileView(prevViewRef.current.view);
+    setDetailOpen(prevViewRef.current.detail);
+    setRouteOrigin(null);
     setIsNavigating(false);
     setFollowUser(false);
     setArrived(false);
@@ -145,7 +189,7 @@ export default function MapHUD() {
 
       {/* Active Navigation HUD Banner (Top of Screen) */}
       {isNavigating && activeVenue && (
-        <div className="absolute top-4 left-4 right-16 md:left-24 md:right-auto md:w-[380px] z-[1001]">
+        <div className="absolute top-4 left-4 right-16 md:left-[28.5rem] md:right-auto md:w-[380px] z-[1001]">
           <div className="bg-white border border-[#e7e0d4] rounded-2xl p-4 shadow-lg flex flex-col gap-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
@@ -191,7 +235,7 @@ export default function MapHUD() {
                     {route ? `${route.distance_km} km` : `${activeVenue.distance || 0} km`}
                   </div>
                   <div className="text-[0.8125rem] text-[#6d675f]">
-                    {route ? `~${route.duration_min} min drive` : `~${activeVenue.eta || 15} min straight-line`}
+                    {route ? `~${route.duration_min} min, no traffic` : `~${activeVenue.eta || 15} min straight-line`}
                   </div>
                 </div>
               </div>
@@ -203,7 +247,7 @@ export default function MapHUD() {
       {/* Map Canvas */}
       <div className="absolute inset-0 z-0">
         <VectorMap
-          venues={[...confirmed, ...unconfirmed]}
+          venues={isNavigating && activeVenue ? [activeVenue] : [...confirmed, ...unconfirmed]}
           activeVenueId={activeVenue?.id || null}
           onSelectVenue={handleSelectVenue}
           userPos={userPos}
@@ -253,8 +297,11 @@ export default function MapHUD() {
         confirmed={confirmed}
         unconfirmed={unconfirmed}
         activeVenue={activeVenue}
-        onSelectVenue={handleSelectVenue}
-        onClearActiveVenue={handleClearActiveVenue}
+        onSelectFromList={handleSelectFromList}
+        onShowListFromMap={() => handleSetView("list")}
+        showDetails={showDetails}
+        backLabel={!isDesktop && mobileView === "map" ? "Back to map" : "All places"}
+        onClearActiveVenue={handleBackFromDetails}
         filters={filters}
         onUpdateFilter={updateFilter}
         onResetFilters={resetFilters}
@@ -266,10 +313,22 @@ export default function MapHUD() {
         onOpenShare={() => setShowShareCard(true)}
         onStartNavigation={handleStartNavigation}
         mobileView={mobileView}
-        onSetMobileView={setMobileView}
+        onSetMobileView={handleSetView}
         isNavigating={isNavigating}
         canNavigate={hasActualLocation}
       />
+
+      {/* Mobile map view: selected place as a bottom card */}
+      {activeVenue && mobileView === "map" && !detailOpen && !isNavigating && (
+        <SelectionCard
+          venue={activeVenue}
+          routable={activeVenueRoutable}
+          canNavigate={hasActualLocation}
+          onNavigate={handleStartNavigation}
+          onDetails={() => setDetailOpen(true)}
+          onClose={handleClearActiveVenue}
+        />
+      )}
 
       {/* Meta Threads Share Card Modal */}
       {showShareCard && activeVenue && (
