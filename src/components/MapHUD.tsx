@@ -190,7 +190,7 @@ export default function MapHUD() {
 
   return (
     <div className="relative h-dvh w-screen bg-[#f6f2ec] overflow-hidden flex flex-col font-sans select-none">
-      <h1 className="sr-only">Map Explora - Under-4 baby and toddler classes in Jakarta and Jabodetabek</h1>
+      <h1 className="sr-only">Map Explora - Under-5 baby, toddler and preschool classes in Jakarta and Jabodetabek</h1>
 
       {/* Location permission notice */}
       {locationError && (
@@ -357,3 +357,4 @@ export default function MapHUD() {
     </div>
   );
 }
+// Trailing sentinel: absorbs the web editor last-line indent artifact.
