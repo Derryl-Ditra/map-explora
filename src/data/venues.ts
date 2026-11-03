@@ -1,5 +1,5 @@
 // GENERATED from the reviewed research dataset under4-places-jabodetabek v15-2026-11-03-golden-baby.
-// Do not hand-edit; regenerate with gen-venues.py from the source JSON. Every
+// Do not hand-edit; keep in sync with the reviewed source dataset (maintained outside this repo). Every
 // record carries its verification status (fitStatus) and per-program evidence
 // level. Extraction artifacts (unvalidated text matches) are excluded at import
 // time. Offerings confirmed at branch level but without branch-exact ages keep
