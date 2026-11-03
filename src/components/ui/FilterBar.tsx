@@ -1,84 +1,162 @@
 "use client";
 
-import { StationFilterState } from "@/types/station";
-import { Zap, Warehouse, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { VenueFilterState } from "@/types/venue";
+import { Baby, SlidersHorizontal } from "lucide-react";
 
 interface FilterBarProps {
-  filters: StationFilterState;
-  onUpdateFilter: <K extends keyof StationFilterState>(
+  filters: VenueFilterState;
+  onUpdateFilter: <K extends keyof VenueFilterState>(
     key: K,
-    value: StationFilterState[K]
+    value: VenueFilterState[K]
   ) => void;
-  stationCount: number;
+  categories: string[];
+  areas: string[];
+}
+
+const AGE_PRESETS: { label: string; months: number | null }[] = [
+  { label: "Any age", months: null },
+  { label: "6 mo", months: 6 },
+  { label: "12 mo", months: 12 },
+  { label: "18 mo", months: 18 },
+  { label: "24 mo", months: 24 },
+  { label: "36 mo", months: 36 },
+];
+
+function ageLabel(months: number): string {
+  if (months < 12) return `${months} months old`;
+  const yrs = months / 12;
+  const yrText = Number.isInteger(yrs) ? `${yrs} yr` : `${yrs.toFixed(1)} yrs`;
+  return `${months} mo (${yrText})`;
+}
+
+function Chip({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex items-center justify-center gap-1.5 shrink-0 px-4 py-2.5 rounded-full min-h-[44px] whitespace-nowrap transition-all border text-[1rem] ${
+        active
+          ? "bg-[#1a7a4a] text-white border-[#1a7a4a] font-bold"
+          : "bg-white text-[#4a443c] border-[#e7e0d4] hover:border-[#1a7a4a] font-medium"
+      }`}
+    >
+      {children}
+    </button>
+  );
 }
 
 export default function FilterBar({
   filters,
   onUpdateFilter,
-  stationCount,
+  categories,
+  areas,
 }: FilterBarProps) {
+  const [moreOpen, setMoreOpen] = useState(false);
+
   return (
-    <div className="w-full flex items-center gap-2 overflow-x-auto no-scrollbar py-1 text-xs">
-      {/* Denza D9 Approved Toggle */}
+    <div className="w-full shrink-0 flex flex-col gap-2.5">
+      {/* Primary group: child's age (always visible, first control) */}
+      <div className="flex flex-col gap-1.5">
+        <span className="text-[1rem] font-semibold text-[#221d18] flex items-center gap-1.5">
+          <Baby className="w-4.5 h-4.5 text-[#1a7a4a]" />
+          <span>Your child&apos;s age</span>
+        </span>
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+          {AGE_PRESETS.map((a) => (
+            <Chip
+              key={a.label}
+              active={filters.ageMonths === a.months}
+              onClick={() => onUpdateFilter("ageMonths", a.months)}
+            >
+              <span>{a.label}</span>
+            </Chip>
+          ))}
+        </div>
+      </div>
+
+      {filters.ageMonths !== null && (
+        <div className="flex items-center gap-3 pr-1">
+          <input
+            type="range"
+            min={0}
+            max={47}
+            step={1}
+            value={filters.ageMonths}
+            onChange={(e) => onUpdateFilter("ageMonths", Number(e.target.value))}
+            className="flex-1 age-slider"
+            aria-label="Exact child age in months"
+          />
+          <span className="text-[1rem] font-bold text-[#1a7a4a] shrink-0 min-w-[118px] text-right">
+            {ageLabel(filters.ageMonths)}
+          </span>
+        </div>
+      )}
+
+      {/* Area: always visible, second scan dimension for parents */}
+      <div className="flex flex-col gap-1.5">
+        <span className="text-[0.9375rem] font-semibold text-[#6d675f]">Area</span>
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+          <Chip
+            active={filters.area === "ALL"}
+            onClick={() => onUpdateFilter("area", "ALL")}
+          >
+            <span>All</span>
+          </Chip>
+          {areas.map((a) => (
+            <Chip
+              key={a}
+              active={filters.area === a}
+              onClick={() => onUpdateFilter("area", a)}
+            >
+              <span>{a}</span>
+            </Chip>
+          ))}
+        </div>
+      </div>
+
+      {/* Activity type: one level down on mobile; expanded on desktop */}
       <button
         type="button"
-        onClick={() => onUpdateFilter("denzaOnly", !filters.denzaOnly)}
-        className={`flex items-center gap-1.5 shrink-0 px-3 py-2.5 rounded-full min-h-[44px] whitespace-nowrap transition-all border font-medium ${
-          filters.denzaOnly
-            ? "bg-zinc-100 text-zinc-950 border-zinc-100 font-bold"
-            : "bg-zinc-900/90 text-zinc-400 border-zinc-800 hover:text-white"
-        }`}
+        onClick={() => setMoreOpen((v) => !v)}
+        className="md:hidden flex items-center gap-2 text-[1rem] font-semibold text-[#1a7a4a] py-1"
       >
-        <Sparkles className="w-3.5 h-3.5 text-zinc-400" />
-        <span>Denza D9 Ready</span>
+        <SlidersHorizontal className="w-4 h-4" />
+        <span>
+          Activity type
+          {filters.category !== "ALL" && `: ${filters.category}`}
+        </span>
       </button>
 
-      {/* Surface Only / Anti-Basement Toggle */}
-      <button
-        type="button"
-        onClick={() => onUpdateFilter("surfaceOnly", !filters.surfaceOnly)}
-        className={`flex items-center gap-1.5 shrink-0 px-3 py-2.5 rounded-full min-h-[44px] whitespace-nowrap transition-all border font-medium ${
-          filters.surfaceOnly
-            ? "bg-zinc-100 text-zinc-950 border-zinc-100 font-bold"
-            : "bg-zinc-900/90 text-zinc-400 border-zinc-800 hover:text-white"
-        }`}
-      >
-        <Warehouse className="w-3.5 h-3.5 text-zinc-400" />
-        <span>Surface (Anti-Basement)</span>
-      </button>
-
-      {/* >= 100 kW Fast DC Toggle */}
-      <button
-        type="button"
-        onClick={() => onUpdateFilter("minKw", filters.minKw === 100 ? 0 : 100)}
-        className={`flex items-center gap-1.5 shrink-0 px-3 py-2.5 rounded-full min-h-[44px] whitespace-nowrap transition-all border font-medium ${
-          filters.minKw >= 100
-            ? "bg-zinc-100 text-zinc-950 border-zinc-100 font-bold"
-            : "bg-zinc-900/90 text-zinc-400 border-zinc-800 hover:text-white"
-        }`}
-      >
-        <Zap className="w-3.5 h-3.5 text-zinc-400" />
-        <span>≥ 100 kW DC Fast</span>
-      </button>
-
-      {/* CCS2 Connector */}
-      <button
-        type="button"
-        onClick={() =>
-          onUpdateFilter("connector", filters.connector === "CCS2" ? "ALL" : "CCS2")
-        }
-        className={`flex items-center gap-1 shrink-0 px-3 py-2.5 rounded-full min-h-[44px] whitespace-nowrap transition-all border font-mono ${
-          filters.connector === "CCS2"
-            ? "bg-zinc-100 text-zinc-950 border-zinc-100 font-bold"
-            : "bg-zinc-900/90 text-zinc-400 border-zinc-800 hover:text-white"
-        }`}
-      >
-        <span>CCS2</span>
-      </button>
-
-      {/* Results Count Badge */}
-      <div className="ml-auto text-[11px] text-zinc-500 font-mono tracking-tight whitespace-nowrap px-2">
-        {stationCount} stations
+      <div className={`${moreOpen ? "flex" : "hidden"} md:flex flex-col gap-3`}>
+        <div className="flex flex-col gap-2">
+          <span className="text-[0.9375rem] font-semibold text-[#6d675f]">Activity</span>
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+            <Chip
+              active={filters.category === "ALL"}
+              onClick={() => onUpdateFilter("category", "ALL")}
+            >
+              <span>All</span>
+            </Chip>
+            {categories.map((c) => (
+              <Chip
+                key={c}
+                active={filters.category === c}
+                onClick={() => onUpdateFilter("category", c)}
+              >
+                <span>{c}</span>
+              </Chip>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

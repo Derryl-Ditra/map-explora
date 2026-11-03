@@ -3,9 +3,9 @@
 import { useState, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useGeolocation } from "@/hooks/useGeolocation";
-import { useStationFilters } from "@/hooks/useStationFilters";
+import { useVenueFilters } from "@/hooks/useVenueFilters";
 import { useRouting } from "@/hooks/useRouting";
-import { ChargingStation } from "@/types/station";
+import { Venue } from "@/types/venue";
 import { calculateDistance } from "@/utils/geo";
 import MobileDrawer from "./ui/MobileDrawer";
 import ShareCard from "./ui/ShareCard";
@@ -15,9 +15,9 @@ import { Crosshair, Loader2, Moon, Sun, MapPin } from "lucide-react";
 const VectorMap = dynamic(() => import("./map/VectorMap"), {
   ssr: false,
   loading: () => (
-    <div className="h-full w-full bg-zinc-950 flex flex-col items-center justify-center gap-3 text-zinc-500">
-      <Loader2 className="w-8 h-8 text-cyan-400 animate-spin" />
-      <span className="text-xs font-mono tracking-wider uppercase">Loading Map...</span>
+    <div className="h-full w-full bg-[#f6f2ec] flex flex-col items-center justify-center gap-3 text-[#6d675f]">
+      <Loader2 className="w-8 h-8 text-[#1a7a4a] animate-spin" />
+      <span className="text-sm font-semibold">Loading the map...</span>
     </div>
   ),
 });
@@ -35,38 +35,54 @@ export default function MapHUD() {
     recenterTick,
     requestRecenter,
   } = useGeolocation();
-  const { filters, updateFilter, filteredStations } = useStationFilters(userPos);
-  const [activeStation, setActiveStation] = useState<ChargingStation | null>(null);
+  // Distances are only computed from a real fix. Without location
+  // permission we must not imply proximity to the default map center.
+  const { filters, updateFilter, resetFilters, categories, areas, confirmed, unconfirmed } =
+    useVenueFilters(hasActualLocation ? userPos : null);
+  const [activeVenue, setActiveVenue] = useState<Venue | null>(null);
   const [showShareCard, setShowShareCard] = useState(false);
-  const [mapStyle, setMapStyle] = useState<"dark" | "light">("dark");
+  const [mapStyle, setMapStyle] = useState<"dark" | "light">("light");
+  // Mobile is discovery-first: list is the default view; the map takes the
+  // full viewport only when the parent chooses Map or taps Navigate.
+  const [mobileView, setMobileView] = useState<"list" | "map">("list");
 
   const [isNavigating, setIsNavigating] = useState(false);
   const [followUser, setFollowUser] = useState(false);
   const [arrived, setArrived] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
 
-  // Route origin is frozen when a station is picked. Live GPS keeps
+  // Route origin is frozen when a venue is picked. Live GPS keeps
   // updating the position marker, but we never re-route continuously:
-  // one route request per station pick, inside the OSRM demo limits.
+  // one route request per venue pick, inside the OSRM demo limits.
   const [routeOrigin, setRouteOrigin] = useState<[number, number] | null>(null);
 
+  // Never route to pins we cannot stand behind: approximate area centroids
+  // and venues with an unresolved identity conflict are not routable.
+  const activeVenueRoutable =
+    !!activeVenue &&
+    activeVenue.coordinateSource !== "area-approximate" &&
+    !activeVenue.caution;
+
   const { route, isLoading: isRouting, error: routingError } = useRouting({
-    origin: routeOrigin,
-    destination: activeStation ? [activeStation.lat, activeStation.lng] : null,
+    origin: activeVenueRoutable ? routeOrigin : null,
+    destination: activeVenueRoutable && activeVenue ? [activeVenue.lat, activeVenue.lng] : null,
   });
 
-  const handleSelectStation = useCallback(
-    (station: ChargingStation) => {
-      setActiveStation(station);
-      setRouteOrigin(userPos);
+  const handleSelectVenue = useCallback(
+    (venue: Venue) => {
+      setActiveVenue(venue);
+      // No route request on selection: routing only starts when the user
+      // taps Navigate, so we never send position to the OSRM demo server
+      // before they ask for directions. Straight-line distance still shows.
+      setRouteOrigin(null);
       setArrived(false);
       setStepIndex(0);
     },
-    [userPos]
+    []
   );
 
-  const handleClearActiveStation = useCallback(() => {
-    setActiveStation(null);
+  const handleClearActiveVenue = useCallback(() => {
+    setActiveVenue(null);
     setIsNavigating(false);
     setFollowUser(false);
     setArrived(false);
@@ -74,11 +90,13 @@ export default function MapHUD() {
   }, []);
 
   const handleStartNavigation = useCallback(() => {
+    setRouteOrigin(userPos);
+    setMobileView("map");
     setIsNavigating(true);
     setFollowUser(true);
     setArrived(false);
     setStepIndex(0);
-  }, []);
+  }, [userPos]);
 
   const handleExitNavigation = useCallback(() => {
     setIsNavigating(false);
@@ -91,12 +109,12 @@ export default function MapHUD() {
     if (isNavigating) setFollowUser(true);
   }, [requestRecenter, isNavigating]);
 
-  // Arrival detection: within ~150 m of the station while navigating.
+  // Arrival detection: within ~150 m of the venue while navigating.
   useEffect(() => {
-    if (!isNavigating || !activeStation || !hasActualLocation || !userPos || arrived) return;
-    const d = calculateDistance(userPos[0], userPos[1], activeStation.lat, activeStation.lng);
+    if (!isNavigating || !activeVenue || !hasActualLocation || !userPos || arrived) return;
+    const d = calculateDistance(userPos[0], userPos[1], activeVenue.lat, activeVenue.lng);
     if (d <= ARRIVAL_RADIUS_KM) setArrived(true);
-  }, [isNavigating, activeStation, hasActualLocation, userPos, arrived]);
+  }, [isNavigating, activeVenue, hasActualLocation, userPos, arrived]);
 
   // Advance the turn instruction as the user reaches each maneuver point (~30 m).
   useEffect(() => {
@@ -112,34 +130,34 @@ export default function MapHUD() {
   const firstStep = route?.steps && route.steps.length > 0 ? route.steps[stepIndex].instruction : null;
 
   return (
-    <div className="relative h-dvh w-screen bg-zinc-950 overflow-hidden flex flex-col font-sans select-none">
-      <h1 className="sr-only">Map Explora - Jakarta Executive EV Charging Station Navigator</h1>
+    <div className="relative h-dvh w-screen bg-[#f6f2ec] overflow-hidden flex flex-col font-sans select-none">
+      <h1 className="sr-only">Map Explora - Under-4 baby and toddler classes in Jakarta and Jabodetabek</h1>
 
       {/* Location permission notice */}
       {locationError && (
-        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1001] max-w-[90vw]">
-          <div className="bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-[11px] text-zinc-400 flex items-center gap-2">
-            <MapPin className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
+        <div className="absolute top-[76px] md:top-4 left-1/2 -translate-x-1/2 z-[1001] max-w-[90vw]">
+          <div className="bg-white border border-[#e7e0d4] rounded-2xl px-3.5 py-2.5 text-[0.9375rem] text-[#4a443c] shadow-sm flex items-center gap-2">
+            <MapPin className="w-4 h-4 text-[#92400e] shrink-0" />
             <span>{locationError}</span>
           </div>
         </div>
       )}
 
       {/* Active Navigation HUD Banner (Top of Screen) */}
-      {isNavigating && activeStation && (
+      {isNavigating && activeVenue && (
         <div className="absolute top-4 left-4 right-16 md:left-24 md:right-auto md:w-[380px] z-[1001]">
-          <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-3.5 flex flex-col gap-2">
+          <div className="bg-white border border-[#e7e0d4] rounded-2xl p-4 shadow-lg flex flex-col gap-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
-                <span className={`inline-flex rounded-full h-2 w-2 ${arrived ? "bg-emerald-400" : "bg-cyan-400"}`} />
-                <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 font-bold">
+                <span className={`inline-flex rounded-full h-2 w-2 ${arrived ? "bg-emerald-500" : "bg-[#1a7a4a]"}`} />
+                <span className="text-[0.875rem] text-[#6d675f] font-bold">
                   {arrived ? "Arrived" : "Navigation active"}
                 </span>
               </div>
               <button
                 type="button"
                 onClick={handleExitNavigation}
-                className="text-[10px] font-semibold text-zinc-400 hover:text-white bg-zinc-900 hover:bg-zinc-800 px-2 py-1 rounded-lg border border-zinc-800 transition-colors"
+                className="text-[0.875rem] font-semibold text-[#6d675f] hover:text-[#221d18] bg-[#f6f2ec] hover:bg-[#f0ece4] px-2.5 py-1.5 rounded-full border border-[#e7e0d4] transition-colors"
               >
                 Exit
               </button>
@@ -147,33 +165,33 @@ export default function MapHUD() {
 
             {arrived ? (
               <div className="flex flex-col gap-1">
-                <h3 className="text-xs font-bold text-white leading-tight">{activeStation.name}</h3>
-                <p className="text-[11px] text-zinc-300">
-                  {activeStation.parking_type} • Bay {activeStation.bay_length_m} m •{" "}
-                  {activeStation.height_clearance_m > 50 ? "Open surface" : `Clearance ${activeStation.height_clearance_m} m`}
+                <h3 className="text-[1rem] font-bold text-[#221d18] leading-tight">
+                  {activeVenue.chain && activeVenue.chain !== activeVenue.branchName ? `${activeVenue.chain} - ` : ""}{activeVenue.branchName}
+                </h3>
+                <p className="text-[0.9375rem] text-[#4a443c]">
+                  {activeVenue.area} • {activeVenue.categories.join(", ")}
                 </p>
-                <p className="text-[10px] text-zinc-500">Fit data reported, not verified.</p>
               </div>
             ) : (
               <div className="flex justify-between items-end gap-2">
                 <div className="min-w-0">
-                  <h3 className="text-xs font-bold text-white leading-tight truncate">
-                    {activeStation.name}
+                  <h3 className="text-[1rem] font-bold text-[#221d18] leading-tight truncate">
+                    {activeVenue.chain && activeVenue.chain !== activeVenue.branchName ? `${activeVenue.chain} ` : ""}{activeVenue.branchName}
                   </h3>
-                  <p className="text-[10px] text-zinc-400 truncate">
+                  <p className="text-[0.875rem] text-[#6d675f] truncate">
                     {isRouting
                       ? "Calculating route..."
                       : routingError
                       ? "Routing unavailable, distance below is straight-line"
-                      : firstStep ?? `${activeStation.parking_type} • ${activeStation.kw}kW`}
+                      : firstStep ?? activeVenue.area}
                   </p>
                 </div>
                 <div className="text-right shrink-0">
-                  <div className="text-sm font-mono font-bold text-cyan-300">
-                    {route ? `${route.distance_km} km` : `${activeStation.distance || 0} km`}
+                  <div className="text-[1.0625rem] font-bold text-[#1a7a4a]">
+                    {route ? `${route.distance_km} km` : `${activeVenue.distance || 0} km`}
                   </div>
-                  <div className="text-[9px] font-mono text-zinc-400">
-                    {route ? `~${route.duration_min} min drive` : `~${activeStation.eta || 15} min straight-line`}
+                  <div className="text-[0.8125rem] text-[#6d675f]">
+                    {route ? `~${route.duration_min} min drive` : `~${activeVenue.eta || 15} min straight-line`}
                   </div>
                 </div>
               </div>
@@ -185,10 +203,11 @@ export default function MapHUD() {
       {/* Map Canvas */}
       <div className="absolute inset-0 z-0">
         <VectorMap
-          stations={filteredStations}
-          activeStationId={activeStation?.id || null}
-          onSelectStation={handleSelectStation}
+          venues={[...confirmed, ...unconfirmed]}
+          activeVenueId={activeVenue?.id || null}
+          onSelectVenue={handleSelectVenue}
           userPos={userPos}
+          showUserMarker={hasActualLocation}
           userAccuracy={accuracy}
           userHeading={heading}
           route={route}
@@ -206,12 +225,12 @@ export default function MapHUD() {
           type="button"
           onClick={handleLocate}
           title="Locate My Position"
-          className="w-11 h-11 rounded-xl bg-zinc-950 border border-zinc-800 text-zinc-300 hover:text-white flex items-center justify-center active:scale-95 transition-all"
+          className="w-12 h-12 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#4a443c] hover:text-[#221d18] flex items-center justify-center active:scale-95 transition-all"
         >
           {isLocating ? (
-            <Loader2 className="w-4 h-4 animate-spin text-cyan-400" />
+            <Loader2 className="w-5 h-5 animate-spin text-[#1a7a4a]" />
           ) : (
-            <Crosshair className="w-4 h-4" />
+            <Crosshair className="w-5 h-5" />
           )}
         </button>
 
@@ -219,35 +238,43 @@ export default function MapHUD() {
           type="button"
           onClick={() => setMapStyle((prev) => (prev === "dark" ? "light" : "dark"))}
           title="Toggle Map Style"
-          className="w-11 h-11 rounded-xl bg-zinc-950 border border-zinc-800 text-zinc-300 hover:text-white flex items-center justify-center active:scale-95 transition-all"
+          className="w-12 h-12 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#4a443c] hover:text-[#221d18] flex items-center justify-center active:scale-95 transition-all"
         >
           {mapStyle === "dark" ? (
-            <Sun className="w-4 h-4 text-zinc-400" />
+            <Sun className="w-5 h-5 text-[#4a443c]" />
           ) : (
-            <Moon className="w-4 h-4 text-zinc-400" />
+            <Moon className="w-5 h-5 text-[#4a443c]" />
           )}
         </button>
       </div>
 
       {/* Mobile-Native Bottom Sheet / Desktop Floating HUD */}
       <MobileDrawer
-        stations={filteredStations}
-        activeStation={activeStation}
-        onSelectStation={handleSelectStation}
-        onClearActiveStation={handleClearActiveStation}
+        confirmed={confirmed}
+        unconfirmed={unconfirmed}
+        activeVenue={activeVenue}
+        onSelectVenue={handleSelectVenue}
+        onClearActiveVenue={handleClearActiveVenue}
         filters={filters}
         onUpdateFilter={updateFilter}
+        onResetFilters={resetFilters}
+        categories={categories}
+        areas={areas}
         route={route}
         isRouting={isRouting}
         routingError={routingError}
         onOpenShare={() => setShowShareCard(true)}
         onStartNavigation={handleStartNavigation}
+        mobileView={mobileView}
+        onSetMobileView={setMobileView}
+        isNavigating={isNavigating}
+        canNavigate={hasActualLocation}
       />
 
       {/* Meta Threads Share Card Modal */}
-      {showShareCard && activeStation && (
+      {showShareCard && activeVenue && (
         <ShareCard
-          station={activeStation}
+          venue={activeVenue}
           route={route}
           onClose={() => setShowShareCard(false)}
         />

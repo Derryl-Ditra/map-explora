@@ -4,15 +4,15 @@
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: #3b82f6;
-  --color-border: #27272a;
+  --color-primary: #1a7a4a;
+  --color-border: #e7e0d4;
 
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 :root {
-  --background: #0d0d0d;
-  --foreground: #ffffff;
+  --background: #f6f2ec;
+  --foreground: #221d18;
 }
 
 html, body {
@@ -36,11 +36,57 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
+  background: #d8d0c2;
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: #bfb5a3;
+}
+
+/* Text selection and caret follow the palette */
+::selection {
+  background: #cdeeda;
+  color: #14532d;
+}
+input, textarea {
+  caret-color: #1a7a4a;
+}
+
+/* Age slider: large thumb for thumbs, green accent */
+input[type="range"].age-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 32px;
+  background: transparent;
+}
+input[type="range"].age-slider::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: #e7e0d4;
+}
+input[type="range"].age-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  margin-top: -10px;
+  border-radius: 999px;
+  background: #1a7a4a;
+  border: 3px solid #ffffff;
+  box-shadow: 0 1px 4px rgba(34, 29, 24, 0.25);
+}
+input[type="range"].age-slider::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: #e7e0d4;
+}
+input[type="range"].age-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: #1a7a4a;
+  border: 3px solid #ffffff;
+  box-shadow: 0 1px 4px rgba(34, 29, 24, 0.25);
 }
 
 /* Hide Next.js dev indicator */
@@ -52,17 +98,17 @@ nextjs-portal,
   pointer-events: none !important;
 }
 
-/* MapLibre attribution: legible over the dark HUD theme */
+/* MapLibre attribution: legible over the light map */
 .maplibregl-ctrl-attrib {
-  background: rgba(9, 9, 11, 0.75);
-  color: #a1a1aa;
+  background: rgba(255, 255, 255, 0.85);
+  color: #6d675f;
   font-size: 10px;
   padding: 2px 6px;
   border-radius: 6px 0 0 0;
 }
 
 .maplibregl-ctrl-attrib a {
-  color: #67e8f9;
+  color: #1a7a4a;
 }
 
 /* On mobile the bottom sheet covers the map attribution; the drawer carries it instead. */
@@ -72,13 +118,16 @@ nextjs-portal,
   }
 }
 
-/* Marker pulse */
-@keyframes marker-pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-.animate-marker-pulse {
-  animation: marker-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+/* User heading cone */
+.user-heading-cone {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -10px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 18px solid rgba(37, 99, 235, 0.35);
+  display: none;
 }
