@@ -13,6 +13,9 @@ interface FilterBarProps {
   onResetFilters: () => void;
   categories: string[];
   areas: string[];
+  // Fired when a filter group opens, so a collapsed host (mobile peek sheet)
+  // can raise enough to show the panel.
+  onOpenPanel?: () => void;
 }
 
 const AGE_PRESETS: { label: string; months: number | null }[] = [
@@ -73,6 +76,7 @@ export default function FilterBar({
   onResetFilters,
   categories,
   areas,
+  onOpenPanel,
 }: FilterBarProps) {
   const [open, setOpen] = useState<Group | null>(null);
 
@@ -84,7 +88,12 @@ export default function FilterBar({
       ? "Any age"
       : AGE_PRESETS.find((a) => a.months === filters.ageMonths)?.label ?? `${filters.ageMonths} mo`;
 
-  const toggle = (g: Group) => setOpen((cur) => (cur === g ? null : g));
+  const toggle = (g: Group) =>
+    setOpen((cur) => {
+      const next = cur === g ? null : g;
+      if (next !== null) onOpenPanel?.();
+      return next;
+    });
 
   function SummaryButton({
     group,
