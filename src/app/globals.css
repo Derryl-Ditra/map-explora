@@ -47,17 +47,23 @@ nextjs-portal,
   pointer-events: none !important;
 }
 
-/* CartoDB Clean Minimalist Vector/Raster Styles (100% Free, Zero Filter Artifacts) */
-.leaflet-layer.map-tiles-dark {
-  filter: none;
+/* OpenStreetMap raster tiles: dark mode via CSS filter on the tile pane only
+   (markers, popups and route lines are not inverted). No API key required. */
+.map-tiles-dark .leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.95) contrast(0.85) saturate(0.6);
 }
 
-.leaflet-layer.map-tiles-light {
-  filter: none;
+/* Keep the required OSM attribution legible over the dark HUD theme */
+.leaflet-control-attribution {
+  background: rgba(9, 9, 11, 0.75);
+  color: #a1a1aa;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 6px 0 0 0;
 }
 
-.leaflet-layer.map-tiles-streets {
-  filter: none;
+.leaflet-control-attribution a {
+  color: #67e8f9;
 }
 
 /* Marker Animations */
