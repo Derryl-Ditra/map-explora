@@ -10,7 +10,6 @@ interface MobileDrawerProps {
   confirmed: Venue[];
   unconfirmed: Venue[];
   activeVenue: Venue | null;
-  onSelectVenue: (venue: Venue) => void;
   onClearActiveVenue: () => void;
   filters: VenueFilterState;
   onUpdateFilter: <K extends keyof VenueFilterState>(
@@ -29,6 +28,10 @@ interface MobileDrawerProps {
   onSetMobileView: (view: "list" | "map") => void;
   isNavigating: boolean;
   canNavigate: boolean;
+  showDetails: boolean;
+  backLabel: string;
+  onSelectFromList: (venue: Venue) => void;
+  onShowListFromMap: () => void;
 }
 
 function FitPill({ fit }: { fit: "confirmed" | "unconfirmed" | null }) {
@@ -128,7 +131,6 @@ export default function MobileDrawer({
   confirmed,
   unconfirmed,
   activeVenue,
-  onSelectVenue,
   onClearActiveVenue,
   filters,
   onUpdateFilter,
@@ -144,6 +146,10 @@ export default function MobileDrawer({
   onSetMobileView,
   isNavigating,
   canNavigate,
+  showDetails,
+  backLabel,
+  onSelectFromList,
+  onShowListFromMap,
 }: MobileDrawerProps) {
   const total = confirmed.length + unconfirmed.length;
   const ageActive = filters.ageMonths !== null;
@@ -151,7 +157,7 @@ export default function MobileDrawer({
   // On mobile the panel is a full-screen surface over the map, not a half
   // sheet: parents scan classes first, and open the map on demand. Desktop
   // keeps the floating sidebar beside the always-visible map.
-  const mobilePanelHidden = isNavigating || (mobileView === "map" && !activeVenue);
+  const mobilePanelHidden = isNavigating || (mobileView === "map" && !showDetails);
 
   return (
     <>
@@ -159,6 +165,25 @@ export default function MobileDrawer({
       {mobilePanelHidden && (
         <div className="fixed top-4 left-4 z-[1000] md:hidden">
           <ViewToggle value={mobileView} onChange={onSetMobileView} />
+        </div>
+      )}
+
+      {/* Map view: collapsed list entry. Hidden while a place is selected or navigating. */}
+      {mobileView === "map" && !showDetails && !isNavigating && !activeVenue && (
+        <div className="fixed bottom-6 left-4 right-14 z-[1000] md:hidden">
+          <button
+            type="button"
+            onClick={onShowListFromMap}
+            className="w-full flex items-center justify-between gap-3 px-4 py-3.5 rounded-full bg-white border border-[#e7e0d4] shadow-lg text-left"
+          >
+            <span className="text-[1rem] font-bold text-[#221d18]">
+              {total} {total === 1 ? "place" : "places"}
+            </span>
+            <span className="flex items-center gap-1.5 text-[0.9375rem] font-semibold text-[#1a7a4a]">
+              <Search className="w-4 h-4" />
+              Filters and list
+            </span>
+          </button>
         </div>
       )}
 
@@ -197,13 +222,14 @@ export default function MobileDrawer({
 
         {/* Content */}
         <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3">
-          {activeVenue ? (
+          {activeVenue && showDetails ? (
             <VenueDetails
               venue={activeVenue}
               route={route}
               isRouting={isRouting}
               routingError={routingError}
               onBack={onClearActiveVenue}
+              backLabel={backLabel}
               onOpenShare={onOpenShare}
               onStartInAppNavigation={onStartNavigation}
               canNavigate={canNavigate}
@@ -260,7 +286,7 @@ export default function MobileDrawer({
                         key={venue.id}
                         venue={venue}
                         fit={ageActive ? "confirmed" : null}
-                        onSelect={() => onSelectVenue(venue)}
+                        onSelect={() => onSelectFromList(venue)}
                       />
                     ))}
                     {ageActive && unconfirmed.length > 0 && (
@@ -275,7 +301,7 @@ export default function MobileDrawer({
                           key={venue.id}
                           venue={venue}
                           fit="unconfirmed"
-                          onSelect={() => onSelectVenue(venue)}
+                          onSelect={() => onSelectFromList(venue)}
                         />
                       ))}
                   </>
