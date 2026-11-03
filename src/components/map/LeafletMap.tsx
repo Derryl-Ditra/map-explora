@@ -17,6 +17,12 @@ interface LeafletMapProps {
   isNavigating?: boolean;
 }
 
+// OpenStreetMap Standard raster tiles - open source, no API key required.
+// Dark mode is a CSS filter over the tile pane only (markers and routes unaffected).
+const OSM_TILE_URL = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
+const OSM_ATTRIBUTION =
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
 export default function LeafletMap({
   stations,
   activeStationId,
@@ -29,7 +35,6 @@ export default function LeafletMap({
 }: LeafletMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
-  const tileLayerRef = useRef<L.TileLayer | null>(null);
   const markersRef = useRef<Map<string, L.Marker>>(new Map());
   const userMarkerRef = useRef<L.Marker | null>(null);
   const routeLineRef = useRef<L.Polyline | null>(null);
@@ -43,24 +48,16 @@ export default function LeafletMap({
       center: userPos || [-6.2088, 106.8456],
       zoom: 13,
       zoomControl: false,
-      attributionControl: false,
+      attributionControl: true,
     });
 
-    // CartoDB Dark Matter / Positron - 100% Free, Clean, Minimalist, Zero Garish Colors
-    const tileUrl =
-      mapStyle === "dark"
-        ? "https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png"
-        : "https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}{r}.png";
-
-    const tileLayer = L.tileLayer(tileUrl, {
-      subdomains: ["a", "b", "c", "d"],
-      maxZoom: 20,
+    const tileLayer = L.tileLayer(OSM_TILE_URL, {
+      maxZoom: 19,
       keepBuffer: 6,
-      attribution: "&copy; OpenStreetMap &copy; CARTO",
+      attribution: OSM_ATTRIBUTION,
     });
 
     tileLayer.addTo(map);
-    tileLayerRef.current = tileLayer;
     mapRef.current = map;
 
     // Force invalidateSize to guarantee rendering in dynamic Next.js containers
@@ -83,19 +80,6 @@ export default function LeafletMap({
       mapRef.current = null;
     };
   }, []);
-
-  // Update Tile Layer URL on Theme Switch
-  useEffect(() => {
-    const tileLayer = tileLayerRef.current;
-    if (!tileLayer) return;
-
-    const nextUrl =
-      mapStyle === "dark"
-        ? "https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png"
-        : "https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}{r}.png";
-
-    tileLayer.setUrl(nextUrl);
-  }, [mapStyle]);
 
   // Update User Location
   useEffect(() => {
@@ -249,6 +233,7 @@ export default function LeafletMap({
 
   return (
     <div
+      className={mapStyle === "dark" ? "map-tiles-dark" : undefined}
       style={{
         position: "absolute",
         top: 0,
