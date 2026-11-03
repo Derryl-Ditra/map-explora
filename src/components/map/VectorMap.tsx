@@ -208,14 +208,19 @@ export default function VectorMap({
   const venueName = (venue: Venue) =>
     venue.chain && venue.chain !== venue.branchName ? `${venue.chain} ${venue.branchName}` : venue.branchName;
 
-  // Browse-state labels: tight white pills with gray text, one per visible
-  // place. Rendered as cached canvas sprites on a symbol layer so MapLibre's
-  // collision handling declutters them instead of overlapping.
+  // Browse-state labels: tight pills, one per visible place. Dark plate on
+  // the light map, white plate on the dark map. Rendered as cached canvas
+  // sprites on a symbol layer so MapLibre's collision handling declutters
+  // them instead of overlapping.
   const labelSpriteCache = new Map<string, ImageData>();
-  const labelKey = (name: string, approximate: boolean) => `${approximate ? "a" : "p"}:${name}`;
+  // Nameplates invert with the basemap: dark plate on the light map, white
+  // plate on the dark map, so the key carries the mode and a style swap
+  // regenerates sprites instead of reusing the other mode's.
+  const labelKey = (name: string, approximate: boolean, mode: "dark" | "light") =>
+    `${mode}:${approximate ? "a" : "p"}:${name}`;
 
-  function labelSprite(name: string, approximate: boolean): { key: string; image: ImageData } {
-    const key = labelKey(name, approximate);
+  function labelSprite(name: string, approximate: boolean, mode: "dark" | "light"): { key: string; image: ImageData } {
+    const key = labelKey(name, approximate, mode);
     const cached = labelSpriteCache.get(key);
     if (cached) return { key, image: cached };
     const scale = 2; // retina rendering via addImage pixelRatio
@@ -242,21 +247,25 @@ export default function VectorMap({
     c.height = h * scale;
     const ctx = c.getContext("2d")!;
     ctx.scale(scale, scale);
+    // On the light map the plate is dark (white plate on white map was
+    // invisible); on the dark map it stays white. Text and dot invert to
+    // keep contrast on the plate.
+    const darkPlate = mode === "light";
     ctx.beginPath();
     ctx.roundRect(1, 1, w - 2, h - 2, (h - 2) / 2);
-    ctx.fillStyle = "#ffffff";
+    ctx.fillStyle = darkPlate ? "#1c1917" : "#ffffff";
     ctx.fill();
     ctx.lineWidth = 1;
-    ctx.strokeStyle = approximate ? "#a8a29e" : "#e7e5e4";
+    ctx.strokeStyle = approximate ? "#a8a29e" : darkPlate ? "#1c1917" : "#e7e5e4";
     if (approximate) ctx.setLineDash([2, 2]);
     ctx.stroke();
     ctx.setLineDash([]);
     ctx.beginPath();
     ctx.arc(1 + padX + dotR, h / 2, dotR, 0, Math.PI * 2);
-    ctx.fillStyle = "#1a7a4a";
+    ctx.fillStyle = darkPlate ? "#34d399" : "#1a7a4a";
     ctx.fill();
     ctx.font = font;
-    ctx.fillStyle = "#6b7280";
+    ctx.fillStyle = darkPlate ? "#ffffff" : "#6b7280";
     ctx.textBaseline = "middle";
     ctx.fillText(text, 1 + padX + dotR * 2 + gap, h / 2 + 0.5);
     const image = ctx.getImageData(0, 0, c.width, c.height);
@@ -369,7 +378,7 @@ export default function VectorMap({
     groups.forEach((g, i) => {
       if (g.members.length === 1) {
         const venue = g.members[0];
-        const { key, image } = labelSprite(venueName(venue), venue.coordinateSource === "area-approximate");
+        const { key, image } = labelSprite(venueName(venue), venue.coordinateSource === "area-approximate", styleModeRef.current ?? "light");
         if (!map.hasImage(key)) map.addImage(key, image, { pixelRatio: 2 });
         const p = map.project([venue.lng, venue.lat]);
         const halfW = image.width / 4; // sprite is 2x, anchored center
