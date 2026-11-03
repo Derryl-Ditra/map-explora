@@ -9,15 +9,16 @@ if (typeof window !== "undefined") {
   maplibregl.setWorkerUrl(`${base}/maplibre-worker.js`);
 }
 import "maplibre-gl/dist/maplibre-gl.css";
-import { ChargingStation } from "@/types/station";
+import { Venue } from "@/types/venue";
 import { RouteData } from "@/types/route";
 import { getMonoStyle, FALLBACK_STYLE_URL } from "./vectorStyle";
 
 interface VectorMapProps {
-  stations: ChargingStation[];
-  activeStationId: string | null;
-  onSelectStation: (station: ChargingStation) => void;
+  venues: Venue[];
+  activeVenueId: string | null;
+  onSelectVenue: (venue: Venue) => void;
   userPos: [number, number] | null; // [lat, lng]
+  showUserMarker?: boolean; // only with a real location fix, never the default center
   userAccuracy: number | null;      // meters
   userHeading: number | null;       // degrees, when the device provides it
   route: RouteData | null;
@@ -48,10 +49,11 @@ function accuracyPolygon(lat: number, lng: number, meters: number): GeoJSON.Feat
 }
 
 export default function VectorMap({
-  stations,
-  activeStationId,
-  onSelectStation,
+  venues,
+  activeVenueId,
+  onSelectVenue,
   userPos,
+  showUserMarker = true,
   userAccuracy,
   userHeading,
   route,
@@ -66,12 +68,12 @@ export default function VectorMap({
   const markersRef = useRef<Map<string, maplibregl.Marker>>(new Map());
   const userMarkerRef = useRef<maplibregl.Marker | null>(null);
   const styleModeRef = useRef<"dark" | "light" | null>(null);
-  const stationsRef = useRef(stations);
-  stationsRef.current = stations;
-  const activeRef = useRef(activeStationId);
-  activeRef.current = activeStationId;
-  const onSelectRef = useRef(onSelectStation);
-  onSelectRef.current = onSelectStation;
+  const venuesRef = useRef(venues);
+  venuesRef.current = venues;
+  const activeRef = useRef(activeVenueId);
+  activeRef.current = activeVenueId;
+  const onSelectRef = useRef(onSelectVenue);
+  onSelectRef.current = onSelectVenue;
   const onUserPanRef = useRef(onUserPan);
   onUserPanRef.current = onUserPan;
 
@@ -104,14 +106,14 @@ export default function VectorMap({
           type: "line",
           source: "route",
           layout: { "line-cap": "round", "line-join": "round" },
-          paint: { "line-color": "#22d3ee", "line-width": 8, "line-opacity": 0.35 },
+          paint: { "line-color": "#2563eb", "line-width": 8, "line-opacity": 0.25 },
         });
         map.addLayer({
           id: "route-line",
           type: "line",
           source: "route",
           layout: { "line-cap": "round", "line-join": "round" },
-          paint: { "line-color": "#0891b2", "line-width": 4, "line-opacity": 0.95 },
+          paint: { "line-color": "#2563eb", "line-width": 4.5, "line-opacity": 0.95 },
         });
         map.addSource("user-accuracy", {
           type: "geojson",
@@ -121,13 +123,13 @@ export default function VectorMap({
           id: "user-accuracy-fill",
           type: "fill",
           source: "user-accuracy",
-          paint: { "fill-color": "#22d3ee", "fill-opacity": 0.12 },
+          paint: { "fill-color": "#2563eb", "fill-opacity": 0.10 },
         });
         map.addLayer({
           id: "user-accuracy-edge",
           type: "line",
           source: "user-accuracy",
-          paint: { "line-color": "#22d3ee", "line-width": 1, "line-opacity": 0.3 },
+          paint: { "line-color": "#2563eb", "line-width": 1, "line-opacity": 0.3 },
         });
         renderMarkers(map);
       });
@@ -164,13 +166,13 @@ export default function VectorMap({
           // Re-add custom sources/layers after style swap
           if (!map.getSource("route")) {
             map.addSource("route", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
-            map.addLayer({ id: "route-glow", type: "line", source: "route", layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": "#22d3ee", "line-width": 8, "line-opacity": 0.35 } });
-            map.addLayer({ id: "route-line", type: "line", source: "route", layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": "#0891b2", "line-width": 4, "line-opacity": 0.95 } });
+            map.addLayer({ id: "route-glow", type: "line", source: "route", layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": "#2563eb", "line-width": 8, "line-opacity": 0.25 } });
+            map.addLayer({ id: "route-line", type: "line", source: "route", layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": "#2563eb", "line-width": 4.5, "line-opacity": 0.95 } });
           }
           if (!map.getSource("user-accuracy")) {
             map.addSource("user-accuracy", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
-            map.addLayer({ id: "user-accuracy-fill", type: "fill", source: "user-accuracy", paint: { "fill-color": "#22d3ee", "fill-opacity": 0.12 } });
-            map.addLayer({ id: "user-accuracy-edge", type: "line", source: "user-accuracy", paint: { "line-color": "#22d3ee", "line-width": 1, "line-opacity": 0.3 } });
+            map.addLayer({ id: "user-accuracy-fill", type: "fill", source: "user-accuracy", paint: { "fill-color": "#2563eb", "fill-opacity": 0.10 } });
+            map.addLayer({ id: "user-accuracy-edge", type: "line", source: "user-accuracy", paint: { "line-color": "#2563eb", "line-width": 1, "line-opacity": 0.3 } });
           }
         });
       })
@@ -181,49 +183,46 @@ export default function VectorMap({
     return () => { cancelled = true; };
   }, [mapStyle]);
 
-  function markerElement(station: ChargingStation, isActive: boolean): HTMLButtonElement {
+  function markerElement(venue: Venue, isActive: boolean): HTMLButtonElement {
     const el = document.createElement("button");
     el.type = "button";
-    const isFast = station.kw >= 100;
-    el.className = "flex items-center gap-1.5 px-2 py-1 rounded-full text-[11px] font-semibold tracking-tight transition-all cursor-pointer select-none focus:outline-none border " + (
+    const approximate = venue.coordinateSource === "area-approximate";
+    el.className = "flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[0.875rem] font-semibold tracking-tight transition-all cursor-pointer select-none focus:outline-none border max-w-[160px] " + (
       isActive
-        ? "bg-white text-zinc-950 border-white scale-110 font-bold"
-        : "bg-zinc-950/90 text-zinc-300 border-zinc-700 hover:text-white hover:border-zinc-400"
+        ? "bg-[#1a7a4a] text-white border-[#1a7a4a] scale-110 font-bold"
+        : approximate
+        ? "bg-white/90 text-[#6d675f] border-[#6d675f] border-dashed hover:text-[#221d18]"
+        : "bg-white/95 text-[#221d18] border-[#e7e0d4] hover:border-[#1a7a4a]"
     );
-    el.style.boxShadow = "0 1px 4px rgba(0,0,0,0.45)";
+    el.style.boxShadow = "0 1px 4px rgba(34,29,24,0.25)";
     const dot = document.createElement("span");
-    dot.className = "w-1.5 h-1.5 rounded-full " + (isFast ? "bg-cyan-400" : "bg-zinc-500");
+    dot.className = "w-2 h-2 rounded-full shrink-0 " + (isActive ? "bg-white" : approximate ? "bg-[#6d675f]" : "bg-[#1a7a4a]");
     const label = document.createElement("span");
-    label.textContent = `${station.kw}kW`;
+    label.className = "truncate";
+    label.textContent = venue.chain && venue.chain !== venue.branchName ? `${venue.chain} ${venue.branchName}` : venue.branchName;
     el.appendChild(dot);
     el.appendChild(label);
-    if (station.denza_approved) {
-      const tag = document.createElement("span");
-      tag.className = "text-[9px] px-1 rounded bg-zinc-800 text-zinc-300 uppercase font-mono font-bold";
-      tag.textContent = "D9";
-      el.appendChild(tag);
-    }
     return el;
   }
 
   function renderMarkers(map: maplibregl.Map) {
-    // 19 stations: a full rebuild per change is cheap and keeps state simple.
+    // A full rebuild per change is cheap at this dataset size and keeps state simple.
     markersRef.current.forEach((m) => m.remove());
     markersRef.current.clear();
-    stationsRef.current.forEach((station) => {
-      const el = markerElement(station, station.id === activeRef.current);
+    venuesRef.current.forEach((venue) => {
+      const el = markerElement(venue, venue.id === activeRef.current);
       el.addEventListener("click", (e) => {
         e.stopPropagation();
-        onSelectRef.current(station);
+        onSelectRef.current(venue);
       });
       const m = new maplibregl.Marker({ element: el })
-        .setLngLat([station.lng, station.lat])
+        .setLngLat([venue.lng, venue.lat])
         .addTo(map);
-      markersRef.current.set(station.id, m);
+      markersRef.current.set(venue.id, m);
     });
   }
 
-  // Station markers
+  // Venue markers
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
@@ -233,7 +232,7 @@ export default function VectorMap({
     }
     renderMarkers(map);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stations, activeStationId]);
+  }, [venues, activeVenueId]);
 
   // Route line
   useEffect(() => {
@@ -271,6 +270,16 @@ export default function VectorMap({
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !userPos) return;
+    if (!showUserMarker) {
+      // No real fix: no "you are here" dot at the default center.
+      if (userMarkerRef.current) {
+        userMarkerRef.current.remove();
+        userMarkerRef.current = null;
+      }
+      const accSrc0 = map.isStyleLoaded() ? (map.getSource("user-accuracy") as maplibregl.GeoJSONSource | undefined) : undefined;
+      if (accSrc0) accSrc0.setData({ type: "FeatureCollection", features: [] });
+      return;
+    }
     const [lat, lng] = userPos;
 
     const applyUser = () => {
@@ -289,8 +298,8 @@ export default function VectorMap({
         const cone = document.createElement("div");
         cone.className = "user-heading-cone";
         const dot = document.createElement("div");
-        dot.className = "relative w-4 h-4 rounded-full bg-cyan-400 border-2 border-white";
-        dot.style.boxShadow = "0 1px 4px rgba(0,0,0,0.5)";
+        dot.className = "relative w-4 h-4 rounded-full bg-[#2563eb] border-2 border-white";
+        dot.style.boxShadow = "0 1px 4px rgba(34,29,24,0.4)";
         el.appendChild(cone);
         el.appendChild(dot);
         userMarkerRef.current = new maplibregl.Marker({ element: el }).setLngLat([lng, lat]).addTo(map);
@@ -315,7 +324,7 @@ export default function VectorMap({
     if (isNavigating && followUser) {
       map.easeTo({ center: [lng, lat], duration: 500 });
     }
-  }, [userPos, userAccuracy, userHeading, isNavigating, followUser]);
+  }, [userPos, showUserMarker, userAccuracy, userHeading, isNavigating, followUser]);
 
   // Manual recenter
   useEffect(() => {
