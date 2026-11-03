@@ -407,4 +407,5 @@ export default function MobileDrawer({
       </div>
     </aside>
   );
-      }
+}
+// Trailing sentinel: absorbs the web editor last-line indent artifact.
