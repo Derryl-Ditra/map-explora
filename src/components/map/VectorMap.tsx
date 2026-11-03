@@ -24,12 +24,15 @@ interface VectorMapProps {
   route: RouteData | null;
   mapStyle?: "dark" | "light";
   recenterTick?: number;
+  fitTick?: number; // bump to frame all currently matching venues (area/activity filter)
   isNavigating?: boolean;
   followUser?: boolean;
   onUserPan?: () => void;
 }
 
 const JAKARTA: [number, number] = [106.8456, -6.2088]; // maplibre is lng,lat
+const LABEL_SOURCE = "venue-labels";
+const LABEL_LAYER = "venue-labels";
 
 function accuracyPolygon(lat: number, lng: number, meters: number): GeoJSON.Feature {
   const points: [number, number][] = [];
@@ -59,6 +62,7 @@ export default function VectorMap({
   route,
   mapStyle = "dark",
   recenterTick,
+  fitTick,
   isNavigating = false,
   followUser = false,
   onUserPan,
@@ -133,6 +137,18 @@ export default function VectorMap({
           source: "user-accuracy",
           paint: { "line-color": "#2563eb", "line-width": 1, "line-opacity": 0.3 },
         });
+        ensureLabelAssets(map);
+        map.on("click", LABEL_LAYER, (e) => {
+          const id = e.features?.[0]?.properties?.venueId;
+          const v = id ? venuesRef.current.find((x) => x.id === id) : undefined;
+          if (v) onSelectRef.current(v);
+        });
+        map.on("mouseenter", LABEL_LAYER, () => {
+          map.getCanvas().style.cursor = "pointer";
+        });
+        map.on("mouseleave", LABEL_LAYER, () => {
+          map.getCanvas().style.cursor = "";
+        });
         renderMarkers(map);
       });
 
@@ -177,6 +193,8 @@ export default function VectorMap({
             map.addLayer({ id: "user-accuracy-fill", type: "fill", source: "user-accuracy", paint: { "fill-color": "#2563eb", "fill-opacity": 0.10 } });
             map.addLayer({ id: "user-accuracy-edge", type: "line", source: "user-accuracy", paint: { "line-color": "#2563eb", "line-width": 1, "line-opacity": 0.3 } });
           }
+          ensureLabelAssets(map);
+          renderMarkers(map);
         });
       })
       .catch(() => {
@@ -184,10 +202,91 @@ export default function VectorMap({
         map.setStyle(FALLBACK_STYLE_URL[mapStyle]);
       });
     return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapStyle]);
 
   const venueName = (venue: Venue) =>
     venue.chain && venue.chain !== venue.branchName ? `${venue.chain} ${venue.branchName}` : venue.branchName;
+
+  // Browse-state labels: tight white pills with gray text, one per visible
+  // place. Rendered as cached canvas sprites on a symbol layer so MapLibre's
+  // collision handling declutters them instead of overlapping.
+  const labelSpriteCache = new Map<string, ImageData>();
+  const labelKey = (name: string, approximate: boolean) => `${approximate ? "a" : "p"}:${name}`;
+
+  function labelSprite(name: string, approximate: boolean): { key: string; image: ImageData } {
+    const key = labelKey(name, approximate);
+    const cached = labelSpriteCache.get(key);
+    if (cached) return { key, image: cached };
+    const scale = 2; // retina rendering via addImage pixelRatio
+    const font = '600 11px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+    const measure = document.createElement("canvas").getContext("2d")!;
+    measure.font = font;
+    const MAX_TEXT = 132;
+    let text = name;
+    if (measure.measureText(text).width > MAX_TEXT) {
+      while (text.length > 1 && measure.measureText(text + "\u2026").width > MAX_TEXT) {
+        text = text.slice(0, -1);
+      }
+      text += "\u2026";
+    }
+    const textW = measure.measureText(text).width;
+    const dotR = 2.5, padX = 7, gap = 5, padY = 3.5;
+    const w = Math.ceil(padX + dotR * 2 + gap + textW + padX) + 2;
+    const h = Math.ceil(11 + padY * 2) + 2;
+    const c = document.createElement("canvas");
+    c.width = w * scale;
+    c.height = h * scale;
+    const ctx = c.getContext("2d")!;
+    ctx.scale(scale, scale);
+    ctx.beginPath();
+    ctx.roundRect(1, 1, w - 2, h - 2, (h - 2) / 2);
+    ctx.fillStyle = "#ffffff";
+    ctx.fill();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = approximate ? "#a8a29e" : "#e7e5e4";
+    if (approximate) ctx.setLineDash([2, 2]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.beginPath();
+    ctx.arc(1 + padX + dotR, h / 2, dotR, 0, Math.PI * 2);
+    ctx.fillStyle = "#1a7a4a";
+    ctx.fill();
+    ctx.font = font;
+    ctx.fillStyle = "#6b7280";
+    ctx.textBaseline = "middle";
+    ctx.fillText(text, 1 + padX + dotR * 2 + gap, h / 2 + 0.5);
+    const image = ctx.getImageData(0, 0, c.width, c.height);
+    labelSpriteCache.set(key, image);
+    return { key, image };
+  }
+
+  // Adds sprites, source and layer; safe to call again after a style swap.
+  function ensureLabelAssets(map: maplibregl.Map) {
+    labelSpriteCache.forEach((image, key) => {
+      if (!map.hasImage(key)) map.addImage(key, image, { pixelRatio: 2 });
+    });
+    if (!map.getSource(LABEL_SOURCE)) {
+      map.addSource(LABEL_SOURCE, {
+        type: "geojson",
+        data: { type: "FeatureCollection", features: [] },
+      });
+    }
+    if (!map.getLayer(LABEL_LAYER)) {
+      map.addLayer({
+        id: LABEL_LAYER,
+        type: "symbol",
+        source: LABEL_SOURCE,
+        layout: {
+          "icon-image": ["get", "icon"],
+          "icon-allow-overlap": false,
+          "icon-padding": 6,
+          "symbol-z-order": "viewport-y",
+        },
+        paint: { "icon-opacity": 1 },
+      });
+    }
+  }
 
   // Selected place: full label. Everything else: a quiet dot.
   function labelElement(venue: Venue): HTMLButtonElement {
@@ -204,23 +303,6 @@ export default function VectorMap({
     label.textContent = venueName(venue);
     el.appendChild(dot);
     el.appendChild(label);
-    return el;
-  }
-
-  function dotElement(venue: Venue, dimmed: boolean): HTMLButtonElement {
-    const el = document.createElement("button");
-    el.type = "button";
-    el.setAttribute("aria-label", venueName(venue));
-    const approximate = venue.coordinateSource === "area-approximate";
-    // 32 px tap target around a 14 px dot.
-    el.className = "w-8 h-8 flex items-center justify-center cursor-pointer select-none focus:outline-none";
-    el.style.opacity = dimmed ? "0.4" : "1";
-    const dot = document.createElement("span");
-    dot.className =
-      "w-3.5 h-3.5 rounded-full border-2 " +
-      (approximate ? "bg-white border-[#6d675f] border-dashed" : "bg-[#1a7a4a] border-white");
-    dot.style.boxShadow = "0 1px 4px rgba(34,29,24,0.4)";
-    el.appendChild(dot);
     return el;
   }
 
@@ -268,15 +350,17 @@ export default function VectorMap({
       }
     });
 
+    const labelFeatures: GeoJSON.Feature[] = [];
     groups.forEach((g, i) => {
       if (g.members.length === 1) {
         const venue = g.members[0];
-        const el = dotElement(venue, dimmed);
-        el.addEventListener("click", (e) => {
-          e.stopPropagation();
-          onSelectRef.current(venue);
+        const { key, image } = labelSprite(venueName(venue), venue.coordinateSource === "area-approximate");
+        if (!map.hasImage(key)) map.addImage(key, image, { pixelRatio: 2 });
+        labelFeatures.push({
+          type: "Feature",
+          properties: { icon: key, venueId: venue.id },
+          geometry: { type: "Point", coordinates: [venue.lng, venue.lat] },
         });
-        addMarker(map, el, venue.lng, venue.lat, venue.id);
       } else {
         const lng = g.members.reduce((s, v) => s + v.lng, 0) / g.members.length;
         const lat = g.members.reduce((s, v) => s + v.lat, 0) / g.members.length;
@@ -292,6 +376,13 @@ export default function VectorMap({
         addMarker(map, el, lng, lat, `cluster-${i}`);
       }
     });
+
+    const labelSrc = map.getSource(LABEL_SOURCE) as maplibregl.GeoJSONSource | undefined;
+    if (labelSrc) labelSrc.setData({ type: "FeatureCollection", features: labelFeatures });
+    if (map.getLayer(LABEL_LAYER)) {
+      // Selection focus: other names fade so the chosen branch stands out.
+      map.setPaintProperty(LABEL_LAYER, "icon-opacity", dimmed ? 0.3 : 1);
+    }
 
     const active = venuesRef.current.find((v) => v.id === activeId);
     if (active) {
@@ -325,11 +416,34 @@ export default function VectorMap({
     map.easeTo({
       center: [v.lng, v.lat],
       zoom: Math.max(map.getZoom(), 14),
-      padding: phone ? { top: 0, bottom: 200, left: 0, right: 0 } : { top: 0, bottom: 0, left: 0, right: 0 },
+      // Center within the visible map area: clear of the bottom card on
+      // phones, clear of the 440px side panel on desktop.
+      padding: phone ? { top: 0, bottom: 200, left: 0, right: 0 } : { top: 0, bottom: 0, left: 440, right: 0 },
       duration: 500,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeVenueId, isNavigating]);
+
+  // Area/activity filter change: frame every matching place, clear of the panel.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !readyRef.current || !fitTick || isNavigating) return;
+    const vs = venuesRef.current;
+    if (vs.length === 0) return;
+    const bounds = new maplibregl.LngLatBounds([vs[0].lng, vs[0].lat], [vs[0].lng, vs[0].lat]);
+    vs.forEach((v) => bounds.extend([v.lng, v.lat]));
+    const desktop = window.innerWidth >= 768;
+    map.fitBounds(bounds, {
+      // Padding clears the desktop panel (440px) plus the widest half-label
+      // on every side, so no label clips at the viewport or panel edge.
+      padding: desktop
+        ? { top: 70, right: 120, bottom: 80, left: 552 }
+        : { top: 100, bottom: 150, left: 80, right: 80 },
+      maxZoom: 15,
+      duration: 800,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fitTick]);
 
   // Route line
   useEffect(() => {
