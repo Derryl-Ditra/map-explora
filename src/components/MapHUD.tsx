@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { useGeolocation } from "@/hooks/useGeolocation";
 import { useVenueFilters } from "@/hooks/useVenueFilters";
 import { useRouting } from "@/hooks/useRouting";
-import { Venue } from "@/types/venue";
+import { Venue, VenueFilterState } from "@/types/venue";
 import { calculateDistance } from "@/utils/geo";
 import MobileDrawer from "./ui/MobileDrawer";
 import ShareCard from "./ui/ShareCard";
@@ -67,6 +67,8 @@ export default function MapHUD() {
   const prevViewRef = useRef<{ view: "list" | "map"; detail: boolean }>({ view: "map", detail: false });
 
   const [isNavigating, setIsNavigating] = useState(false);
+  // Bumped when the area or activity filter changes so the map frames all matches.
+  const [fitTick, setFitTick] = useState(0);
   const [followUser, setFollowUser] = useState(false);
   const [arrived, setArrived] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
@@ -173,6 +175,19 @@ export default function MapHUD() {
 
   const firstStep = route?.steps && route.steps.length > 0 ? route.steps[stepIndex].instruction : null;
 
+  // Choosing an area or activity moves the map to show every matching place.
+  const handleUpdateFilter = useCallback(
+    <K extends keyof VenueFilterState>(key: K, value: VenueFilterState[K]) => {
+      updateFilter(key, value);
+      if (key === "area" || key === "category") setFitTick((t) => t + 1);
+    },
+    [updateFilter]
+  );
+  const handleResetFilters = useCallback(() => {
+    resetFilters();
+    setFitTick((t) => t + 1);
+  }, [resetFilters]);
+
   return (
     <div className="relative h-dvh w-screen bg-[#f6f2ec] overflow-hidden flex flex-col font-sans select-none">
       <h1 className="sr-only">Map Explora - Under-4 baby and toddler classes in Jakarta and Jabodetabek</h1>
@@ -257,6 +272,7 @@ export default function MapHUD() {
           route={route}
           mapStyle={mapStyle}
           recenterTick={recenterTick}
+          fitTick={fitTick}
           isNavigating={isNavigating}
           followUser={followUser}
           onUserPan={() => setFollowUser(false)}
@@ -303,8 +319,8 @@ export default function MapHUD() {
         backLabel={!isDesktop && mobileView === "map" ? "Back to map" : "All places"}
         onClearActiveVenue={handleBackFromDetails}
         filters={filters}
-        onUpdateFilter={updateFilter}
-        onResetFilters={resetFilters}
+        onUpdateFilter={handleUpdateFilter}
+        onResetFilters={handleResetFilters}
         categories={categories}
         areas={areas}
         route={route}
