@@ -67,6 +67,7 @@ export default function VectorMap({
   const mapRef = useRef<maplibregl.Map | null>(null);
   const markersRef = useRef<Map<string, maplibregl.Marker>>(new Map());
   const userMarkerRef = useRef<maplibregl.Marker | null>(null);
+  const readyRef = useRef(false);
   const styleModeRef = useRef<"dark" | "light" | null>(null);
   const venuesRef = useRef(venues);
   venuesRef.current = venues;
@@ -97,6 +98,7 @@ export default function VectorMap({
       styleModeRef.current = mapStyle;
 
       map.on("load", () => {
+        readyRef.current = true;
         map.addSource("route", {
           type: "geojson",
           data: { type: "FeatureCollection", features: [] },
@@ -134,6 +136,7 @@ export default function VectorMap({
         renderMarkers(map);
       });
 
+      map.on("zoomend", () => renderMarkers(map));
       map.on("dragstart", () => onUserPanRef.current?.());
       mapRef.current = map;
     };
@@ -183,56 +186,150 @@ export default function VectorMap({
     return () => { cancelled = true; };
   }, [mapStyle]);
 
-  function markerElement(venue: Venue, isActive: boolean): HTMLButtonElement {
+  const venueName = (venue: Venue) =>
+    venue.chain && venue.chain !== venue.branchName ? `${venue.chain} ${venue.branchName}` : venue.branchName;
+
+  // Selected place: full label. Everything else: a quiet dot.
+  function labelElement(venue: Venue): HTMLButtonElement {
     const el = document.createElement("button");
     el.type = "button";
-    const approximate = venue.coordinateSource === "area-approximate";
-    el.className = "flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[0.875rem] font-semibold tracking-tight transition-all cursor-pointer select-none focus:outline-none border max-w-[160px] " + (
-      isActive
-        ? "bg-[#1a7a4a] text-white border-[#1a7a4a] scale-110 font-bold"
-        : approximate
-        ? "bg-white/90 text-[#6d675f] border-[#6d675f] border-dashed hover:text-[#221d18]"
-        : "bg-white/95 text-[#221d18] border-[#e7e0d4] hover:border-[#1a7a4a]"
-    );
+    el.className =
+      "flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[0.875rem] font-bold tracking-tight cursor-pointer select-none focus:outline-none border bg-[#1a7a4a] text-white border-[#1a7a4a]";
     el.style.boxShadow = "0 1px 4px rgba(34,29,24,0.25)";
+    el.style.maxWidth = "220px";
     const dot = document.createElement("span");
-    dot.className = "w-2 h-2 rounded-full shrink-0 " + (isActive ? "bg-white" : approximate ? "bg-[#6d675f]" : "bg-[#1a7a4a]");
+    dot.className = "w-2 h-2 rounded-full shrink-0 bg-white";
     const label = document.createElement("span");
     label.className = "truncate";
-    label.textContent = venue.chain && venue.chain !== venue.branchName ? `${venue.chain} ${venue.branchName}` : venue.branchName;
+    label.textContent = venueName(venue);
     el.appendChild(dot);
     el.appendChild(label);
     return el;
+  }
+
+  function dotElement(venue: Venue, dimmed: boolean): HTMLButtonElement {
+    const el = document.createElement("button");
+    el.type = "button";
+    el.setAttribute("aria-label", venueName(venue));
+    const approximate = venue.coordinateSource === "area-approximate";
+    // 32 px tap target around a 14 px dot.
+    el.className = "w-8 h-8 flex items-center justify-center cursor-pointer select-none focus:outline-none";
+    el.style.opacity = dimmed ? "0.4" : "1";
+    const dot = document.createElement("span");
+    dot.className =
+      "w-3.5 h-3.5 rounded-full border-2 " +
+      (approximate ? "bg-white border-[#6d675f] border-dashed" : "bg-[#1a7a4a] border-white");
+    dot.style.boxShadow = "0 1px 4px rgba(34,29,24,0.4)";
+    el.appendChild(dot);
+    return el;
+  }
+
+  function clusterElement(count: number, dimmed: boolean): HTMLButtonElement {
+    const el = document.createElement("button");
+    el.type = "button";
+    el.setAttribute("aria-label", `${count} places, zoom in`);
+    el.className =
+      "w-10 h-10 rounded-full bg-white border-2 border-[#1a7a4a] text-[#14532d] text-[0.9375rem] font-bold flex items-center justify-center cursor-pointer select-none focus:outline-none";
+    el.style.boxShadow = "0 1px 4px rgba(34,29,24,0.3)";
+    el.style.opacity = dimmed ? "0.4" : "1";
+    el.textContent = String(count);
+    return el;
+  }
+
+  function addMarker(map: maplibregl.Map, el: HTMLElement, lng: number, lat: number, key: string) {
+    const m = new maplibregl.Marker({ element: el }).setLngLat([lng, lat]).addTo(map);
+    markersRef.current.set(key, m);
   }
 
   function renderMarkers(map: maplibregl.Map) {
     // A full rebuild per change is cheap at this dataset size and keeps state simple.
     markersRef.current.forEach((m) => m.remove());
     markersRef.current.clear();
+    const activeId = activeRef.current;
+    const dimmed = !!activeId;
+    const CLUSTER_PX = 36;
+    const clusterable = map.getZoom() < 17;
+
+    type Group = { x: number; y: number; members: Venue[] };
+    const groups: Group[] = [];
     venuesRef.current.forEach((venue) => {
-      const el = markerElement(venue, venue.id === activeRef.current);
-      el.addEventListener("click", (e) => {
-        e.stopPropagation();
-        onSelectRef.current(venue);
-      });
-      const m = new maplibregl.Marker({ element: el })
-        .setLngLat([venue.lng, venue.lat])
-        .addTo(map);
-      markersRef.current.set(venue.id, m);
+      if (venue.id === activeId) return;
+      const p = map.project([venue.lng, venue.lat]);
+      const near = clusterable
+        ? groups.find((g) => Math.hypot(g.x - p.x, g.y - p.y) < CLUSTER_PX)
+        : undefined;
+      if (near) {
+        const n = near.members.length;
+        near.x = (near.x * n + p.x) / (n + 1);
+        near.y = (near.y * n + p.y) / (n + 1);
+        near.members.push(venue);
+      } else {
+        groups.push({ x: p.x, y: p.y, members: [venue] });
+      }
     });
+
+    groups.forEach((g, i) => {
+      if (g.members.length === 1) {
+        const venue = g.members[0];
+        const el = dotElement(venue, dimmed);
+        el.addEventListener("click", (e) => {
+          e.stopPropagation();
+          onSelectRef.current(venue);
+        });
+        addMarker(map, el, venue.lng, venue.lat, venue.id);
+      } else {
+        const lng = g.members.reduce((s, v) => s + v.lng, 0) / g.members.length;
+        const lat = g.members.reduce((s, v) => s + v.lat, 0) / g.members.length;
+        const el = clusterElement(g.members.length, dimmed);
+        el.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const bounds = g.members.reduce(
+            (b, v) => b.extend([v.lng, v.lat]),
+            new maplibregl.LngLatBounds([g.members[0].lng, g.members[0].lat], [g.members[0].lng, g.members[0].lat])
+          );
+          map.fitBounds(bounds, { padding: 90, maxZoom: 17, duration: 500 });
+        });
+        addMarker(map, el, lng, lat, `cluster-${i}`);
+      }
+    });
+
+    const active = venuesRef.current.find((v) => v.id === activeId);
+    if (active) {
+      const el = labelElement(active);
+      el.addEventListener("click", (e) => e.stopPropagation());
+      addMarker(map, el, active.lng, active.lat, active.id);
+    }
   }
 
   // Venue markers
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
-    if (!map.isStyleLoaded()) {
-      map.once("load", () => renderMarkers(map));
-      return;
-    }
+    // Before the first load, the load handler renders the markers.
+    if (!readyRef.current) return;
     renderMarkers(map);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [venues, activeVenueId]);
+
+  // Selecting a place on a phone: keep the pin clear of the bottom card.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || isNavigating) return;
+    if (!activeVenueId) {
+      map.easeTo({ padding: { top: 0, bottom: 0, left: 0, right: 0 }, duration: 300 });
+      return;
+    }
+    const v = venuesRef.current.find((x) => x.id === activeVenueId);
+    if (!v) return;
+    const phone = window.innerWidth < 768;
+    map.easeTo({
+      center: [v.lng, v.lat],
+      zoom: Math.max(map.getZoom(), 14),
+      padding: phone ? { top: 0, bottom: 200, left: 0, right: 0 } : { top: 0, bottom: 0, left: 0, right: 0 },
+      duration: 500,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeVenueId, isNavigating]);
 
   // Route line
   useEffect(() => {
@@ -251,10 +348,11 @@ export default function VectorMap({
           (b, [lng, lat]) => b.extend([lng, lat]),
           new maplibregl.LngLatBounds(route.geometry[0], route.geometry[0])
         );
-        map.fitBounds(bounds, {
+        // Fit only while navigating: after Exit the selection effect recenters.
+        if (isNavigating) map.fitBounds(bounds, {
           padding: isNavigating
-            ? { top: 110, bottom: 150, left: 24, right: 24 }
-            : { top: 80, bottom: 300, left: 40, right: 40 },
+            ? { top: 190, bottom: 150, left: 110, right: 110 }
+            : { top: 80, bottom: 300, left: 110, right: 110 },
           maxZoom: 16,
           duration: 600,
         });
@@ -262,7 +360,7 @@ export default function VectorMap({
         src.setData({ type: "FeatureCollection", features: [] });
       }
     };
-    if (map.isStyleLoaded() && map.getSource("route")) apply();
+    if (map.getSource("route")) apply();
     else map.once("load", apply);
   }, [route, isNavigating]);
 
