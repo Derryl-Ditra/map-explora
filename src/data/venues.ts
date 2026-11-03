@@ -1,5 +1,5 @@
-// GENERATED from the reviewed research dataset under4-places-jabodetabek v14-2026-11-03-final.
-// Do not hand-edit; regenerate with gen-venues.py from the source JSON. Every
+// GENERATED from the reviewed research dataset under4-places-jabodetabek v15-2026-11-03-golden-baby.
+// Do not hand-edit; keep in sync with the reviewed source dataset (maintained outside this repo). Every
 // record carries its verification status (fitStatus) and per-program evidence
 // level. Extraction artifacts (unvalidated text matches) are excluded at import
 // time. Offerings confirmed at branch level but without branch-exact ages keep
@@ -488,6 +488,7 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
  },
+ {"id": "golden-baby-school-jakarta-garden-city", "chain": "Golden Baby School", "branchName": "Jakarta Garden City", "categories": ["Gym & Movement", "Sensory"], "address": "Perumahan Jakarta Garden City, Jl. Cassia Utama, Cakung Timur, Kec. Cakung, Jakarta Timur 13910", "area": "Jakarta Timur", "city": "Jakarta Timur", "lat": -6.1785493, "lng": 106.9570159, "coordinateSource": "maps-pin", "programs": [{"name": "Baby Crawler", "offering": "offered", "age": {"minMonths": 5, "maxMonths": 13, "providerAgeUrl": "https://goldenschool.id/the-baby-crawler-class-at-golden-baby-school/", "sourceCheckedAt": "2026-11-03", "level": "branch", "verification": "provider-confirmed"}, "note": "Baby Crawler Class, babies 5-13 months. Provider page is undated; read 2026-11-03. Schedule and price not carried here."}], "website": "https://goldenschool.id/", "sourceUrl": "https://goldenschool.id/the-baby-crawler-class-at-golden-baby-school/", "lastCheckedAt": "2026-11-03", "fitStatus": "branch-confirmed-live-undated", "notes": "Independent provider. Address matched to Google Places listing by name and area. Provider page undated; read 2026-11-03."},
  {
   "id": "gymboree-play-music-gymboree-play-indonesia-music",
   "chain": "Gymboree Play & Music",
