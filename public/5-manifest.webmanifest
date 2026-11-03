@@ -1,0 +1,19 @@
+{
+  "name": "Map Explora - Jakarta EV Navigator",
+  "short_name": "Map Explora",
+  "description": "SPKLU charging scout for large EVs in Jakarta.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d0d0d",
+  "theme_color": "#09090b",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
