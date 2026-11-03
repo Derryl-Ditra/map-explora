@@ -11,8 +11,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Map Explora - Under 4 Activities",
-  description: "Map of baby and toddler classes (under 4 years) across Jakarta, Bintaro and Jabodetabek, with branch-confirmed age eligibility.",
+  title: "Map Explora - Under 5 Activities",
+  description: "Map of baby, toddler and preschool classes (under 5 years) across Jakarta, Bintaro and Jabodetabek, with branch-confirmed age eligibility. Strongest coverage for ages 0-3; classes for 4-year-olds are being added.",
   manifest: "/manifest.webmanifest",
   icons: {
     icon: "/icon.svg",
@@ -41,3 +41,4 @@ export default function RootLayout({
     </html>
   );
 }
+// Trailing sentinel: absorbs the web editor last-line indent artifact.
