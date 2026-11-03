@@ -152,7 +152,7 @@ export default function VectorMap({
         renderMarkers(map);
       });
 
-      map.on("zoomend", () => renderMarkers(map));
+      map.on("moveend", () => renderMarkers(map));
       map.on("dragstart", () => onUserPanRef.current?.());
       mapRef.current = map;
     };
@@ -222,13 +222,16 @@ export default function VectorMap({
     const font = '600 11px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
     const measure = document.createElement("canvas").getContext("2d")!;
     measure.font = font;
-    const MAX_TEXT = 132;
+    const MAX_TEXT = 168;
     let text = name;
     if (measure.measureText(text).width > MAX_TEXT) {
-      while (text.length > 1 && measure.measureText(text + "\u2026").width > MAX_TEXT) {
-        text = text.slice(0, -1);
+      // Truncate at a word boundary, never mid-word.
+      let cut = text;
+      while (cut.length > 1 && measure.measureText(cut + "\u2026").width > MAX_TEXT) {
+        cut = cut.slice(0, -1);
       }
-      text += "\u2026";
+      const lastSpace = cut.lastIndexOf(" ");
+      text = (lastSpace > 3 ? cut.slice(0, lastSpace) : cut) + "\u2026";
     }
     const textW = measure.measureText(text).width;
     const dotR = 2.5, padX = 7, gap = 5, padY = 3.5;
@@ -279,6 +282,9 @@ export default function VectorMap({
         source: LABEL_SOURCE,
         layout: {
           "icon-image": ["get", "icon"],
+          // Per-label pixel offset clamps every nameplate inside the
+          // viewport (recomputed on moveend), so panning never clips one.
+          "icon-offset": ["get", "offset"],
           "icon-allow-overlap": false,
           "icon-padding": 6,
           "symbol-z-order": "viewport-y",
@@ -351,14 +357,32 @@ export default function VectorMap({
     });
 
     const labelFeatures: GeoJSON.Feature[] = [];
+    const vw = map.getContainer().clientWidth;
+    const vh = map.getContainer().clientHeight;
+    // Keep nameplates clear of the chrome that floats over the map: the
+    // sidebar on desktop (left) and the locate/reset buttons (top-right).
+    const isDesktop = window.innerWidth >= 768;
+    const EDGE_L = isDesktop ? 472 : 8;
+    const EDGE_R = 64;
+    const EDGE_T = 8;
+    const EDGE_B = 8;
     groups.forEach((g, i) => {
       if (g.members.length === 1) {
         const venue = g.members[0];
         const { key, image } = labelSprite(venueName(venue), venue.coordinateSource === "area-approximate");
         if (!map.hasImage(key)) map.addImage(key, image, { pixelRatio: 2 });
+        const p = map.project([venue.lng, venue.lat]);
+        const halfW = image.width / 4; // sprite is 2x, anchored center
+        const halfH = image.height / 4;
+        let ox = 0;
+        let oy = 0;
+        if (p.x + halfW > vw - EDGE_R) ox = vw - EDGE_R - (p.x + halfW);
+        if (p.x - halfW < EDGE_L) ox = EDGE_L - (p.x - halfW);
+        if (p.y + halfH > vh - EDGE_B) oy = vh - EDGE_B - (p.y + halfH);
+        if (p.y - halfH < EDGE_T) oy = EDGE_T - (p.y - halfH);
         labelFeatures.push({
           type: "Feature",
-          properties: { icon: key, venueId: venue.id },
+          properties: { icon: key, venueId: venue.id, offset: [ox, oy] },
           geometry: { type: "Point", coordinates: [venue.lng, venue.lat] },
         });
       } else {
@@ -434,11 +458,11 @@ export default function VectorMap({
     vs.forEach((v) => bounds.extend([v.lng, v.lat]));
     const desktop = window.innerWidth >= 768;
     map.fitBounds(bounds, {
-      // Padding clears the desktop panel (440px) plus the widest half-label
-      // on every side, so no label clips at the viewport or panel edge.
+      // Labels clamp inside the viewport on their own, so padding only
+      // clears real chrome: the desktop panel and the mobile peek sheet.
       padding: desktop
-        ? { top: 70, right: 120, bottom: 80, left: 552 }
-        : { top: 100, bottom: 150, left: 80, right: 80 },
+        ? { top: 60, right: 60, bottom: 60, left: 464 }
+        : { top: 76, bottom: 176, left: 28, right: 28 },
       maxZoom: 15,
       duration: 800,
     });
@@ -554,3 +578,5 @@ export default function VectorMap({
     </div>
   );
 }
+
+// Trailing sentinel: absorbs the web editor last-line indent artifact.
