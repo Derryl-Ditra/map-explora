@@ -1,13 +1,13 @@
 {
-  "name": "Map Explora - Jakarta EV Navigator",
+  "name": "Map Explora - Under 4 Activities",
   "short_name": "Map Explora",
-  "description": "SPKLU charging scout for large EVs in Jakarta.",
+  "description": "Baby and toddler classes (under 4 years) across Jakarta, Bintaro and Jabodetabek.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0d0d0d",
-  "theme_color": "#09090b",
+  "background_color": "#f6f2ec",
+  "theme_color": "#f6f2ec",
   "icons": [
     {
       "src": "icon.svg",
