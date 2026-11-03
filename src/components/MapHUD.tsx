@@ -205,7 +205,7 @@ export default function MapHUD() {
       {/* Location permission notice: above the sheet on phones (never over
           Back/venue names), top-center on desktop. Dismissible, auto-hides. */}
       {locationError && !locationNoticeGone && (
-        <div className="absolute bottom-[176px] md:bottom-auto md:top-4 left-1/2 -translate-x-1/2 z-[1001] w-[min(92vw,340px)]">
+        <div className="absolute bottom-[266px] md:bottom-auto md:top-4 left-1/2 -translate-x-1/2 z-[1001] w-[min(92vw,340px)]">
           <div className="bg-white border border-[#e7e0d4] rounded-2xl pl-3.5 pr-2 py-2.5 text-[0.9375rem] text-[#4a443c] shadow-sm flex items-center gap-2">
             <MapPin className="w-4 h-4 text-[#92400e] shrink-0" />
             <span>{locationError}</span>
