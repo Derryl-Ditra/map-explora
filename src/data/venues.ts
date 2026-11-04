@@ -157,9 +157,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/English+1+Bintaro+Tangerang/@-6.2683113,106.7376941,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f068a5c93f47:0xd8a1708972e52e55!8m2!3d-6.2683113!4d106.7376941!16s%2Fg%2F1typqrl",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/tangerang/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.6,
@@ -191,9 +191,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/English+1+Cempaka+Putih/@-6.176798,106.8650502,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f5de7b29f121:0xb8425e30a02eb605!8m2!3d-6.176798!4d106.8650502!16s%2Fg%2F11vq384bqp",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.9,
@@ -225,9 +225,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/English+1+Cikupa+Tangerang/@-6.2566203,106.5263614,17z/data=!3m1!4b1!4m6!3m5!1s0x2e420790d737c44f:0xaee30870bba29a47!8m2!3d-6.2566203!4d106.5263614!16s%2Fg%2F11f5ps1_",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/tangerang/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.6,
@@ -259,9 +259,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/English+1+Ciledug+Tangerang/@-6.2356906,106.7395511,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f146978cade9:0x10ceda633d22a1db!8m2!3d-6.2356906!4d106.7395511!16s%2Fg%2F11vr6k5",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/tangerang/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 5.0,
@@ -293,9 +293,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/English+1+Cinere+Depok/@-6.3247346,106.7847522,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69ee464e926e53:0xd88f17e8a7edfd5c!8m2!3d-6.3247346!4d106.7847522!16s%2Fg%2F1tcynz8j",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/depok/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.8,
@@ -327,9 +327,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/English+1+Cipete/@-6.2777679,106.8040747,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1f79d93d2af:0xfe348cb72e728145!8m2!3d-6.2777679!4d106.8040747!16s%2Fg%2F11vzdkb4n1",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.9,
@@ -361,9 +361,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/English+1+Jagakarsa+Tanjung+Barat/@-6.3056095,106.8399574,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69ed367e432663:0x6129fb97cc615eab!8m2!3d-6.3056095!4d106.8399574!16s%2Fg%2F1",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 5.0,
@@ -395,8 +395,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "not-confirmed",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/tangerang/pamulang/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -419,9 +420,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/English+1+Pejaten/@-6.2808009,106.8286199,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f218251bb44f:0x36ecd56ecdeb565b!8m2!3d-6.2808009!4d106.8286199!16s%2Fg%2F1tg_12w2",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.9,
@@ -453,9 +454,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/English+1+Permata+Hijau/@-6.2202621,106.7823003,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f139a4b3573b:0xcf5bbdb72f5b3326!8m2!3d-6.2202621!4d106.7823003!16s%2Fg%2F1tg2yrrk",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.8,
@@ -487,9 +488,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/English+1+Pluit+Village/@-6.1157222,106.7898568,17z/data=!3m1!4b1!4m6!3m5!1s0x2e6a1d95f575197f:0x200267828bd47395!8m2!3d-6.1157222!4d106.7898568!16s%2Fg%2F1thzx2hf",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.9,
@@ -521,9 +522,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/English+1+Pondok+Indah/@-6.2842313,106.7809526,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1c8c63c4c39:0xbfab8abc85ecd9dd!8m2!3d-6.2842313!4d106.7809526!16s%2Fg%2F1thh4vv1",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.9,
@@ -555,9 +556,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/English+1+Puri+Indah/@-6.1906575,106.7454761,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f712c19ef0cf:0xc78042438414cee2!8m2!3d-6.1906575!4d106.7454761!16s%2Fg%2F1td0jts2",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.9,
@@ -589,9 +590,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/English+1+Rawamangun/@-6.193258,106.881993,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f4ece858e957:0xa40da769611780ec!8m2!3d-6.193258!4d106.881993!16s%2Fg%2F1tqks3_v",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.7,
@@ -623,9 +624,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/English+1+Sawangan+Depok/@-6.3819321,106.7484958,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69ef53ddf87061:0xcb567a851808fbc5!8m2!3d-6.3819321!4d106.7484958!16s%2Fg%2F11rt_w7p9c",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/depok/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.9,
@@ -657,9 +658,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/English+1+Sunter/@-6.141394,106.8523676,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f594d459e4d1:0x7b414ae1a30eef48!8m2!3d-6.141394!4d106.8523676!16s%2Fg%2F11kqstv4js",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 5.0,
@@ -691,9 +692,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/English+1+Tamini+Square/@-6.2916896,106.8814824,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f29bbf105b03:0x98f8b38d72cbfd4e!8m2!3d-6.2916896!4d106.8814824!16s%2Fg%2F1tzfvjzv",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.9,
@@ -725,9 +726,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/English+1+Tangcity+Tangerang/@-6.1934014,106.6347815,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f931ee1d344d:0xc87ce696ee1c4a78!8m2!3d-6.1934014!4d106.6347815!16s%2Fg%2F1tk1wg",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/tangerang/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 5.0,
@@ -759,9 +760,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/English+1+Tanjung+Duren/@-6.1847245,106.78771,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f6f3a2498883:0x5f6d0c35c0f37c54!8m2!3d-6.1847245!4d106.78771!16s%2Fg%2F1td0_s90",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.8,
@@ -793,9 +794,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/English+1+Tebet/@-6.2426037,106.8446877,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f3a6a224e4d3:0xcce1f90e4c336ba9!8m2!3d-6.2426037!4d106.8446877!16s%2Fg%2F1vyd3plx",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.9,
@@ -1020,9 +1021,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official program page: 2.5 to 7 years.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/I+CAN+READ+Alam+Sutera/@-6.2426441,106.6535436,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fb224f0a30cd:0x590c7090362d1f9d!8m2!3d-6.2426441!4d106.6535436!16s%2Fg%2F11gtgdpnpf",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 5.0,
@@ -1054,10 +1055,11 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years.",
+  "notes": "Official program page: 2.5 to 7 years. Address wording differs: Maps shows Jl. Letjen Sutopo Buaran; the brand lists BSD City 1 at Ruko Golden Madrid 2 Blok F No.18-19. The Maps phone (021 5316 4789) matches the official BSD City 1 phone.",
   "operatingStatus": {
-   "state": "not-confirmed",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -1081,9 +1083,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official program page: 2.5 to 7 years.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/I+Can+Read+Bintaro+%7C+Kursus+Bahasa+Inggris+anak+%26+remaja/@-6.2794226,106.7108143,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fa906edfcde5:0xa64f315e87f32792!8m2!3d-6.279422",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 5.0,
@@ -1115,7 +1117,7 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years.",
+  "notes": "Official program page: 2.5 to 7 years. Not on the brand's published centre lists checked 2026-11-04 (icanread.asia, icanread.co.id); the Google Maps listing is open with hours.",
   "operatingStatus": {
    "state": "maps-listed",
    "source": "https://www.google.com/maps/place/I+Can+Read+Ciledug/@-6.223157,106.709337,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fbf9b74499b5:0x13087f4a3f46b3fe!8m2!3d-6.223157!4d106.709337!16s%2Fg%2F11z603zr_z",
@@ -1153,9 +1155,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official program page: 2.5 to 7 years.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/I+Can+Read+Cinere/@-6.3238678,106.784497,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69efb0fe63e8c3:0xe5fb14bc9bf935d5!8m2!3d-6.3238678!4d106.784497!16s%2Fg%2F11j1mfm9qj",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.9,
@@ -1189,9 +1191,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official program page: 2.5 to 7 years.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/I+Can+Read+Ciputat/@-6.3185828,106.7458075,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69ef49c5af1077:0x290ba9da080bb2b6!8m2!3d-6.3185828!4d106.7458075!16s%2Fg%2F11t5y5j1kn",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 5.0,
@@ -1225,9 +1227,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official program page: 2.5 to 7 years.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/I+Can+Read+Gading+Serpong/@-6.2442913,106.6333943,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fbf7b184a49f:0x343aae5ac355a0a!8m2!3d-6.2442913!4d106.6333943!16s%2Fg%2F11b5s2dv7g",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 5.0,
@@ -1261,9 +1263,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official program page: 2.5 to 7 years.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/I+Can+Read+Gajah+Mada/@-6.1603129,106.8135499,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f74f95b336b1:0x32545ddb9f413da4!8m2!3d-6.1603129!4d106.8135499!16s%2Fg%2F11h4zgjr7z",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 5.0,
@@ -1297,9 +1299,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official program page: 2.5 to 7 years.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/I+CAN+READ+Green+Lake+City/@-6.1910037,106.7007109,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f98b5a70798d:0x5f8d8d69dda7e0af!8m2!3d-6.1910037!4d106.7007109!16s%2Fg%2F11lg0qb0",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 5.0,
@@ -1331,7 +1333,7 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years.",
+  "notes": "Official program page: 2.5 to 7 years. Not on the brand's published centre lists checked 2026-11-04 (icanread.asia, icanread.co.id); the Google Maps listing is open with hours.",
   "operatingStatus": {
    "state": "maps-listed",
    "source": "https://www.google.com/maps/place/I+Can+Read/@-6.1727606,106.7768893,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f7ad388290f5:0x7a5d4dfde1238048!8m2!3d-6.1727606!4d106.7768893!16s%2Fg%2F11bc7rwvzm",
@@ -1367,7 +1369,7 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years.",
+  "notes": "Official program page: 2.5 to 7 years. Not on the brand's published centre lists checked 2026-11-04 (icanread.asia, icanread.co.id); the Google Maps listing is open with hours.",
   "operatingStatus": {
    "state": "maps-listed",
    "source": "https://www.google.com/maps/place/I+Can+Read+Kalimalang/@-6.2458828,106.9068453,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f3fadf52eda5:0x2fbbf839ec46b7d8!8m2!3d-6.2458828!4d106.9068453!16s%2Fg%2F11yvtvg_y_",
@@ -1405,9 +1407,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official program page: 2.5 to 7 years.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/I+Can+Read+Kelapa+Gading/@-6.14613,106.895647,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f53bffffffc3:0x51c9153fa528a6b8!8m2!3d-6.14613!4d106.895647!16s%2Fg%2F11bwhb2ymz",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.8,
@@ -1441,9 +1443,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official program page: 2.5 to 7 years.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/I+Can+Read+Kemang/@-6.2585849,106.8153776,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f11b4d2d4e7d:0x1485aab21bc0abe9!8m2!3d-6.2585849!4d106.8153776!16s%2Fg%2F11gjw0wsyq",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 5.0,
@@ -1477,9 +1479,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official program page: 2.5 to 7 years.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/I+Can+Read+Menteng/@-6.1968106,106.8284464,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f422a3ec598f:0x8a935e87f6800738!8m2!3d-6.1968106!4d106.8284464!16s%2Fg%2F1hm3wxvmk",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.9,
@@ -1513,9 +1515,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official program page: 2.5 to 7 years.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/I+Can+Read+Permata+Hijau/@-6.2209985,106.7837332,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1328f49edd9:0xe79daa8de7ceb21f!8m2!3d-6.2209985!4d106.7837332!16s%2Fg%2F1pzr6x33n",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 5.0,
@@ -1549,9 +1551,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official program page: 2.5 to 7 years.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/I+Can+Read+Pluit/@-6.1160523,106.7887151,17z/data=!3m1!4b1!4m6!3m5!1s0x2e6a1dbe0365b51b:0x5355fe4731acb917!8m2!3d-6.1160523!4d106.7887151!16s%2Fg%2F11f5d5zk9m",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 5.0,
@@ -1585,9 +1587,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official program page: 2.5 to 7 years.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/I+Can+Read+Puri/@-6.1878857,106.7363642,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f7707f2ca545:0xef1aeae2fb59afe4!8m2!3d-6.1878857!4d106.7363642!16s%2Fg%2F1tplsmj1",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.6,
@@ -1621,9 +1623,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official program page: 2.5 to 7 years.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/I+Can+Read+Summarecon+Bekasi/@-6.2277174,107.0034143,17z/data=!3m1!4b1!4m6!3m5!1s0x2e698ddbe9ad5a31:0x761a4ca27b51817c!8m2!3d-6.2277174!4d107.0034143!16s%2Fg%2F11gvxj",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 5.0,
@@ -1657,9 +1659,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official program page: 2.5 to 7 years.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/I+Can+Read+Sunter/@-6.1323558,106.8649088,17z/data=!3m1!4b1!4m6!3m5!1s0x2e6a1e2acab1e1e1:0xdf7ce76095bad665!8m2!3d-6.1323558!4d106.8649088!16s%2Fg%2F11bwf6hw3t",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 5.0,
@@ -1693,9 +1695,9 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official program page: 2.5 to 7 years.",
   "operatingStatus": {
-   "state": "maps-listed",
-   "source": "https://www.google.com/maps/place/I+Can+Read+Tebet/@-6.2337803,106.8479516,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f39949a4516f:0xa08742b71a93985d!8m2!3d-6.2337803!4d106.8479516!16s%2Fg%2F11nb99zmr0",
-   "checkedAt": "2026-11-03"
+   "state": "official-listed",
+   "source": "https://icanread.co.id/location/",
+   "checkedAt": "2026-11-04"
   },
   "reviews": {
    "rating": 4.9,
