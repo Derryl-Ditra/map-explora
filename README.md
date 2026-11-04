@@ -1,6 +1,6 @@
-# Map Explora - Jakarta EV Navigator
+# Map Explora - Under 5 Activities
 
-Find EV charging stations (SPKLU) in Jakarta that actually fit a large electric MPV like the Denza D9, then route to them. Mobile-first, installable as a PWA where the browser allows it.
+Map of baby, toddler and preschool classes (under 5 years) across Jakarta, Bintaro and Jabodetabek, with branch-confirmed age eligibility. Mobile-first, installable as a PWA where the browser allows it.
 
 Live: https://derryl-ditra.github.io/map-explora/
 
