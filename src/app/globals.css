@@ -117,17 +117,3 @@ nextjs-portal,
     display: none;
   }
 }
-
-/* User heading cone */
-.user-heading-cone {
-  position: absolute;
-  top: -14px;
-  left: 50%;
-  width: 0;
-  height: 0;
-  margin-left: -10px;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 18px solid rgba(37, 99, 235, 0.35);
-  display: none;
-}
