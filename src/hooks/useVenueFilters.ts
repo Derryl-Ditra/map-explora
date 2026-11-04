@@ -5,6 +5,10 @@ import { VENUES } from "@/data/venues";
 import { Venue, VenueFilterState } from "@/types/venue";
 import { calculateDistance, calculateETA } from "@/utils/geo";
 import { venueConfirmedForAge } from "@/utils/ageMatch";
+import { isShownToUsers } from "@/utils/visibility";
+
+// Only places with an official aliveness source are shown. The rest stay in the data file.
+const SHOWN_VENUES = VENUES.filter(isShownToUsers);
 
 export function useVenueFilters(userPos: [number, number] | null) {
   const [filters, setFilters] = useState<VenueFilterState>({
@@ -26,16 +30,16 @@ export function useVenueFilters(userPos: [number, number] | null) {
   };
 
   const categories = useMemo(
-    () => [...new Set(VENUES.flatMap((v) => v.categories))].sort(),
+    () => [...new Set(SHOWN_VENUES.flatMap((v) => v.categories))].sort(),
     []
   );
   const areas = useMemo(
-    () => [...new Set(VENUES.map((v) => v.area))].sort(),
+    () => [...new Set(SHOWN_VENUES.map((v) => v.area))].sort(),
     []
   );
 
   const { confirmed, unconfirmed } = useMemo(() => {
-    const withDistance = VENUES.map((v) => {
+    const withDistance = SHOWN_VENUES.map((v) => {
       const distance = userPos
         ? calculateDistance(userPos[0], userPos[1], v.lat, v.lng)
         : 0;
