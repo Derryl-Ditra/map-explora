@@ -1,8 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
+// Static export is served under /map-explora in production, so root-relative
+// asset paths must carry the base path explicitly.
+const base = process.env.NODE_ENV === "production" ? "/map-explora" : "";
+
 export const viewport: Viewport = {
-  themeColor: "#f6f2ec",
+  themeColor: "#14B8A6",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -13,9 +17,14 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Map Explora - Under 5 Activities",
   description: "Map of baby, toddler and preschool classes (under 5 years) across Jakarta, Bintaro and Jabodetabek, with branch-confirmed age eligibility. Strongest coverage for ages 0-3; classes for 4-year-olds are being added.",
-  manifest: "/manifest.webmanifest",
+  manifest: `${base}/manifest.webmanifest`,
   icons: {
-    icon: "/icon.svg",
+    icon: [
+      { url: `${base}/favicon.ico`, sizes: "any" },
+      { url: `${base}/icon.svg`, type: "image/svg+xml" },
+      { url: `${base}/icon-192.png`, sizes: "192x192", type: "image/png" },
+    ],
+    apple: [{ url: `${base}/apple-touch-icon.png`, sizes: "180x180" }],
   },
   appleWebApp: {
     capable: true,

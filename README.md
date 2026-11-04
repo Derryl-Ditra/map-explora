@@ -41,3 +41,7 @@ Deployment runs through GitHub Actions on push to `main`.
 ## Privacy
 
 Location is used in the browser while the app is in the foreground. Map tiles come from OpenFreeMap and routes from the OSRM demo server; those services see the requests needed to serve them (the map area you view, and for a route your current position and the station coordinates). The app itself stores no position history and sends it nowhere else. Report-a-problem notes stay in localStorage on your device.
+
+## Icon credit
+
+The app icon uses the "horse-toy" outline from [Tabler Icons](https://github.com/tabler/tabler-icons), MIT License, Copyright (c) 2020-2026 Pawel Kuna. See `public/ICON-LICENSE.txt`. PNG and ico files are generated into `public/` by `scripts/decode-icons.mjs` before dev and build.
