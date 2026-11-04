@@ -6,12 +6,13 @@ const JAKARTA_CENTER: [number, number] = [-6.2088, 106.8456];
 const CACHE_KEY = "map-explora:user-pos:v1";
 
 /**
- * Location is never requested on page load (web.dev: ask on a user gesture,
- * and watchers cost battery). The last fix is cached on the device in
- * localStorage (one ~60-byte value, never sent anywhere) and renders on the
- * next visit. The locate button takes one fresh fix. The only continuous
+ * One single fix per page load (nearest-place sorting needs it) plus the
+ * last fix cached on the device in localStorage (one ~60-byte value, never
+ * sent anywhere) so returning visits render instantly. No live tracking
+ * while browsing. The locate button takes one fresh fix. The only continuous
  * watch runs while in-app navigation is active, where position updates drive
- * the steps, and it pauses while the tab is hidden.
+ * the steps, and it pauses while the tab is hidden (web.dev: watchers cost
+ * battery, clearWatch when done).
  */
 type CachedPos = { lat: number; lng: number; accuracy: number | null };
 
@@ -40,7 +41,7 @@ export function useGeolocation(watching: boolean) {
   const [accuracy, setAccuracy] = useState<number | null>(null);
   const [heading, setHeading] = useState<number | null>(null);
   const [hasActualLocation, setHasActualLocation] = useState(false);
-  const [isLocating, setIsLocating] = useState(false);
+  const [isLocating, setIsLocating] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [recenterTick, setRecenterTick] = useState(0);
 
