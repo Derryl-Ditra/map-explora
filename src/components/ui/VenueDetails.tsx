@@ -8,12 +8,14 @@ import {
   ExternalLink,
   Share2,
   Clock,
+  Phone,
   ShieldCheck,
   HelpCircle,
   ArrowLeft,
   Flag,
   Star,
   MapPin,
+  TriangleAlert,
   ChevronDown,
 } from "lucide-react";
 
@@ -232,7 +234,7 @@ export default function VenueDetails({
 
       {venue.caution && (
         <p className="text-[0.9375rem] text-[#92400e] border border-[#fcd34d] bg-[#fef3c7] rounded-2xl px-3.5 py-3 flex items-start gap-2">
-          <MapPin className="w-4.5 h-4.5 mt-0.5 shrink-0" />
+          <TriangleAlert className="w-4.5 h-4.5 mt-0.5 shrink-0" />
           <span>{venue.caution}</span>
         </p>
       )}
