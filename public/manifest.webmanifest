@@ -1,7 +1,7 @@
 {
-  "name": "Map Explora - Under 4 Activities",
+  "name": "Map Explora - Under 5 Activities",
   "short_name": "Map Explora",
-  "description": "Baby and toddler classes (under 4 years) across Jakarta, Bintaro and Jabodetabek.",
+  "description": "Find baby, toddler and preschool classes near you: swimming, gym, music, art and more across Jakarta, Bogor, Depok, Tangerang and Bekasi. Age eligibility confirmed per branch.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
