@@ -5738,5 +5738,937 @@ export const VENUES: Venue[] = [
    "source": "https://academy.sparks-edu.com/tangerang/",
    "checkedAt": "2026-11-04"
   }
+ },
+ {
+  "id": "gogrow-tanjung-duren",
+  "chain": "GoGrow Academy & Kids Club",
+  "branchName": "Tanjung Duren (Mall Hublife)",
+  "categories": [
+   "Gym & Movement",
+   "Sensory"
+  ],
+  "address": "Mall Hublife, Jl. Tj. Duren Timur 2 No.06 Lt 2 Unit 2F-03, RT.12/RW.1, Tj. Duren Sel., Kec. Grogol petamburan, Kota Jakarta Barat, DKI Jakarta 11470, Indonesia",
+  "area": "Jakarta Barat",
+  "city": "Jakarta Barat",
+  "lat": -6.1808599,
+  "lng": 106.7918411,
+  "coordinateSource": "maps-pin",
+  "programs": [
+   {
+    "name": "Baby Gym & Sensory",
+    "offering": "offered",
+    "age": {
+     "minMonths": null,
+     "maxMonths": null,
+     "level": "brand",
+     "verification": "unknown",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "https://gogrow.id/"
+    },
+    "note": "Official site lists Baby Gym & Sensory and Baby Music Class. No numeric age range read on the page (2026-11-04)."
+   }
+  ],
+  "website": "https://gogrow.id/",
+  "sourceUrl": "https://gogrow.id/",
+  "lastCheckedAt": "2026-11-04",
+  "fitStatus": "branch-candidate-live-undated",
+  "notes": "Independent single-site provider. Official address matches the Google Maps listing. Site is undated; read 2026-11-04.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://gogrow.id/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.8,
+   "reviewCount": 29,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Gogrow+-+Academy+%26+Kids+Club/@-6.1808599,106.7918411,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f7e6385a12c3:0x5e583d7614231f3a!8m2!3d-6.1808599!4d106.7918411!16s%2Fg%2F11xynt_x7d",
+   "checkedAt": "2026-11-04",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 821-9997-7599"
+ },
+ {
+  "id": "genesis-baby-toddler-swim-pejaten",
+  "chain": "Genesis Baby & Toddler Swim School",
+  "branchName": "Pejaten",
+  "categories": [
+   "Swim"
+  ],
+  "address": "Jl. Pejaten Barat Raya No.16a, RT.1/RW.10, Ragunan, Ps. Minggu, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12540, Indonesia",
+  "area": "Jakarta Selatan",
+  "city": "Jakarta Selatan",
+  "lat": -6.2775474,
+  "lng": 106.8239435,
+  "coordinateSource": "maps-pin",
+  "programs": [
+   {
+    "name": "Baby & Toddler Swim",
+    "offering": "offered",
+    "age": {
+     "minMonths": null,
+     "maxMonths": null,
+     "level": "brand",
+     "verification": "unknown",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "https://swimgenesis.com/"
+    },
+    "note": "Official site describes baby and toddler swim; no numeric age range read (2026-11-04)."
+   }
+  ],
+  "website": "https://swimgenesis.com/",
+  "sourceUrl": "https://swimgenesis.com/",
+  "lastCheckedAt": "2026-11-04",
+  "fitStatus": "branch-candidate-live-undated",
+  "notes": "Official site names the Pejaten branch. Address matches Google Maps and a directory listing. Site is undated; read 2026-11-04.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://swimgenesis.com/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 115,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Genesis+Baby+and+Toddler+Swim+School+-+Jakarta+Selatan+(Heated+Swimming+Pool)/@-6.2775474,106.8239435,17z/data=!3m1!4b1!4m6!3m5!1s0x2f3f89d622bd57b:0xdc1d0cebec168459!8m2!3d-6.2775474!4d106.8239435!16s%2Fg%2F11sjcbtp6_",
+   "checkedAt": "2026-11-04",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 817-0515-051"
+ },
+ {
+  "id": "anak-air-kebagusan",
+  "chain": "Anak Air Swim School",
+  "branchName": "Kebagusan (TB Simatupang)",
+  "categories": [
+   "Swim"
+  ],
+  "address": "The Villas at Kebagusan, Jl. Kebagusan I No.1, RT.9/RW.7, Kebagusan, Ps. Minggu, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12520, Indonesia",
+  "area": "Jakarta Selatan",
+  "city": "Jakarta Selatan",
+  "lat": -6.3014979,
+  "lng": 106.8286337,
+  "coordinateSource": "maps-pin",
+  "programs": [
+   {
+    "name": "Swim school",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": null,
+     "level": "brand",
+     "verification": "listed-unconfirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "http://www.ciputraentrepreneurship.com/bisnis-mikro/menilik-keuntungan-bisnis-kursus-renang"
+    },
+    "note": "Third-party article: students from six months up to 12 years. Not on the official page."
+   }
+  ],
+  "website": "https://www.anakair.co.id/",
+  "sourceUrl": "https://www.anakair.co.id/cabang/",
+  "lastCheckedAt": "2026-11-04",
+  "fitStatus": "branch-candidate-live-undated",
+  "notes": "Official branch page lists this branch; read 2026-11-04. 'From 6 months' comes from an older third-party article (ciputraentrepreneurship.com), not the official site, so it is brand level and unconfirmed.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.anakair.co.id/cabang/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.6,
+   "reviewCount": 90,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Anak+Air+Swim+School+Kebagusan/@-6.3014979,106.8286337,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69ede51c72c2ed:0x1139b13499485723!8m2!3d-6.3014979!4d106.8286337!16s%2Fg%2F1pzrn4qwh",
+   "checkedAt": "2026-11-04",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 878-0999-7030"
+ },
+ {
+  "id": "anak-air-pondok-indah",
+  "chain": "Anak Air Swim School",
+  "branchName": "Pondok Indah",
+  "categories": [
+   "Swim"
+  ],
+  "address": "Jl. Metro Pondok Indah No.Sb 7, RT.2/RW.15, Pd. Pinang, Kec. Kebayoran Lama, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12310, Indonesia",
+  "area": "Jakarta Selatan",
+  "city": "Jakarta Selatan",
+  "lat": -6.2762893,
+  "lng": 106.7821393,
+  "coordinateSource": "maps-pin",
+  "programs": [
+   {
+    "name": "Swim school",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": null,
+     "level": "brand",
+     "verification": "listed-unconfirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "http://www.ciputraentrepreneurship.com/bisnis-mikro/menilik-keuntungan-bisnis-kursus-renang"
+    },
+    "note": "Third-party article: students from six months up to 12 years. Not on the official page."
+   }
+  ],
+  "website": "https://www.anakair.co.id/",
+  "sourceUrl": "https://www.anakair.co.id/cabang/",
+  "lastCheckedAt": "2026-11-04",
+  "fitStatus": "branch-candidate-live-undated",
+  "notes": "Official branch page lists this branch; read 2026-11-04. 'From 6 months' comes from an older third-party article (ciputraentrepreneurship.com), not the official site, so it is brand level and unconfirmed.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.anakair.co.id/cabang/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.6,
+   "reviewCount": 39,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Anak+Air+Swim+School+Pondok+Indah/@-6.2762893,106.7821393,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1cf2c30d11b:0x142b121015923b17!8m2!3d-6.2762893!4d106.7821393!16s%2Fg%2F11clyt38j2",
+   "checkedAt": "2026-11-04",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 811-1180-2505"
+ },
+ {
+  "id": "anak-air-kemang",
+  "chain": "Anak Air Swim School",
+  "branchName": "Kemang",
+  "categories": [
+   "Swim"
+  ],
+  "address": "Jl. Benda Raya No.90, RT.2/RW.4, Cilandak Tim., Ps. Minggu, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12560, Indonesia",
+  "area": "Jakarta Selatan",
+  "city": "Jakarta Selatan",
+  "lat": -6.276509,
+  "lng": 106.81658,
+  "coordinateSource": "maps-pin",
+  "programs": [
+   {
+    "name": "Swim school",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": null,
+     "level": "brand",
+     "verification": "listed-unconfirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "http://www.ciputraentrepreneurship.com/bisnis-mikro/menilik-keuntungan-bisnis-kursus-renang"
+    },
+    "note": "Third-party article: students from six months up to 12 years. Not on the official page."
+   }
+  ],
+  "website": "https://www.anakair.co.id/",
+  "sourceUrl": "https://www.anakair.co.id/cabang/",
+  "lastCheckedAt": "2026-11-04",
+  "fitStatus": "branch-candidate-live-undated",
+  "notes": "Official branch page lists this branch; read 2026-11-04. 'From 6 months' comes from an older third-party article (ciputraentrepreneurship.com), not the official site, so it is brand level and unconfirmed.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.anakair.co.id/cabang/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.8,
+   "reviewCount": 22,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Anak+Air+Swim+School+Kemang/@-6.276509,106.81658,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1e8763ab677:0xb1e5f4621e9b1cf4!8m2!3d-6.276509!4d106.81658!16s%2Fg%2F11wg23bh_k",
+   "checkedAt": "2026-11-04",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 811-1180-2500"
+ },
+ {
+  "id": "anak-air-grand-cibubur",
+  "chain": "Anak Air Swim School",
+  "branchName": "Grand Cibubur",
+  "categories": [
+   "Swim"
+  ],
+  "address": "Perumahan Grand Cibubur, Jl. Alternatif Cibubur Km. 4, Jatisampurna, RT.002/RW.017, Jatisampurna, Kec. Jatisampurna, Kota Bks, Jawa Barat 17433, Indonesia",
+  "area": "Bekasi",
+  "city": "Bekasi",
+  "lat": -6.3768966,
+  "lng": 106.9302525,
+  "coordinateSource": "maps-pin",
+  "programs": [
+   {
+    "name": "Swim school",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": null,
+     "level": "brand",
+     "verification": "listed-unconfirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "http://www.ciputraentrepreneurship.com/bisnis-mikro/menilik-keuntungan-bisnis-kursus-renang"
+    },
+    "note": "Third-party article: students from six months up to 12 years. Not on the official page."
+   }
+  ],
+  "website": "https://www.anakair.co.id/",
+  "sourceUrl": "https://www.anakair.co.id/cabang/",
+  "lastCheckedAt": "2026-11-04",
+  "fitStatus": "branch-candidate-live-undated",
+  "notes": "Official branch page lists this branch; read 2026-11-04. 'From 6 months' comes from an older third-party article (ciputraentrepreneurship.com), not the official site, so it is brand level and unconfirmed.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.anakair.co.id/cabang/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.3,
+   "reviewCount": 128,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Anak+Air+Swim+School+Grand+Cibubur/@-6.3768966,106.9302525,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69935ec3aa1ee7:0x8a2bbe8e0e10ba82!8m2!3d-6.3768966!4d106.9302525!16s%2Fg%2F11bwh5rg70",
+   "checkedAt": "2026-11-04",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 812-9006-1005"
+ },
+ {
+  "id": "anak-air-limo",
+  "chain": "Anak Air Swim School",
+  "branchName": "Limo (Meruyung)",
+  "categories": [
+   "Swim"
+  ],
+  "address": "Jl. Sawo Griya Kencana II, Meruyung, Kec. Limo, Kota Depok, Jawa Barat 16514, Indonesia",
+  "area": "Depok",
+  "city": "Depok",
+  "lat": -6.372296,
+  "lng": 106.7745928,
+  "coordinateSource": "maps-pin",
+  "programs": [
+   {
+    "name": "Swim school",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": null,
+     "level": "brand",
+     "verification": "listed-unconfirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "http://www.ciputraentrepreneurship.com/bisnis-mikro/menilik-keuntungan-bisnis-kursus-renang"
+    },
+    "note": "Third-party article: students from six months up to 12 years. Not on the official page."
+   }
+  ],
+  "website": "https://www.anakair.co.id/",
+  "sourceUrl": "https://www.anakair.co.id/cabang/",
+  "lastCheckedAt": "2026-11-04",
+  "fitStatus": "branch-candidate-live-undated",
+  "notes": "Official branch page lists this branch; read 2026-11-04. 'From 6 months' comes from an older third-party article (ciputraentrepreneurship.com), not the official site, so it is brand level and unconfirmed.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.anakair.co.id/cabang/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.6,
+   "reviewCount": 51,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Anak+Air+Swim+School+Limo/@-6.372296,106.7745928,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69efb05dd3fa1d:0x4367b237857da293!8m2!3d-6.372296!4d106.7745928!16s%2Fg%2F11g3wy5d1d",
+   "checkedAt": "2026-11-04",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 811-1180-2520"
+ },
+ {
+  "id": "studiorenang-bsd-north-point",
+  "chain": "StudioRenang",
+  "branchName": "BSD North Point Navapark",
+  "categories": [
+   "Swim"
+  ],
+  "address": "North Point Navapark, Blok NB No. 21, BSD City, Jl. BSD Boulevard Utara, Kel. Lengkong Kulon, Kec. Pagedangan, Kab. Tangerang, Banten 15331",
+  "area": "Tangerang",
+  "city": "Kabupaten Tangerang",
+  "lat": -6.2890851,
+  "lng": 106.6526254,
+  "coordinateSource": "maps-pin",
+  "programs": [
+   {
+    "name": "Baby swim (Bayi 1 & 2)",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 36,
+     "level": "brand",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "https://studiorenang.com/programrenang"
+    },
+    "note": "Brand program page: babies 6-36 months, max 5 babies. Branch schedule not published."
+   },
+   {
+    "name": "Toddler swim (Aquatikes)",
+    "offering": "offered",
+    "age": {
+     "minMonths": 36,
+     "maxMonths": 59,
+     "level": "brand",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "https://studiorenang.com/programrenang"
+    },
+    "note": "Brand program page: toddlers 3-4 years."
+   }
+  ],
+  "website": "https://studiorenang.com/",
+  "sourceUrl": "https://www.studiorenang.com/lokasikami",
+  "lastCheckedAt": "2026-11-04",
+  "fitStatus": "branch-candidate-live-undated",
+  "notes": "Official outlet page lists this address; read 2026-11-04. Ages are brand level.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.studiorenang.com/lokasikami",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 42,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Studiorenang.com+Northpoint+BSD/@-6.2890851,106.6526254,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fbd448905a67:0x42eee35e52044082!8m2!3d-6.2890851!4d106.6526254!16s%2Fg%2F11whmll5yc",
+   "checkedAt": "2026-11-04",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 811-9762-030"
+ },
+ {
+  "id": "studiorenang-gading-serpong",
+  "chain": "StudioRenang",
+  "branchName": "Gading Serpong",
+  "categories": [
+   "Swim"
+  ],
+  "address": "Jl. Klp. Gading Bar. Blok Cb No.9, Pakulonan Bar., Kec. Klp. Dua, Gading, Kec. Serpong, Kabupaten Tangerang, Banten 15413, Indonesia",
+  "area": "Tangerang",
+  "city": "Kabupaten Tangerang",
+  "lat": -6.2335372,
+  "lng": 106.6275612,
+  "coordinateSource": "maps-pin",
+  "programs": [
+   {
+    "name": "Baby swim (Bayi 1 & 2)",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 36,
+     "level": "brand",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "https://studiorenang.com/programrenang"
+    },
+    "note": "Brand program page: babies 6-36 months, max 5 babies. Branch schedule not published."
+   },
+   {
+    "name": "Toddler swim (Aquatikes)",
+    "offering": "offered",
+    "age": {
+     "minMonths": 36,
+     "maxMonths": 59,
+     "level": "brand",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "https://studiorenang.com/programrenang"
+    },
+    "note": "Brand program page: toddlers 3-4 years."
+   }
+  ],
+  "website": "https://studiorenang.com/",
+  "sourceUrl": "https://studiorenang.com/outlet/003/",
+  "lastCheckedAt": "2026-11-04",
+  "fitStatus": "branch-candidate-live-undated",
+  "notes": "Official outlet page lists this address; read 2026-11-04. Ages are brand level.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://studiorenang.com/outlet/003/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 535,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/StudioRenang.com+Gading+Serpong+Tangerang/@-6.2335372,106.6275612,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fd0d63892d89:0xf5441d0f5f09593f!8m2!3d-6.2335372!4d106.6275612!16s%2Fg%2F11h1hn3sss",
+   "checkedAt": "2026-11-04",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 811-7781-812"
+ },
+ {
+  "id": "studiorenang-kelapa-gading",
+  "chain": "StudioRenang",
+  "branchName": "Kelapa Gading",
+  "categories": [
+   "Swim"
+  ],
+  "address": "Jl. Boulevard Bar. Raya No.68, RT.13/RW.7, Klp. Gading Bar., Jakarta, Jkt Utara, Daerah Khusus Ibukota Jakarta 14240, Indonesia",
+  "area": "Jakarta Utara",
+  "city": "Jakarta Utara",
+  "lat": -6.156936,
+  "lng": 106.899863,
+  "coordinateSource": "maps-pin",
+  "programs": [
+   {
+    "name": "Baby swim (Bayi 1 & 2)",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 36,
+     "level": "brand",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "https://studiorenang.com/programrenang"
+    },
+    "note": "Brand program page: babies 6-36 months, max 5 babies. Branch schedule not published."
+   },
+   {
+    "name": "Toddler swim (Aquatikes)",
+    "offering": "offered",
+    "age": {
+     "minMonths": 36,
+     "maxMonths": 59,
+     "level": "brand",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "https://studiorenang.com/programrenang"
+    },
+    "note": "Brand program page: toddlers 3-4 years."
+   }
+  ],
+  "website": "https://studiorenang.com/",
+  "sourceUrl": "https://studiorenang.com/outlet/007/",
+  "lastCheckedAt": "2026-11-04",
+  "fitStatus": "branch-candidate-live-undated",
+  "notes": "Official outlet page lists this address; read 2026-11-04. Ages are brand level.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://studiorenang.com/outlet/007/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 463,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Studiorenang.com+Kelapa+Gading/@-6.156936,106.899863,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f5658709b8ff:0x11021c097b0ba92a!8m2!3d-6.156936!4d106.899863!16s%2Fg%2F11sf6q_k0b",
+   "checkedAt": "2026-11-04",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 811-7098-880"
+ },
+ {
+  "id": "studiorenang-meruya",
+  "chain": "StudioRenang",
+  "branchName": "Meruya",
+  "categories": [
+   "Swim"
+  ],
+  "address": "Jl. Meruya Ilir Raya barat No.3, RT.2/RW.3, Meruya Utara, Kec. Kembangan, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11620, Indonesia",
+  "area": "Jakarta Barat",
+  "city": "Jakarta Barat",
+  "lat": -6.197165,
+  "lng": 106.7536656,
+  "coordinateSource": "maps-pin",
+  "programs": [
+   {
+    "name": "Baby swim (Bayi 1 & 2)",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 36,
+     "level": "brand",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "https://studiorenang.com/programrenang"
+    },
+    "note": "Brand program page: babies 6-36 months, max 5 babies. Branch schedule not published."
+   },
+   {
+    "name": "Toddler swim (Aquatikes)",
+    "offering": "offered",
+    "age": {
+     "minMonths": 36,
+     "maxMonths": 59,
+     "level": "brand",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "https://studiorenang.com/programrenang"
+    },
+    "note": "Brand program page: toddlers 3-4 years."
+   }
+  ],
+  "website": "https://studiorenang.com/",
+  "sourceUrl": "https://studiorenang.com/outlet/010/",
+  "lastCheckedAt": "2026-11-04",
+  "fitStatus": "branch-candidate-live-undated",
+  "notes": "Official outlet page lists this address; read 2026-11-04. Ages are brand level.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://studiorenang.com/outlet/010/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 382,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Studiorenang.com+Meruya/@-6.197165,106.7536656,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f73dbfe60ea5:0x277f5e98c193dfce!8m2!3d-6.197165!4d106.7536656!16s%2Fg%2F11txjclmwp",
+   "checkedAt": "2026-11-04",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 811-2508-010"
+ },
+ {
+  "id": "outgrow-alam-sutera",
+  "chain": "Outgrow",
+  "branchName": "Alam Sutera",
+  "categories": [
+   "Sensory"
+  ],
+  "address": "Ruko, Jl. Jalur Sutera Tim. No.38 Blk 6A, RT.001/RW.005, Kunciran, Kec. Pinang, Kota Tangerang, Banten 15143, Indonesia",
+  "area": "Tangerang",
+  "city": "Tangerang",
+  "lat": -6.2264756,
+  "lng": 106.6603045,
+  "coordinateSource": "maps-pin",
+  "programs": [
+   {
+    "name": "Baby Class",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 12,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "https://outgrow.id/service/baby-class-tangerang/"
+    },
+    "note": "Occupational-therapist facilitated class for babies 6-12 months. By appointment, Tue-Sun. Official page image dated 2026-10; read 2026-11-04."
+   }
+  ],
+  "website": "https://outgrow.id/",
+  "sourceUrl": "https://outgrow.id/service/baby-class-tangerang/",
+  "lastCheckedAt": "2026-11-04",
+  "fitStatus": "branch-candidate-live-undated",
+  "notes": "Official page gives the Alam Sutera address; matches Google Maps. Read 2026-11-04.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://outgrow.id/service/baby-class-tangerang/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 68,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/OUTGROW+(Play+Therapy+%26+Tumbuh+Kembang+Anak)/@-6.2264756,106.6603045,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fbd336c1949f:0x62823beea4bb752a!8m2!3d-6.2264756!4d106.6603045!16s%2Fg%2F11pw8tnjdn",
+   "checkedAt": "2026-11-04",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 858-1131-4588"
+ },
+ {
+  "id": "gymnademics-gading-serpong",
+  "chain": "GymnAdemics",
+  "branchName": "Gading Serpong",
+  "categories": [
+   "Gym & Movement",
+   "Sensory"
+  ],
+  "address": "Jl. Raya KH. Musa, Pakulonan Barat, Kecamatan Kelapa Dua, Kabupaten Tangerang, Banten 15810, Indonesia",
+  "area": "Tangerang",
+  "city": "Kabupaten Tangerang",
+  "lat": -6.2407277,
+  "lng": 106.6345406,
+  "coordinateSource": "maps-pin",
+  "programs": [
+   {
+    "name": "Orange Class (Baby)",
+    "offering": "offered",
+    "age": {
+     "minMonths": 3,
+     "maxMonths": null,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "https://gymnademics.id/id/"
+    },
+    "note": "Official site: baby class of 75 minutes from 3 months. Program range overall 3 months to 6 years."
+   }
+  ],
+  "website": "https://gymnademics.id/id/",
+  "sourceUrl": "https://gymnademics.id/id/",
+  "lastCheckedAt": "2026-11-04",
+  "fitStatus": "branch-candidate-live-undated",
+  "notes": "Official site says it is based in Gading Serpong. Google Maps lists it as 'Gymnademics Gading Serpong (Senyum Anak Indonesia)'; the Maps name differs from the brand name. Read 2026-11-04.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://gymnademics.id/id/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.7,
+   "reviewCount": 16,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Senyum+Anak+Indonesia/@-6.2407277,106.6345406,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fb99442695f1:0xfce223cae56fd1db!8m2!3d-6.2407277!4d106.6345406!16s%2Fg%2F11s2lls5s8",
+   "checkedAt": "2026-11-04",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "branchAge": {
+   "minMonths": 3,
+   "maxMonths": 72,
+   "level": "branch",
+   "verification": "provider-confirmed",
+   "sourceCheckedAt": "2026-11-04",
+   "providerAgeUrl": "https://gymnademics.id/id/"
+  },
+  "phone": "+62 838-8050-077"
+ },
+ {
+  "id": "membumi-playspace-cibubur",
+  "chain": "Membumi Playspace",
+  "branchName": "Cibubur",
+  "categories": [
+   "Sensory"
+  ],
+  "address": "Jl. Jambore No.91, RT.6/RW.13, Cibubur, Kec. Ciracas, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13720, Indonesia",
+  "area": "Jakarta Timur",
+  "city": "Jakarta Timur",
+  "lat": -6.3620035,
+  "lng": 106.8878611,
+  "coordinateSource": "maps-pin",
+  "programs": [
+   {
+    "name": "Stimulation class",
+    "offering": "offered",
+    "age": {
+     "minMonths": null,
+     "maxMonths": null,
+     "level": "brand",
+     "verification": "unknown",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "https://membumiplayspace.com/"
+    },
+    "note": "Official page lists stimulation, enrichment and after-school classes with a November 2026 timetable. No numeric age range read."
+   }
+  ],
+  "website": "https://membumiplayspace.com/",
+  "sourceUrl": "https://membumiplayspace.com/",
+  "lastCheckedAt": "2026-11-04",
+  "fitStatus": "branch-candidate-live-undated",
+  "notes": "Official site shows a November 2026 timetable and membership (alive). Address comes from Google Maps; the site does not print it. Read 2026-11-04.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://membumiplayspace.com/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.5,
+   "reviewCount": 32,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Membumi+Playspace/@-6.3620035,106.8878611,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69ed28f979424b:0x412d9eb486cc6424!8m2!3d-6.3620035!4d106.8878611!16s%2Fg%2F11vb6g2r5n",
+   "checkedAt": "2026-11-04",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 852-1954-2487"
+ },
+ {
+  "id": "buumi-playscape-pacific-place",
+  "chain": "Buumi Playscape",
+  "branchName": "Pacific Place",
+  "categories": [
+   "Enrichment"
+  ],
+  "address": "Pacific Place Mall, SCBD, Jl. Jend. Sudirman kav 52-53 Level 3 Unit 98, RT.5/RW.3, Senayan, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12190, Indonesia",
+  "area": "Jakarta Selatan",
+  "city": "Jakarta Selatan",
+  "lat": -6.2250832,
+  "lng": 106.810005,
+  "coordinateSource": "maps-pin",
+  "programs": [
+   {
+    "name": "Playscape",
+    "offering": "offered",
+    "age": {
+     "minMonths": 18,
+     "maxMonths": 36,
+     "level": "brand",
+     "verification": "listed-unconfirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "https://temanautis.com/acara/holiday-programs-for-toddlers-18m-3y-and-preschoolers-3y-5y"
+    },
+    "note": "Third-party event listing: holiday programme for toddlers 18 months to 3 years, with Buumi Playscape Pacific Place as a venue."
+   }
+  ],
+  "website": "https://www.buumi.co/",
+  "sourceUrl": "https://www.buumi.co/",
+  "lastCheckedAt": "2026-11-04",
+  "fitStatus": "branch-candidate-live-undated",
+  "notes": "Official site lists Pacific Place Lv. 3 and a Hari Anak Nasional 2026 event on 25-26 July 2026. Read 2026-11-04.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.buumi.co/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.4,
+   "reviewCount": 448,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Buumi+Playscape/@-6.2250832,106.810005,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1230ab5d709:0x9ccf3ac2265d1889!8m2!3d-6.2250832!4d106.810005!16s%2Fg%2F11f5v51n9_",
+   "checkedAt": "2026-11-04",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 21 51400557"
+ },
+ {
+  "id": "aquatic-baby-bintaro",
+  "chain": "Aquatic Baby",
+  "branchName": "Bintaro Sektor 5",
+  "categories": [
+   "Swim"
+  ],
+  "address": "Jl. Pisok XXII No.17, Pd. Ranji, Kec. Ciputat Tim., Kota Tangerang Selatan, Banten 15412, Indonesia",
+  "area": "Tangerang Selatan",
+  "city": "Tangerang Selatan",
+  "lat": -6.2741447,
+  "lng": 106.7311175,
+  "coordinateSource": "maps-pin",
+  "programs": [
+   {
+    "name": "Baby Class",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 24,
+     "level": "brand",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "https://aquatic-baby.com/"
+    },
+    "note": "Brand page: baby and parent swim, 6 months to 2 years."
+   },
+   {
+    "name": "Toddler Class",
+    "offering": "offered",
+    "age": {
+     "minMonths": 36,
+     "maxMonths": 59,
+     "level": "brand",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "https://aquatic-baby.com/"
+    },
+    "note": "Brand page: toddlers 3-4 years."
+   }
+  ],
+  "website": "https://aquatic-baby.com/",
+  "sourceUrl": "https://aquatic-baby.com/lokasi",
+  "lastCheckedAt": "2026-11-04",
+  "fitStatus": "branch-candidate-live-undated",
+  "notes": "Official location page lists this address (the first and central pool). The site lists about 8 partner pools; they are not added because they were not verified. Read 2026-11-04.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://aquatic-baby.com/lokasi",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 69,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Aquatic+Baby+Bintaro/@-6.2741447,106.7311175,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f0711e60bffb:0xe4975912492d2418!8m2!3d-6.2741447!4d106.7311175!16s%2Fg%2F11f3z9qp_z",
+   "checkedAt": "2026-11-04",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "bloom-space-kota-wisata",
+  "chain": "Bloom Space",
+  "branchName": "Kota Wisata",
+  "categories": [
+   "Gym & Movement"
+  ],
+  "address": "Cluster Virginia 2nd floor, Jl. Boulevard Kota Wisata, Ciangsana, Kec. Gn. Putri, Kabupaten Bogor, Jawa Barat 16968",
+  "area": "Bogor",
+  "city": "Kabupaten Bogor",
+  "lat": -6.3669222,
+  "lng": 106.9612675,
+  "coordinateSource": "maps-pin",
+  "programs": [
+   {
+    "name": "Seedlings",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 11,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "https://bloomspace.id/baby-gym"
+    },
+    "note": "Official baby gym page: 6-11 months."
+   },
+   {
+    "name": "Little Sprouts",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 19,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "https://bloomspace.id/baby-gym"
+    },
+    "note": "Official baby gym page: 12-19 months."
+   },
+   {
+    "name": "Growing Explorer",
+    "offering": "offered",
+    "age": {
+     "minMonths": 19,
+     "maxMonths": 36,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-04",
+     "providerAgeUrl": "https://bloomspace.id/baby-gym"
+    },
+    "note": "Official baby gym page: 19 months to 3 years."
+   }
+  ],
+  "website": "https://bloomspace.id/",
+  "sourceUrl": "https://bloomspace.id/baby-gym",
+  "lastCheckedAt": "2026-11-04",
+  "fitStatus": "branch-candidate-live-undated",
+  "notes": "Official contact page gives the Cluster Virginia address; the Maps listing has only 2 reviews and the Maps address line was not captured, so the pin is the Maps place pin only. Site is undated; read 2026-11-04.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://bloomspace.id/our-contact",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 2,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Bloom+Space+Kota+Wisata/@-6.3669222,106.9612675,17z/data=!3m1!4b1!4m6!3m5!1s0x2e699300647d1629:0x79ed14690dded393!8m2!3d-6.3669222!4d106.9612675!16s%2Fg%2F11zb1x46df",
+   "checkedAt": "2026-11-04",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  }
 ];
