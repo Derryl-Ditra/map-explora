@@ -18,17 +18,17 @@ const venue = {
 
 test("share text carries the live app link on its own final line", () => {
   assert.equal(SITE_URL, "https://derryl-ditra.github.io/map-explora/");
-  const lines = buildShareText(venue, null).split("\n");
+  const lines = buildShareText(venue).split("\n");
   assert.equal(lines[lines.length - 1], SITE_URL);
   assert.ok(lines.includes("Found via Map Explora (under-5 class map, Jabodetabek)"));
 });
 
 test("share text keeps the existing content", () => {
-  const t = buildShareText(venue, null);
+  const t = buildShareText(venue);
   assert.ok(t.startsWith("Under-5 class spot: Rockstar Academy Lotte Mart Bintaro (Tangerang Selatan)"));
   assert.ok(t.includes("Classes: Learn & Play 1 (6mo-18mo)"));
   assert.ok(t.includes("Parent reviews: 4.0 on Google Maps (52 reviews)"));
-  assert.ok(t.includes("Drive: 2 km"));
+  assert.ok(t.includes("Straight-line distance: 2 km"));
 });
 
 test("only official-listed places are shown to users", () => {
