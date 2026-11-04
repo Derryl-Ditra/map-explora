@@ -38,6 +38,7 @@ function useIsDesktop(): boolean {
 }
 
 export default function MapHUD() {
+  const [isNavigating, setIsNavigating] = useState(false);
   const {
     userPos,
     accuracy,
@@ -47,7 +48,8 @@ export default function MapHUD() {
     error: locationError,
     recenterTick,
     requestRecenter,
-  } = useGeolocation();
+    refresh,
+  } = useGeolocation(isNavigating);
   // Distances are only computed from a real fix. Without location
   // permission we must not imply proximity to the default map center.
   const { filters, updateFilter, resetFilters, categories, areas, confirmed, unconfirmed } =
@@ -66,7 +68,6 @@ export default function MapHUD() {
   // View to restore when navigation ends.
   const prevViewRef = useRef<{ view: "list" | "map"; detail: boolean }>({ view: "map", detail: false });
 
-  const [isNavigating, setIsNavigating] = useState(false);
   // Location notice: dismissible, auto-hides, never covers sheet controls.
   const [locationNoticeGone, setLocationNoticeGone] = useState(false);
   // Bumped when the area or activity filter changes so the map frames all matches.
@@ -153,9 +154,9 @@ export default function MapHUD() {
   }, []);
 
   const handleLocate = useCallback(() => {
-    requestRecenter();
+    refresh();
     if (isNavigating) setFollowUser(true);
-  }, [requestRecenter, isNavigating]);
+  }, [refresh, isNavigating]);
 
   // Reset the dismissal when the location state changes; auto-hide after 8s.
   useEffect(() => {
