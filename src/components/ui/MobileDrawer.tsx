@@ -5,7 +5,7 @@ import { Venue, VenueFilterState } from "@/types/venue";
 import { RouteData } from "@/types/route";
 import FilterBar from "./FilterBar";
 import VenueDetails from "./VenueDetails";
-import { Search, Baby, MapPin, HelpCircle, ShieldCheck } from "lucide-react";
+import { Search, MapPin, HelpCircle, ShieldCheck } from "lucide-react";
 
 interface MobileDrawerProps {
   confirmed: Venue[];
@@ -248,7 +248,21 @@ export default function MobileDrawer({
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2 min-w-0">
           <div className="w-8 h-8 rounded-xl bg-[#1a7a4a] flex items-center justify-center shrink-0">
-            <Baby className="w-4.5 h-4.5 text-white" />
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={1.8}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-4.5 h-4.5 text-white"
+              aria-hidden="true"
+            >
+              <path d="M3.5 17.5c5.667 4.667 11.333 4.667 17 0" />
+              <path d="M19 18.5l-2 -8.5l1 -2l2 1l1.5 -1.5l-2.5 -4.5c-5.052 .218 -5.99 3.133 -7 6h-6a3 3 0 0 0 -3 3" />
+              <path d="M5 18.5l2 -9.5" />
+              <path d="M8 20l2 -5h4l2 5" />
+            </svg>
           </div>
           <span className="flex text-[1rem] font-bold text-[#221d18] tracking-tight items-center gap-1.5">
             <span className="whitespace-nowrap">Map Explora</span>
