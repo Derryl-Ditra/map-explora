@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Venue } from "@/types/venue";
 import { RouteData } from "@/types/route";
 import { X, Copy, Check, Share2 } from "lucide-react";
+import { buildClassLines, buildShareText } from "@/utils/shareText";
 
 interface ShareCardProps {
   venue: Venue;
@@ -11,44 +12,11 @@ interface ShareCardProps {
   onClose: () => void;
 }
 
-function fmtMonths(m: number): string {
-  return m <= 36 ? `${m}mo` : `${m / 12}y`;
-}
-
 export default function ShareCard({ venue, route, onClose }: ShareCardProps) {
   const [copied, setCopied] = useState(false);
 
-  const offered = venue.programs.filter((p) => p.offering === "offered");
-  const classLines = offered
-    .slice(0, 4)
-    .map((p) => {
-      const lo = p.age.minMonths !== null ? fmtMonths(p.age.minMonths) : "?";
-      const hi = p.age.maxMonths !== null ? fmtMonths(p.age.maxMonths) : "?";
-      return `${p.name} (${lo}-${hi})`;
-    })
-    .join(", ");
-
-  const distanceText = route
-    ? `${route.distance_km} km`
-    : venue.distance
-    ? `${venue.distance} km`
-    : null;
-
-  const lines = [
-    `Under-5 class spot: ${venue.chain ? `${venue.chain} ` : ""}${venue.branchName} (${venue.area})`,
-    venue.address,
-    classLines ? `Classes: ${classLines}` : null,
-    venue.reviews && venue.reviews.rating !== null
-      ? `Parent reviews: ${venue.reviews.rating.toFixed(1)} on ${venue.reviews.source}${
-          venue.reviews.reviewCount !== null ? ` (${venue.reviews.reviewCount} reviews)` : ""
-        }`
-      : null,
-    distanceText ? `Drive: ${distanceText}` : null,
-    "",
-    "Found via Map Explora (under-5 class map, Jabodetabek)",
-  ].filter((l): l is string => l !== null);
-
-  const shareText = lines.join("\n");
+  const classLines = buildClassLines(venue);
+  const shareText = buildShareText(venue, route);
 
   const handleCopy = async () => {
     try {
