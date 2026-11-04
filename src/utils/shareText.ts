@@ -1,5 +1,4 @@
 import { Venue } from "@/types/venue";
-import { RouteData } from "@/types/route";
 
 // The live app. Any shared text must carry this so recipients know where it came from.
 // No place-specific deep link exists in the app (it reads no URL params or hash),
@@ -22,13 +21,9 @@ export function buildClassLines(venue: Venue): string {
     .join(", ");
 }
 
-export function buildShareText(venue: Venue, route: RouteData | null): string {
+export function buildShareText(venue: Venue): string {
   const classLines = buildClassLines(venue);
-  const distanceText = route
-    ? `${route.distance_km} km`
-    : venue.distance
-    ? `${venue.distance} km`
-    : null;
+  const distanceText = venue.distance != null ? `${venue.distance} km` : null;
   const lines = [
     `Under-5 class spot: ${venue.chain ? `${venue.chain} ` : ""}${venue.branchName} (${venue.area})`,
     venue.address,
@@ -38,7 +33,7 @@ export function buildShareText(venue: Venue, route: RouteData | null): string {
           venue.reviews.reviewCount !== null ? ` (${venue.reviews.reviewCount} reviews)` : ""
         }`
       : null,
-    distanceText ? `Drive: ${distanceText}` : null,
+    distanceText ? `Straight-line distance: ${distanceText}` : null,
     "",
     "Found via Map Explora (under-5 class map, Jabodetabek)",
     SITE_URL,
