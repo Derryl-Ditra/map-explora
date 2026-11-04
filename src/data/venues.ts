@@ -7186,5 +7186,243 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": []
   }
+ },
+ {
+  "id": "sparks-swim-karawaci",
+  "chain": "Sparks Swim",
+  "branchName": "Karawaci",
+  "categories": [
+   "Swim"
+  ],
+  "address": "Jl. Palem Semi, RT.001/RW.009, Panunggangan Bar., Kec. Cibodas, Kota Tangerang, Banten 15318, Indonesia",
+  "area": "Kota Tangerang",
+  "city": "Kota Tangerang",
+  "lat": -6.2194107,
+  "lng": 106.6166561,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://sparks-swim.com/",
+  "sourceUrl": "https://sparks-swim.com/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official homepage lists this branch and programs by age: 6-18 months, 18 months-3 years, 3-5 years, 5 years plus. Verified live on Maps 2026-11-05.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://sparks-swim.com/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 4.7,
+   "reviewCount": 56,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Sparks+Swim+-+Karawaci/@-6.2194107,106.6166561,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69ff4c0ff9bae1:0x94315a9b4a208b6!8m2!3d-6.2194107!4d106.6166561!16s%2Fg%2F11n9ckyctn",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "sparks-swim-bintaro-utown",
+  "chain": "Sparks Swim",
+  "branchName": "Bintaro U-Town",
+  "categories": [
+   "Swim"
+  ],
+  "address": "Bintaro U-Town Jaya, Jl. Boulevard UPJ No.1, RW.9, Sawah Baru, Kec. Ciputat, Kota Tangerang Selatan, Banten 15413, Indonesia",
+  "area": "Tangerang Selatan",
+  "city": "Tangerang Selatan",
+  "lat": -6.2937336,
+  "lng": 106.7261512,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://sparks-swim.com/",
+  "sourceUrl": "https://sparks-swim.com/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official homepage lists this branch and programs by age: 6-18 months, 18 months-3 years, 3-5 years, 5 years plus. Verified live on Maps 2026-11-05.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://sparks-swim.com/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 3.0,
+   "reviewCount": 4,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Sparks+Swim+-+Bintaro+Utown/@-6.2937336,106.7261512,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f12fdf19d9a1:0x8b3f30c41ee65ff2!8m2!3d-6.2937336!4d106.7261512!16s%2Fg%2F11zdrv6zzb",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "sparks-swim-pamulang",
+  "chain": "Sparks Swim",
+  "branchName": "Pamulang",
+  "categories": [
+   "Swim"
+  ],
+  "address": "Jl. Raya Puspitek, RT.01/RW.03, Babakan, Kec. Setu, Kota Tangerang Selatan, Banten 15315, Indonesia",
+  "area": "Tangerang Selatan",
+  "city": "Tangerang Selatan",
+  "lat": -6.3469778,
+  "lng": 106.6963538,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://sparks-swim.com/",
+  "sourceUrl": "https://sparks-swim.com/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official homepage lists this branch and programs by age: 6-18 months, 18 months-3 years, 3-5 years, 5 years plus. Verified live on Maps 2026-11-05.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://sparks-swim.com/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 4.8,
+   "reviewCount": 17,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Sparks+Swim+-+Pamulang/@-6.3469778,106.6963538,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69e565829d6095:0x35921adb33a36d77!8m2!3d-6.3469778!4d106.6963538!16s%2Fg%2F11zg1bn3s4",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "sparks-swim-kalimalang",
+  "chain": "Sparks Swim",
+  "branchName": "Kalimalang",
+  "categories": [
+   "Swim"
+  ],
+  "address": "Jl. Pahlawan Revolusi No.11, RT.3/RW.4, Pd. Bambu, Kec. Duren Sawit, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13430, Indonesia",
+  "area": "Jakarta Timur",
+  "city": "Jakarta Timur",
+  "lat": -6.2394804,
+  "lng": 106.8997995,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://sparks-swim.com/",
+  "sourceUrl": "https://sparks-swim.com/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official homepage lists this branch and programs by age: 6-18 months, 18 months-3 years, 3-5 years, 5 years plus. Verified live on Maps 2026-11-05.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://sparks-swim.com/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 4.8,
+   "reviewCount": 71,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Sparks+Swim+-+Kalimalang/@-6.2394804,106.8997995,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f3014d7b0341:0xf8167d0de310342f!8m2!3d-6.2394804!4d106.8997995!16s%2Fg%2F11n58692z8",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "sparks-swim-harapan-indah",
+  "chain": "Sparks Swim",
+  "branchName": "Harapan Indah",
+  "categories": [
+   "Swim"
+  ],
+  "address": "Mega Office Park, Jl. Harapan Indah Boulevard, RT.005/RW.010, Medan Satria, Kec. Medan Satria, Kota Bekasi, Jawa Barat 17132, Indonesia",
+  "area": "Bekasi",
+  "city": "Bekasi",
+  "lat": -6.179938,
+  "lng": 106.9741878,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://sparks-swim.com/",
+  "sourceUrl": "https://sparks-swim.com/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official homepage lists this branch and programs by age: 6-18 months, 18 months-3 years, 3-5 years, 5 years plus. Verified live on Maps 2026-11-05.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://sparks-swim.com/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 3.0,
+   "reviewCount": 1,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Sparks+Swim+-+Harapan+Indah/@-6.179938,106.9741878,17z/data=!3m1!4b1!4m6!3m5!1s0x2e698b0986af2ab3:0x832de45b05cf8370!8m2!3d-6.179938!4d106.9741878!16s%2Fg%2F11zwpds233",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "sparks-swim-taman-palem",
+  "chain": "Sparks Swim",
+  "branchName": "Taman Palem",
+  "categories": [
+   "Swim"
+  ],
+  "address": "Jl. Palem Raja Barat No.10, RT.5/RW.13, Pegadungan, Kec. Kalideres, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11830, Indonesia",
+  "area": "Jakarta Barat",
+  "city": "Jakarta Barat",
+  "lat": -6.1249256,
+  "lng": 106.7061354,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://sparks-swim.com/",
+  "sourceUrl": "https://sparks-swim.com/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official homepage lists this branch and programs by age: 6-18 months, 18 months-3 years, 3-5 years, 5 years plus. Verified live on Maps 2026-11-05.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://sparks-swim.com/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 7,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Sparks+Swim+-+Taman+Palem/@-6.1249256,106.7061354,17z/data=!3m1!4b1!4m6!3m5!1s0x2e6a038a500e9bbf:0x6e309a7aaa9de9e!8m2!3d-6.1249256!4d106.7061354!16s%2Fg%2F11zwpf3ntz",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "aquatic-baby-rumabona-cikini-bintaro",
+  "chain": "Aquatic Baby",
+  "branchName": "RumaBona Cikini Bintaro",
+  "categories": [
+   "Swim"
+  ],
+  "address": "Blok FH2 No 11, Jl. Cikini 3, Jurang Mangu Barat, Kec. Pd. Aren, Kota Tangerang Selatan, Banten 15222, Indonesia",
+  "area": "Tangerang Selatan",
+  "city": "Tangerang Selatan",
+  "lat": -6.2687465,
+  "lng": 106.7252377,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://aquatic-baby.com/",
+  "sourceUrl": "https://aquatic-baby.com/lokasi",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official location page lists Aquatic Baby classes at RumaBona Cikini Bintaro (Saturdays). Maps listing and rating are for the RumaBona host venue. Aquatic Baby official ages: 6 months to 6 years.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://aquatic-baby.com/lokasi",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 12,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/RumaBona/@-6.2687465,106.7252377,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f18366b08da7:0x447b563d4a35acc1!8m2!3d-6.2687465!4d106.7252377!16s%2Fg%2F11yf5r8x3y",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  }
 ];
