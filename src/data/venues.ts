@@ -26,7 +26,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://aquababiesindonesia.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official site: babies 0 months to 3 years."
+  "notes": "Official site: babies 0 months to 3 years.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://aquababiesindonesia.id/locations/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 4,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Aquababies+Bintaro/@-6.2748631,106.761257,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f10044acba23:0x1a2ee4c4861a2886!8m2!3d-6.2748631!4d106.761257!16s%2Fg%2F11lc_z51nt",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": [],
+   "sampleNote": "Only 4 Google Maps ratings. Too few to judge."
+  }
  },
  {
   "id": "aquababies-menteng",
@@ -46,7 +61,21 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://aquababiesindonesia.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official site: babies 0 months to 3 years."
+  "notes": "Official site: babies 0 months to 3 years.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://aquababiesindonesia.id/locations/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.2,
+   "reviewCount": 48,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Aquababies+Indonesia/@-6.1949984,106.8356026,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f57379a4e225:0x48328ab55ff185f8!8m2!3d-6.1949984!4d106.8356026!16s%2Fg%2F11k0q_0g24",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
  {
   "id": "baby-jumper-gym-gading-serpong",
@@ -66,7 +95,11 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Baby+Jumper+Gym+International&query_place_id=ChIJoflVQ_b7aS4RAqPaYzCNkpM",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "media-claimed",
-  "notes": "Media only: Crawler 5-14 months up to Jumper 3.5-5.5 years. No official source found."
+  "notes": "Media only: Crawler 5-14 months up to Jumper 3.5-5.5 years. No official source found.",
+  "operatingStatus": {
+   "state": "not-confirmed",
+   "checkedAt": "2026-11-03"
+  }
  },
  {
   "id": "baby-jumper-gym-pluit",
@@ -86,7 +119,23 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Baby+Jumper+Gym+International&query_place_id=ChIJ_dKPM6Qdai4R0dFLlVanRIw",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "media-claimed",
-  "notes": "Media only: Crawler 5-14 months up to Jumper 3.5-5.5 years. No official source found."
+  "notes": "Media only: Crawler 5-14 months up to Jumper 3.5-5.5 years. No official source found.",
+  "operatingStatus": {
+   "state": "not-confirmed",
+   "source": "https://www.google.com/maps/place/Baby+Jumper+Gym+International/@-6.1092509,106.7776064,17z/data=!3m1!4b1!4m6!3m5!1s0x2e6a1da4338fd2fd:0x8c44a756954bd1d1!8m2!3d-6.1092509!4d106.7776064!16s%2Fg%2F1pzr5",
+   "checkedAt": "2026-11-03"
+  },
+  "reviews": {
+   "rating": 3.5,
+   "reviewCount": 2,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Baby+Jumper+Gym+International/@-6.1092509,106.7776064,17z/data=!3m1!4b1!4m6!3m5!1s0x2e6a1da4338fd2fd:0x8c44a756954bd1d1!8m2!3d-6.1092509!4d106.7776064!16s%2Fg%2F1pzr5",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": [],
+   "sampleNote": "Only 2 Google Maps ratings. Too few to judge."
+  },
+  "phone": "+62 21 66606297"
  },
  {
   "id": "english-1-bintaro-tangerang",
@@ -106,7 +155,21 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/tangerang/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.6,
+   "reviewCount": 85,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Bintaro+Tangerang/@-6.2683113,106.7376941,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f068a5c93f47:0xd8a1708972e52e55!8m2!3d-6.2683113!4d106.7376941!16s%2Fg%2F1typqrl",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
  {
   "id": "english-1-cempaka-putih",
@@ -126,7 +189,21 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 117,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Cempaka+Putih/@-6.176798,106.8650502,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f5de7b29f121:0xb8425e30a02eb605!8m2!3d-6.176798!4d106.8650502!16s%2Fg%2F11vq384bqp",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
  {
   "id": "english-1-cikupa-tangerang",
@@ -146,7 +223,21 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/tangerang/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.6,
+   "reviewCount": 64,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Cikupa+Tangerang/@-6.2566203,106.5263614,17z/data=!3m1!4b1!4m6!3m5!1s0x2e420790d737c44f:0xaee30870bba29a47!8m2!3d-6.2566203!4d106.5263614!16s%2Fg%2F11f5ps1_",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
  {
   "id": "english-1-ciledug-tangerang",
@@ -166,7 +257,21 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/tangerang/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 762,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Ciledug+Tangerang/@-6.2356906,106.7395511,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f146978cade9:0x10ceda633d22a1db!8m2!3d-6.2356906!4d106.7395511!16s%2Fg%2F11vr6k5",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
  {
   "id": "english-1-cinere-depok",
@@ -186,7 +291,21 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/depok/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.8,
+   "reviewCount": 357,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Cinere+Depok/@-6.3247346,106.7847522,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69ee464e926e53:0xd88f17e8a7edfd5c!8m2!3d-6.3247346!4d106.7847522!16s%2Fg%2F1tcynz8j",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
  {
   "id": "english-1-cipete",
@@ -206,7 +325,21 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 42,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Cipete/@-6.2777679,106.8040747,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1f79d93d2af:0xfe348cb72e728145!8m2!3d-6.2777679!4d106.8040747!16s%2Fg%2F11vzdkb4n1",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
  {
   "id": "english-1-jagakarsa-tanjung-barat",
@@ -226,7 +359,21 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 960,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Jagakarsa+Tanjung+Barat/@-6.3056095,106.8399574,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69ed367e432663:0x6129fb97cc615eab!8m2!3d-6.3056095!4d106.8399574!16s%2Fg%2F1",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
  {
   "id": "english-1-pamulang-tangerang",
@@ -246,7 +393,12 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/tangerang/pamulang/",
+   "checkedAt": "2026-11-04"
+  }
  },
  {
   "id": "english-1-pejaten",
@@ -266,7 +418,21 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 193,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Pejaten/@-6.2808009,106.8286199,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f218251bb44f:0x36ecd56ecdeb565b!8m2!3d-6.2808009!4d106.8286199!16s%2Fg%2F1tg_12w2",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
  {
   "id": "english-1-permata-hijau",
@@ -286,7 +452,21 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.8,
+   "reviewCount": 124,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Permata+Hijau/@-6.2202621,106.7823003,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f139a4b3573b:0xcf5bbdb72f5b3326!8m2!3d-6.2202621!4d106.7823003!16s%2Fg%2F1tg2yrrk",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
  {
   "id": "english-1-pluit-village",
@@ -306,7 +486,21 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 437,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Pluit+Village/@-6.1157222,106.7898568,17z/data=!3m1!4b1!4m6!3m5!1s0x2e6a1d95f575197f:0x200267828bd47395!8m2!3d-6.1157222!4d106.7898568!16s%2Fg%2F1thzx2hf",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
  {
   "id": "english-1-pondok-indah",
@@ -326,7 +520,21 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 129,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Pondok+Indah/@-6.2842313,106.7809526,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1c8c63c4c39:0xbfab8abc85ecd9dd!8m2!3d-6.2842313!4d106.7809526!16s%2Fg%2F1thh4vv1",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
  {
   "id": "english-1-puri-indah",
@@ -346,7 +554,21 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 519,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Puri+Indah/@-6.1906575,106.7454761,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f712c19ef0cf:0xc78042438414cee2!8m2!3d-6.1906575!4d106.7454761!16s%2Fg%2F1td0jts2",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
  {
   "id": "english-1-rawamangun",
@@ -366,7 +588,21 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.7,
+   "reviewCount": 103,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Rawamangun/@-6.193258,106.881993,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f4ece858e957:0xa40da769611780ec!8m2!3d-6.193258!4d106.881993!16s%2Fg%2F1tqks3_v",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
  {
   "id": "english-1-sawangan-depok",
@@ -386,7 +622,21 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/depok/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 180,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Sawangan+Depok/@-6.3819321,106.7484958,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69ef53ddf87061:0xcb567a851808fbc5!8m2!3d-6.3819321!4d106.7484958!16s%2Fg%2F11rt_w7p9c",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
  {
   "id": "english-1-sunter",
@@ -406,7 +656,21 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 237,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Sunter/@-6.141394,106.8523676,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f594d459e4d1:0x7b414ae1a30eef48!8m2!3d-6.141394!4d106.8523676!16s%2Fg%2F11kqstv4js",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
  {
   "id": "english-1-tamini-square",
@@ -426,7 +690,21 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 57,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Tamini+Square/@-6.2916896,106.8814824,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f29bbf105b03:0x98f8b38d72cbfd4e!8m2!3d-6.2916896!4d106.8814824!16s%2Fg%2F1tzfvjzv",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
  {
   "id": "english-1-tangcity-tangerang",
@@ -446,7 +724,21 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/tangerang/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 816,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Tangcity+Tangerang/@-6.1934014,106.6347815,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f931ee1d344d:0xc87ce696ee1c4a78!8m2!3d-6.1934014!4d106.6347815!16s%2Fg%2F1tk1wg",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
  {
   "id": "english-1-tanjung-duren",
@@ -466,7 +758,21 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.8,
+   "reviewCount": 665,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Tanjung+Duren/@-6.1847245,106.78771,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f6f3a2498883:0x5f6d0c35c0f37c54!8m2!3d-6.1847245!4d106.78771!16s%2Fg%2F1td0_s90",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
  {
   "id": "english-1-tebet",
@@ -486,9 +792,72 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://english1.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6."
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/jakarta/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 448,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Tebet/@-6.2426037,106.8446877,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f3a6a224e4d3:0xcce1f90e4c336ba9!8m2!3d-6.2426037!4d106.8446877!16s%2Fg%2F1vyd3plx",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  },
- {"id": "golden-baby-school-jakarta-garden-city", "chain": "Golden Baby School", "branchName": "Jakarta Garden City", "categories": ["Gym & Movement", "Sensory"], "address": "Perumahan Jakarta Garden City, Jl. Cassia Utama, Cakung Timur, Kec. Cakung, Jakarta Timur 13910", "area": "Jakarta Timur", "city": "Jakarta Timur", "lat": -6.1785493, "lng": 106.9570159, "coordinateSource": "maps-pin", "programs": [{"name": "Baby Crawler", "offering": "offered", "age": {"minMonths": 5, "maxMonths": 13, "providerAgeUrl": "https://goldenschool.id/the-baby-crawler-class-at-golden-baby-school/", "sourceCheckedAt": "2026-11-03", "level": "branch", "verification": "provider-confirmed"}, "note": "Baby Crawler Class, babies 5-13 months. Provider page is undated; read 2026-11-03. Schedule and price not carried here."}], "website": "https://goldenschool.id/", "sourceUrl": "https://goldenschool.id/the-baby-crawler-class-at-golden-baby-school/", "lastCheckedAt": "2026-11-03", "fitStatus": "branch-confirmed-live-undated", "notes": "Independent provider. Address matched to Google Places listing by name and area. Provider page undated; read 2026-11-03."},
+ {
+  "id": "golden-baby-school-jakarta-garden-city",
+  "chain": "Golden Baby School",
+  "branchName": "Jakarta Garden City",
+  "categories": [
+   "Gym & Movement",
+   "Sensory"
+  ],
+  "address": "Perumahan Jakarta Garden City, Jl. Cassia Utama, Cakung Timur, Kec. Cakung, Jakarta Timur 13910",
+  "area": "Jakarta Timur",
+  "city": "Jakarta Timur",
+  "lat": -6.1785493,
+  "lng": 106.9570159,
+  "coordinateSource": "maps-pin",
+  "programs": [
+   {
+    "name": "Baby Crawler",
+    "offering": "offered",
+    "age": {
+     "minMonths": 5,
+     "maxMonths": 13,
+     "providerAgeUrl": "https://goldenschool.id/the-baby-crawler-class-at-golden-baby-school/",
+     "sourceCheckedAt": "2026-11-03",
+     "level": "branch",
+     "verification": "provider-confirmed"
+    },
+    "note": "Baby Crawler Class, babies 5-13 months. Provider page is undated; read 2026-11-03. Schedule and price not carried here."
+   }
+  ],
+  "website": "https://goldenschool.id/",
+  "sourceUrl": "https://goldenschool.id/the-baby-crawler-class-at-golden-baby-school/",
+  "lastCheckedAt": "2026-11-03",
+  "fitStatus": "branch-confirmed-live-undated",
+  "notes": "Independent provider. Address matched to Google Places listing by name and area. Provider page undated; read 2026-11-03.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://goldenschool.id/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 108,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Golden+Baby+School/@-6.1785493,106.9570159,17z/data=!3m1!4b1!4m6!3m5!1s0x2e698b0723f6d27b:0x8aff3ed5a820dc88!8m2!3d-6.1785493!4d106.9570159!16s%2Fg%2F11b6dg1gnp",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 812-9897-3858"
+ },
  {
   "id": "gymboree-play-music-gymboree-play-indonesia-music",
   "chain": "Gymboree Play & Music",
@@ -509,7 +878,23 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://www.gymboreeclasses.com/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-global-unverified-local",
-  "notes": "Global official site states ages 0-5, but this does not confirm the Indonesian branches offer them or still operate; the Indonesia branches are Google Maps listings only, provider-side currentness unverified."
+  "notes": "Global official site states ages 0-5, but this does not confirm the Indonesian branches offer them or still operate; the Indonesia branches are Google Maps listings only, provider-side currentness unverified.",
+  "operatingStatus": {
+   "state": "not-confirmed",
+   "source": "https://www.google.com/maps/place/Gymboree+Play+%26+Indonesia+Music/@-6.226825,106.606904,15z/data=!3m1!4b1!4m6!3m5!1s0x2e69fc1f9fc4f6f1:0x40050750b12fbc83!8m2!3d-6.226825!4d106.606904!16s%2Fg%2F1pzsf",
+   "checkedAt": "2026-11-03"
+  },
+  "reviews": {
+   "rating": 4.5,
+   "reviewCount": 2,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Gymboree+Play+%26+Indonesia+Music/@-6.226825,106.606904,15z/data=!3m1!4b1!4m6!3m5!1s0x2e69fc1f9fc4f6f1:0x40050750b12fbc83!8m2!3d-6.226825!4d106.606904!16s%2Fg%2F1pzsf",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": [],
+   "sampleNote": "Only 2 Google Maps ratings. Too few to judge."
+  },
+  "phone": "+62 21 5473525"
  },
  {
   "id": "gymboree-play-music-gymboree-play-music",
@@ -531,7 +916,23 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://www.gymboreeclasses.com/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-global-unverified-local",
-  "notes": "Global official site states ages 0-5, but this does not confirm the Indonesian branches offer them or still operate; the Indonesia branches are Google Maps listings only, provider-side currentness unverified."
+  "notes": "Global official site states ages 0-5, but this does not confirm the Indonesian branches offer them or still operate; the Indonesia branches are Google Maps listings only, provider-side currentness unverified.",
+  "operatingStatus": {
+   "state": "not-confirmed",
+   "source": "https://www.google.com/maps/place/Gymboree+Play+%26+Music/@-6.261718,106.81478,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1811d39c403:0x2f01036b4b5a7255!8m2!3d-6.261718!4d106.81478!16s%2Fg%2F1pzycly6z",
+   "checkedAt": "2026-11-03"
+  },
+  "reviews": {
+   "rating": 3.0,
+   "reviewCount": 2,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Gymboree+Play+%26+Music/@-6.261718,106.81478,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1811d39c403:0x2f01036b4b5a7255!8m2!3d-6.261718!4d106.81478!16s%2Fg%2F1pzycly6z",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": [],
+   "sampleNote": "Only 2 Google Maps ratings. Too few to judge."
+  },
+  "phone": "+62 21 2302401"
  },
  {
   "id": "gymboree-play-music-kelapa-gading",
@@ -553,7 +954,13 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://www.gymboreeclasses.com/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-global-unverified-local",
-  "notes": "Global official site states ages 0-5, but this does not confirm the Indonesian branches offer them or still operate; the Indonesia branches are Google Maps listings only, provider-side currentness unverified."
+  "notes": "Global official site states ages 0-5, but this does not confirm the Indonesian branches offer them or still operate; the Indonesia branches are Google Maps listings only, provider-side currentness unverified.",
+  "operatingStatus": {
+   "state": "not-confirmed",
+   "source": "https://www.google.com/maps/place/Gymboree+Play+%26+Music+-+Kelapa+Gading/@-6.1492508,106.9089773,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f525fde747c3:0x8b39decd3992d445!8m2!3d-6.1492508!4d106.9089773!16s%2",
+   "checkedAt": "2026-11-03"
+  },
+  "phone": "+62 21 45850703"
  },
  {
   "id": "gymboree-play-music-pondok-indah-mall-1",
@@ -575,7 +982,23 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://www.gymboreeclasses.com/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-global-unverified-local",
-  "notes": "Global official site states ages 0-5, but this does not confirm the Indonesian branches offer them or still operate; the Indonesia branches are Google Maps listings only, provider-side currentness unverified. Maps listing carries no street address detail; coordinates point at the mall area."
+  "notes": "Global official site states ages 0-5, but this does not confirm the Indonesian branches offer them or still operate; the Indonesia branches are Google Maps listings only, provider-side currentness unverified. Maps listing carries no street address detail; coordinates point at the mall area.",
+  "operatingStatus": {
+   "state": "not-confirmed",
+   "source": "https://www.google.com/maps/place/Gymboree+Pondok+Indah+Mall+1/@-6.2655825,106.7842598,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1a5c0402fd3:0x27bc5daa39fcff2e!8m2!3d-6.2655825!4d106.7842598!16s%2Fg%2F1hf1lv",
+   "checkedAt": "2026-11-03"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 2,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Gymboree+Pondok+Indah+Mall+1/@-6.2655825,106.7842598,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1a5c0402fd3:0x27bc5daa39fcff2e!8m2!3d-6.2655825!4d106.7842598!16s%2Fg%2F1hf1lv",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": [],
+   "sampleNote": "Only 2 Google Maps ratings. Too few to judge."
+  },
+  "phone": "+62 21 75911876"
  },
  {
   "id": "i-can-read-alam-sutera",
@@ -596,7 +1019,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 141,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/I+CAN+READ+Alam+Sutera/@-6.2426441,106.6535436,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fb224f0a30cd:0x590c7090362d1f9d!8m2!3d-6.2426441!4d106.6535436!16s%2Fg%2F11gtgdpnpf",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 877-7666-2707"
  },
  {
   "id": "i-can-read-bsd",
@@ -617,7 +1055,12 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years. Address wording differs: Maps shows Jl. Letjen Sutopo Buaran; the brand lists BSD City 1 at Ruko Golden Madrid 2 Blok F No.18-19. The Maps phone (021 5316 4789) matches the official BSD City 1 phone.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
+  }
  },
  {
   "id": "i-can-read-bintaro",
@@ -638,7 +1081,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 724,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/I+Can+Read+Bintaro+%7C+Kursus+Bahasa+Inggris+anak+%26+remaja/@-6.2794226,106.7108143,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fa906edfcde5:0xa64f315e87f32792!8m2!3d-6.279422",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 21 22214122"
  },
  {
   "id": "i-can-read-ciledug",
@@ -659,7 +1117,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years. Not on the brand's published centre lists checked 2026-11-04 (icanread.asia, icanread.co.id); the Google Maps listing is open with hours.",
+  "operatingStatus": {
+   "state": "maps-listed",
+   "source": "https://www.google.com/maps/place/I+Can+Read+Ciledug/@-6.223157,106.709337,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fbf9b74499b5:0x13087f4a3f46b3fe!8m2!3d-6.223157!4d106.709337!16s%2Fg%2F11z603zr_z",
+   "checkedAt": "2026-11-03"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 26,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/I+Can+Read+Ciledug/@-6.223157,106.709337,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fbf9b74499b5:0x13087f4a3f46b3fe!8m2!3d-6.223157!4d106.709337!16s%2Fg%2F11z603zr_z",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 858-8855-6555"
  },
  {
   "id": "i-can-read-cinere",
@@ -680,7 +1153,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 23,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/I+Can+Read+Cinere/@-6.3238678,106.784497,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69efb0fe63e8c3:0xe5fb14bc9bf935d5!8m2!3d-6.3238678!4d106.784497!16s%2Fg%2F11j1mfm9qj",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 812-1777-7920"
  },
  {
   "id": "i-can-read-ciputat",
@@ -701,7 +1189,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 154,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/I+Can+Read+Ciputat/@-6.3185828,106.7458075,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69ef49c5af1077:0x290ba9da080bb2b6!8m2!3d-6.3185828!4d106.7458075!16s%2Fg%2F11t5y5j1kn",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 819-7788-9901"
  },
  {
   "id": "i-can-read-gading-serpong",
@@ -722,7 +1225,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 114,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/I+Can+Read+Gading+Serpong/@-6.2442913,106.6333943,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fbf7b184a49f:0x343aae5ac355a0a!8m2!3d-6.2442913!4d106.6333943!16s%2Fg%2F11b5s2dv7g",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 821-1435-2109"
  },
  {
   "id": "i-can-read-gajah-mada",
@@ -743,7 +1261,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 33,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/I+Can+Read+Gajah+Mada/@-6.1603129,106.8135499,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f74f95b336b1:0x32545ddb9f413da4!8m2!3d-6.1603129!4d106.8135499!16s%2Fg%2F11h4zgjr7z",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 812-1800-8090"
  },
  {
   "id": "i-can-read-green-lake-city",
@@ -764,7 +1297,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 108,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/I+CAN+READ+Green+Lake+City/@-6.1910037,106.7007109,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f98b5a70798d:0x5f8d8d69dda7e0af!8m2!3d-6.1910037!4d106.7007109!16s%2Fg%2F11lg0qb0",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 812-1299-4112"
  },
  {
   "id": "i-can-read-i-can-read",
@@ -785,7 +1333,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years. Not on the brand's published centre lists checked 2026-11-04 (icanread.asia, icanread.co.id); the Google Maps listing is open with hours.",
+  "operatingStatus": {
+   "state": "maps-listed",
+   "source": "https://www.google.com/maps/place/I+Can+Read/@-6.1727606,106.7768893,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f7ad388290f5:0x7a5d4dfde1238048!8m2!3d-6.1727606!4d106.7768893!16s%2Fg%2F11bc7rwvzm",
+   "checkedAt": "2026-11-03"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 62,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/I+Can+Read/@-6.1727606,106.7768893,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f7ad388290f5:0x7a5d4dfde1238048!8m2!3d-6.1727606!4d106.7768893!16s%2Fg%2F11bc7rwvzm",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 21 50860766"
  },
  {
   "id": "i-can-read-kalimalang",
@@ -806,7 +1369,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years. Not on the brand's published centre lists checked 2026-11-04 (icanread.asia, icanread.co.id); the Google Maps listing is open with hours.",
+  "operatingStatus": {
+   "state": "maps-listed",
+   "source": "https://www.google.com/maps/place/I+Can+Read+Kalimalang/@-6.2458828,106.9068453,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f3fadf52eda5:0x2fbbf839ec46b7d8!8m2!3d-6.2458828!4d106.9068453!16s%2Fg%2F11yvtvg_y_",
+   "checkedAt": "2026-11-03"
+  },
+  "reviews": {
+   "rating": 4.8,
+   "reviewCount": 42,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/I+Can+Read+Kalimalang/@-6.2458828,106.9068453,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f3fadf52eda5:0x2fbbf839ec46b7d8!8m2!3d-6.2458828!4d106.9068453!16s%2Fg%2F11yvtvg_y_",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 819-0891-1101"
  },
  {
   "id": "i-can-read-kelapa-gading",
@@ -827,7 +1405,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.8,
+   "reviewCount": 58,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/I+Can+Read+Kelapa+Gading/@-6.14613,106.895647,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f53bffffffc3:0x51c9153fa528a6b8!8m2!3d-6.14613!4d106.895647!16s%2Fg%2F11bwhb2ymz",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 895-0540-0760"
  },
  {
   "id": "i-can-read-kemang",
@@ -848,7 +1441,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 43,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/I+Can+Read+Kemang/@-6.2585849,106.8153776,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f11b4d2d4e7d:0x1485aab21bc0abe9!8m2!3d-6.2585849!4d106.8153776!16s%2Fg%2F11gjw0wsyq",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 877-8922-7623"
  },
  {
   "id": "i-can-read-menteng",
@@ -869,7 +1477,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 19,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/I+Can+Read+Menteng/@-6.1968106,106.8284464,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f422a3ec598f:0x8a935e87f6800738!8m2!3d-6.1968106!4d106.8284464!16s%2Fg%2F1hm3wxvmk",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 821-2238-2323"
  },
  {
   "id": "i-can-read-permata-hijau",
@@ -890,7 +1513,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 103,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/I+Can+Read+Permata+Hijau/@-6.2209985,106.7837332,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1328f49edd9:0xe79daa8de7ceb21f!8m2!3d-6.2209985!4d106.7837332!16s%2Fg%2F1pzr6x33n",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 852-8000-1449"
  },
  {
   "id": "i-can-read-pluit",
@@ -911,7 +1549,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 105,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/I+Can+Read+Pluit/@-6.1160523,106.7887151,17z/data=!3m1!4b1!4m6!3m5!1s0x2e6a1dbe0365b51b:0x5355fe4731acb917!8m2!3d-6.1160523!4d106.7887151!16s%2Fg%2F11f5d5zk9m",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 818-0787-0088"
  },
  {
   "id": "i-can-read-puri",
@@ -932,7 +1585,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.6,
+   "reviewCount": 25,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/I+Can+Read+Puri/@-6.1878857,106.7363642,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f7707f2ca545:0xef1aeae2fb59afe4!8m2!3d-6.1878857!4d106.7363642!16s%2Fg%2F1tplsmj1",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 811-1011-6936"
  },
  {
   "id": "i-can-read-summarecon-bekasi",
@@ -953,7 +1621,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 254,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/I+Can+Read+Summarecon+Bekasi/@-6.2277174,107.0034143,17z/data=!3m1!4b1!4m6!3m5!1s0x2e698ddbe9ad5a31:0x761a4ca27b51817c!8m2!3d-6.2277174!4d107.0034143!16s%2Fg%2F11gvxj",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 878-8046-9515"
  },
  {
   "id": "i-can-read-sunter",
@@ -974,7 +1657,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "http://www.icanread.asia/home/ajax_centre/18/4",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 125,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/I+Can+Read+Sunter/@-6.1323558,106.8649088,17z/data=!3m1!4b1!4m6!3m5!1s0x2e6a1e2acab1e1e1:0xdf7ce76095bad665!8m2!3d-6.1323558!4d106.8649088!16s%2Fg%2F11bwf6hw3t",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 21 65300205"
  },
  {
   "id": "i-can-read-tebet",
@@ -995,7 +1693,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://icanread.co.id/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official program page: 2.5 to 7 years."
+  "notes": "Official program page: 2.5 to 7 years.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://icanread.co.id/location/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 30,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/I+Can+Read+Tebet/@-6.2337803,106.8479516,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f39949a4516f:0xa08742b71a93985d!8m2!3d-6.2337803!4d106.8479516!16s%2Fg%2F11nb99zmr0",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 818-704-760"
  },
  {
   "id": "kindyroo-kemang",
@@ -1015,46 +1728,23 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://www.google.com/maps/search/?api=1&query=KindyROO+Kemang&query_place_id=ChIJHQjBGnnxaS4R-rikIAO6EdU",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "unknown",
-  "notes": "Age eligibility not verified from a provider source."
- },
- {
-  "id": "little-monkey-gym-bintaro-entertainment-center",
-  "chain": "Little Monkey Gym",
-  "branchName": "Bintaro Entertainment Center",
-  "categories": [
-   "Gym & Movement"
-  ],
-  "address": "BEC, Jl. HR Rasuna Said Lantai 3, Pd. Jaya, Kec. Pd. Aren, Kota Tangerang Selatan, Banten 15220, Indonesia",
-  "area": "Tangerang Selatan",
-  "city": "Tangerang Selatan",
-  "lat": -6.276002,
-  "lng": 106.718189,
-  "coordinateSource": "maps-pin",
-  "programs": [],
-  "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Little+Monkey+Gym+Kid%27s+%26+Teens&query_place_id=ChIJp6zeDZz6aS4Rso3y2odoMjw",
-  "lastCheckedAt": "2026-11-03",
-  "fitStatus": "media-claimed",
-  "notes": "Media only: ages 1 to 16 years. No official source found."
- },
- {
-  "id": "my-gym-aeon-mall-bsd-city",
-  "chain": "My Gym",
-  "branchName": "AEON Mall BSD City",
-  "categories": [
-   "Gym & Movement"
-  ],
-  "address": "AEON Mall BSD City, Mezzanine Floor Lot 03A, Jl. BSD Raya Utama, Pagedangan, Kabupaten Tangerang, Banten 15345",
-  "area": "Kabupaten Tangerang",
-  "city": "Kabupaten Tangerang",
-  "lat": -6.304861,
-  "lng": 106.643263,
-  "coordinateSource": "maps-pin",
-  "programs": [],
-  "website": "https://www.traveloka.com/en-id/activities/indonesia/product/children-fitness-at-my-gym-aeon-bsd-2001470388419",
-  "sourceUrl": "https://www.traveloka.com/en-id/activities/indonesia/product/children-fitness-at-my-gym-aeon-bsd-2001470388419",
-  "lastCheckedAt": "2026-11-03",
-  "fitStatus": "media-claimed",
-  "notes": "Age range unresolved between two media sources: Fimela (2016, Indonesia opening) says 3 months to 12 years; Popmama says 6 weeks to 10 years. Both include under-4 ages; exact range not settled by any official source. Coordinates are the mall, not the unit; address from Traveloka listing, currentness not confirmed with provider. | Unresolved: {'min_months': 3, 'max_months': 144, 'source_url': 'https://www.fimela.com/parenting/read/3759442/my-gym-childrens-fitness-center-agar-anak-aktif-bersosialisasi', 'source_type': 'media'}; {'min_months': 1.5, 'max_months': 120, 'source_url': 'https://www.popmama.com/baby/7-12-months/rekomendasi-tempat-baby-gym-di-jakarta-00-jr58h-g5rwl7', 'source_type': 'media'} | Pin is the hosting mall's coordinates, not a unit-level pin."
+  "notes": "Age eligibility not verified from a provider source.",
+  "operatingStatus": {
+   "state": "maps-listed",
+   "source": "https://www.google.com/maps/place/KindyROO+Kemang/@-6.2719354,106.8138682,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1791ac1081d:0xd511ba0320a4b8fa!8m2!3d-6.2719354!4d106.8138682!16s%2Fg%2F1tlngr3p",
+   "checkedAt": "2026-11-03"
+  },
+  "reviews": {
+   "rating": 3.4,
+   "reviewCount": 8,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/KindyROO+Kemang/@-6.2719354,106.8138682,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1791ac1081d:0xd511ba0320a4b8fa!8m2!3d-6.2719354!4d106.8138682!16s%2Fg%2F1tlngr3p",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": [],
+   "sampleNote": "Only 8 Google Maps ratings. Too few to judge."
+  },
+  "phone": "+62 897-2662-688"
  },
  {
   "id": "rockstar-academy-aeon-mall-bsd-city",
@@ -1266,13 +1956,19 @@ export const VENUES: Venue[] = [
   "notes": "Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
   "reviews": {
    "rating": 4.6,
-   "reviewCount": 190,
+   "reviewCount": 192,
    "source": "Google Maps",
    "checkedAt": "2026-11-03",
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Rockstar+Academy+-+AEON+MALL+BSD+City&query_place_id=ChIJm0YvvQflaS4RLOpIYhjmmpc"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/schedules-and-locations",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 21 39713777"
  },
  {
   "id": "rockstar-academy-aeon-mall-sentul-city",
@@ -1303,7 +1999,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Rockstar+Academy+-+AEON+MALL+Sentul+City&query_place_id=ChIJd2bwdtHHaS4RC7hGNcdYV68"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/schedules-and-locations/aeon-mall-sentul-city",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 21 39713970"
  },
  {
   "id": "rockstar-academy-aeon-mall-deltamas",
@@ -1334,7 +2036,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Rockstar+Academy+AEON+Mall+Deltamas&query_place_id=ChIJ91SSRgCbaS4RD10mF8UDJ1M"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/schedules-and-locations",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 21 39724242"
  },
  {
   "id": "rockstar-academy-central-park-2",
@@ -1365,7 +2073,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=RockStar+Academy+-+Central+Park+2&query_place_id=ChIJ92MKt0r3aS4R7Btkt865WAk"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/schedules-and-locations",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 21 50860730"
  },
  {
   "id": "rockstar-academy-gajah-mada-plaza",
@@ -1396,7 +2110,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Rockstar+Academy+-+Gajah+Mada+Plaza&query_place_id=ChIJZYiQZAD1aS4RwGCWo75MBzU"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/schedules-and-locations",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 21 39729888"
  },
  {
   "id": "rockstar-academy-gandaria-city",
@@ -1623,7 +2343,13 @@ export const VENUES: Venue[] = [
    ],
    "sampleNote": "Small sample: 3 visible reviews plus Google's own review summary, checked 2026-11-03. Not a representative read of all 374 reviews.",
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Rockstar+Academy+-+Gandaria+City&query_place_id=ChIJcSkwRxfxaS4RYKB1otONwLM"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/schedules-and-locations",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 21 29008081"
  },
  {
   "id": "rockstar-academy-grand-metropolitan-bekasi",
@@ -1654,7 +2380,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Rockstar+Academy+-+Grand+Metropolitan+Bekasi&query_place_id=ChIJYePEXl6NaS4RSy2GXCsnVz4"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/lib/upload/files/club/GB_Schedule_Fall_2026_Week_5.pdf",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 21 29579878"
  },
  {
   "id": "rockstar-academy-hampton-square",
@@ -1685,7 +2417,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Rockstar+Academy+-+Hampton+Square&query_place_id=ChIJ32CLaTP9aS4R4rtSilMOZcQ"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/schedules-and-locations",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 21 39713400"
  },
  {
   "id": "rockstar-academy-kota-kasablanka",
@@ -1903,7 +2641,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Rockstar+Academy+-+Kota+Kasablanka&query_place_id=ChIJb-pmwozzaS4RYAm_4EKmfG4"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/schedules-and-locations",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 21 29612708"
  },
  {
   "id": "rockstar-academy-lippo-mall-kemang",
@@ -1934,7 +2678,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Rockstar+Academy+-+Lippo+Mall+Kemang&query_place_id=ChIJBUQQZXjxaS4RcYd3wRO0fR0"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/schedules-and-locations",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 21 29056776"
  },
  {
   "id": "rockstar-academy-lippo-mall-puri",
@@ -1965,7 +2715,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Rockstar+Academy+-+Lippo+Mall+Puri&query_place_id=ChIJdVVRlXH3aS4RfSgMHgm4DlY"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/schedules-and-locations",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 21 22582777"
  },
  {
   "id": "rockstar-academy-lippo-plaza-ekalokasari",
@@ -1996,7 +2752,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Rockstar+Academy+-+Lippo+Plaza+Ekalokasari&query_place_id=ChIJ8cWnOzDFaS4RAiYmF1PvSck"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/schedules-and-locations",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 251 3101100"
  },
  {
   "id": "rockstar-academy-living-world-alam-sutera",
@@ -2027,7 +2789,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Rockstar+Academy+-+Living+World+Alam+Sutera&query_place_id=ChIJD2NXTAb7aS4RmChEUP5dr7c"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/schedules-and-locations/living-world",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 21 29239500"
  },
  {
   "id": "rockstar-academy-lotte-mart-bintaro",
@@ -2250,7 +3018,13 @@ export const VENUES: Venue[] = [
    ],
    "sampleNote": "Small sample: 5 visible reviews, checked 2026-11-03. Not a representative read of all 52 reviews.",
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Rockstar+Academy+-+Lotte+Mart+Bintaro&query_place_id=ChIJk3De_LLxaS4RTh_uIZPAoU8"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/schedules-and-locations",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 21 39714200"
  },
  {
   "id": "rockstar-academy-mall-of-indonesia",
@@ -2281,7 +3055,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Rockstar+Academy+-+Mall+of+Indonesia&query_place_id=ChIJsWYfC0H1aS4RsZ44hovSQRs"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/schedules-and-locations/mall-of-indonesia",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 21 29365155"
  },
  {
   "id": "rockstar-academy-pik-avenue",
@@ -2312,7 +3092,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Rockstar+Academy+-+PIK+Avenue&query_place_id=ChIJPVVd8MEdai4RTPxwUNzaOss"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/schedules-and-locations",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 21 22570990"
  },
  {
   "id": "rockstar-academy-pesona-square",
@@ -2343,7 +3129,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Rockstar+Academy+-+Pesona+Square&query_place_id=ChIJk2_0XzrtaS4RKyz_8Z6y-xU"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/schedules-and-locations",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 21 39703939"
  },
  {
   "id": "rockstar-academy-pluit-village",
@@ -2374,7 +3166,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Rockstar+Academy+-+Pluit+Village&query_place_id=ChIJ_QRdhJUdai4R3qnOjlCjS-g"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/schedules-and-locations",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 21 6683690"
  },
  {
   "id": "rockstar-academy-tsm-cibubur",
@@ -2405,7 +3203,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Rockstar+Academy+-+TSM+Cibubur&query_place_id=ChIJbQ2Vc2DtaS4RlyT5geHOX9g"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/schedules-and-locations",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 21 39715588"
  },
  {
   "id": "rockstar-academy-the-park-pejaten",
@@ -2623,7 +3427,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=RockStar+Academy+-+The+Park+Pejaten&query_place_id=ChIJA6lpMQjzaS4RTB6SBk1n0Kk"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.rockstaracademy.com/schedules-and-locations",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 21 39707040"
  },
  {
   "id": "sparks-sports-academy-bsd-tangerang",
@@ -2706,6 +3516,11 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+BSD+Tangerang&query_place_id=ChIJ77CVPDLlaS4RmfTNGw_f1Mo"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/tangerang/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -2769,15 +3584,21 @@ export const VENUES: Venue[] = [
   "fitStatus": "official-chain-program",
   "notes": "Official city page: 'Kelas olahraga & sensori untuk anak usia 6 bulan-7 tahun'. Booking routes: WhatsApp +62 813-9000-6606 (all schedule CTAs) and a Loket organizer page https://loket.com/o/lkt-dWhw (no current events listed). No per-branch time schedule published online (checked 2026-11-03). | Unresolved: NOT listed on official city baby-sensory page (checked rendered page 2026-11-03) - sensory availability UNKNOWN, not disproven; city page claims classes 6mo-7y across city locations",
   "reviews": {
-   "rating": 5.0,
-   "reviewCount": 7,
+   "rating": 4.9,
+   "reviewCount": 8,
    "source": "Google Maps",
    "checkedAt": "2026-11-03",
    "praiseThemes": [
     "positive trial-class experience; facilities and staff service praised"
    ],
    "complaintThemes": [],
-   "sampleNote": "Small sample: 3 of 7 reviews visible, checked 2026-11-03. A 5.0 average from only 7 reviews is too few to judge."
+   "sampleNote": "Small sample: 3 of 8 reviews visible, checked 2026-11-03. 8 ratings are too few to judge.",
+   "sourceUrl": "https://www.google.com/maps/place/Sparks+Sports+Academy+-+Bintaro+Utown/@-6.2933125,106.7261875,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1b313275491:0x375c61f1e2528173!8m2!3d-6.2933125!4d106.7261875!16s%2Fg"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/tangerang/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -2846,7 +3667,13 @@ export const VENUES: Venue[] = [
    "source": "Google Maps",
    "checkedAt": "2026-11-03",
    "praiseThemes": [],
-   "complaintThemes": []
+   "complaintThemes": [],
+   "sourceUrl": "https://www.google.com/maps/place/Sparks+Sports+Academy+-+Cibinong/@-6.4815961,106.8279311,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69c1f56e65b84d:0x369657ec803bdba3!8m2!3d-6.4815961!4d106.8279311!16s%2Fg%2F11"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/bogor/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -2908,7 +3735,12 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://academy.sparks-edu.com/bogor/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "official-chain-program",
-  "notes": "Official city page: 'Kelas olahraga & sensori untuk anak usia 6 bulan-7 tahun'. Booking routes: WhatsApp +62 813-9000-6606 (all schedule CTAs) and a Loket organizer page https://loket.com/o/lkt-dWhw (no current events listed). No per-branch time schedule published online (checked 2026-11-03). | Unresolved: NOT listed on official city baby-sensory page (checked rendered page 2026-11-03) - sensory availability UNKNOWN, not disproven; city page claims classes 6mo-7y across city locations"
+  "notes": "Official city page: 'Kelas olahraga & sensori untuk anak usia 6 bulan-7 tahun'. Booking routes: WhatsApp +62 813-9000-6606 (all schedule CTAs) and a Loket organizer page https://loket.com/o/lkt-dWhw (no current events listed). No per-branch time schedule published online (checked 2026-11-03). | Unresolved: NOT listed on official city baby-sensory page (checked rendered page 2026-11-03) - sensory availability UNKNOWN, not disproven; city page claims classes 6mo-7y across city locations",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/bogor/",
+   "checkedAt": "2026-11-04"
+  }
  },
  {
   "id": "sparks-sports-academy-harapan-indah-bekasi",
@@ -2991,6 +3823,11 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+Harapan+Indah+Bekasi&query_place_id=ChIJI-AlvaGLaS4RipyrwRi-q6o"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/bekasi/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -3074,6 +3911,11 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+Kalimalang&query_place_id=ChIJcySIfDDzaS4R_phVJfWHiAA"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/jakarta/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -3157,6 +3999,11 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+Karawaci&query_place_id=ChIJu2XkBiP_aS4R4gNH1iRtikU"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/tangerang/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -3240,6 +4087,11 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+Kelapa+Gading+2&query_place_id=ChIJ-6zgLz71aS4RBdcYBRbWsAw"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/jakarta/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -3323,6 +4175,11 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+Kelapa+Gading+Jakarta&query_place_id=ChIJa7lqCST1aS4R3rl52wNy4mo"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/jakarta/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -3406,6 +4263,11 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+Kemang+Ampera&query_place_id=ChIJM7yHtwLzaS4RUwWy9DqFXR8"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/jakarta/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -3489,12 +4351,17 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+Kemang+Pratama+Bekasi&query_place_id=ChIJJacEMyGNaS4RINLkx5bw5NI"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/bekasi/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
   "id": "sparks-sports-academy-mrg",
   "chain": "Sparks Sports Academy",
-  "branchName": "MRG",
+  "branchName": "Margonda Depok",
   "categories": [
    "Gym & Movement",
    "Sensory"
@@ -3563,7 +4430,7 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://academy.sparks-edu.com/depok/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "branch-candidate-live-undated",
-  "notes": "Official city page: 'Kelas olahraga & sensori untuk anak usia 6 bulan-7 tahun'. Booking routes: WhatsApp +62 813-9000-6606 (all schedule CTAs) and a Loket organizer page https://loket.com/o/lkt-dWhw (no current events listed). No per-branch time schedule published online (checked 2026-11-03). | Unresolved: listed in sensory-page address block but not among trial buttons; sub-level availability unknown",
+  "notes": "Official city page: 'Kelas olahraga & sensori untuk anak usia 6 bulan-7 tahun'. Booking routes: WhatsApp +62 813-9000-6606 (all schedule CTAs) and a Loket organizer page https://loket.com/o/lkt-dWhw (no current events listed). No per-branch time schedule published online (checked 2026-11-03). | Unresolved: listed in sensory-page address block but not among trial buttons; sub-level availability unknown Official site lists this branch as \"Margonda Depok\" (formerly shown here as MRG).",
   "reviews": {
    "rating": 4.1,
    "reviewCount": 98,
@@ -3572,6 +4439,11 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+MRG&query_place_id=ChIJT-6NXwDtaS4RUKk1vL2DFV4"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/depok/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -3649,12 +4521,17 @@ export const VENUES: Venue[] = [
   "notes": "Official city page: 'Kelas olahraga & sensori untuk anak usia 6 bulan-7 tahun'. Booking routes: WhatsApp +62 813-9000-6606 (all schedule CTAs) and a Loket organizer page https://loket.com/o/lkt-dWhw (no current events listed). No per-branch time schedule published online (checked 2026-11-03). | Unresolved: listed in sensory-page address block but not among trial buttons; sub-level availability unknown",
   "reviews": {
    "rating": 4.5,
-   "reviewCount": 139,
+   "reviewCount": 138,
    "source": "Google Maps",
    "checkedAt": "2026-11-03",
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+Pajajaran+Bogor&query_place_id=ChIJJRXv5zPFaS4RXxnF-MPcI80"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/bogor/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -3738,6 +4615,11 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+Pamulang&query_place_id=ChIJ24np8iTlaS4RuKRm3SUQPO0"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/tangerang/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -3821,6 +4703,11 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+Pejaten&query_place_id=ChIJj0oC-ZPzaS4R27vIoJlywyE"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/jakarta/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -3895,7 +4782,12 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://academy.sparks-edu.com/depok/",
   "lastCheckedAt": "2026-11-03",
   "fitStatus": "branch-candidate-live-undated",
-  "notes": "Official city page: 'Kelas olahraga & sensori untuk anak usia 6 bulan-7 tahun'. Booking routes: WhatsApp +62 813-9000-6606 (all schedule CTAs) and a Loket organizer page https://loket.com/o/lkt-dWhw (no current events listed). No per-branch time schedule published online (checked 2026-11-03). | Unresolved: listed in sensory-page address block but not among trial buttons; sub-level availability unknown"
+  "notes": "Official city page: 'Kelas olahraga & sensori untuk anak usia 6 bulan-7 tahun'. Booking routes: WhatsApp +62 813-9000-6606 (all schedule CTAs) and a Loket organizer page https://loket.com/o/lkt-dWhw (no current events listed). No per-branch time schedule published online (checked 2026-11-03). | Unresolved: listed in sensory-page address block but not among trial buttons; sub-level availability unknown",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/depok/",
+   "checkedAt": "2026-11-04"
+  }
  },
  {
   "id": "sparks-sports-academy-siliwangi",
@@ -3978,6 +4870,11 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+Siliwangi&query_place_id=ChIJie3RyFLraS4RmDqyQZjfpeI"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/depok/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -4061,6 +4958,11 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+Sunter&query_place_id=ChIJMQq6q2b1aS4Rzf8wLWS7k7g"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/jakarta/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -4144,6 +5046,11 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+Taman+Mini+Square&query_place_id=ChIJ80h08nDzaS4Rfukp2M0Hje4"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/jakarta/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -4227,6 +5134,11 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+Taman+Palem&query_place_id=ChIJHwACyfYDai4R9_00bipc3nQ"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/jakarta/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -4310,6 +5222,11 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+Tangerang+City&query_place_id=ChIJdZ62Bp75aS4RiKVaNk8M0P4"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/tangerang/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -4393,26 +5310,12 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+Tanjung+Duren&query_place_id=ChIJDc8Zi0_3aS4R5cJ4VAT8DiE"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/jakarta/",
+   "checkedAt": "2026-11-04"
   }
- },
- {
-  "id": "tinytoes-learning-centre-kebayoran-baru",
-  "chain": "TinyToes Learning Centre",
-  "branchName": "Kebayoran Baru",
-  "categories": [
-   "Early Learning"
-  ],
-  "address": "Jl. Martimbang V No.4, RT.7/RW.5, Gunung, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12120, Indonesia",
-  "area": "Jakarta Selatan",
-  "city": "Jakarta Selatan",
-  "lat": -6.234959,
-  "lng": 106.789816,
-  "coordinateSource": "maps-pin",
-  "programs": [],
-  "sourceUrl": "https://www.google.com/maps/search/?api=1&query=TinyToes+Learning+Centre&query_place_id=ChIJ85FzyXDxaS4RvJvqq61fq0A",
-  "lastCheckedAt": "2026-11-03",
-  "fitStatus": "unknown",
-  "notes": "Age eligibility not verified from a provider source."
  },
  {
   "id": "the-funtastic-gym-pondok-indah",
@@ -4508,7 +5411,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=The+Funtastic+Gym+of+Pondok+Indah"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://thefuntasticgym.com/our-locations/",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 811-9775-375"
  },
  {
   "id": "bright-little-stars-kemang",
@@ -4537,7 +5446,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Bright+Little+Stars+Kemang"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.brightlittlestarsedu.com/",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 815-8855-257"
  },
  {
   "id": "bright-little-stars-bintaro",
@@ -4566,7 +5481,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Bright+Little+Stars+Bintaro"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.brightlittlestarsedu.com/",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 815-1433-1690"
  },
  {
   "id": "bright-little-stars-bsd-learning-center",
@@ -4586,7 +5507,22 @@ export const VENUES: Venue[] = [
   "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Bright+Little+Stars+Learning+Center+BSD",
   "lastCheckedAt": null,
   "fitStatus": "official-chain-program",
-  "notes": "Brand-verified 3mo-6y; per-branch programs/schedules not yet verified. Two distinct BSD listings found on Maps."
+  "notes": "Brand-verified 3mo-6y; per-branch programs/schedules not yet verified. Two distinct BSD listings found on Maps.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.brightlittlestarsedu.com/",
+   "checkedAt": "2026-11-04"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 110,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/Bright+Little+Stars+Learning+Center+BSD/@-6.2912389,106.6271964,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fdf242583c35:0x24c475a154a43453!8m2!3d-6.2912389!4d106.6271964!16s%2",
+   "checkedAt": "2026-11-03",
+   "praiseThemes": [],
+   "complaintThemes": []
+  },
+  "phone": "+62 877-8877-2938"
  },
  {
   "id": "bright-little-stars-bsd-preschool",
@@ -4615,7 +5551,13 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Bright+Little+Stars+Preschool+BSD"
-  }
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://www.brightlittlestarsedu.com/",
+   "checkedAt": "2026-11-04"
+  },
+  "phone": "+62 821-9199-7048"
  },
  {
   "id": "sparks-sports-academy-cikarang",
@@ -4700,6 +5642,11 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+Cikarang&query_place_id=ChIJwVuoKO2baS4RrnEh0hJv2HY"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/bekasi/",
+   "checkedAt": "2026-11-04"
   }
  },
  {
@@ -4785,6 +5732,11 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": [],
    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Sparks+Sports+Academy+-+Teras+Kota&query_place_id=ChIJZcPs7m_7aS4R4OmBWCOeRaI"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/tangerang/",
+   "checkedAt": "2026-11-04"
   }
  }
 ];
