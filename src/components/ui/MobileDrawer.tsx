@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, useCallback, useSyncExternalStore } from "react";
 import { Venue, VenueFilterState } from "@/types/venue";
-import { RouteData } from "@/types/route";
 import FilterBar from "./FilterBar";
 import VenueDetails from "./VenueDetails";
 import { Search, MapPin, HelpCircle, ShieldCheck } from "lucide-react";
@@ -20,15 +19,9 @@ interface MobileDrawerProps {
   onResetFilters: () => void;
   categories: string[];
   areas: string[];
-  route: RouteData | null;
-  isRouting: boolean;
-  routingError?: string | null;
   onOpenShare: () => void;
-  onStartNavigation?: () => void;
   mobileView: "list" | "map";
   onSetMobileView: (view: "list" | "map") => void;
-  isNavigating: boolean;
-  canNavigate: boolean;
   showDetails: boolean;
   backLabel: string;
   onSelectFromList: (venue: Venue) => void;
@@ -130,15 +123,9 @@ export default function MobileDrawer({
   onResetFilters,
   categories,
   areas,
-  route,
-  isRouting,
-  routingError,
   onOpenShare,
-  onStartNavigation,
   mobileView,
   onSetMobileView,
-  isNavigating,
-  canNavigate,
   showDetails,
   backLabel,
   onSelectFromList,
@@ -246,9 +233,9 @@ export default function MobileDrawer({
     [onUpdateFilter, isDesktop, snapTo]
   );
 
-  // Hidden only while navigating or while a bottom selection card owns the
+  // Hidden while a bottom selection card owns the
   // space. Desktop always shows the sidebar.
-  const mobileHidden = isNavigating || (!!activeVenue && !showDetails);
+  const mobileHidden = !!activeVenue && !showDetails;
 
   const sheetH = dragH ?? stops[snap];
 
@@ -324,14 +311,9 @@ export default function MobileDrawer({
         {activeVenue && showDetails ? (
           <VenueDetails
             venue={activeVenue}
-            route={route}
-            isRouting={isRouting}
-            routingError={routingError}
             onBack={onClearActiveVenue}
             backLabel={backLabel}
             onOpenShare={onOpenShare}
-            onStartInAppNavigation={onStartNavigation}
-            canNavigate={canNavigate}
           />
         ) : (
           <>
