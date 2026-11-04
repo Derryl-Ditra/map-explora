@@ -69,6 +69,15 @@ export interface Venue {
   //  official-chain-program, media-claimed, official-global-unverified-local,
   //  unvalidated-extraction, unknown)
   notes?: string;
+  // Is this branch still operating? Evidence-based, dated, with its source.
+  // official-listed = on the brand's own published branch list or schedule page
+  // maps-listed     = Google Maps place page not flagged closed and showing opening hours (no official list found)
+  // not-confirmed   = no live evidence the branch operates; show as unconfirmed
+  operatingStatus?: {
+    state: "official-listed" | "maps-listed" | "not-confirmed";
+    source?: string;
+    checkedAt: string; // ISO date the source was read
+  };
   reviews?: ReviewSummary; // absent until branch-specific review evidence is collected
   distance?: number; // km, calculated at runtime
   eta?: number; // minutes, calculated at runtime
