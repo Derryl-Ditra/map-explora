@@ -86,7 +86,7 @@ export default function ShareCard({ venue, route, onClose }: ShareCardProps) {
               {venue.branchName}
             </span>
             <span className="text-[0.9375rem] text-[#6d675f]">
-              {venue.area}, {venue.city}
+              {venue.area === venue.city ? venue.area : venue.area + ", " + venue.city}
             </span>
           </div>
 
