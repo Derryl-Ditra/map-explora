@@ -308,7 +308,7 @@ export default function VectorMap({
     const el = document.createElement("button");
     el.type = "button";
     el.className =
-      "flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[0.875rem] font-bold tracking-tight cursor-pointer select-none focus:outline-none border bg-[#1a7a4a] text-white border-[#1a7a4a]";
+      "flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[0.875rem] font-bold tracking-tight cursor-pointer select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#2563eb] border bg-[#1a7a4a] text-white border-[#1a7a4a]";
     el.style.boxShadow = "0 1px 4px rgba(34,29,24,0.25)";
     el.style.maxWidth = "220px";
     const dot = document.createElement("span");
@@ -326,7 +326,7 @@ export default function VectorMap({
     el.type = "button";
     el.setAttribute("aria-label", `${count} places, zoom in`);
     el.className =
-      "w-10 h-10 rounded-full bg-white border-2 border-[#1a7a4a] text-[#14532d] text-[0.9375rem] font-bold flex items-center justify-center cursor-pointer select-none focus:outline-none";
+      "w-11 h-11 rounded-full bg-white border-2 border-[#1a7a4a] text-[#14532d] text-[0.9375rem] font-bold flex items-center justify-center cursor-pointer select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#2563eb]";
     el.style.boxShadow = "0 1px 4px rgba(34,29,24,0.3)";
     el.style.opacity = dimmed ? "0.4" : "1";
     el.textContent = String(count);
