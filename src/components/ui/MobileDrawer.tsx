@@ -32,7 +32,6 @@ interface MobileDrawerProps {
   showDetails: boolean;
   backLabel: string;
   onSelectFromList: (venue: Venue) => void;
-  onShowListFromMap: () => void;
 }
 
 type Snap = "peek" | "half" | "full";
@@ -160,6 +159,7 @@ export default function MobileDrawer({
   const [snap, setSnap] = useState<Snap>("peek");
   const [dragH, setDragH] = useState<number | null>(null);
   const dragRef = useRef<{ startY: number; startH: number } | null>(null);
+  const movedRef = useRef(false);
   // Last view we pushed up, so prop echoes don't fight the user's drag.
   const lastEmittedView = useRef<"list" | "map">("map");
 
@@ -194,6 +194,13 @@ export default function MobileDrawer({
     [emitView]
   );
 
+  // Tap or Enter/Space on the handle cycles peek -> half -> full so the
+  // sheet is reachable without a drag gesture (touch, keyboard, switch).
+  const toggleSnap = useCallback(() => {
+    const ordered: Snap[] = ["peek", "half", "full"];
+    snapTo(ordered[(ordered.indexOf(snap) + 1) % ordered.length]);
+  }, [snap, snapTo]);
+
   // Dragging the handle: track, then snap to the nearest stop on release.
   const onHandleDown = useCallback(
     (e: React.PointerEvent) => {
@@ -201,9 +208,11 @@ export default function MobileDrawer({
       e.preventDefault();
       const startH = dragH ?? stops[snap];
       dragRef.current = { startY: e.clientY, startH };
+      movedRef.current = false;
       const move = (ev: PointerEvent) => {
         const d = dragRef.current;
         if (!d) return;
+        if (Math.abs(d.startY - ev.clientY) > 6) movedRef.current = true;
         const next = d.startH + (d.startY - ev.clientY);
         setDragH(Math.max(stops.peek - 24, Math.min(stops.full, next)));
       };
@@ -295,13 +304,17 @@ export default function MobileDrawer({
     >
       {/* Drag handle (mobile only) */}
       <div
-        className="md:hidden shrink-0 pt-2.5 pb-1.5 cursor-grab active:cursor-grabbing touch-none"
+        className="md:hidden shrink-0 h-11 flex items-center justify-center cursor-grab active:cursor-grabbing touch-none"
         onPointerDown={onHandleDown}
-        role="separator"
-        aria-orientation="horizontal"
-        aria-label="Drag to resize the place list"
+        onClick={() => { if (!movedRef.current) toggleSnap(); }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleSnap(); }
+        }}
+        role="button"
+        tabIndex={0}
+        aria-label="Place list size. Tap or press Enter to cycle peek, half and full, or drag."
       >
-        <div className="w-10 h-1.5 rounded-full bg-[#d8d0c2] mx-auto" />
+        <div className="w-10 h-1.5 rounded-full bg-[#d8d0c2]" />
       </div>
 
       {header}
