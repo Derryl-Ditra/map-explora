@@ -5860,10 +5860,11 @@ export const VENUES: Venue[] = [
      "maxMonths": null,
      "level": "brand",
      "verification": "listed-unconfirmed",
-     "sourceCheckedAt": "2026-11-04",
-     "providerAgeUrl": "http://www.ciputraentrepreneurship.com/bisnis-mikro/menilik-keuntungan-bisnis-kursus-renang"
+     "sourceCheckedAt": "2026-11-04"
     },
-    "note": "Third-party article: students from six months up to 12 years. Not on the official page."
+    "note": "Third-party article: students from six months up to 12 years. Not on the official page.",
+    "noteUrl": "http://www.ciputraentrepreneurship.com/bisnis-mikro/menilik-keuntungan-bisnis-kursus-renang",
+    "noteLabel": "Third-party article"
    }
   ],
   "website": "https://www.anakair.co.id/",
@@ -5909,10 +5910,11 @@ export const VENUES: Venue[] = [
      "maxMonths": null,
      "level": "brand",
      "verification": "listed-unconfirmed",
-     "sourceCheckedAt": "2026-11-04",
-     "providerAgeUrl": "http://www.ciputraentrepreneurship.com/bisnis-mikro/menilik-keuntungan-bisnis-kursus-renang"
+     "sourceCheckedAt": "2026-11-04"
     },
-    "note": "Third-party article: students from six months up to 12 years. Not on the official page."
+    "note": "Third-party article: students from six months up to 12 years. Not on the official page.",
+    "noteUrl": "http://www.ciputraentrepreneurship.com/bisnis-mikro/menilik-keuntungan-bisnis-kursus-renang",
+    "noteLabel": "Third-party article"
    }
   ],
   "website": "https://www.anakair.co.id/",
@@ -5958,10 +5960,11 @@ export const VENUES: Venue[] = [
      "maxMonths": null,
      "level": "brand",
      "verification": "listed-unconfirmed",
-     "sourceCheckedAt": "2026-11-04",
-     "providerAgeUrl": "http://www.ciputraentrepreneurship.com/bisnis-mikro/menilik-keuntungan-bisnis-kursus-renang"
+     "sourceCheckedAt": "2026-11-04"
     },
-    "note": "Third-party article: students from six months up to 12 years. Not on the official page."
+    "note": "Third-party article: students from six months up to 12 years. Not on the official page.",
+    "noteUrl": "http://www.ciputraentrepreneurship.com/bisnis-mikro/menilik-keuntungan-bisnis-kursus-renang",
+    "noteLabel": "Third-party article"
    }
   ],
   "website": "https://www.anakair.co.id/",
@@ -6007,10 +6010,11 @@ export const VENUES: Venue[] = [
      "maxMonths": null,
      "level": "brand",
      "verification": "listed-unconfirmed",
-     "sourceCheckedAt": "2026-11-04",
-     "providerAgeUrl": "http://www.ciputraentrepreneurship.com/bisnis-mikro/menilik-keuntungan-bisnis-kursus-renang"
+     "sourceCheckedAt": "2026-11-04"
     },
-    "note": "Third-party article: students from six months up to 12 years. Not on the official page."
+    "note": "Third-party article: students from six months up to 12 years. Not on the official page.",
+    "noteUrl": "http://www.ciputraentrepreneurship.com/bisnis-mikro/menilik-keuntungan-bisnis-kursus-renang",
+    "noteLabel": "Third-party article"
    }
   ],
   "website": "https://www.anakair.co.id/",
@@ -6056,10 +6060,11 @@ export const VENUES: Venue[] = [
      "maxMonths": null,
      "level": "brand",
      "verification": "listed-unconfirmed",
-     "sourceCheckedAt": "2026-11-04",
-     "providerAgeUrl": "http://www.ciputraentrepreneurship.com/bisnis-mikro/menilik-keuntungan-bisnis-kursus-renang"
+     "sourceCheckedAt": "2026-11-04"
     },
-    "note": "Third-party article: students from six months up to 12 years. Not on the official page."
+    "note": "Third-party article: students from six months up to 12 years. Not on the official page.",
+    "noteUrl": "http://www.ciputraentrepreneurship.com/bisnis-mikro/menilik-keuntungan-bisnis-kursus-renang",
+    "noteLabel": "Third-party article"
    }
   ],
   "website": "https://www.anakair.co.id/",
@@ -6559,9 +6564,10 @@ export const VENUES: Venue[] = [
      "level": "brand",
      "verification": "provider-confirmed",
      "sourceCheckedAt": "2026-11-04",
-     "providerAgeUrl": "https://aquatic-baby.com/"
+     "providerAgeUrl": "https://aquatic-baby.com/program-1",
+     "sourceConflict": true
     },
-    "note": "Brand page: baby and parent swim, 6 months to 2 years."
+    "note": "Brand program page summary: 6 bulan - 2 tahun; the class detail text says 3 bulan hingga 2 tahun. The more restrictive summary bounds are used."
    },
    {
     "name": "Toddler Class",
@@ -6572,7 +6578,7 @@ export const VENUES: Venue[] = [
      "level": "brand",
      "verification": "provider-confirmed",
      "sourceCheckedAt": "2026-11-04",
-     "providerAgeUrl": "https://aquatic-baby.com/"
+     "providerAgeUrl": "https://aquatic-baby.com/program-1"
     },
     "note": "Brand page: toddlers 3-4 years."
    }
