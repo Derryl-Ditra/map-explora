@@ -6676,5 +6676,515 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": []
   }
+ },
+ {
+  "id": "english-1-kemang-pratama",
+  "chain": "English 1",
+  "branchName": "Kemang Pratama",
+  "categories": [
+   "English & Language"
+  ],
+  "address": "Ruko Kemang Pratama, Jl. Kemang Pratama Raya Blok AN-40, RT.004/RW.001, Bojong Rawalumbu, Kec. Rawalumbu, Kota Bekasi, Jawa Barat 17116, Indonesia",
+  "area": "Bekasi",
+  "city": "Bekasi",
+  "lat": -6.2780754,
+  "lng": 106.990472,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://english1.co.id/",
+  "sourceUrl": "https://english1.co.id/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/bekasi/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 4.8,
+   "reviewCount": 60,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/EF+English+Course/@-6.2780754,106.990472,17z/data=!3m1!4b1!4m6!3m5!1s0x2e698debc5399373:0x3279766bee61e48e!8m2!3d-6.2780754!4d106.990472!16s%2Fg%2F1tftnhq9?entry=ttu&g_ep=EgoyMDI2MTEwMS4wIKXMDSoASAFQAw%3D%3D",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "english-1-harapan-indah",
+  "chain": "English 1",
+  "branchName": "Kota Harapan Indah",
+  "categories": [
+   "English & Language"
+  ],
+  "address": "Komplek Sentra Niaga, Jl. Boulevard Hijau Raya No.Kav. 37 - 38, RT.008/RW.030, Pejuang, Kec. Medan Satria, Kota Bekasi, Jawa Barat 17132, Indonesia",
+  "area": "Bekasi",
+  "city": "Bekasi",
+  "lat": -6.1858359,
+  "lng": 106.9787145,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://english1.co.id/",
+  "sourceUrl": "https://english1.co.id/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/bekasi/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 4.7,
+   "reviewCount": 172,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Kota+Harapan+Indah+Bekasi/@-6.1837941,106.9787678,17z/data=!4m10!1m2!2m1!1sEnglish+1+Harapan+Indah+Bekasi!3m6!1s0x2e698b9669f9cdff:0xb7794a6f37ac5c53!8m2!3d-6.1858359!4d106.9787145!15sCh5FbmdsaXNoIDEgSGFyYXBhbiBJbmRhaCBCZWthc2laICIeZW5nbGlzaCAxIGhhcmFwYW4gaW5kYWggYmVrYXNpkgEXZW5nbGlzaF9sYW5ndWFnZV9zY2hvb2yaAURDaTlEUVVsUlFVTnZaRU5vZEhsalJqbHZUMnR3VDFkR09WZFhWRUp2VjJ0S2NVNXJjRVpYVlVweFRXNU9NMlF6WXhBQuABAPoBBAgAEEU!16s%2Fg%2F1q5grpkjv?entry=ttu&g_ep=EgoyMDI2MTEwMS4wIKXMDSoASAFQAw%3D%3D",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "english-1-jatiasih",
+  "chain": "English 1",
+  "branchName": "Jatiasih",
+  "categories": [
+   "English & Language"
+  ],
+  "address": "Jl. Raya Jatimekar, RT.001/RW.012, Jatimekar, Kec. Jatiasih, Kota Bekasi, Jawa Barat 17422, Indonesia",
+  "area": "Bekasi",
+  "city": "Bekasi",
+  "lat": -6.2913663,
+  "lng": 106.9559182,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://english1.co.id/",
+  "sourceUrl": "https://english1.co.id/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/bekasi/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 4.5,
+   "reviewCount": 43,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Jatiasih+Bekasi,+Jl.+Raya+Jatimekar,+RT.001%2FRW.012,+Jatimekar,+Jatiasih,+Bekasi,+West+Java+17422,+Indonesia/@-6.2913663,106.9559182,15z/data=!4m6!3m5!1s0x2e698d17fb5757f3:0xc55bd4a73f0e2493!8m2!3d-6.2913663!4d106.9559182!16s%2Fg%2F11x5f1z6yk?g_ep=Eg1tbF8yMDI2MTEwMV8wIJvbDyoASAJQAg%3D%3D",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "english-1-cibubur",
+  "chain": "English 1",
+  "branchName": "Cibubur Citra Gran",
+  "categories": [
+   "English & Language"
+  ],
+  "address": "Komplek Ruko Jimbaran Citra Gran, Jl. Alternatif Cibubur No.KM 4 Blok R1 No. 27, RT.005/RW.011, Jatikarya, Kec. Jatisampurna, Kota Bekasi, Jawa Barat 17435, Indonesia",
+  "area": "Bekasi",
+  "city": "Bekasi",
+  "lat": -6.3825136,
+  "lng": 106.9276917,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://english1.co.id/",
+  "sourceUrl": "https://english1.co.id/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/bekasi/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 129,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Cibubur+Bekasi/@-6.3824873,106.9280143,17z/data=!4m10!1m2!2m1!1sEnglish+1+Cibubur+Citra+Gran!3m6!1s0x2e699355c020a497:0x5ee5d3fad63e3f49!8m2!3d-6.3825136!4d106.9276917!15sChxFbmdsaXNoIDEgQ2lidWJ1ciBDaXRyYSBHcmFuWh4iHGVuZ2xpc2ggMSBjaWJ1YnVyIGNpdHJhIGdyYW6SARdlbmdsaXNoX2xhbmd1YWdlX3NjaG9vbJoBRENpOURRVWxSUVVOdlpFTm9kSGxqUmpsdlQyczVhbGxxUWxGVFZsSnhXVmQ0VDJOSFVrSk5lbHAyVm01U1RGSldSUkFC4AEA-gEECAAQMA!16s%2Fg%2F1tp8ftf0?entry=ttu&g_ep=EgoyMDI2MTEwMS4wIKXMDSoASAFQAw%3D%3D",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "english-1-grand-wisata",
+  "chain": "English 1",
+  "branchName": "Grand Wisata",
+  "categories": [
+   "English & Language"
+  ],
+  "address": "Ruko Festive Garden, Jl. Festival Avenue, Grand Wisata Blok AA16 No.78-80, Lambang Sari, Kec. Tambun Selatan, Kabupaten Bekasi, Jawa Barat 17510, Indonesia",
+  "area": "Kabupaten Bekasi",
+  "city": "Kabupaten Bekasi",
+  "lat": -6.2800772,
+  "lng": 107.0448698,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://english1.co.id/",
+  "sourceUrl": "https://english1.co.id/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/bekasi/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 4.8,
+   "reviewCount": 60,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Grand+Wisata+Bekasi/@-6.2815704,107.0446781,18z/data=!4m10!1m2!2m1!1sEnglish+1+Grand+Wisata+Bekasi!3m6!1s0x2e698e304a2ab5ad:0xaadc63bedc8a43bb!8m2!3d-6.2800772!4d107.0448698!15sCh1FbmdsaXNoIDEgR3JhbmQgV2lzYXRhIEJla2FzaVofIh1lbmdsaXNoIDEgZ3JhbmQgd2lzYXRhIGJla2FzaZIBF2VuZ2xpc2hfbGFuZ3VhZ2Vfc2Nob29smgEkQ2hkRFNVaE5NRzluUzBWSlEwRm5TVU5pZVRaUVdqaG5SUkFC4AEA-gEECAAQRQ!16s%2Fg%2F11c72nhwm4?entry=ttu&g_ep=EgoyMDI2MTEwMS4wIKXMDSoASAFQAw%3D%3D",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "english-1-summarecon",
+  "chain": "English 1",
+  "branchName": "Summarecon Bekasi",
+  "categories": [
+   "English & Language"
+  ],
+  "address": "Komplek Ruko Emerald Commercial, Jl. Bulevar Selatan Blok UE No.03, RT.004/RW.011, Marga Mulya, Kec. Bekasi Utara, Kota Bekasi, Jawa Barat 17142, Indonesia",
+  "area": "Bekasi",
+  "city": "Bekasi",
+  "lat": -6.2280612,
+  "lng": 107.0029954,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://english1.co.id/",
+  "sourceUrl": "https://english1.co.id/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/bekasi/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 4.8,
+   "reviewCount": 146,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Summarecon+Bekasi,+Komplek+Ruko,+Jl.+Bulevar+Selatan+No.03+Blok+UE,+RT.004%2FRW.011,+Marga+Mulya,+Bekasi+Utara,+Bekasi,+West+Java+17142,+Indonesia/@-6.3052874,106.9862808,10z/data=!4m9!1m2!2m1!1sEnglish+1+Bekasi!3m5!1s0x2e698c1e646f692f:0x3e8bdbd9ca9ef2b3!8m2!3d-6.2280612!4d107.0029954!16s%2Fg%2F11bz09r4ll?g_ep=Eg1tbF8yMDI2MTEwMV8wIJvbDyoASAJQAg%3D%3D",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "english-1-cikarang",
+  "chain": "English 1",
+  "branchName": "Cikarang",
+  "categories": [
+   "English & Language"
+  ],
+  "address": "Ruko Union, Jl. M.H. Thamrin No.2, Cibatu, Kec. Cikarang Selatan, Kabupaten Bekasi, Jawa Barat 17530, Indonesia",
+  "area": "Kabupaten Bekasi",
+  "city": "Kabupaten Bekasi",
+  "lat": -6.3309449,
+  "lng": 107.1323712,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://english1.co.id/",
+  "sourceUrl": "https://english1.co.id/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/bekasi/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 4.7,
+   "reviewCount": 67,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Cikarang+Bekasi/@-6.3309449,107.0942624,14z/data=!4m10!1m2!2m1!1sEnglish+1+Cikarang+Bekasi!3m6!1s0x2e699b528b359197:0x99b408428f7363fa!8m2!3d-6.3309449!4d107.1323712!15sChlFbmdsaXNoIDEgQ2lrYXJhbmcgQmVrYXNpWhsiGWVuZ2xpc2ggMSBjaWthcmFuZyBiZWthc2mSARdlbmdsaXNoX2xhbmd1YWdlX3NjaG9vbJoBRENpOURRVWxSUVVOdlpFTm9kSGxqUmpsdlQyMWtUbFV4V2sxWU1VcGhXV3BPYmxJd1VrOVphMW93Vm01a1VGcFdSUkFC4AEA-gEFCPYBED0!16s%2Fg%2F1thpz3_5?entry=ttu&g_ep=EgoyMDI2MTEwMS4wIKXMDSoASAFQAw%3D%3D",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "english-1-margonda-depok",
+  "chain": "English 1",
+  "branchName": "Margonda Depok",
+  "categories": [
+   "English & Language"
+  ],
+  "address": "Komplek Ruko ITC Depok No. 26-28, Jl. Margonda Raya No.56, Depok, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16431, Indonesia",
+  "area": "Depok",
+  "city": "Depok",
+  "lat": -6.3929336,
+  "lng": 106.8225192,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://english1.co.id/",
+  "sourceUrl": "https://english1.co.id/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/depok/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 4.5,
+   "reviewCount": 136,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Margonda+Depok/@-6.3929336,106.8177556,17z/data=!3m1!5s0x2e69ebe4aea13327:0x9df134ec8f1f2b92!4m10!1m2!2m1!1sEnglish+1+Margonda+Depok!3m6!1s0x2e69ebe37869f565:0xdf2fc642537f807c!8m2!3d-6.3929336!4d106.8225192!15sChhFbmdsaXNoIDEgTWFyZ29uZGEgRGVwb2taGiIYZW5nbGlzaCAxIG1hcmdvbmRhIGRlcG9rkgEXZW5nbGlzaF9sYW5ndWFnZV9zY2hvb2yaAURDaTlEUVVsUlFVTnZaRU5vZEhsalJqbHZUMnc1YlZKclRuVk9hMHBKWW1wTk5GUnJkRWhUVkdoVlVrVkdiRTVHUlJBQuABAPoBBAgAEEI!16s%2Fg%2F1tk04vg_?entry=ttu&g_ep=EgoyMDI2MTEwMS4wIKXMDSoASAFQAw%3D%3D",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "english-1-pesona-square-depok",
+  "chain": "English 1",
+  "branchName": "Pesona Square Depok",
+  "categories": [
+   "English & Language"
+  ],
+  "address": "Mall Pesona Square Lantai 1 unit 5A-6, Jl. Ir. H. Juanda No.22A, Bakti Jaya, Kec. Sukmajaya, Kota Depok, Jawa Barat 16418, Indonesia",
+  "area": "Depok",
+  "city": "Depok",
+  "lat": -6.3800649,
+  "lng": 106.8446874,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://english1.co.id/",
+  "sourceUrl": "https://english1.co.id/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/depok/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 36,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Pesona+Square+Depok/@-6.3800649,106.8446874,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69ed0720b2493d:0xa0fce2c6ddaa7603!8m2!3d-6.3800649!4d106.8446874!16s%2Fg%2F11vlf4j_mg?entry=ttu&g_ep=EgoyMDI2MTEwMS4wIKXMDSoASAFQAw%3D%3D",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "english-1-aeon-sentul",
+  "chain": "English 1",
+  "branchName": "AEON MALL Sentul City",
+  "categories": [
+   "English & Language"
+  ],
+  "address": "AEON MALL Sentul City, Jl. MH. Thamrin Lt. Basement 2, Unit B2-03A, Citaringgul, Kec. Babakan Madang, Kabupaten Bogor, Jawa Barat 16810, Indonesia",
+  "area": "Bogor",
+  "city": "Bogor",
+  "lat": -6.5668777,
+  "lng": 106.8589321,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://english1.co.id/",
+  "sourceUrl": "https://english1.co.id/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/bogor/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 470,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+AEON+MALL+Sentul+City+Bogor/@-6.5668777,106.8589321,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69c7fb0b9d9855:0x5be34a1e77771e88!8m2!3d-6.5668777!4d106.8589321!16s%2Fg%2F11y50cgbxd?entry=ttu&g_ep=EgoyMDI2MTEwMS4wIKXMDSoASAFQAw%3D%3D",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "english-1-cibinong",
+  "chain": "English 1",
+  "branchName": "Cibinong City Mall",
+  "categories": [
+   "English & Language"
+  ],
+  "address": "Cibinong City Mall Lantai 2 No. A5, Jl. Tegar Beriman No.1, Pakansari, Kec. Cibinong, Kabupaten Bogor, Jawa Barat 16915, Indonesia",
+  "area": "Bogor",
+  "city": "Bogor",
+  "lat": -6.4842002,
+  "lng": 106.8423123,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://english1.co.id/",
+  "sourceUrl": "https://english1.co.id/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/bogor/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 209,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Cibinong+City+Mall+Bogor/@-6.4842002,106.8423123,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69c1120ba9874d:0xd218b8682a0d570a!8m2!3d-6.4842002!4d106.8423123!16s%2Fg%2F11hz0ggddq?entry=ttu&g_ep=EgoyMDI2MTEwMS4wIKXMDSoASAFQAw%3D%3D",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "english-1-cileungsi",
+  "chain": "English 1",
+  "branchName": "Cileungsi",
+  "categories": [
+   "English & Language"
+  ],
+  "address": "Jl. Raya Cileungsi-Jonggol KM. 3 No. 23, Cileungsi Kidul, Kec. Cileungsi, Kabupaten Bogor, Jawa Barat 16820, Indonesia",
+  "area": "Bogor",
+  "city": "Bogor",
+  "lat": -6.4097122,
+  "lng": 106.9840293,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://english1.co.id/",
+  "sourceUrl": "https://english1.co.id/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/bogor/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 4.9,
+   "reviewCount": 64,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Cileungsi+Bogor/@-6.4097122,106.9840293,17z/data=!3m1!4b1!4m6!3m5!1s0x2e6997b31a6cf359:0xaa5941d13b782ce0!8m2!3d-6.4097122!4d106.9840293!16s%2Fg%2F11y9pkw7sz?entry=ttu&g_ep=EgoyMDI2MTEwMS4wIKXMDSoASAFQAw%3D%3D",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "english-1-kota-wisata",
+  "chain": "English 1",
+  "branchName": "Kota Wisata",
+  "categories": [
+   "English & Language"
+  ],
+  "address": "Zona Somerset Blok N8/15, Kota Wisata, Ciangsana, Kec. Gunung Putri, Kabupaten Bogor, Jawa Barat 16968, Indonesia",
+  "area": "Bogor",
+  "city": "Kabupaten Bogor",
+  "lat": -6.365822,
+  "lng": 106.960225,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://english1.co.id/",
+  "sourceUrl": "https://english1.co.id/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/bogor/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 4.6,
+   "reviewCount": 75,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Kota+Wisata+Bogor/@-6.365822,106.960225,17z/data=!3m1!4b1!4m6!3m5!1s0x2e6993778359e741:0x3eb27a6e7f06b446!8m2!3d-6.365822!4d106.960225!16s%2Fg%2F1td_7gz9?entry=ttu&g_ep=EgoyMDI2MTEwMS4wIKXMDSoASAFQAw%3D%3D",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "english-1-pajajaran",
+  "chain": "English 1",
+  "branchName": "Pajajaran Bogor",
+  "categories": [
+   "English & Language"
+  ],
+  "address": "Lippo Plaza Keboen Raya, Jl. Malabar 2 No.17A Lantai LG Blok 30, Babakan, Kec. Bogor Tengah, Kota Bogor, Jawa Barat 16129, Indonesia",
+  "area": "Bogor",
+  "city": "Bogor",
+  "lat": -6.5955832,
+  "lng": 106.8049561,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://english1.co.id/",
+  "sourceUrl": "https://english1.co.id/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/bogor/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 1390,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Pajajaran+Bogor/@-6.5955832,106.8049561,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69c5db2791a755:0x20b4303107e61e66!8m2!3d-6.5955832!4d106.8049561!16s%2Fg%2F1tg97grz?entry=ttu&g_ep=EgoyMDI2MTEwMS4wIKXMDSoASAFQAw%3D%3D",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
+ },
+ {
+  "id": "english-1-taman-yasmin",
+  "chain": "English 1",
+  "branchName": "Taman Yasmin",
+  "categories": [
+   "English & Language"
+  ],
+  "address": "Taman Yasmin, Jl. KH. R. Abdullah Bin Nuh No.33, RT.10/RW.08, Curugmekar, Kec. Bogor Barat, Kota Bogor, Jawa Barat 16113, Indonesia",
+  "area": "Bogor",
+  "city": "Bogor",
+  "lat": -6.5578538,
+  "lng": 106.7726247,
+  "coordinateSource": "maps-pin",
+  "programs": [],
+  "website": "https://english1.co.id/",
+  "sourceUrl": "https://english1.co.id/",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "official-chain-program",
+  "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6.",
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://english1.co.id/school/bogor/",
+   "checkedAt": "2026-11-05"
+  },
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 1117,
+   "source": "Google Maps",
+   "sourceUrl": "https://www.google.com/maps/place/English+1+Taman+Yasmin+Bogor/@-6.5578538,106.7726247,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69c462c8d917f5:0xe80ee930c147d74d!8m2!3d-6.5578538!4d106.7726247!16s%2Fg%2F11h0qxfk_?entry=ttu&g_ep=EgoyMDI2MTEwMS4wIKXMDSoASAFQAw%3D%3D",
+   "checkedAt": "2026-11-05",
+   "praiseThemes": [],
+   "complaintThemes": []
+  }
  }
 ];
