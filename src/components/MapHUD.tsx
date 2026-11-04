@@ -333,7 +333,6 @@ export default function MapHUD() {
         unconfirmed={unconfirmed}
         activeVenue={activeVenue}
         onSelectFromList={handleSelectFromList}
-        onShowListFromMap={() => handleSetView("list")}
         showDetails={showDetails}
         backLabel={!isDesktop && mobileView === "map" ? "Back to map" : "All places"}
         onClearActiveVenue={handleBackFromDetails}
