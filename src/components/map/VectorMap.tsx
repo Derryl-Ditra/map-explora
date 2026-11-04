@@ -31,6 +31,14 @@ interface VectorMapProps {
 }
 
 const JAKARTA: [number, number] = [106.8456, -6.2088]; // maplibre is lng,lat
+
+// Browse-state nameplate sprites, cached across renders. Module scope: the
+// key carries the style mode, so dark and light plates coexist safely and a
+// React re-render no longer regenerates every sprite. Dark plate on the
+// light map, white plate on the dark map; cached canvas sprites on a symbol
+// layer so MapLibre's collision handling declutters instead of overlapping.
+const labelSpriteCache = new Map<string, ImageData>();
+
 const LABEL_SOURCE = "venue-labels";
 const LABEL_LAYER = "venue-labels";
 
@@ -208,11 +216,6 @@ export default function VectorMap({
   const venueName = (venue: Venue) =>
     venue.chain && venue.chain !== venue.branchName ? `${venue.chain} ${venue.branchName}` : venue.branchName;
 
-  // Browse-state labels: tight pills, one per visible place. Dark plate on
-  // the light map, white plate on the dark map. Rendered as cached canvas
-  // sprites on a symbol layer so MapLibre's collision handling declutters
-  // them instead of overlapping.
-  const labelSpriteCache = new Map<string, ImageData>();
   // Nameplates invert with the basemap: dark plate on the light map, white
   // plate on the dark map, so the key carries the mode and a style swap
   // regenerates sprites instead of reusing the other mode's.
@@ -425,12 +428,18 @@ export default function VectorMap({
     }
   }
 
-  // Venue markers
+  // Venue markers. The venues prop gets a new array identity on every
+  // parent render (spread into VectorMap), so guard on the visible id set:
+  // a GPS tick or hover re-render must not rebuild every marker.
+  const renderedKeyRef = useRef<string>("");
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
     // Before the first load, the load handler renders the markers.
     if (!readyRef.current) return;
+    const key = venues.map((v) => v.id).join("|") + "#" + (activeVenueId ?? "");
+    if (key === renderedKeyRef.current) return;
+    renderedKeyRef.current = key;
     renderMarkers(map);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [venues, activeVenueId]);
