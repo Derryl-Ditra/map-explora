@@ -8,7 +8,7 @@ const { claimCovers, claimCoversWithNote, venueConfirmedForAge } = await importT
 // the branchAge statement path and the per program claim path. Both must be
 // exercised after any change to the shared helper.
 
-const branchClaim = { minMonths: 6, maxMonths: 18, level: "branch", verification: "provider-confirmed", sourceCheckedAt: "2026-11-03" };
+const branchClaim = { minMonths: 6, maxMonths: 18, level: "branch", verification: "provider-confirmed", providerAgeUrl: "https://provider.example/ages", sourceCheckedAt: "2026-11-03" };
 
 test("branchAge path: branch level confirmed claim covering the exact month confirms", () => {
   const v = { branchAge: branchClaim, programs: [] };
@@ -31,7 +31,7 @@ test("ambiguity note: a flagged upper bound does not confirm the exact boundary 
   const p = { name: "Baby Gym", offering: "offered", age: branchClaim, note: "upper-bound 18 months ambiguous in source" };
   assert.equal(claimCoversWithNote(branchClaim, 18, p.note), null);
   assert.equal(venueConfirmedForAge({ programs: [p] }, 18), false);
-  assert.equal(venueConfirmedForAge({ programs: [p] }, 17), true);
+  assert.equal(venueConfirmedForAge({ programs: [p] }, 17), false);
 });
 
 test("brand level ages never confirm, even for an offered program", () => {

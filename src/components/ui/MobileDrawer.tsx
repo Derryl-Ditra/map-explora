@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback, useSyncExternalStore } from "react";
 import { Venue, VenueFilterState } from "@/types/venue";
 import { buildMapsLink } from "@/utils/mapsLink";
+import { hasVerifiedAgeEvidence } from "@/utils/ageMatch";
 import FilterBar from "./FilterBar";
 import VenueDetails from "./VenueDetails";
 import { Search, MapPin, HelpCircle, ShieldCheck, Navigation, ArrowLeft, ExternalLink } from "lucide-react";
@@ -99,6 +100,9 @@ function VenueCard({
         <FitPill fit={fit} />
       </div>
 
+      {!hasVerifiedAgeEvidence(venue) && (
+        <span className="text-[0.875rem] text-[#6d675f]">Class ages not verified yet</span>
+      )}
       <div className="flex items-center justify-between gap-2">
         <span className="text-[1rem] text-[#6d675f] truncate">
           {venue.categories.join(", ")}
