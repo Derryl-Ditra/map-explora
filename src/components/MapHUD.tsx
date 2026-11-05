@@ -181,7 +181,7 @@ export default function MapHUD() {
 
       {!activeVenue && mobileView === "map" && (
         <button type="button" onClick={() => handleSetView("list")} className="md:hidden absolute bottom-[max(20px,env(safe-area-inset-bottom))] left-4 right-4 z-[500] min-h-14 rounded-2xl bg-[#f6f2ec] border border-[#e7e0d4] shadow-md text-[#1a7a4a] font-bold">
-          List · {confirmed.length + unconfirmed.length} places
+          List · {confirmed.length + unconfirmed.length} {confirmed.length + unconfirmed.length === 1 ? "place" : "places"}
         </button>
       )}
 

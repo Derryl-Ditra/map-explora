@@ -16,3 +16,13 @@ test('list scroll is captured before selection and restored after details',()=>{
  const s=read('ui/MobileDrawer.tsx');assert.match(s,/listScrollRef.current = detailsScrollRef.current\?\.scrollTop/);assert.match(s,/scrollTo\(\{ top: listScrollRef.current \}\)/);assert.match(s,/scrollTo\(\{ top: 0 \}\)/);
 });
 test('Share is a visible bordered 48px button',()=>assert.match(read('ui/VenueDetails.tsx'),/min-h-12 rounded-xl border-2 border/));
+
+test('list count uses singular for exactly one match',()=>{
+ assert.match(read('MapHUD.tsx'), /=== 1 \? "place" : "places"/);
+});
+test('unknown location leaves distance and eta unknown',()=>{
+ const hook=readFileSync(new URL('../src/hooks/useVenueFilters.ts',import.meta.url),'utf8');
+ assert.match(hook, /: undefined;/);
+ assert.match(hook, /const eta = distance !== undefined \? calculateETA/);
+ assert.match(hook, /distance: distance !== undefined \? Number\(distance.toFixed\(1\)\) : undefined/);
+});
