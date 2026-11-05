@@ -11,7 +11,7 @@ const venue = {
   branchName: "Lotte Mart Bintaro",
   area: "Tangerang Selatan",
   address: "CBD, Jl. MH Thamrin Jaya Sektor 7 No.06, Pd. Aren",
-  programs: [{ name: "Learn & Play 1", offering: "offered", age: { minMonths: 6, maxMonths: 18 } }],
+  programs: [{ name: "Learn & Play 1", offering: "offered", age: { minMonths: 6, maxMonths: 18, level: "branch", verification: "provider-confirmed", providerAgeUrl: "https://provider.example/ages" } }],
   reviews: { rating: 4.0, reviewCount: 52, source: "Google Maps" },
   distance: 2,
 };
@@ -43,4 +43,10 @@ test("hidden places stay in the dataset, and every venue has an operating status
   assert.ok(VENUES.every((v) => v.operatingStatus), "a venue has no operatingStatus");
   assert.equal(VENUES.length - hidden.length, VENUES.filter((v) => v.operatingStatus.state === "official-listed").length);
   assert.ok(hidden.length > 0, "rule hides nothing; gate is vacuous");
+});
+
+test("share lines use the verified evidence rule",()=>{
+ const base=venue.programs[0];
+ const t=buildShareText({...venue,programs:[{...base,name:"Hidden conflict",age:{...base.age,sourceConflict:true}},{...base,name:"Hidden ambiguity",note:"boundary ambiguous"},base]});
+ assert.ok(t.includes("Learn & Play 1"));assert.ok(!t.includes("Hidden conflict"));assert.ok(!t.includes("Hidden ambiguity"));
 });
