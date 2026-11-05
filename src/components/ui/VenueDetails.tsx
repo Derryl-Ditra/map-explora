@@ -40,7 +40,7 @@ const FIT_STATUS_LABEL: Record<string, string> = {
 };
 
 function formatMonths(m: number): string {
-  // Parents of under-4s read months; switch to years only past 36.
+  // Parents of under-5s read months; switch to years only past 36.
   if (m <= 36) return `${m} mo`;
   const yrs = m / 12;
   return `${Number.isInteger(yrs) ? yrs : yrs.toFixed(1)} yr`;
