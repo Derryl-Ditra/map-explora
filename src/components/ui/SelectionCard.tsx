@@ -1,13 +1,11 @@
 "use client";
 
+import { buildMapsLink } from "@/utils/mapsLink";
 import { Venue, AgeClaim } from "@/types/venue";
-import { Navigation, ExternalLink, X, ChevronRight } from "lucide-react";
+import { Navigation, X, ChevronRight } from "lucide-react";
 
 interface SelectionCardProps {
   venue: Venue;
-  routable: boolean;
-  canNavigate: boolean;
-  onNavigate: () => void;
   onDetails: () => void;
   onClose: () => void;
 }
@@ -49,20 +47,12 @@ function ageStatus(venue: Venue): { text: string; tone: "warn" | "ok" | "muted" 
  */
 export default function SelectionCard({
   venue,
-  routable,
-  canNavigate,
-  onNavigate,
   onDetails,
   onClose,
 }: SelectionCardProps) {
   const age = ageStatus(venue);
   const name = `${venue.chain && venue.chain !== venue.branchName ? `${venue.chain} ` : ""}${venue.branchName}`;
-  const openGoogleMaps = () => {
-    const q = routable
-      ? `${venue.lat},${venue.lng}`
-      : encodeURIComponent(`${venue.chain ?? ""} ${venue.branchName} ${venue.area}`.trim());
-    window.open(`https://www.google.com/maps/dir/?api=1&destination=${q}`, "_blank", "noopener,noreferrer");
-  };
+  const routable = venue.coordinateSource !== "area-approximate" && !venue.caution;
 
   return (
     <div className="fixed bottom-4 left-4 right-4 z-[1000] md:hidden bg-white border border-[#e7e0d4] rounded-3xl shadow-xl p-4 flex flex-col gap-3">
@@ -103,16 +93,10 @@ export default function SelectionCard({
         {age.text}
       </p>
       <div className="flex gap-2">
-        {routable && canNavigate && (
-          <button
-            type="button"
-            onClick={onNavigate}
-            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-full bg-[#1a7a4a] text-white font-bold text-[1rem]"
-          >
-            <Navigation className="w-4.5 h-4.5 fill-white" />
-            Navigate
-          </button>
-        )}
+        <a href={buildMapsLink(venue)} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-2 py-3 rounded-full bg-[#1a7a4a] text-white font-bold text-[1rem]">
+          <Navigation className="w-4.5 h-4.5" />
+          {routable ? "Directions" : "Search Google Maps"}
+        </a>
         <button
           type="button"
           onClick={onDetails}
@@ -122,16 +106,7 @@ export default function SelectionCard({
           <ChevronRight className="w-4 h-4" />
         </button>
       </div>
-      {(!routable || !canNavigate) && (
-        <button
-          type="button"
-          onClick={openGoogleMaps}
-          className="flex items-center justify-center gap-2 py-2.5 rounded-full bg-white border border-[#e7e0d4] text-[#221d18] text-[0.9375rem] font-semibold"
-        >
-          {routable ? "Open in Google Maps" : "Search in Google Maps"}
-          <ExternalLink className="w-4 h-4 text-[#6d675f]" />
-        </button>
-      )}
+
     </div>
   );
 }

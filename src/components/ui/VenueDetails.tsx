@@ -2,13 +2,12 @@
 
 import { useState } from "react";
 import { Venue, AgeClaim } from "@/types/venue";
-import { RouteData } from "@/types/route";
+import { buildMapsLink } from "@/utils/mapsLink";
 import {
   Navigation,
   ExternalLink,
   Share2,
   Clock,
-  Phone,
   ShieldCheck,
   HelpCircle,
   ArrowLeft,
@@ -21,14 +20,9 @@ import {
 
 interface VenueDetailsProps {
   venue: Venue;
-  route: RouteData | null;
-  isRouting: boolean;
-  routingError?: string | null;
   onBack: () => void;
   backLabel?: string;
   onOpenShare: () => void;
-  onStartInAppNavigation?: () => void;
-  canNavigate?: boolean;
 }
 
 const REPORTS_KEY = "map-explora-venue-reports";
@@ -144,14 +138,9 @@ function ConflictNote({
 
 export default function VenueDetails({
   venue,
-  route,
-  isRouting,
-  routingError,
   onBack,
   backLabel = "All places",
   onOpenShare,
-  onStartInAppNavigation,
-  canNavigate = true,
 }: VenueDetailsProps) {
   const [reportOpen, setReportOpen] = useState(false);
   const [reportText, setReportText] = useState("");
@@ -161,17 +150,6 @@ export default function VenueDetails({
 
   const approximate = venue.coordinateSource === "area-approximate";
   const routingBlocked = approximate || !!venue.caution;
-
-  const openGoogleMaps = () => {
-    const q = routingBlocked
-      ? encodeURIComponent(`${venue.chain ?? ""} ${venue.branchName} ${venue.area}`.trim())
-      : `${venue.lat},${venue.lng}`;
-    window.open(
-      `https://www.google.com/maps/dir/?api=1&destination=${q}`,
-      "_blank",
-      "noopener,noreferrer"
-    );
-  };
 
   const saveReport = () => {
     if (!reportText.trim()) return;
@@ -227,7 +205,7 @@ export default function VenueDetails({
           <MapPin className="w-4.5 h-4.5 mt-0.5 shrink-0" />
           <span>
             Approximate area location. Confirm the exact venue with the provider
-            before navigating; in-app routing is off for this pin.
+            before you travel; only a Google Maps search is available for this pin.
           </span>
         </p>
       )}
@@ -387,23 +365,7 @@ export default function VenueDetails({
       {/* Distance / ETA: only real values. Straight-line distance is never
           presented as a travel ETA. */}
       <div className="flex flex-wrap gap-2 text-center">
-        {(route || isRouting) && (
-          <>
-            <div className="bg-white p-3 rounded-2xl border border-[#e7e0d4] flex-1 min-w-[min(100%,13.75rem)]">
-              <span className="text-[0.875rem] text-[#6d675f] block">Route distance</span>
-              <span className="font-bold text-[#221d18] text-[1rem]">
-                {isRouting ? "..." : `${route?.distance_km} km`}
-              </span>
-            </div>
-            <div className="bg-white p-3 rounded-2xl border border-[#e7e0d4] flex-1 min-w-[min(100%,13.75rem)]">
-              <span className="text-[0.875rem] text-[#6d675f] block">Drive ETA, no traffic</span>
-              <span className="font-bold text-[#1a7a4a] text-[1rem]">
-                {isRouting ? "..." : `${route?.duration_min} min`}
-              </span>
-            </div>
-          </>
-        )}
-        {!route && !isRouting && venue.distance ? (
+        {venue.distance ? (
           <div className="bg-white p-3 rounded-2xl border border-[#e7e0d4] flex-1 min-w-[min(100%,13.75rem)]">
             <span className="text-[0.875rem] text-[#6d675f] block">Straight-line</span>
             <span className="font-bold text-[#221d18] text-[1rem]">
@@ -419,47 +381,13 @@ export default function VenueDetails({
         </div>
       </div>
 
-      {route && (
-        <p className="text-[0.9375rem] text-[#6d675f]">
-          Route computed by the OSRM demo server, which receives your position and the
-          destination coordinates to calculate it. This app does not store location history. The drive time ignores traffic, so allow more time at busy hours.
-        </p>
-      )}
-
-      {routingError && (
-        <p className="text-[0.9375rem] text-[#92400e] border border-[#fcd34d] rounded-2xl px-3.5 py-3 bg-[#fef3c7]">
-          Routing is unavailable right now ({routingError}). Distance and ETA above are
-          straight-line estimates.
-        </p>
-      )}
-
-      {/* Actions */}
       <div className="pt-1 flex flex-col gap-2.5">
-        {!routingBlocked && canNavigate && (
-          <button
-            type="button"
-            onClick={onStartInAppNavigation}
-            className="w-full flex items-center justify-center gap-2 py-4 rounded-full bg-[#1a7a4a] hover:bg-[#14532d] text-white font-bold text-[1.0625rem] tracking-tight transition-colors"
-          >
-            <Navigation className="w-5 h-5 text-white fill-white" />
-            <span>Navigate</span>
-          </button>
-        )}
-        {!routingBlocked && !canNavigate && (
-          <p className="text-[0.9375rem] text-[#6d675f] border border-[#e7e0d4] rounded-2xl px-3.5 py-3 bg-white">
-            Turn on location to get in-app navigation from where you are, or open
-            the destination in Google Maps.
-          </p>
-        )}
-
-        <button
-          type="button"
-          onClick={openGoogleMaps}
-          className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full bg-white hover:bg-[#fbf9f5] border border-[#e7e0d4] text-[#221d18] text-[1rem] font-semibold transition-colors"
-        >
-          <span>{routingBlocked ? "Search in Google Maps" : "Open in Google Maps"}</span>
-          <ExternalLink className="w-4 h-4 text-[#6d675f]" />
-        </button>
+        <a href={buildMapsLink(venue)} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 py-4 rounded-full bg-[#1a7a4a] hover:bg-[#14532d] text-white font-bold text-[1.0625rem] transition-colors">
+          <Navigation className="w-5 h-5" />
+          {routingBlocked ? "Search in Google Maps" : "Directions in Google Maps"}
+          <ExternalLink className="w-4 h-4" />
+        </a>
+        <p className="text-[0.875rem] text-[#6d675f]">Check tolls and ganjil/genap settings in Google Maps before travelling.</p>
       </div>
 
       {/* Official links */}

@@ -6,22 +6,22 @@ Live: https://derryl-ditra.github.io/map-explora/
 
 ## What it does
 
-- Monochrome vector map (MapLibre GL + OpenFreeMap, dark and light) tuned for glanceable navigation.
-- Select a station and the route draws immediately, with real road distance, drive ETA and the next-turn instruction in the banner.
-- Live position tracking while the app is open (browser geolocation watch). Background or locked-screen updates are not reliable or guaranteed on mobile browsers.
-- Filters for Denza-fit reports, indoor parking and connector type.
-- Arrival detection: the route clears when you get within about 150 m of the destination.
-- Report-a-problem notes are saved on your device only (localStorage). Nothing is sent anywhere.
+- Dark and light vector map with places for children aged 0 to 59 months.
+- Filters for age, activity, area and search; optional straight-line nearby sorting.
+- Directions opens Google Maps from its current location to the selected place. No in-app routing, ETA, arrival detection or live tracking.
+- Approximate or cautioned pins open a named Google Maps search instead of coordinate directions.
+- Share a place with the live map link. Report-a-problem notes stay on your device.
 
 ## Data honesty
 
-- Station fit, bay and clearance data is reported, not independently verified. Stations without a verified source show as unverified.
-- Tariffs come from the listed per-kWh fee for each station.
-- Distances before a route loads are straight-line estimates and labelled as such.
+- Only officially listed places are shown. Other records remain in the dataset but are hidden.
+- Brand age claims do not confirm a branch. Branch-confirmed ages and unconfirmed claims are labelled separately.
+- Distances in the app are straight-line estimates, not driving distance.
+- Sources, check dates and uncertainty notes are shown where recorded. Confirm the branch and class before visiting.
 
 ## Stack
 
-Next.js 16 static export, React 19, Tailwind CSS 4, MapLibre GL 6, OpenFreeMap vector tiles, OSRM demo server for routing (rate-limited to at most 1 request per second).
+Next.js 16 static export, React 19, Tailwind CSS 4, MapLibre GL 6, OpenFreeMap vector tiles. Directions open Google Maps; no routing server or API key is needed.
 
 ## Development
 
@@ -40,7 +40,7 @@ Deployment runs through GitHub Actions on push to `main`.
 
 ## Privacy
 
-Location is used in the browser while the app is in the foreground. Map tiles come from OpenFreeMap and routes from the OSRM demo server; those services see the requests needed to serve them (the map area you view, and for a route your current position and the station coordinates). The app itself stores no position history and sends it nowhere else. Report-a-problem notes stay in localStorage on your device.
+Location is read once on opening the app, and again when you tap Locate. The latest fix is cached on your device for nearby sorting; there is no live location tracking or position history. Map tiles come from OpenFreeMap, which sees the map area requested. Directions sends only the selected destination to Google Maps; Google Maps obtains the starting location itself. Its route settings, traffic and restrictions apply there, not in this app. Check tolls and ganjil/genap settings before travelling. Report-a-problem notes stay in localStorage on your device.
 
 ## Icon credit
 

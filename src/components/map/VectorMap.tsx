@@ -10,7 +10,6 @@ if (typeof window !== "undefined") {
 }
 import "maplibre-gl/dist/maplibre-gl.css";
 import { Venue } from "@/types/venue";
-import { RouteData } from "@/types/route";
 import { getMonoStyle, FALLBACK_STYLE_URL } from "./vectorStyle";
 
 interface VectorMapProps {
@@ -20,14 +19,9 @@ interface VectorMapProps {
   userPos: [number, number] | null; // [lat, lng]
   showUserMarker?: boolean; // only with a real location fix, never the default center
   userAccuracy: number | null;      // meters
-  userHeading: number | null;       // degrees, when the device provides it
-  route: RouteData | null;
   mapStyle?: "dark" | "light";
   recenterTick?: number;
   fitTick?: number; // bump to frame all currently matching venues (area/activity filter)
-  isNavigating?: boolean;
-  followUser?: boolean;
-  onUserPan?: () => void;
 }
 
 const JAKARTA: [number, number] = [106.8456, -6.2088]; // maplibre is lng,lat
@@ -66,14 +60,9 @@ export default function VectorMap({
   userPos,
   showUserMarker = true,
   userAccuracy,
-  userHeading,
-  route,
   mapStyle = "dark",
   recenterTick,
   fitTick,
-  isNavigating = false,
-  followUser = false,
-  onUserPan,
 }: VectorMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
@@ -87,8 +76,6 @@ export default function VectorMap({
   activeRef.current = activeVenueId;
   const onSelectRef = useRef(onSelectVenue);
   onSelectRef.current = onSelectVenue;
-  const onUserPanRef = useRef(onUserPan);
-  onUserPanRef.current = onUserPan;
 
   // Create map once
   useEffect(() => {
@@ -111,24 +98,6 @@ export default function VectorMap({
 
       map.on("load", () => {
         readyRef.current = true;
-        map.addSource("route", {
-          type: "geojson",
-          data: { type: "FeatureCollection", features: [] },
-        });
-        map.addLayer({
-          id: "route-glow",
-          type: "line",
-          source: "route",
-          layout: { "line-cap": "round", "line-join": "round" },
-          paint: { "line-color": "#2563eb", "line-width": 8, "line-opacity": 0.25 },
-        });
-        map.addLayer({
-          id: "route-line",
-          type: "line",
-          source: "route",
-          layout: { "line-cap": "round", "line-join": "round" },
-          paint: { "line-color": "#2563eb", "line-width": 4.5, "line-opacity": 0.95 },
-        });
         map.addSource("user-accuracy", {
           type: "geojson",
           data: { type: "FeatureCollection", features: [] },
@@ -161,7 +130,6 @@ export default function VectorMap({
       });
 
       map.on("moveend", () => renderMarkers(map));
-      map.on("dragstart", () => onUserPanRef.current?.());
       mapRef.current = map;
     };
 
@@ -191,11 +159,6 @@ export default function VectorMap({
         map.setStyle(style);
         map.once("styledata", () => {
           // Re-add custom sources/layers after style swap
-          if (!map.getSource("route")) {
-            map.addSource("route", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
-            map.addLayer({ id: "route-glow", type: "line", source: "route", layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": "#2563eb", "line-width": 8, "line-opacity": 0.25 } });
-            map.addLayer({ id: "route-line", type: "line", source: "route", layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": "#2563eb", "line-width": 4.5, "line-opacity": 0.95 } });
-          }
           if (!map.getSource("user-accuracy")) {
             map.addSource("user-accuracy", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
             map.addLayer({ id: "user-accuracy-fill", type: "fill", source: "user-accuracy", paint: { "fill-color": "#2563eb", "fill-opacity": 0.10 } });
@@ -447,7 +410,7 @@ export default function VectorMap({
   // Selecting a place on a phone: keep the pin clear of the bottom card.
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || isNavigating) return;
+    if (!map) return;
     if (!activeVenueId) {
       map.easeTo({ padding: { top: 0, bottom: 0, left: 0, right: 0 }, duration: 300 });
       return;
@@ -463,13 +426,12 @@ export default function VectorMap({
       padding: phone ? { top: 0, bottom: 200, left: 0, right: 0 } : { top: 0, bottom: 0, left: 440, right: 0 },
       duration: 500,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeVenueId, isNavigating]);
+  }, [activeVenueId]);
 
   // Area/activity filter change: frame every matching place, clear of the panel.
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !readyRef.current || !fitTick || isNavigating) return;
+    if (!map || !readyRef.current || !fitTick) return;
     const vs = venuesRef.current;
     if (vs.length === 0) return;
     const bounds = new maplibregl.LngLatBounds([vs[0].lng, vs[0].lat], [vs[0].lng, vs[0].lat]);
@@ -484,41 +446,7 @@ export default function VectorMap({
       maxZoom: 15,
       duration: 800,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fitTick]);
-
-  // Route line
-  useEffect(() => {
-    const map = mapRef.current;
-    if (!map) return;
-    const apply = () => {
-      const src = map.getSource("route") as maplibregl.GeoJSONSource | undefined;
-      if (!src) return;
-      if (route && route.geometry.length > 0) {
-        src.setData({
-          type: "Feature",
-          properties: {},
-          geometry: { type: "LineString", coordinates: route.geometry },
-        });
-        const bounds = route.geometry.reduce(
-          (b, [lng, lat]) => b.extend([lng, lat]),
-          new maplibregl.LngLatBounds(route.geometry[0], route.geometry[0])
-        );
-        // Fit only while navigating: after Exit the selection effect recenters.
-        if (isNavigating) map.fitBounds(bounds, {
-          padding: isNavigating
-            ? { top: 190, bottom: 150, left: 110, right: 110 }
-            : { top: 80, bottom: 300, left: 110, right: 110 },
-          maxZoom: 16,
-          duration: 600,
-        });
-      } else {
-        src.setData({ type: "FeatureCollection", features: [] });
-      }
-    };
-    if (map.getSource("route")) apply();
-    else map.once("load", apply);
-  }, [route, isNavigating]);
 
   // User position marker + accuracy
   useEffect(() => {
@@ -549,36 +477,19 @@ export default function VectorMap({
       if (!userMarkerRef.current) {
         const el = document.createElement("div");
         el.className = "relative flex items-center justify-center w-7 h-7";
-        const cone = document.createElement("div");
-        cone.className = "user-heading-cone";
         const dot = document.createElement("div");
         dot.className = "relative w-4 h-4 rounded-full bg-[#2563eb] border-2 border-white";
         dot.style.boxShadow = "0 1px 4px rgba(34,29,24,0.4)";
-        el.appendChild(cone);
         el.appendChild(dot);
         userMarkerRef.current = new maplibregl.Marker({ element: el }).setLngLat([lng, lat]).addTo(map);
       } else {
         userMarkerRef.current.setLngLat([lng, lat]);
       }
-
-      const cone = userMarkerRef.current.getElement().querySelector<HTMLElement>(".user-heading-cone");
-      if (cone) {
-        if (userHeading !== null) {
-          cone.style.display = "block";
-          cone.style.transform = `rotate(${userHeading}deg)`;
-        } else {
-          cone.style.display = "none";
-        }
-      }
     };
 
     if (map.isStyleLoaded()) applyUser();
     else map.once("load", applyUser);
-
-    if (isNavigating && followUser) {
-      map.easeTo({ center: [lng, lat], duration: 500 });
-    }
-  }, [userPos, showUserMarker, userAccuracy, userHeading, isNavigating, followUser]);
+  }, [userPos, showUserMarker, userAccuracy]);
 
   // Manual recenter
   useEffect(() => {
