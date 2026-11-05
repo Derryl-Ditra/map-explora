@@ -11,7 +11,9 @@ import type { ReviewSummary } from "@/types/venue";
 export const REVIEW_TREND_FALLBACK = "Not enough recent reviews to judge a trend.";
 
 function validIsoDay(value: string | undefined): boolean {
-  return !!value && !Number.isNaN(Date.parse(value));
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const parsed = new Date(`${value}T00:00:00.000Z`);
+  return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
 }
 
 export function trendVerdict(reviews: ReviewSummary): {
@@ -24,11 +26,17 @@ export function trendVerdict(reviews: ReviewSummary): {
     reviews.trend !== "insufficient" &&
     !!ev &&
     ev.method === "maps-sort-newest" &&
+    Number.isInteger(ev.sampled) &&
     ev.sampled >= 10 &&
+    ev.sampled <= 20 &&
+    Number.isInteger(ev.olderHalf) &&
+    Number.isInteger(ev.newerHalf) &&
     ev.olderHalf > 0 &&
     ev.newerHalf > 0 &&
+    ev.olderHalf + ev.newerHalf === ev.sampled &&
     validIsoDay(ev.from) &&
-    validIsoDay(ev.to);
+    validIsoDay(ev.to) &&
+    ev.from < ev.to;
   const trend = reviews.trend;
   if (!backed || !ev || !trend || trend === "insufficient") {
     return { trend: null, evidenceText: null };
