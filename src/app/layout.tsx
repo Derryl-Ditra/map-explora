@@ -60,6 +60,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://tiles.openfreemap.org" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://tiles.openfreemap.org" />
+      </head>
       <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
         {children}
         {/* Privacy-friendly, cookie-free visit + referrer stats (GoatCounter free tier) */}
