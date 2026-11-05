@@ -334,6 +334,18 @@ export default function VenueDetails({
           {venue.reviews.sampleNote && (
             <span className="text-[0.9375rem] text-[#6d675f]">{venue.reviews.sampleNote}</span>
           )}
+          {(venue.reviews.latestReviewDate || venue.reviews.trend) && (
+            <span className="text-[0.9375rem] text-[#6d675f]">
+              {venue.reviews.latestReviewDate &&
+                `Latest review: ${venue.reviews.latestReviewDate}. `}
+              {venue.reviews.trend && venue.reviews.trend !== "insufficient" &&
+              venue.reviews.trendEvidence
+                ? `Trend: ${venue.reviews.trend} (${venue.reviews.trendEvidence.sampled} dated reviews, ${venue.reviews.trendEvidence.from} to ${venue.reviews.trendEvidence.to}).`
+                : venue.reviews.trend === "insufficient"
+                  ? "Not enough recent reviews to judge a trend."
+                  : ""}
+            </span>
+          )}
           <button
             type="button"
             onClick={() => setReviewSourceOpen((v) => !v)}
