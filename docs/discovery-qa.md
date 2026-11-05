@@ -33,3 +33,7 @@ Primary references:
 - https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
 - https://schema.org/ItemList
 - https://github.com/AgriciDaniel/claude-seo
+
+## Follow-up review
+
+Shortened the opening to two direct sentences and place entries to address, one labeled age example, source and essential caveats. The JSON retains all programs. No fixed word count is claimed as an AI citation requirement. Broad area guides still have more entries than narrow guides; navigation and headings let readers choose the useful group. Homepage ItemList, README discovery links, plain-language age states and non-self hub navigation added. Optional Bahasa-first copy and IndexNow with keyLocation remain proposals only.
