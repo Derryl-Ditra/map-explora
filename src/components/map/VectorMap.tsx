@@ -83,6 +83,7 @@ export default function VectorMap({
     const container = containerRef.current;
     if (!container || mapRef.current) return;
 
+    const initialMarkers = markersRef.current;
     let cancelled = false;
     let failed = false;
     const initial = userPos ? [userPos[1], userPos[0]] as [number, number] : JAKARTA;
@@ -141,8 +142,8 @@ export default function VectorMap({
 
     return () => {
       cancelled = true;
-      markersRef.current.forEach((m) => m.remove());
-      markersRef.current.clear();
+      initialMarkers.forEach((m) => m.remove());
+      initialMarkers.clear();
       userMarkerRef.current?.remove();
       userMarkerRef.current = null;
       mapRef.current?.remove();

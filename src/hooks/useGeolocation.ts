@@ -37,13 +37,14 @@ export function useGeolocation() {
   const [recenterTick, setRecenterTick] = useState(0);
 
   useEffect(() => {
+    const init = requestAnimationFrame(() => {
     if (typeof navigator === "undefined" || !("geolocation" in navigator)) {
       setError("Geolocation is not supported by this browser.");
       setIsLocating(false);
       return;
     }
 
-    let mounted = true;
+
     const cached = readCache();
     if (cached) {
       setUserPos([cached.lat, cached.lng]);
@@ -82,9 +83,9 @@ export function useGeolocation() {
       maximumAge: 60000,
       timeout: 15000,
     });
-    return () => {
-      mounted = false;
-    };
+    });
+    let mounted = true;
+    return () => { mounted = false; cancelAnimationFrame(init); };
   }, []);
 
   // Locate button: take one fresh fix, then recenter on it.

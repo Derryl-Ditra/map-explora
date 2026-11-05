@@ -4,9 +4,10 @@ import { useState, useCallback, useEffect, useSyncExternalStore } from "react";
 import dynamic from "next/dynamic";
 import { useGeolocation } from "@/hooks/useGeolocation";
 import { useVenueFilters } from "@/hooks/useVenueFilters";
-import { Venue, VenueFilterState } from "@/types/venue";
+import { VenueFilterState } from "@/types/venue";
 import MobileDrawer from "./ui/MobileDrawer";
 import ShareCard from "./ui/ShareCard";
+import { useAppNavigation } from "@/hooks/useAppNavigation";
 import { Baby, Crosshair, Loader2, Moon, Sun, MapPin, X } from "lucide-react";
 
 // Dynamic import for the map (client-only)
@@ -47,12 +48,11 @@ export default function MapHUD() {
   // permission we must not imply proximity to the default map center.
   const { filters, updateFilter, resetFilters, categories, areas, confirmed, unconfirmed } =
     useVenueFilters(hasActualLocation ? userPos : null);
-  const [activeVenue, setActiveVenue] = useState<Venue | null>(null);
-  const [showShareCard, setShowShareCard] = useState(false);
+  const { activeVenue, showShareCard, mobileView, setMode: handleSetView, select: handleSelectVenue, close: handleClearActiveVenue, openShare, dismissToMap } = useAppNavigation();
   const [mapStyle, setMapStyle] = useState<"dark" | "light">("dark");
   // Mobile is map-first: the map is the default view. The list, search and
   // filters open from the "places" bar or the List toggle.
-  const [mobileView, setMobileView] = useState<"list" | "map">("map");
+
   const isDesktop = useIsDesktop();
   const showDetails = !!activeVenue;
   // Location notice: dismissible, auto-hides, never covers sheet controls.
@@ -62,21 +62,10 @@ export default function MapHUD() {
   // Bumped by the map Age pill: opens the list with the age panel ready.
   const [ageOpenTick, setAgeOpenTick] = useState(0);
   // Pin and list selections open the same detail page, without a preview state.
-  const handleSelectVenue = useCallback((venue: Venue) => setActiveVenue(venue), []);
   const handleSelectFromList = handleSelectVenue;
-  const handleClearActiveVenue = useCallback(() => {
-    setActiveVenue(null);
-    setShowShareCard(false);
-  }, []);
-  const handleSetView = useCallback((view: "list" | "map") => {
-    setMobileView(view);
-    setActiveVenue(null);
-    setShowShareCard(false);
-  }, []);
-
   // Reset the dismissal when the location state changes; auto-hide after 8s.
   useEffect(() => {
-    setLocationNoticeGone(false);
+
     if (!locationError) return;
     const t = setTimeout(() => setLocationNoticeGone(true), 5000);
     return () => clearTimeout(t);
@@ -101,7 +90,7 @@ export default function MapHUD() {
 
       {/* Location permission notice: above the sheet on phones (never over
           Back/venue names), top-center on desktop. Dismissible, auto-hides. */}
-      {locationError && !locationNoticeGone && (
+      {locationError && !locationNoticeGone && !activeVenue && mobileView === "map" && (
         <div className="absolute bottom-[90px] md:bottom-auto md:top-4 left-1/2 -translate-x-1/2 z-[1001] w-[min(92vw,340px)]">
           <div className="bg-white border border-[#e7e0d4] rounded-2xl pl-3.5 pr-2 py-2.5 text-[0.9375rem] text-[#4a443c] shadow-sm flex items-center gap-2">
             <MapPin className="w-4 h-4 text-[#92400e] shrink-0" />
@@ -137,8 +126,8 @@ export default function MapHUD() {
       <div className="absolute top-4 right-4 z-[500] flex flex-col gap-2">
         <button
           type="button"
-          onClick={refresh}
-          title="Locate My Position"
+          onClick={() => { setLocationNoticeGone(false); refresh(); }}
+          aria-label="Locate My Position" title="Locate My Position"
           className="w-12 h-12 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#4a443c] hover:text-[#221d18] flex items-center justify-center active:scale-95 transition-all"
         >
           {isLocating ? (
@@ -151,7 +140,7 @@ export default function MapHUD() {
         <button
           type="button"
           onClick={() => setMapStyle((prev) => (prev === "dark" ? "light" : "dark"))}
-          title="Toggle Map Style"
+          aria-label="Toggle Map Style" title="Toggle Map Style"
           className="w-12 h-12 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#4a443c] hover:text-[#221d18] flex items-center justify-center active:scale-95 transition-all"
         >
           {mapStyle === "dark" ? (
@@ -190,14 +179,17 @@ export default function MapHUD() {
         onResetFilters={handleResetFilters}
         categories={categories}
         areas={areas}
-        onOpenShare={() => setShowShareCard(true)}
+        onOpenShare={openShare}
+        onDismissToMap={dismissToMap}
+        onLocate={refresh}
+        isLocating={isLocating}
         mobileView={mobileView}
         onSetMobileView={handleSetView}
       />
 
       {!activeVenue && mobileView === "map" && (
         <button type="button" onClick={() => handleSetView("list")} className="md:hidden absolute bottom-[max(20px,env(safe-area-inset-bottom))] left-4 right-4 z-[500] min-h-14 rounded-2xl bg-[#f6f2ec] border border-[#e7e0d4] shadow-md text-[#1a7a4a] font-bold">
-          List · {confirmed.length + unconfirmed.length} {confirmed.length + unconfirmed.length === 1 ? "place" : "places"}
+          List · {confirmed.length} {confirmed.length === 1 ? "place" : "places"}
         </button>
       )}
 
@@ -205,7 +197,7 @@ export default function MapHUD() {
       {showShareCard && activeVenue && (
         <ShareCard
           venue={activeVenue}
-          onClose={() => setShowShareCard(false)}
+          onClose={handleClearActiveVenue}
         />
       )}
     </div>

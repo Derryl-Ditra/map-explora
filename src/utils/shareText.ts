@@ -2,12 +2,14 @@ import { verifiedPrograms } from "./ageMatch";
 import { Venue } from "@/types/venue";
 
 // The live app. Any shared text must carry this so recipients know where it came from.
-// No place-specific deep link exists in the app (it reads no URL params or hash),
-// so the plain app URL is the only link that is guaranteed to work.
 export const SITE_URL = "https://derryl-ditra.github.io/map-explora/";
 
 function fmtMonths(m: number): string {
-  return m <= 36 ? `${m}mo` : `${m / 12}y`;
+  return m <= 36 ? `${m} mo` : `${m / 12} yr`;
+}
+
+export function buildVenueUrl(venue: Pick<Venue, "id">): string {
+  return `${SITE_URL}?venue=${encodeURIComponent(venue.id)}`;
 }
 
 export function buildClassLines(venue: Venue): string {
@@ -16,7 +18,7 @@ export function buildClassLines(venue: Venue): string {
     .map((p) => {
       const lo = p.age.minMonths !== null ? fmtMonths(p.age.minMonths) : "?";
       const hi = p.age.maxMonths !== null ? fmtMonths(p.age.maxMonths) : "?";
-      return `${p.name} (${lo}-${hi})`;
+      return `${p.name} (${lo} to ${hi})`;
     })
     .join(", ");
 }
@@ -36,7 +38,7 @@ export function buildShareText(venue: Venue): string {
     distanceText ? `Straight-line distance: ${distanceText}` : null,
     "",
     "Found via Map Explora (under-5 class map, Jabodetabek)",
-    SITE_URL,
+    buildVenueUrl(venue),
   ].filter((l): l is string => l !== null);
   return lines.join("\n");
 }

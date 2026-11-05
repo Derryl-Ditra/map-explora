@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef, useCallback, useSyncExternalStore } from "reac
 import { Venue, VenueFilterState } from "@/types/venue";
 import { buildMapsLink } from "@/utils/mapsLink";
 import { hasVerifiedAgeEvidence } from "@/utils/ageMatch";
+import { useSheetGesture } from "@/hooks/useSheetGesture";
 import FilterBar from "./FilterBar";
 import VenueDetails from "./VenueDetails";
 import { Search, MapPin, HelpCircle, ShieldCheck, Navigation, ArrowLeft, ExternalLink } from "lucide-react";
@@ -28,6 +29,9 @@ interface MobileDrawerProps {
   backLabel: string;
   onSelectFromList: (venue: Venue) => void;
   ageOpenTick?: number;
+  onDismissToMap: () => void;
+  onLocate: () => void;
+  isLocating: boolean;
 }
 
 function useIsDesktop(): boolean {
@@ -121,12 +125,14 @@ export default function MobileDrawer({
   backLabel,
   onSelectFromList,
   ageOpenTick,
+  onDismissToMap, onLocate, isLocating,
 }: MobileDrawerProps) {
-  const total = confirmed.length + unconfirmed.length;
+  const total = confirmed.length;
   const ageActive = filters.ageMonths !== null;
+  const hasAny = confirmed.length + unconfirmed.length > 0;
 
   const isDesktop = useIsDesktop();
-  const detailsScrollRef = useRef<HTMLDivElement>(null);
+  const { sheet, handle, content: detailsScrollRef } = useSheetGesture(!isDesktop && showDetails, onDismissToMap);
   const listScrollRef = useRef(0);
   const wasDetails = useRef(false);
   useLayoutEffect(() => {
@@ -138,10 +144,10 @@ export default function MobileDrawer({
       el.scrollTo({ top: listScrollRef.current });
     }
     wasDetails.current = showDetails;
-  }, [activeVenue?.id, showDetails]);
+  }, [activeVenue?.id, showDetails, detailsScrollRef]);
   useLayoutEffect(() => {
     if (ageOpenTick) detailsScrollRef.current?.scrollTo({ top: 0 });
-  }, [ageOpenTick]);
+  }, [ageOpenTick, detailsScrollRef]);
   const handleFilter = useCallback(
     <K extends keyof VenueFilterState>(key: K, value: VenueFilterState[K]) => onUpdateFilter(key, value),
     [onUpdateFilter]
@@ -185,10 +191,12 @@ export default function MobileDrawer({
 
   return (
     <aside
+      ref={sheet}
+      onKeyDown={(e) => { if (e.key === "Escape") onDismissToMap(); }}
       aria-label="Under-5 class places and filters"
-      style={isDesktop ? undefined : { height: "100dvh" }}
+      style={isDesktop ? undefined : { height: showDetails ? "97dvh" : "100dvh" }}
       className={`
-        fixed z-[1000] flex-col
+        fixed z-[1000] flex-col transition-transform duration-200 motion-reduce:transition-none
         bottom-0 left-0 right-0 rounded-t-3xl
         bg-[#f6f2ec] border-t border-x border-[#e7e0d4]
         shadow-[0_-6px_24px_rgba(34,29,24,0.14)]
@@ -198,12 +206,13 @@ export default function MobileDrawer({
         ${mobileHidden ? "hidden md:flex" : "flex"}
       `}
     >
+      {showDetails && <button ref={handle} type="button" aria-label="Close place and return to map" onClick={onDismissToMap} className="md:hidden h-8 shrink-0 flex items-center justify-center touch-none cursor-grab active:cursor-grabbing"><span className="w-10 h-1 rounded-full bg-[#aaa297]" /></button>}
       {header}
 
 
 
       {/* Content */}
-      <div ref={detailsScrollRef} className="flex-1 min-h-0 overflow-y-auto px-4 pt-1 pb-3 flex flex-col gap-3">
+      <div ref={detailsScrollRef} className="flex-1 min-h-0 overflow-y-auto overscroll-contain px-4 pt-1 pb-3 flex flex-col gap-3">
         {activeVenue && showDetails ? (
           <VenueDetails
             venue={activeVenue}
@@ -213,6 +222,7 @@ export default function MobileDrawer({
           />
         ) : (
           <>
+            <button type="button" onClick={onLocate} className="md:hidden min-h-12 rounded-xl border border-[#e7e0d4] bg-white text-[#14532d] font-semibold">{isLocating ? "Finding your location..." : "Use my location"}</button>
             {/* Search Input */}
             <div className="relative w-full shrink-0">
               <Search className="w-4.5 h-4.5 text-[#6d675f] absolute left-4 top-1/2 -translate-y-1/2" />
@@ -239,7 +249,7 @@ export default function MobileDrawer({
 
             {/* Venue List */}
             <div className="flex flex-col gap-2.5 pt-1 pb-4">
-              {total === 0 ? (
+              {!hasAny ? (
                 <div className="py-8 text-center text-[1rem] text-[#6d675f] flex flex-col items-center gap-2">
                   <MapPin className="w-7 h-7 text-[#d8d0c2]" />
                   {categories.length === 0 ? (
