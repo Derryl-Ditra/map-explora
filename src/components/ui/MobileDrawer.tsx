@@ -57,7 +57,7 @@ function FitPill({ fit }: { fit: "confirmed" | "unconfirmed" | null }) {
     return (
       <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#e3f2e8] text-[#14532d] text-[0.875rem] font-bold shrink-0">
         <ShieldCheck className="w-3.5 h-3.5" />
-        Age confirmed
+        Age range overlaps
       </span>
     );
   }
@@ -131,7 +131,7 @@ export default function MobileDrawer({
   onSelectFromList,
 }: MobileDrawerProps) {
   const total = confirmed.length + unconfirmed.length;
-  const ageActive = filters.ageMonths !== null;
+  const ageActive = filters.ageGroup !== null;
 
   const isDesktop = useIsDesktop();
   const winH = useWindowHeight();
@@ -362,7 +362,7 @@ export default function MobileDrawer({
                 <>
                   {ageActive && (
                     <span className="text-[1rem] font-semibold text-[#14532d]">
-                      Confirmed for this age: {confirmed.length}
+                      Branch age range overlaps this group: {confirmed.length}
                     </span>
                   )}
                   {confirmed.map((venue) => (
