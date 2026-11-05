@@ -26,6 +26,7 @@ const AGE_PRESETS: { label: string; months: number | null }[] = [
   { label: "24 mo", months: 24 },
   { label: "36 mo", months: 36 },
   { label: "48 mo", months: 48 },
+  { label: "59 mo", months: 59 },
 ];
 
 function ageLabel(months: number): string {
