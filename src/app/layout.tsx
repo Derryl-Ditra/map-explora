@@ -16,8 +16,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://derryl-ditra.github.io/map-explora/" },
   title: "Map Explora: Under 5 Activities in Jabodetabek",
-  description: "Find baby, toddler and preschool classes near you: swimming, gym, music, art and more across Jakarta, Bogor, Depok, Tangerang and Bekasi. Age eligibility confirmed per branch.",
+  description: "Find baby, toddler and preschool classes near you: swimming, gym, music, art and more across Jakarta, Bogor, Depok, Tangerang and Bekasi. Compare age evidence and confirm suitability with the provider.",
   manifest: `${base}/manifest.webmanifest`,
   icons: {
     icon: [
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Under 5 Activities in Jabodetabek",
-    description: "Find baby, toddler and preschool classes near you: swimming, gym, music, art and more across Jakarta, Bogor, Depok, Tangerang and Bekasi. Age eligibility confirmed per branch.",
+    description: "Find baby, toddler and preschool classes near you: swimming, gym, music, art and more across Jakarta, Bogor, Depok, Tangerang and Bekasi. Compare age evidence and confirm suitability with the provider.",
     url: "https://derryl-ditra.github.io/map-explora/",
     type: "website",
     locale: "en_US",
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Under 5 Activities in Jabodetabek",
-    description: "Find baby, toddler and preschool classes near you: swimming, gym, music, art and more across Jakarta, Bogor, Depok, Tangerang and Bekasi. Age eligibility confirmed per branch.",
+    description: "Find baby, toddler and preschool classes near you: swimming, gym, music, art and more across Jakarta, Bogor, Depok, Tangerang and Bekasi. Compare age evidence and confirm suitability with the provider.",
     images: ["https://derryl-ditra.github.io/map-explora/og.png"],
   },
   appleWebApp: {
