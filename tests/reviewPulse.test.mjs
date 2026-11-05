@@ -62,3 +62,37 @@ test("exact latest review shows the ISO day", () => {
     "Latest review: 2026-10-18. Trend: mixed (14 dated reviews, 2026-06-02 to 2026-10-18).",
   );
 });
+
+for (const [name, patch] of [
+  ["reversed period", { from: "2026-10-18", to: "2026-01-01" }],
+  ["zero-length period", { from: "2026-10-18", to: "2026-10-18" }],
+  ["impossible calendar date", { from: "2026-02-30" }],
+  ["non-ISO date", { from: "June 2, 2026" }],
+  ["month-only date", { from: "2026-06" }],
+  ["timestamp instead of day", { from: "2026-06-02T00:00:00Z" }],
+  ["sample above newest-20 bound", { sampled: 21, olderHalf: 10, newerHalf: 11 }],
+  ["fractional sample", { sampled: 14.5 }],
+  ["fractional halves", { olderHalf: 6.5, newerHalf: 7.5 }],
+  ["halves do not sum to sample", { olderHalf: 99, newerHalf: 99, sampled: 10 }],
+  ["negative half", { olderHalf: -1, newerHalf: 15 }],
+  ["non-finite sample", { sampled: Infinity }],
+]) {
+  test(`guard: ${name} falls back`, () => {
+    const reviews = { ...base, trend: "improving", trendEvidence: { ...goodEvidence, ...patch } };
+    assert.equal(trendVerdict(reviews).trend, null);
+    assert.equal(reviewPulseLine(reviews), REVIEW_TREND_FALLBACK);
+  });
+}
+
+test("guard accepts exact 10 and 20 sample limits with consistent halves", () => {
+  for (const sampled of [10, 20]) {
+    const reviews = { ...base, trend: "mixed", trendEvidence: { ...goodEvidence, sampled, olderHalf: sampled / 2, newerHalf: sampled / 2 } };
+    assert.equal(trendVerdict(reviews).trend, "mixed");
+  }
+});
+
+test("guard accepts a real leap day and rejects a non-leap February 29", () => {
+  const reviews = { ...base, trend: "mixed", trendEvidence: { ...goodEvidence, from: "2024-02-29" } };
+  assert.equal(trendVerdict(reviews).trend, "mixed");
+  assert.equal(trendVerdict({ ...reviews, trendEvidence: { ...reviews.trendEvidence, from: "2025-02-29" } }).trend, null);
+});
