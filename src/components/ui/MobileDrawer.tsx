@@ -236,6 +236,13 @@ export default function MobileDrawer({
 
   // Hidden while a bottom selection card owns the
   // space. Desktop always shows the sidebar.
+  const detailsScrollRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (activeVenue && showDetails) {
+      detailsScrollRef.current?.scrollTo({ top: 0 });
+    }
+  }, [activeVenue?.id, showDetails]);
+
   const mobileHidden = !!activeVenue && !showDetails;
 
   const sheetH = dragH ?? stops[snap];
@@ -308,7 +315,7 @@ export default function MobileDrawer({
       {header}
 
       {/* Content */}
-      <div className="flex-1 min-h-0 overflow-y-auto px-4 pt-1 pb-3 flex flex-col gap-3">
+      <div ref={detailsScrollRef} className="flex-1 min-h-0 overflow-y-auto px-4 pt-1 pb-3 flex flex-col gap-3">
         {activeVenue && showDetails ? (
           <VenueDetails
             venue={activeVenue}
