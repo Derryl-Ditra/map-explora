@@ -2,21 +2,19 @@
 
 import { useState } from "react";
 import { Venue } from "@/types/venue";
-import { RouteData } from "@/types/route";
 import { X, Copy, Check, Share2 } from "lucide-react";
 import { buildClassLines, buildShareText } from "@/utils/shareText";
 
 interface ShareCardProps {
   venue: Venue;
-  route: RouteData | null;
   onClose: () => void;
 }
 
-export default function ShareCard({ venue, route, onClose }: ShareCardProps) {
+export default function ShareCard({ venue, onClose }: ShareCardProps) {
   const [copied, setCopied] = useState(false);
 
   const classLines = buildClassLines(venue);
-  const shareText = buildShareText(venue, route);
+  const shareText = buildShareText(venue);
 
   const handleCopy = async () => {
     try {

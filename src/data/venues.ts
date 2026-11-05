@@ -7186,6 +7186,7 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": []
   }
+
  },
  {
   "id": "sparks-swim-karawaci",
@@ -7424,5 +7425,6 @@ export const VENUES: Venue[] = [
    "praiseThemes": [],
    "complaintThemes": []
   }
+
  }
 ];

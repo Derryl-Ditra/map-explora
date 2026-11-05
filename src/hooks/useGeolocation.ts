@@ -5,15 +5,7 @@ import { useState, useEffect, useCallback } from "react";
 const JAKARTA_CENTER: [number, number] = [-6.2088, 106.8456];
 const CACHE_KEY = "map-explora:user-pos:v1";
 
-/**
- * One single fix per page load (nearest-place sorting needs it) plus the
- * last fix cached on the device in localStorage (one ~60-byte value, never
- * sent anywhere) so returning visits render instantly. No live tracking
- * while browsing. The locate button takes one fresh fix. The only continuous
- * watch runs while in-app navigation is active, where position updates drive
- * the steps, and it pauses while the tab is hidden (web.dev: watchers cost
- * battery, clearWatch when done).
- */
+// One location fix per visit; the locate button requests another. No live tracking.
 type CachedPos = { lat: number; lng: number; accuracy: number | null };
 
 function readCache(): CachedPos | null {
@@ -36,10 +28,9 @@ function writeCache(lat: number, lng: number, accuracy: number | null) {
   }
 }
 
-export function useGeolocation(watching: boolean) {
+export function useGeolocation() {
   const [userPos, setUserPos] = useState<[number, number] | null>(JAKARTA_CENTER);
   const [accuracy, setAccuracy] = useState<number | null>(null);
-  const [heading, setHeading] = useState<number | null>(null);
   const [hasActualLocation, setHasActualLocation] = useState(false);
   const [isLocating, setIsLocating] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -65,8 +56,6 @@ export function useGeolocation(watching: boolean) {
       const acc = typeof pos.coords.accuracy === "number" ? pos.coords.accuracy : null;
       setUserPos([pos.coords.latitude, pos.coords.longitude]);
       setAccuracy(acc);
-      const h = pos.coords.heading;
-      setHeading(typeof h === "number" && !Number.isNaN(h) ? h : null);
       setHasActualLocation(true);
       setIsLocating(false);
       setError(null);
@@ -87,20 +76,6 @@ export function useGeolocation(watching: boolean) {
       setIsLocating(false);
     };
 
-    if (watching) {
-      // In-app navigation: the route steps and arrival detection need the
-      // live position, so only here does a watch run.
-      const watchId = navigator.geolocation.watchPosition(applyFix, applyError, {
-        enableHighAccuracy: true,
-        maximumAge: 5000,
-        timeout: 15000,
-      });
-      return () => {
-        mounted = false;
-        navigator.geolocation.clearWatch(watchId);
-      };
-    }
-
     // Browsing: one fix per visit. Cached value above renders instantly.
     navigator.geolocation.getCurrentPosition(applyFix, applyError, {
       enableHighAccuracy: false,
@@ -110,9 +85,7 @@ export function useGeolocation(watching: boolean) {
     return () => {
       mounted = false;
     };
-  }, [watching]);
-
-  const requestRecenter = useCallback(() => setRecenterTick((t) => t + 1), []);
+  }, []);
 
   // Locate button: take one fresh fix, then recenter on it.
   const refresh = useCallback(() => {
@@ -140,12 +113,10 @@ export function useGeolocation(watching: boolean) {
   return {
     userPos,
     accuracy,
-    heading,
     hasActualLocation,
     isLocating,
     error,
     recenterTick,
-    requestRecenter,
     refresh,
   };
 }
