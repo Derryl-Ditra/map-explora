@@ -43,9 +43,9 @@ export function useVenueFilters(userPos: [number, number] | null) {
     const withDistance = SHOWN_VENUES.map((v) => {
       const distance = userPos
         ? calculateDistance(userPos[0], userPos[1], v.lat, v.lng)
-        : 0;
-      const eta = calculateETA(distance, 25);
-      return { ...v, distance: Number(distance.toFixed(1)), eta };
+        : undefined;
+      const eta = distance !== undefined ? calculateETA(distance, 25) : undefined;
+      return { ...v, distance: distance !== undefined ? Number(distance.toFixed(1)) : undefined, eta };
     });
 
     const base = withDistance.filter((v) => {
