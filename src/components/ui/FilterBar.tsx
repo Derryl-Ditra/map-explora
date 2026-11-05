@@ -51,6 +51,41 @@ function Chip({
 
 type Group = "age" | "area" | "activity";
 
+  function SummaryButton({
+    group,
+    active,
+    label,
+    children, open, toggle,
+  }: {
+    open: Group | null;
+    toggle: (group: Group) => void;
+    group: Group;
+    active: boolean;
+    label: string;
+    children: React.ReactNode;
+  }) {
+    const isOpen = open === group;
+    return (
+      <button
+        type="button"
+        onClick={() => toggle(group)}
+        aria-expanded={isOpen}
+        className={`flex items-center gap-1.5 px-3.5 min-h-[44px] rounded-full border text-[0.9375rem] transition-all ${
+          active || isOpen
+            ? "bg-[#1a7a4a] text-white border-[#1a7a4a] font-bold"
+            : "bg-white text-[#4a443c] border-[#e7e0d4] hover:border-[#1a7a4a] font-medium"
+        }`}
+      >
+        {children}
+        <span className="whitespace-nowrap">{label}</span>
+        <ChevronDown
+          className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""} ${active || isOpen ? "text-white" : "text-[#6d675f]"}`}
+        />
+      </button>
+    );
+  }
+
+
 // Compact filter controls: one summary row of three toggles. Only one group
 // expands at a time (chips wrapped, nothing clipped), so venue results stay
 // visible above the fold. Area/activity collapse on pick; age stays open so
@@ -79,53 +114,22 @@ export default function FilterBar({
       return next;
     });
 
-  function SummaryButton({
-    group,
-    active,
-    label,
-    children,
-  }: {
-    group: Group;
-    active: boolean;
-    label: string;
-    children: React.ReactNode;
-  }) {
-    const isOpen = open === group;
-    return (
-      <button
-        type="button"
-        onClick={() => toggle(group)}
-        aria-expanded={isOpen}
-        className={`flex items-center gap-1.5 px-3.5 min-h-[44px] rounded-full border text-[0.9375rem] transition-all ${
-          active || isOpen
-            ? "bg-[#1a7a4a] text-white border-[#1a7a4a] font-bold"
-            : "bg-white text-[#4a443c] border-[#e7e0d4] hover:border-[#1a7a4a] font-medium"
-        }`}
-      >
-        {children}
-        <span className="whitespace-nowrap">{label}</span>
-        <ChevronDown
-          className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""} ${active || isOpen ? "text-white" : "text-[#6d675f]"}`}
-        />
-      </button>
-    );
-  }
 
   return (
     <div className="w-full shrink-0 flex flex-col gap-2.5">
       {/* Summary row: results stay visible; filters open on demand */}
       <div className="flex flex-wrap items-center gap-2">
-        <SummaryButton group="age" active={filters.ageMonths !== null} label={ageSummary}>
+        <SummaryButton open={open} toggle={toggle} group="age" active={filters.ageMonths !== null} label={ageSummary}>
           <Baby className={`w-4 h-4 ${filters.ageMonths !== null || open === "age" ? "text-white" : "text-[#1a7a4a]"}`} />
         </SummaryButton>
-        <SummaryButton
+        <SummaryButton open={open} toggle={toggle}
           group="area"
           active={filters.area !== "ALL"}
           label={filters.area === "ALL" ? "All areas" : areaDisplay(filters.area)}
         >
           <MapPin className={`w-4 h-4 ${filters.area !== "ALL" || open === "area" ? "text-white" : "text-[#1a7a4a]"}`} />
         </SummaryButton>
-        <SummaryButton
+        <SummaryButton open={open} toggle={toggle}
           group="activity"
           active={filters.category !== "ALL"}
           label={filters.category === "ALL" ? "All activities" : filters.category}
