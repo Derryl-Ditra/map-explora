@@ -18,23 +18,6 @@ interface FilterBarProps {
   onOpenPanel?: () => void;
 }
 
-const AGE_PRESETS: { label: string; months: number | null }[] = [
-  { label: "Any age", months: null },
-  { label: "6 mo", months: 6 },
-  { label: "12 mo", months: 12 },
-  { label: "18 mo", months: 18 },
-  { label: "24 mo", months: 24 },
-  { label: "36 mo", months: 36 },
-  { label: "48 mo", months: 48 },
-];
-
-function ageLabel(months: number): string {
-  if (months < 12) return `${months} months old`;
-  const yrs = months / 12;
-  const yrText = Number.isInteger(yrs) ? `${yrs} yr` : `${yrs.toFixed(1)} yrs`;
-  return `${months} mo (${yrText})`;
-}
-
 // Display-only shortening; the underlying data value is unchanged.
 function areaDisplay(a: string): string {
   return a === "Jabodetabek (unclassified)" ? "Unclassified" : a;
@@ -69,7 +52,7 @@ type Group = "age" | "area" | "activity";
 // Compact filter controls: one summary row of three toggles. Only one group
 // expands at a time (chips wrapped, nothing clipped), so venue results stay
 // visible above the fold. Area/activity collapse on pick; age stays open so
-// the exact-month slider remains reachable.
+// the exact month stays easy to change.
 export default function FilterBar({
   filters,
   onUpdateFilter,
@@ -83,10 +66,7 @@ export default function FilterBar({
   const anyActive =
     filters.ageMonths !== null || filters.area !== "ALL" || filters.category !== "ALL";
 
-  const ageSummary =
-    filters.ageMonths === null
-      ? "Any age"
-      : AGE_PRESETS.find((a) => a.months === filters.ageMonths)?.label ?? `${filters.ageMonths} mo`;
+  const ageSummary = filters.ageMonths === null ? "Any age" : `${filters.ageMonths} months`;
 
   const toggle = (g: Group) =>
     setOpen((cur) => {
@@ -160,37 +140,21 @@ export default function FilterBar({
         )}
       </div>
 
-      {/* Age group (stays open while an age is set: the slider fine-tunes it) */}
       {open === "age" && (
         <div className="flex flex-col gap-2 rounded-2xl bg-white/60 border border-[#ece6db] p-3">
+          <label htmlFor="child-age-months" className="text-sm font-semibold text-[#51483d]">Child age in months (0 to 59)</label>
           <div className="flex flex-wrap items-center gap-2">
-            {AGE_PRESETS.map((a) => (
-              <Chip
-                key={a.label}
-                active={filters.ageMonths === a.months}
-                onClick={() => onUpdateFilter("ageMonths", a.months)}
-              >
-                <span>{a.label}</span>
-              </Chip>
-            ))}
+            <button type="button" aria-label="Decrease age by one month" disabled={filters.ageMonths === null || filters.ageMonths === 0} onClick={() => onUpdateFilter("ageMonths", Math.max(0, (filters.ageMonths ?? 0) - 1))} className="w-11 h-11 rounded-full border border-[#e7e0d4] bg-white text-xl disabled:opacity-40">−</button>
+            <input id="child-age-months" type="number" min={0} max={59} step={1} value={filters.ageMonths ?? ""} placeholder="Any" onChange={(e) => {
+              const raw = e.target.value;
+              if (raw === "") { onUpdateFilter("ageMonths", null); return; }
+              const value = Number(raw);
+              if (Number.isInteger(value) && value >= 0 && value <= 59) onUpdateFilter("ageMonths", value);
+            }} className="w-20 h-11 rounded-xl border border-[#e7e0d4] bg-white text-center text-lg font-bold text-[#1a7a4a]" />
+            <button type="button" aria-label="Increase age by one month" disabled={filters.ageMonths === 59} onClick={() => onUpdateFilter("ageMonths", filters.ageMonths === null ? 0 : Math.min(59, filters.ageMonths + 1))} className="w-11 h-11 rounded-full border border-[#e7e0d4] bg-white text-xl disabled:opacity-40">+</button>
+            <Chip active={filters.ageMonths === null} onClick={() => onUpdateFilter("ageMonths", null)}>Any age</Chip>
           </div>
-          {filters.ageMonths !== null && (
-            <div className="flex items-center gap-3 pr-1">
-              <input
-                type="range"
-                min={0}
-                max={59}
-                step={1}
-                value={filters.ageMonths}
-                onChange={(e) => onUpdateFilter("ageMonths", Number(e.target.value))}
-                className="flex-1 age-slider"
-                aria-label="Exact child age in months"
-              />
-              <span className="text-[1rem] font-bold text-[#1a7a4a] shrink-0 min-w-[118px] text-right">
-                {ageLabel(filters.ageMonths)}
-              </span>
-            </div>
-          )}
+          <p className="text-sm text-[#51483d]">Matches the branch's confirmed age range. Unconfirmed ages stay separate.</p>
         </div>
       )}
 
