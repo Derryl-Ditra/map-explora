@@ -5810,24 +5810,26 @@ export const VENUES: Venue[] = [
   "coordinateSource": "maps-pin",
   "programs": [
    {
-    "name": "Baby & Toddler Swim",
+    "name": "Baby Class",
     "offering": "offered",
     "age": {
-     "minMonths": null,
-     "maxMonths": null,
-     "level": "brand",
-     "verification": "unknown",
-     "sourceCheckedAt": "2026-11-04",
-     "providerAgeUrl": "https://swimgenesis.com/"
+     "minMonths": 4.5,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-05",
+     "providerAgeUrl": "https://swimgenesis.com/swim-school"
     },
-    "note": "Official site describes baby and toddler swim; no numeric age range read (2026-11-04)."
+    "note": "Official swim-school page states Baby Class 4.5-18 Months; homepage binds weekly swim sessions to Pejaten. Baby Whale 1 & 2 is a separate curriculum level (4.5 months-2 years), not a replacement age range for this class.",
+    "noteUrl": "https://swimgenesis.com/",
+    "noteLabel": "Pejaten branch evidence"
    }
   ],
   "website": "https://swimgenesis.com/",
   "sourceUrl": "https://swimgenesis.com/",
-  "lastCheckedAt": "2026-11-04",
-  "fitStatus": "branch-candidate-live-undated",
-  "notes": "Official site names the Pejaten branch. Address matches Google Maps and a directory listing. Site is undated; read 2026-11-04.",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "branch-confirmed-live-undated",
+  "notes": "Official swim-school page states Baby Class 4.5-18 months. Homepage names weekly swim sessions at Pejaten. Toddler Class retains an open/year upper bound and is not imported. Baby Whale curriculum levels remain separate. Site undated; read 2026-11-05. Existing Maps address, coordinates and review snapshot unchanged.",
   "operatingStatus": {
    "state": "official-listed",
    "source": "https://swimgenesis.com/",
@@ -6464,24 +6466,43 @@ export const VENUES: Venue[] = [
   "coordinateSource": "maps-pin",
   "programs": [
    {
-    "name": "Stimulation class",
+    "name": "GYM Bayi",
     "offering": "offered",
     "age": {
-     "minMonths": null,
-     "maxMonths": null,
-     "level": "brand",
-     "verification": "unknown",
-     "sourceCheckedAt": "2026-11-04",
-     "providerAgeUrl": "https://membumiplayspace.com/"
+     "minMonths": 8,
+     "maxMonths": 19,
+     "level": "branch",
+     "verification": "listed-unconfirmed",
+     "sourceCheckedAt": "2026-11-05",
+     "providerAgeUrl": "https://take.app/membumiplayspace/p/cmubzi8r500000agm1cqjrjxi",
+     "sourceConflict": true
     },
-    "note": "Official page lists stimulation, enrichment and after-school classes with a November 2026 timetable. No numeric age range read."
+    "note": "Product title and description say 8-19 bulan; the current November 2026 Cibubur timetable says Gym Bayi 8-18 bulan. Conflicting upper bounds: not confirmed. Product thumbnail is an older 2-5-year Gym Class poster.",
+    "noteUrl": "https://cdn3.take.app/media/cmvnxk8dp000309l24yqmhues.jpg?width=3840",
+    "noteLabel": "November timetable"
+   },
+   {
+    "name": "Musik & Cerita Bayi",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-05",
+     "providerAgeUrl": "https://take.app/membumiplayspace/p/cmubzqw7c000004l1u39w27qy"
+    },
+    "term": "November 2026",
+    "note": "Cibubur storefront product and November timetable both state Musik & Cerita Bayi 6-18 bulan. This is a named class, not a membership age band.",
+    "noteUrl": "https://cdn3.take.app/media/cmvnxk8du000208js0nlk8699.jpg?width=3840",
+    "noteLabel": "November timetable"
    }
   ],
   "website": "https://membumiplayspace.com/",
   "sourceUrl": "https://membumiplayspace.com/",
-  "lastCheckedAt": "2026-11-04",
-  "fitStatus": "branch-candidate-live-undated",
-  "notes": "Official site shows a November 2026 timetable and membership (alive). Address comes from Google Maps; the site does not print it. Read 2026-11-04.",
+  "lastCheckedAt": "2026-11-05",
+  "fitStatus": "branch-confirmed-dated-term",
+  "notes": "Official Cibubur storefront and November 2026 timetable confirm Musik & Cerita Bayi 6-18 months. GYM Bayi stays unconfirmed because product 8-19 and timetable 8-18 conflict. Other year-based classes and membership age bands are not imported. Existing Maps address, coordinates and review snapshot unchanged.",
   "operatingStatus": {
    "state": "official-listed",
    "source": "https://membumiplayspace.com/",
