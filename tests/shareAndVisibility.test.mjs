@@ -50,3 +50,9 @@ test("share lines use the verified evidence rule",()=>{
  const t=buildShareText({...venue,programs:[{...base,name:"Hidden conflict",age:{...base.age,sourceConflict:true}},{...base,name:"Hidden ambiguity",note:"boundary ambiguous"},base]});
  assert.ok(t.includes("Learn & Play 1"));assert.ok(!t.includes("Hidden conflict"));assert.ok(!t.includes("Hidden ambiguity"));
 });
+
+// Unknown location is not the same as a real zero-distance fix.
+test("share omits unknown distance but preserves a genuine zero", () => {
+  assert.doesNotMatch(buildShareText({ ...venue, distance: undefined }), /Straight-line distance/);
+  assert.match(buildShareText({ ...venue, distance: 0 }), /Straight-line distance: 0 km/);
+});
