@@ -16,6 +16,8 @@ interface FilterBarProps {
   // Fired when a filter group opens, so a collapsed host (mobile peek sheet)
   // can raise enough to show the panel.
   onOpenPanel?: () => void;
+  // Bump to open the age panel from outside (the map Age pill).
+  openAgeTick?: number;
 }
 
 // Display-only shortening; the underlying data value is unchanged.
@@ -60,8 +62,10 @@ export default function FilterBar({
   categories,
   areas,
   onOpenPanel,
+  openAgeTick,
 }: FilterBarProps) {
-  const [open, setOpen] = useState<Group | null>(null);
+  // The parent remounts this bar (key) when the map Age pill asks for the age panel.
+  const [open, setOpen] = useState<Group | null>(openAgeTick ? "age" : null);
 
   const anyActive =
     filters.ageMonths !== null || filters.area !== "ALL" || filters.category !== "ALL";
