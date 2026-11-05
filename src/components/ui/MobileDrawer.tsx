@@ -27,6 +27,7 @@ interface MobileDrawerProps {
   showDetails: boolean;
   backLabel: string;
   onSelectFromList: (venue: Venue) => void;
+  ageOpenTick?: number;
 }
 
 function useIsDesktop(): boolean {
@@ -119,6 +120,7 @@ export default function MobileDrawer({
   showDetails,
   backLabel,
   onSelectFromList,
+  ageOpenTick,
 }: MobileDrawerProps) {
   const total = confirmed.length + unconfirmed.length;
   const ageActive = filters.ageMonths !== null;
@@ -137,6 +139,9 @@ export default function MobileDrawer({
     }
     wasDetails.current = showDetails;
   }, [activeVenue?.id, showDetails]);
+  useLayoutEffect(() => {
+    if (ageOpenTick) detailsScrollRef.current?.scrollTo({ top: 0 });
+  }, [ageOpenTick]);
   const handleFilter = useCallback(
     <K extends keyof VenueFilterState>(key: K, value: VenueFilterState[K]) => onUpdateFilter(key, value),
     [onUpdateFilter]
@@ -194,7 +199,7 @@ export default function MobileDrawer({
       `}
     >
       {header}
-      {!showDetails && <button type="button" onClick={() => onSetMobileView("map")} className="md:hidden mx-4 my-2 min-h-12 rounded-xl border border-[#1a7a4a] text-[#1a7a4a] font-semibold">Map</button>}
+
 
 
       {/* Content */}
@@ -223,12 +228,13 @@ export default function MobileDrawer({
 
             {/* Filters */}
             <FilterBar
+              key={ageOpenTick ?? 0}
               filters={filters}
               onUpdateFilter={handleFilter}
               onResetFilters={onResetFilters}
               categories={categories}
               areas={areas}
-              
+              openAgeTick={ageOpenTick}
             />
 
             {/* Venue List */}
@@ -253,7 +259,9 @@ export default function MobileDrawer({
                 <>
                   {ageActive && (
                     <span className="text-[1rem] font-semibold text-[#14532d]">
-                      Confirmed for this age: {confirmed.length}
+                      {confirmed.length === 0
+                        ? `No place has confirmed classes for ${filters.ageMonths} ${filters.ageMonths === 1 ? "month" : "months"} yet`
+                        : `Confirmed for this age: ${confirmed.length}`}
                     </span>
                   )}
                   {confirmed.map((venue) => (
@@ -267,7 +275,7 @@ export default function MobileDrawer({
                   {ageActive && unconfirmed.length > 0 && (
                     <span className="text-[1rem] font-semibold text-[#92400e] flex items-center gap-1.5 pt-2">
                       <HelpCircle className="w-4 h-4" />
-                      <span>Age not confirmed, check with the branch: {unconfirmed.length}</span>
+                      <span>{confirmed.length === 0 ? "Ask these branches directly" : "Age not confirmed, check with the branch"}: {unconfirmed.length}</span>
                     </span>
                   )}
                   {ageActive &&
@@ -295,6 +303,11 @@ export default function MobileDrawer({
           </>
         )}
       </div>
+      {!showDetails && (
+        <nav aria-label="Browse views" className="md:hidden shrink-0 border-t border-[#e7e0d4] bg-[#f6f2ec] px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))]">
+          <button type="button" onClick={() => onSetMobileView("map")} className="w-full min-h-12 rounded-full bg-[#1a7a4a] text-white font-bold">Map</button>
+        </nav>
+      )}
       {activeVenue && showDetails && (
         <nav aria-label="Place actions" className="md:hidden shrink-0 border-t border-[#e7e0d4] bg-[#f6f2ec] px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] flex items-center gap-3">
           <button type="button" onClick={onClearActiveVenue} className="min-h-12 px-2 flex items-center gap-1 text-[#1a7a4a] font-semibold text-[0.9375rem]">
