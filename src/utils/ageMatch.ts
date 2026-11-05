@@ -15,8 +15,8 @@ export function claimCovers(age: AgeClaim, months: number): boolean | null {
 // not establish inclusivity at the flagged boundary, so an exact boundary
 // month is never a confirmed match. "upper-bound ... ambiguous" flags only
 // the max; an unspecified "boundary ambiguous" flags both ends. This matters
-// inside 0-47 too: 48 is outside the under-4 scope, but a flagged 36-month
-// ("3 yr") boundary is not.
+// inside 0-59 too: a flagged 48-month or 36-month boundary remains
+// uncertain even though it is inside the under-5 scope.
 export function claimCoversWithNote(age: AgeClaim, months: number, note?: string): boolean | null {
   const base = claimCovers(age, months);
   if (base !== true || !note || !/ambigu/i.test(note)) return base;
