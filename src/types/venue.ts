@@ -103,6 +103,26 @@ export interface ReviewSummary {
   sampleNote?: string; // bounded sample framing, e.g. "3 of 7 reviews visible"
   praiseThemes: string[]; // short paraphrased recurring themes, each evidence-backed
   complaintThemes: string[];
+  // Live-Maps review pulse (weekly data job). All optional: absent until collected.
+  // Both fields come only from a sort=newest Maps review listing.
+  latestReview?: {
+    date: string; // exact ISO day, or ISO month (YYYY-MM) when approximate
+    approximate?: boolean; // derived from a relative label ("a month ago"): month
+    // precision only - relative wording never becomes an invented exact ISO day.
+  };
+  // Judged from the newest Maps reviews (sort=newest, bounded sample of 20).
+  // Labeled only when the evidence backs it: 10+ dated reviews spanning BOTH
+  // halves of [from, to]; otherwise "insufficient". The UI re-verifies these
+  // counts before showing any label.
+  trend?: "improving" | "mixed" | "worsening" | "insufficient";
+  trendEvidence?: {
+    method: "maps-sort-newest"; // how the sample was taken; required so the rule is verifiable
+    sampled: number; // dated reviews in the bounded sample
+    from: string; // ISO date of the oldest dated review sampled
+    to: string; // ISO date of the newest dated review sampled
+    olderHalf: number; // dated reviews in the older half of [from, to]
+    newerHalf: number; // dated reviews in the newer half of [from, to]
+  };
 }
 
 export interface VenueFilterState {

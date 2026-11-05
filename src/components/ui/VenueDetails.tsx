@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Venue, AgeClaim } from "@/types/venue";
+import { reviewPulseLine } from "@/utils/reviewPulse";
 import { buildMapsLink } from "@/utils/mapsLink";
 import {
   Navigation,
@@ -334,6 +335,9 @@ export default function VenueDetails({
           {venue.reviews.sampleNote && (
             <span className="text-[0.9375rem] text-[#6d675f]">{venue.reviews.sampleNote}</span>
           )}
+          <span className="text-[0.9375rem] text-[#6d675f]">
+            {reviewPulseLine(venue.reviews)}
+          </span>
           <button
             type="button"
             onClick={() => setReviewSourceOpen((v) => !v)}
