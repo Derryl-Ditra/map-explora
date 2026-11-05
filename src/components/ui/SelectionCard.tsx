@@ -1,44 +1,14 @@
 "use client";
 
+import { hasVerifiedAgeEvidence } from "@/utils/ageMatch";
 import { buildMapsLink } from "@/utils/mapsLink";
-import { Venue, AgeClaim } from "@/types/venue";
+import { Venue } from "@/types/venue";
 import { Navigation, X, ChevronRight } from "lucide-react";
 
 interface SelectionCardProps {
   venue: Venue;
   onDetails: () => void;
   onClose: () => void;
-}
-
-// Worst-case age status across the branch statement and offered programs, so
-// a conflict or unconfirmed age is visible before Navigate, not only in Details.
-function ageStatus(venue: Venue): { text: string; tone: "warn" | "ok" | "muted" } {
-  const claims: { age: AgeClaim; note?: string }[] = [];
-  if (venue.branchAge) claims.push({ age: venue.branchAge });
-  for (const p of venue.programs) if (p.offering === "offered") claims.push({ age: p.age, note: p.note });
-  if (claims.length === 0) {
-    // No per-branch age claims: say what the dataset actually knows instead
-    // of a blanket "unknown" that contradicts the details view.
-    if (venue.fitStatus === "official-chain-program")
-      return { text: "Chain runs classes for ages 0-3; this branch is not confirmed yet.", tone: "muted" };
-    if (venue.fitStatus === "branch-candidate-live-undated")
-      return { text: "Listed in an official address directory; classes unconfirmed.", tone: "muted" };
-    return { text: "Ages unknown. Check with the provider.", tone: "muted" };
-  }
-  if (claims.some((c) => c.age.sourceConflict))
-    return { text: "Age sources disagree. Confirm the age range before you go.", tone: "warn" };
-  if (
-    claims.some(
-      (c) =>
-        c.age.verification === "provider-confirmed" &&
-        c.age.level === "branch" &&
-        ((c.age.minMonths === null) !== (c.age.maxMonths === null) || (!!c.note && /ambigu/i.test(c.note)))
-    )
-  )
-    return { text: "Age range unclear at this branch. Confirm before you go.", tone: "warn" };
-  if (claims.every((c) => c.age.verification === "provider-confirmed" && c.age.level === "branch"))
-    return { text: "Ages confirmed by this branch", tone: "ok" };
-  return { text: "Ages not confirmed for this branch. Check before you go.", tone: "muted" };
 }
 
 /**
@@ -50,7 +20,7 @@ export default function SelectionCard({
   onDetails,
   onClose,
 }: SelectionCardProps) {
-  const age = ageStatus(venue);
+  const verifiedAges = hasVerifiedAgeEvidence(venue);
   const name = `${venue.chain && venue.chain !== venue.branchName ? `${venue.chain} ` : ""}${venue.branchName}`;
   const routable = venue.coordinateSource !== "area-approximate" && !venue.caution;
 
@@ -83,14 +53,12 @@ export default function SelectionCard({
       </div>
       <p
         className={`text-[0.875rem] font-semibold px-3 py-1.5 rounded-xl ${
-          age.tone === "warn"
-            ? "bg-[#fef3c7] text-[#92400e]"
-            : age.tone === "ok"
+          verifiedAges
               ? "bg-[#e3f2e8] text-[#14532d]"
               : "bg-[#f0ece4] text-[#6d675f]"
         }`}
       >
-        {age.text}
+        {verifiedAges ? "Verified class ages available" : "Class ages not verified yet"}
       </p>
       <div className="flex gap-2">
         <a href={buildMapsLink(venue)} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-2 py-3 rounded-full bg-[#1a7a4a] text-white font-bold text-[1rem]">
