@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Venue, AgeClaim } from "@/types/venue";
+import { isVerifiedAgeClaim, verifiedPrograms } from "@/utils/ageMatch";
 import { reviewPulseLine } from "@/utils/reviewPulse";
 import { buildMapsLink } from "@/utils/mapsLink";
 import {
@@ -10,7 +11,6 @@ import {
   Share2,
   Clock,
   ShieldCheck,
-  HelpCircle,
   ArrowLeft,
   Flag,
   Star,
@@ -28,18 +28,6 @@ interface VenueDetailsProps {
 
 const REPORTS_KEY = "map-explora-venue-reports";
 
-const FIT_STATUS_LABEL: Record<string, string> = {
-  "branch-confirmed-dated-term": "Current-term class schedule verified for this branch",
-  "branch-confirmed-live-undated": "Classes for ages 0-3 confirmed on this branch's official page (source undated, no term dates)",
-  "branch-category-confirmed-live-undated": "Class category for ages 0-3 confirmed at this branch; exact ages not published per branch",
-  "branch-candidate-live-undated": "Location candidate: branch appears in an official address listing; offerings unconfirmed",
-  "official-chain-program": "Chain runs classes for ages 0-3; this branch is not confirmed yet",
-  "media-claimed": "Reported by media; not confirmed by the provider",
-  "official-global-unverified-local": "Chain program confirmed globally; this branch unverified",
-  "unvalidated-extraction": "Class list for this branch is pending visual verification",
-  "unknown": "No verified age information for this branch",
-};
-
 function formatMonths(m: number): string {
   // Parents of under-4s read months; switch to years only past 36.
   if (m <= 36) return `${m} mo`;
@@ -48,45 +36,10 @@ function formatMonths(m: number): string {
 }
 
 function formatAgeRange(age: AgeClaim): string {
-  if (age.sourceConflict) return "age sources disagree";
   if (age.minMonths === null && age.maxMonths === null) return "ages not stated";
   const lo = age.minMonths === null ? "0 mo" : formatMonths(age.minMonths);
   if (age.maxMonths === null) return `from ${lo}`;
   return `${lo} - ${formatMonths(age.maxMonths)}`;
-}
-
-function isAmbiguousBoundary(age: AgeClaim, note?: string): boolean {
-  return (
-    age.verification === "provider-confirmed" &&
-    age.level === "branch" &&
-    !!note &&
-    /ambigu/i.test(note)
-  );
-}
-
-function ageBadge(age: AgeClaim, note?: string): string {
-  if (age.sourceConflict) return "Confirm age";
-  if (
-    (age.minMonths === null) !== (age.maxMonths === null) &&
-    age.verification === "provider-confirmed" &&
-    age.level === "branch"
-  )
-    return "End age unstated";
-  if (isAmbiguousBoundary(age, note)) return "Boundary unclear";
-  if (age.verification === "provider-confirmed" && age.level === "branch")
-    return "Verified";
-  if (age.verification === "provider-confirmed")
-    return "Ages from official brand catalog";
-  if (age.verification === "listed-unconfirmed") return "Listed, unconfirmed";
-  return "Ages unknown";
-}
-
-function badgeClasses(age: AgeClaim, note?: string): string {
-  if (age.sourceConflict || ageBadge(age, note) === "End age unstated" || ageBadge(age, note) === "Boundary unclear")
-    return "bg-[#fef3c7] text-[#92400e]";
-  if (age.verification === "provider-confirmed" && age.level === "branch")
-    return "bg-[#e3f2e8] text-[#14532d]";
-  return "bg-[#f0ece4] text-[#6d675f]";
 }
 
 // A note that only restates the claim's own range (for example "12-23 mo"
@@ -94,47 +47,6 @@ function badgeClasses(age: AgeClaim, note?: string): string {
 function isDuplicateRangeNote(age: AgeClaim, note?: string): boolean {
   if (!note || age.sourceConflict) return false;
   return /^\s*\d+\s*-\s*\d+\s*(mo|months|yr|yrs|years)\s*$/i.test(note);
-}
-
-function ConflictNote({
-  note,
-  noteUrl,
-  noteLabel,
-}: {
-  note: string;
-  noteUrl?: string;
-  noteLabel?: string;
-}) {
-  const [open, setOpen] = useState(false);
-  return (
-    <span className="block mt-1">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        className="text-[0.9375rem] font-semibold text-[#1a7a4a] underline underline-offset-2"
-      >
-        {open ? "Hide sources" : "See both sources"}
-      </button>
-      {open && (
-        <span className="block text-[1rem] text-[#6d675f] mt-1 leading-snug">
-          {note}
-          {noteUrl && (
-            <>
-              {" "}
-              <a
-                href={noteUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline text-[#1a7a4a] font-medium"
-              >
-                {noteLabel ?? "Source"}
-              </a>
-            </>
-          )}
-        </span>
-      )}
-    </span>
-  );
 }
 
 export default function VenueDetails({
@@ -165,8 +77,8 @@ export default function VenueDetails({
     }
   };
 
-  const offered = venue.programs.filter((p) => p.offering === "offered");
-  const unconfirmedPrograms = venue.programs.filter((p) => p.offering === "unknown");
+  const offered = verifiedPrograms(venue);
+  const branchAge = venue.branchAge && isVerifiedAgeClaim(venue.branchAge) ? venue.branchAge : null;
   const term = venue.programs.find((p) => p.term)?.term;
 
   return (
@@ -224,22 +136,19 @@ export default function VenueDetails({
           <ShieldCheck className="w-5 h-5 text-[#1a7a4a]" />
           <span className="font-bold text-[1rem] text-[#221d18]">Classes here by age</span>
         </div>
-        <span className="text-[1rem] text-[#6d675f]">
-          {FIT_STATUS_LABEL[venue.fitStatus] ?? venue.fitStatus}
-        </span>
-        {offered.length === 0 && !venue.branchAge ? (
+        {offered.length === 0 && !branchAge ? (
           <span className="text-[1rem] text-[#6d675f]">
-            No branch-confirmed classes for ages 0-3 in the dataset yet.
+            Class ages not verified yet
           </span>
         ) : (
           <div className="flex flex-col gap-2.5 pt-1">
-            {venue.branchAge && (
+            {branchAge && (
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="text-[1rem] font-medium text-[#221d18]">
-                  Branch statement: {formatAgeRange(venue.branchAge)}
+                  Branch statement: {formatAgeRange(branchAge)}
                 </span>
-                <span className={`text-[0.8125rem] font-bold px-2 py-1 rounded-full shrink-0 ${badgeClasses(venue.branchAge)}`}>
-                  {ageBadge(venue.branchAge)}
+                <span className={`text-[0.8125rem] font-bold px-2 py-1 rounded-full shrink-0 bg-[#e3f2e8] text-[#14532d]`}>
+                  Verified
                 </span>
               </div>
             )}
@@ -249,9 +158,7 @@ export default function VenueDetails({
                   <span className="font-medium">{p.name}</span>{" "}
                   <span className="text-[#6d675f]">({formatAgeRange(p.age)})</span>
                   {p.note && !isDuplicateRangeNote(p.age, p.note) &&
-                    (p.age.sourceConflict ? (
-                      <ConflictNote note={p.note} noteUrl={p.noteUrl} noteLabel={p.noteLabel} />
-                    ) : (
+                    (
                       <span className="block text-[1rem] text-[#6d675f] mt-1 leading-snug">
                         {p.note}
                         {p.noteUrl && (
@@ -268,28 +175,16 @@ export default function VenueDetails({
                           </>
                         )}
                       </span>
-                    ))}
+                    )}
                 </span>
-                <span className={`text-[0.8125rem] font-bold px-2 py-1 rounded-full shrink-0 ${badgeClasses(p.age, p.note)}`}>
-                  {ageBadge(p.age, p.note)}
+                <span className={`text-[0.8125rem] font-bold px-2 py-1 rounded-full shrink-0 bg-[#e3f2e8] text-[#14532d]`}>
+                  Verified
                 </span>
               </div>
             ))}
           </div>
         )}
-        {unconfirmedPrograms.length > 0 && (
-          <div className="flex flex-col gap-1.5 pt-2 border-t border-[#f0ece4]">
-            <span className="text-[0.9375rem] text-[#92400e] flex items-center gap-1.5 font-semibold">
-              <HelpCircle className="w-4 h-4" />
-              <span>Known at brand level, not confirmed at this branch:</span>
-            </span>
-            {unconfirmedPrograms.map((p) => (
-              <span key={p.name} className="text-[1rem] text-[#4a443c]">
-                {p.name} <span className="text-[#6d675f]">({formatAgeRange(p.age)})</span>
-              </span>
-            ))}
-          </div>
-        )}
+
       </div>
 
       {/* Branch reviews (only when collected for this branch) */}
