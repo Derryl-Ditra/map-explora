@@ -18,15 +18,6 @@ interface FilterBarProps {
   onOpenPanel?: () => void;
 }
 
-const AGE_PRESETS = [
-  { label: "Any age", months: null },
-  { label: "12 months and under", months: 12 },
-  { label: "13 to 24 months", months: 24 },
-  { label: "25 to 36 months", months: 36 },
-  { label: "37 to 48 months", months: 48 },
-  { label: "49 to 59 months", months: 59 },
-];
-
 // Display-only shortening; the underlying data value is unchanged.
 function areaDisplay(a: string): string {
   return a === "Jabodetabek (unclassified)" ? "Unclassified" : a;
@@ -61,7 +52,7 @@ type Group = "age" | "area" | "activity";
 // Compact filter controls: one summary row of three toggles. Only one group
 // expands at a time (chips wrapped, nothing clipped), so venue results stay
 // visible above the fold. Area/activity collapse on pick; age stays open so
-// the age group can be changed easily.
+// the exact month stays easy to change.
 export default function FilterBar({
   filters,
   onUpdateFilter,
@@ -73,12 +64,9 @@ export default function FilterBar({
   const [open, setOpen] = useState<Group | null>(null);
 
   const anyActive =
-    filters.ageGroup !== null || filters.area !== "ALL" || filters.category !== "ALL";
+    filters.ageMonths !== null || filters.area !== "ALL" || filters.category !== "ALL";
 
-  const ageSummary =
-    filters.ageGroup === null
-      ? "Any age"
-      : AGE_PRESETS.find((a) => a.months === filters.ageGroup)?.label ?? `${filters.ageGroup} mo`;
+  const ageSummary = filters.ageMonths === null ? "Any age" : `${filters.ageMonths} months`;
 
   const toggle = (g: Group) =>
     setOpen((cur) => {
@@ -123,8 +111,8 @@ export default function FilterBar({
     <div className="w-full shrink-0 flex flex-col gap-2.5">
       {/* Summary row: results stay visible; filters open on demand */}
       <div className="flex flex-wrap items-center gap-2">
-        <SummaryButton group="age" active={filters.ageGroup !== null} label={ageSummary}>
-          <Baby className={`w-4 h-4 ${filters.ageGroup !== null || open === "age" ? "text-white" : "text-[#1a7a4a]"}`} />
+        <SummaryButton group="age" active={filters.ageMonths !== null} label={ageSummary}>
+          <Baby className={`w-4 h-4 ${filters.ageMonths !== null || open === "age" ? "text-white" : "text-[#1a7a4a]"}`} />
         </SummaryButton>
         <SummaryButton
           group="area"
@@ -152,21 +140,21 @@ export default function FilterBar({
         )}
       </div>
 
-      {/* Age groups stay visible while choosing. */}
       {open === "age" && (
         <div className="flex flex-col gap-2 rounded-2xl bg-white/60 border border-[#ece6db] p-3">
+          <label htmlFor="child-age-months" className="text-sm font-semibold text-[#51483d]">Child age in months (0 to 59)</label>
           <div className="flex flex-wrap items-center gap-2">
-            {AGE_PRESETS.map((a) => (
-              <Chip
-                key={a.label}
-                active={filters.ageGroup === a.months}
-                onClick={() => onUpdateFilter("ageGroup", a.months)}
-              >
-                <span>{a.label}</span>
-              </Chip>
-            ))}
+            <button type="button" aria-label="Decrease age by one month" disabled={filters.ageMonths === null || filters.ageMonths === 0} onClick={() => onUpdateFilter("ageMonths", Math.max(0, (filters.ageMonths ?? 0) - 1))} className="w-11 h-11 rounded-full border border-[#e7e0d4] bg-white text-xl disabled:opacity-40">−</button>
+            <input id="child-age-months" type="number" min={0} max={59} step={1} value={filters.ageMonths ?? ""} placeholder="Any" onChange={(e) => {
+              const raw = e.target.value;
+              if (raw === "") { onUpdateFilter("ageMonths", null); return; }
+              const value = Number(raw);
+              if (Number.isInteger(value) && value >= 0 && value <= 59) onUpdateFilter("ageMonths", value);
+            }} className="w-20 h-11 rounded-xl border border-[#e7e0d4] bg-white text-center text-lg font-bold text-[#1a7a4a]" />
+            <button type="button" aria-label="Increase age by one month" disabled={filters.ageMonths === 59} onClick={() => onUpdateFilter("ageMonths", filters.ageMonths === null ? 0 : Math.min(59, filters.ageMonths + 1))} className="w-11 h-11 rounded-full border border-[#e7e0d4] bg-white text-xl disabled:opacity-40">+</button>
+            <Chip active={filters.ageMonths === null} onClick={() => onUpdateFilter("ageMonths", null)}>Any age</Chip>
           </div>
-          <p className="text-sm text-[#51483d]">A match covers at least one age in the group, not every age. Check the class range.</p>
+          <p className="text-sm text-[#51483d]">Matches the branch's confirmed age range. Unconfirmed ages stay separate.</p>
         </div>
       )}
 
