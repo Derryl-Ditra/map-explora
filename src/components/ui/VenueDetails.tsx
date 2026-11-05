@@ -1,4 +1,5 @@
 "use client";
+import { estimatedPrograms } from "@/data/age-estimates";
 
 import { useState } from "react";
 import { Venue, AgeClaim } from "@/types/venue";
@@ -71,6 +72,7 @@ export default function VenueDetails({
   };
 
   const offered = verifiedPrograms(venue);
+  const estimates = estimatedPrograms(venue);
   const branchAge = venue.branchAge && isVerifiedAgeClaim(venue.branchAge) ? venue.branchAge : null;
   const term = venue.programs.find((p) => p.term)?.term;
 
@@ -161,6 +163,21 @@ export default function VenueDetails({
         )}
 
       </div>
+
+      {estimates.length > 0 && (
+        <div className="p-4 rounded-2xl border border-[#fcd34d] bg-[#fffbeb] flex flex-col gap-3">
+          <span className="font-bold">Estimated ages</span>
+          <p className="text-[0.9375rem] text-[#6d675f]">Planning only. Eligibility is not verified. These ages do not enter confirmed age matches and are not a safety assessment.</p>
+          {estimates.map(estimate => {
+            return <div key={estimate.name} className="flex flex-col gap-1 text-[0.9375rem]">
+              <span className="font-semibold">{estimate.name}: {estimate.minMonths} to {estimate.maxMonths} months</span>
+              <span>{estimate.rule === "latest-dated-official" ? "Dated official source" : "Conservative overlap"}{estimate.sourceDate ? ` (${estimate.sourceDate})` : " (sources undated)"}</span>
+              <span className="text-[#6d675f]">{estimate.reason}</span>
+              <div className="flex flex-wrap gap-3">{estimate.sources.map((url, i) => <a key={url} href={url} target="_blank" rel="noopener noreferrer" className="text-[#1a7a4a] underline">Source {i + 1}</a>)}</div>
+            </div>;
+          })}
+        </div>
+      )}
 
       {/* Branch reviews (only when collected for this branch) */}
       {venue.reviews && (
