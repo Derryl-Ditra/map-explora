@@ -13,9 +13,9 @@ test('UI evidence rejects conflicts, ambiguity, missing bounds, missing sources 
 });
 test('dataset impact stays explicit without deleting public places',()=>{
  assert.equal(shown.length,136);
- assert.equal(shown.flatMap(verifiedPrograms).length,47);
- assert.equal(shown.filter(v=>!verifiedPrograms(v).length).length,127);
- assert.equal(shown.filter(v=>!hasVerifiedAgeEvidence(v)).length,126);
+ assert.equal(shown.flatMap(verifiedPrograms).length,49);
+ assert.equal(shown.filter(v=>!verifiedPrograms(v).length).length,125);
+ assert.equal(shown.filter(v=>!hasVerifiedAgeEvidence(v)).length,124);
  assert.equal(shown.filter(v=>venueConfirmedForAge(v,59)).length,1);
 });
 test('every confirmed place at all 60 stepper months has visible evidence covering that month',()=>{
@@ -32,4 +32,14 @@ test('hidden class never confirms even away from its ambiguous boundary',()=>{
 test('guide class rows and branch statements share the verified evidence gate',()=>{
  const s=readFileSync(new URL('../src/app/activities/[slug]/page.tsx',import.meta.url),'utf8');
  assert.match(s,/isVerifiedAgeClaim\(v.branchAge\)/);assert.match(s,/verifiedPrograms\(v\)/);assert.doesNotMatch(s,/v.programs.filter|Confirm class/);
+});
+
+
+test('Membumi and Genesis exact classes remain separate from conflicting and year-based claims',()=>{
+ const m=VENUES.find(v=>v.id==='membumi-playspace-cibubur');const g=VENUES.find(v=>v.id==='genesis-baby-toddler-swim-pejaten');
+ assert.deepEqual(verifiedPrograms(m).map(p=>p.name),['Musik & Cerita Bayi']);
+ assert.deepEqual(verifiedPrograms(g).map(p=>p.name),['Baby Class']);
+ assert.equal(m.programs.find(p=>p.name==='GYM Bayi').age.sourceConflict,true);
+ for(const [v,min,max] of [[m,6,18],[g,4.5,18]]){assert.equal(venueConfirmedForAge(v,min),true);assert.equal(venueConfirmedForAge(v,max),true);assert.equal(venueConfirmedForAge(v,min-0.5),false);assert.equal(venueConfirmedForAge(v,max+1),false);}
+ assert.equal(venueConfirmedForAge(g,4),false);assert.equal(venueConfirmedForAge(g,5),true);
 });
