@@ -7,7 +7,7 @@ import { useVenueFilters } from "@/hooks/useVenueFilters";
 import { Venue, VenueFilterState } from "@/types/venue";
 import MobileDrawer from "./ui/MobileDrawer";
 import ShareCard from "./ui/ShareCard";
-import { Crosshair, Loader2, Moon, Sun, MapPin, X } from "lucide-react";
+import { Baby, Crosshair, Loader2, Moon, Sun, MapPin, X } from "lucide-react";
 
 // Dynamic import for the map (client-only)
 const VectorMap = dynamic(() => import("./map/VectorMap"), {
@@ -59,6 +59,8 @@ export default function MapHUD() {
   const [locationNoticeGone, setLocationNoticeGone] = useState(false);
   // Bumped when the area or activity filter changes so the map frames all matches.
   const [fitTick, setFitTick] = useState(0);
+  // Bumped by the map Age pill: opens the list with the age panel ready.
+  const [ageOpenTick, setAgeOpenTick] = useState(0);
   // Pin and list selections open the same detail page, without a preview state.
   const handleSelectVenue = useCallback((venue: Venue) => setActiveVenue(venue), []);
   const handleSelectFromList = handleSelectVenue;
@@ -76,7 +78,7 @@ export default function MapHUD() {
   useEffect(() => {
     setLocationNoticeGone(false);
     if (!locationError) return;
-    const t = setTimeout(() => setLocationNoticeGone(true), 8000);
+    const t = setTimeout(() => setLocationNoticeGone(true), 5000);
     return () => clearTimeout(t);
   }, [locationError]);
 
@@ -160,6 +162,19 @@ export default function MapHUD() {
         </button>
       </div>
 
+      {/* Phone: one Age pill on the map, so a child's age is one tap away. */}
+      {!activeVenue && mobileView === "map" && (
+        <button
+          type="button"
+          onClick={() => { handleSetView("list"); setAgeOpenTick((t) => t + 1); }}
+          aria-label="Set your child's age"
+          className="md:hidden absolute top-4 left-[8.5rem] z-[500] min-h-12 px-4 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#14532d] text-[1rem] font-bold flex items-center gap-2 active:scale-95"
+        >
+          <Baby className="w-4 h-4 text-[#1a7a4a]" />
+          {filters.ageMonths === null ? "Age" : `${filters.ageMonths} mo`}
+        </button>
+      )}
+
       {/* Mobile-Native Bottom Sheet / Desktop Floating HUD */}
       <MobileDrawer
         confirmed={confirmed}
@@ -167,7 +182,8 @@ export default function MapHUD() {
         activeVenue={activeVenue}
         onSelectFromList={handleSelectFromList}
         showDetails={showDetails}
-        backLabel={!isDesktop && mobileView === "map" ? "Back to map" : "All places"}
+        backLabel={!isDesktop && mobileView === "map" ? "Back to map" : "Back to list"}
+        ageOpenTick={ageOpenTick}
         onClearActiveVenue={handleClearActiveVenue}
         filters={filters}
         onUpdateFilter={handleUpdateFilter}

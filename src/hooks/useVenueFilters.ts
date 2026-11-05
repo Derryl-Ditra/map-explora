@@ -56,7 +56,12 @@ export function useVenueFilters(userPos: [number, number] | null) {
       return true;
     });
 
-    base.sort((a, b) => (a.distance || 0) - (b.distance || 0));
+    // With a real location fix, nearest first. Without one, group by area then name so the list can be scanned.
+    base.sort((a, b) =>
+      userPos
+        ? (a.distance || 0) - (b.distance || 0)
+        : a.area.localeCompare(b.area) || a.branchName.localeCompare(b.branchName)
+    );
 
     if (filters.ageMonths === null) return { confirmed: base, unconfirmed: [] as Venue[] };
     const months = filters.ageMonths;

@@ -26,3 +26,6 @@ test('unknown location leaves distance and eta unknown',()=>{
  assert.match(hook, /const eta = distance !== undefined \? calculateETA/);
  assert.match(hook, /distance: distance !== undefined \? Number\(distance.toFixed\(1\)\) : undefined/);
 });
+
+ test('browse Map action stays solid green outside scroll and preserves detail actions',()=>{const s=read('ui/MobileDrawer.tsx');assert.match(s,/aria-label="Browse views"/);assert.match(s,/w-full min-h-12 rounded-full bg-\[#1a7a4a\] text-white font-bold/);assert.ok(s.indexOf('aria-label="Browse views"')>s.indexOf('{/* Coverage honesty'));});
+ test('map age entry, capped cluster zoom and saved view restoration stay wired',()=>{assert.match(read('MapHUD.tsx'),/Set your child's age/);const s=read('map/VectorMap.tsx');assert.match(s,/maxZoom: 15/);assert.match(s,/center: saved.center, zoom: saved.zoom/);});

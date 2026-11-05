@@ -374,7 +374,7 @@ export default function VectorMap({
             (b, v) => b.extend([v.lng, v.lat]),
             new maplibregl.LngLatBounds([g.members[0].lng, g.members[0].lat], [g.members[0].lng, g.members[0].lat])
           );
-          map.fitBounds(bounds, { padding: 90, maxZoom: 17, duration: 500 });
+          map.fitBounds(bounds, { padding: 90, maxZoom: 15, duration: 500 });
         });
         addMarker(map, el, lng, lat, `cluster-${i}`);
       }
@@ -412,12 +412,20 @@ export default function VectorMap({
   }, [venues, activeVenueId]);
 
   // Selecting a place on a phone: keep the pin clear of the bottom card.
+  const savedViewRef = useRef<{ center: [number, number]; zoom: number } | null>(null);
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
     if (!activeVenueId) {
-      map.easeTo({ padding: { top: 0, bottom: 0, left: 0, right: 0 }, duration: 300 });
+      // Back: return to the overview the user left, not the street.
+      const saved = savedViewRef.current;
+      savedViewRef.current = null;
+      map.easeTo({ padding: { top: 0, bottom: 0, left: 0, right: 0 }, ...(saved ? { center: saved.center, zoom: saved.zoom } : {}), duration: 400 });
       return;
+    }
+    if (!savedViewRef.current) {
+      const c = map.getCenter();
+      savedViewRef.current = { center: [c.lng, c.lat], zoom: map.getZoom() };
     }
     const v = venuesRef.current.find((x) => x.id === activeVenueId);
     if (!v) return;
