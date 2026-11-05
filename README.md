@@ -45,3 +45,7 @@ Location is read once on opening the app, and again when you tap Locate. The lat
 ## Icon credit
 
 The app icon uses the "horse-toy" outline from [Tabler Icons](https://github.com/tabler/tabler-icons), MIT License, Copyright (c) 2020-2026 Pawel Kuna. See `public/ICON-LICENSE.txt`. PNG and ico files are generated into `public/` by `scripts/decode-icons.mjs` before dev and build.
+
+## Public discovery
+
+`/activities/` links to area and activity guides generated from the same provider-listed records as the map. `/venues.json` exports those records with evidence and uncertainty preserved. `/sitemap.xml` lists public page URLs. No separate agent-only pages, inferred class availability or citation guarantees. See `docs/discovery-qa.md` for checks and the GitHub Pages root-robots limitation.
