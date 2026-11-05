@@ -5,6 +5,7 @@ import { VENUES } from "@/data/venues";
 import { Venue, VenueFilterState } from "@/types/venue";
 import { calculateDistance, calculateETA } from "@/utils/geo";
 import { venueConfirmedForAge } from "@/utils/ageMatch";
+import { venueMatchesSearch } from "@/utils/searchMatch";
 import { isShownToUsers } from "@/utils/visibility";
 
 // Only places with an official aliveness source are shown. The rest stay in the data file.
@@ -48,13 +49,7 @@ export function useVenueFilters(userPos: [number, number] | null) {
     });
 
     const base = withDistance.filter((v) => {
-      if (filters.searchQuery.trim()) {
-        const q = filters.searchQuery.toLowerCase();
-        const hay = [v.branchName, v.chain ?? "", v.address, v.area, v.city]
-          .join(" ")
-          .toLowerCase();
-        if (!hay.includes(q)) return false;
-      }
+      if (!venueMatchesSearch(v, filters.searchQuery)) return false;
       if (filters.category !== "ALL" && !v.categories.includes(filters.category))
         return false;
       if (filters.area !== "ALL" && v.area !== filters.area) return false;
