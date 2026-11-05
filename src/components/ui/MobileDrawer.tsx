@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback, useSyncExternalStore } from "react";
+import { useLayoutEffect, useRef, useCallback, useSyncExternalStore } from "react";
 import { Venue, VenueFilterState } from "@/types/venue";
 import { buildMapsLink } from "@/utils/mapsLink";
 import { hasVerifiedAgeEvidence } from "@/utils/ageMatch";
@@ -29,8 +29,6 @@ interface MobileDrawerProps {
   onSelectFromList: (venue: Venue) => void;
 }
 
-type Snap = "peek" | "half" | "full";
-
 function useIsDesktop(): boolean {
   return useSyncExternalStore(
     (cb) => {
@@ -40,17 +38,6 @@ function useIsDesktop(): boolean {
     },
     () => window.matchMedia("(min-width: 768px)").matches,
     () => false
-  );
-}
-
-function useWindowHeight(): number {
-  return useSyncExternalStore(
-    (cb) => {
-      window.addEventListener("resize", cb);
-      return () => window.removeEventListener("resize", cb);
-    },
-    () => window.innerHeight,
-    () => 800
   );
 }
 
@@ -115,9 +102,7 @@ function VenueCard({
   );
 }
 
-// Mobile: a real bottom sheet with peek/half/full stops so the map is always
-// part of the experience (never a fullscreen panel that hides it). Desktop:
-// the floating sidebar beside the always-visible map, unchanged in shape.
+// Mobile has two explicit modes. Details return to the originating mode.
 export default function MobileDrawer({
   confirmed,
   unconfirmed,
@@ -139,117 +124,24 @@ export default function MobileDrawer({
   const ageActive = filters.ageMonths !== null;
 
   const isDesktop = useIsDesktop();
-  const winH = useWindowHeight();
-  const stops: Record<Snap, number> = {
-    // Tall enough for BOTH summary pill rows (44px chips + gap + padding) -
-    // anything shorter clips pills mid-row and makes them look broken.
-    peek: 246,
-    half: Math.round(winH * 0.52),
-    full: winH - 12,
-  };
-
-  const [snap, setSnap] = useState<Snap>("peek");
-  const [dragH, setDragH] = useState<number | null>(null);
-  const dragRef = useRef<{ startY: number; startH: number } | null>(null);
-  const movedRef = useRef(false);
-  // Last view we pushed up, so prop echoes don't fight the user's drag.
-  const lastEmittedView = useRef<"list" | "map">("map");
-
-  // External view requests land on the sheet: list = full, map = peek.
-  useEffect(() => {
-    if (mobileView === lastEmittedView.current) return;
-    lastEmittedView.current = mobileView;
-    setSnap(mobileView === "list" ? "full" : "peek");
-  }, [mobileView]);
-
-  // Details always take the full sheet.
-  useEffect(() => {
-    if (showDetails) setSnap("full");
-  }, [showDetails]);
-
-  const emitView = useCallback(
-    (s: Snap) => {
-      const view = s === "full" ? "list" : "map";
-      if (view !== lastEmittedView.current) {
-        lastEmittedView.current = view;
-        onSetMobileView(view);
-      }
-    },
-    [onSetMobileView]
-  );
-
-  const snapTo = useCallback(
-    (s: Snap) => {
-      setSnap(s);
-      emitView(s);
-    },
-    [emitView]
-  );
-
-  // Tap or Enter/Space on the handle cycles peek -> half -> full so the
-  // sheet is reachable without a drag gesture (touch, keyboard, switch).
-  const toggleSnap = useCallback(() => {
-    const ordered: Snap[] = ["peek", "half", "full"];
-    snapTo(ordered[(ordered.indexOf(snap) + 1) % ordered.length]);
-  }, [snap, snapTo]);
-
-  // Dragging the handle: track, then snap to the nearest stop on release.
-  const onHandleDown = useCallback(
-    (e: React.PointerEvent) => {
-      if (isDesktop) return;
-      e.preventDefault();
-      const startH = dragH ?? stops[snap];
-      dragRef.current = { startY: e.clientY, startH };
-      movedRef.current = false;
-      const move = (ev: PointerEvent) => {
-        const d = dragRef.current;
-        if (!d) return;
-        if (Math.abs(d.startY - ev.clientY) > 6) movedRef.current = true;
-        const next = d.startH + (d.startY - ev.clientY);
-        setDragH(Math.max(stops.peek - 24, Math.min(stops.full, next)));
-      };
-      const up = (ev: PointerEvent) => {
-        window.removeEventListener("pointermove", move);
-        window.removeEventListener("pointerup", up);
-        const d = dragRef.current;
-        dragRef.current = null;
-        if (!d) return;
-        const finalH = Math.max(stops.peek - 24, Math.min(stops.full, d.startH + (d.startY - ev.clientY)));
-        setDragH(null);
-        const ordered: Snap[] = ["peek", "half", "full"];
-        const nearest = ordered.reduce((best, s) =>
-          Math.abs(stops[s] - finalH) < Math.abs(stops[best] - finalH) ? s : best
-        );
-        snapTo(nearest);
-      };
-      window.addEventListener("pointermove", move);
-      window.addEventListener("pointerup", up);
-    },
-    [isDesktop, dragH, snap, stops.peek, stops.half, stops.full, snapTo]
-  );
-
-  // Picking an area or activity collapses the sheet to peek so the map's
-  // glide to the matches is visible — the map answers the filter.
-  const handleFilter = useCallback(
-    <K extends keyof VenueFilterState>(key: K, value: VenueFilterState[K]) => {
-      onUpdateFilter(key, value);
-      if (!isDesktop && (key === "area" || key === "category")) snapTo("peek");
-    },
-    [onUpdateFilter, isDesktop, snapTo]
-  );
-
-  // Hidden while a bottom selection card owns the
-  // space. Desktop always shows the sidebar.
   const detailsScrollRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (activeVenue && showDetails) {
-      detailsScrollRef.current?.scrollTo({ top: 0 });
+  const listScrollRef = useRef(0);
+  const wasDetails = useRef(false);
+  useLayoutEffect(() => {
+    const el = detailsScrollRef.current;
+    if (!el) return;
+    if (showDetails) {
+      el.scrollTo({ top: 0 });
+    } else if (wasDetails.current) {
+      el.scrollTo({ top: listScrollRef.current });
     }
+    wasDetails.current = showDetails;
   }, [activeVenue?.id, showDetails]);
-
-  const mobileHidden = !!activeVenue && !showDetails;
-
-  const sheetH = dragH ?? stops[snap];
+  const handleFilter = useCallback(
+    <K extends keyof VenueFilterState>(key: K, value: VenueFilterState[K]) => onUpdateFilter(key, value),
+    [onUpdateFilter]
+  );
+  const mobileHidden = mobileView === "map" && !showDetails;
 
   const header = (
     <div className="px-4 pt-1 pb-2 shrink-0">
@@ -289,7 +181,7 @@ export default function MobileDrawer({
   return (
     <aside
       aria-label="Under-5 class places and filters"
-      style={isDesktop ? undefined : { height: mobileHidden ? 0 : sheetH }}
+      style={isDesktop ? undefined : { height: "100dvh" }}
       className={`
         fixed z-[1000] flex-col
         bottom-0 left-0 right-0 rounded-t-3xl
@@ -297,26 +189,13 @@ export default function MobileDrawer({
         shadow-[0_-6px_24px_rgba(34,29,24,0.14)]
         md:top-6 md:left-6 md:right-auto md:bottom-auto md:w-[26rem] md:h-[calc(100dvh-48px)]
         md:border md:rounded-3xl md:shadow-[0_4px_24px_rgba(34,29,24,0.10)]
-        ${dragH !== null ? "" : "transition-[height] duration-200 ease-out"}
+        
         ${mobileHidden ? "hidden md:flex" : "flex"}
       `}
     >
-      {/* Drag handle (mobile only) */}
-      <div
-        className="md:hidden shrink-0 h-11 flex items-center justify-center cursor-grab active:cursor-grabbing touch-none"
-        onPointerDown={onHandleDown}
-        onClick={() => { if (!movedRef.current) toggleSnap(); }}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleSnap(); }
-        }}
-        role="button"
-        tabIndex={0}
-        aria-label="Place list size. Tap or press Enter to cycle peek, half and full, or drag."
-      >
-        <div className="w-10 h-1.5 rounded-full bg-[#d8d0c2]" />
-      </div>
-
       {header}
+      {!showDetails && <button type="button" onClick={() => onSetMobileView("map")} className="md:hidden mx-4 my-2 min-h-12 rounded-xl border border-[#1a7a4a] text-[#1a7a4a] font-semibold">Map</button>}
+
 
       {/* Content */}
       <div ref={detailsScrollRef} className="flex-1 min-h-0 overflow-y-auto px-4 pt-1 pb-3 flex flex-col gap-3">
@@ -336,7 +215,7 @@ export default function MobileDrawer({
                 type="text"
                 placeholder="Search class, brand, area, or street"
                 value={filters.searchQuery}
-                onFocus={() => { if (!isDesktop && snap === "peek") snapTo("half"); }}
+                
                 onChange={(e) => handleFilter("searchQuery", e.target.value)}
                 className="w-full pl-11 pr-4 py-3 bg-white border border-[#e7e0d4] rounded-2xl text-[1rem] text-[#221d18] placeholder-[#6d675f] focus:outline-none focus:border-[#1a7a4a] focus:ring-2 focus:ring-[#1a7a4a]/20"
               />
@@ -349,7 +228,7 @@ export default function MobileDrawer({
               onResetFilters={onResetFilters}
               categories={categories}
               areas={areas}
-              onOpenPanel={() => { if (!isDesktop && snap === "peek") snapTo("half"); }}
+              
             />
 
             {/* Venue List */}
@@ -382,7 +261,7 @@ export default function MobileDrawer({
                       key={venue.id}
                       venue={venue}
                       fit={ageActive ? "confirmed" : null}
-                      onSelect={() => onSelectFromList(venue)}
+                      onSelect={() => { listScrollRef.current = detailsScrollRef.current?.scrollTop ?? 0; onSelectFromList(venue); }}
                     />
                   ))}
                   {ageActive && unconfirmed.length > 0 && (
@@ -397,7 +276,7 @@ export default function MobileDrawer({
                         key={venue.id}
                         venue={venue}
                         fit="unconfirmed"
-                        onSelect={() => onSelectFromList(venue)}
+                        onSelect={() => { listScrollRef.current = detailsScrollRef.current?.scrollTop ?? 0; onSelectFromList(venue); }}
                       />
                     ))}
                 </>
@@ -418,8 +297,8 @@ export default function MobileDrawer({
       </div>
       {activeVenue && showDetails && (
         <nav aria-label="Place actions" className="md:hidden shrink-0 border-t border-[#e7e0d4] bg-[#f6f2ec] px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] flex items-center gap-3">
-          <button type="button" onClick={() => onSetMobileView("map")} className="min-h-12 px-2 flex items-center gap-1 text-[#1a7a4a] font-semibold text-[0.9375rem]">
-            <ArrowLeft className="w-4 h-4" /> Back to map
+          <button type="button" onClick={onClearActiveVenue} className="min-h-12 px-2 flex items-center gap-1 text-[#1a7a4a] font-semibold text-[0.9375rem]">
+            <ArrowLeft className="w-4 h-4" /> {backLabel}
           </button>
           <a href={buildMapsLink(activeVenue)} target="_blank" rel="noopener noreferrer" className="min-h-12 flex-1 flex items-center justify-center gap-2 px-4 rounded-full bg-[#1a7a4a] text-white font-bold text-[1rem]" aria-label={activeVenue.coordinateSource === "area-approximate" || activeVenue.caution ? "Search in Google Maps" : "Directions in Google Maps"}>
             <Navigation className="w-4 h-4" />{activeVenue.coordinateSource === "area-approximate" || activeVenue.caution ? "Search Maps" : "Directions"}<ExternalLink className="w-3.5 h-3.5" />
