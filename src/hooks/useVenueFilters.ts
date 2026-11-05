@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import { VENUES } from "@/data/venues";
 import { Venue, VenueFilterState } from "@/types/venue";
 import { calculateDistance, calculateETA } from "@/utils/geo";
-import { venueConfirmedForAge } from "@/utils/ageMatch";
+import { venueConfirmedForGroup } from "@/utils/ageMatch";
 import { isShownToUsers } from "@/utils/visibility";
 
 // Only places with an official aliveness source are shown. The rest stay in the data file.
@@ -13,7 +13,7 @@ const SHOWN_VENUES = VENUES.filter(isShownToUsers);
 export function useVenueFilters(userPos: [number, number] | null) {
   const [filters, setFilters] = useState<VenueFilterState>({
     searchQuery: "",
-    ageMonths: null,
+    ageGroup: null,
     category: "ALL",
     area: "ALL",
   });
@@ -26,7 +26,7 @@ export function useVenueFilters(userPos: [number, number] | null) {
   };
 
   const resetFilters = () => {
-    setFilters({ searchQuery: "", ageMonths: null, category: "ALL", area: "ALL" });
+    setFilters({ searchQuery: "", ageGroup: null, category: "ALL", area: "ALL" });
   };
 
   const categories = useMemo(
@@ -63,12 +63,12 @@ export function useVenueFilters(userPos: [number, number] | null) {
 
     base.sort((a, b) => (a.distance || 0) - (b.distance || 0));
 
-    if (filters.ageMonths === null) return { confirmed: base, unconfirmed: [] as Venue[] };
-    const months = filters.ageMonths;
+    if (filters.ageGroup === null) return { confirmed: base, unconfirmed: [] as Venue[] };
+    const groupMax = filters.ageGroup;
     const yes: Venue[] = [];
     const maybe: Venue[] = [];
     for (const v of base) {
-      (venueConfirmedForAge(v, months) ? yes : maybe).push(v);
+      (venueConfirmedForGroup(v, groupMax) ? yes : maybe).push(v);
     }
     return { confirmed: yes, unconfirmed: maybe };
   }, [filters, userPos]);
