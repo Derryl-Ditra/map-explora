@@ -1,3 +1,5 @@
+import { BATCH3_VENUES } from "./venues-batch3";
+
 // GENERATED from the reviewed research dataset under4-places-jabodetabek v15-2026-11-03-golden-baby.
 // Do not hand-edit; keep in sync with the reviewed source dataset (maintained outside this repo). Every
 // record carries its verification status (fitStatus) and per-program evidence
@@ -8,6 +10,9 @@
 import { Venue } from "@/types/venue";
 
 export const VENUES: Venue[] = [
+ 
+ ...BATCH3_VENUES,
+
  {
   "id": "aquababies-bintaro",
   "chain": "Aquababies",
