@@ -15,8 +15,8 @@ export function claimCovers(age: AgeClaim, months: number): boolean | null {
 // not establish inclusivity at the flagged boundary, so an exact boundary
 // month is never a confirmed match. "upper-bound ... ambiguous" flags only
 // the max; an unspecified "boundary ambiguous" flags both ends. This matters
-// inside 0-59 too: a flagged 48-month or 36-month boundary remains
-// uncertain even though it is inside the under-5 scope.
+// inside 0-47 too: 48 is outside the under-4 scope, but a flagged 36-month
+// ("3 yr") boundary is not.
 export function claimCoversWithNote(age: AgeClaim, months: number, note?: string): boolean | null {
   const base = claimCovers(age, months);
   if (base !== true || !note || !/ambigu/i.test(note)) return base;
@@ -45,22 +45,4 @@ export function venueConfirmedForAge(v: Venue, months: number): boolean {
       p.age.level === "branch" &&
       claimCoversWithNote(p.age, months, p.note) === true
   );
-}
-
-export const AGE_GROUPS = [
-  { label: "12 months and under", min: 0, max: 12 },
-  { label: "13 to 24 months", min: 13, max: 24 },
-  { label: "25 to 36 months", min: 25, max: 36 },
-  { label: "37 to 48 months", min: 37, max: 48 },
-  { label: "49 to 59 months", min: 49, max: 59 },
-];
-// A group match means at least one age in the group fits a confirmed branch
-// claim, not that every child in the group is eligible. Preserve exact boundaries.
-export function venueConfirmedForGroup(v: Venue, groupMax: number): boolean {
-  const group = AGE_GROUPS.find(g => g.max === groupMax);
-  if (!group) return false;
-  for (let month = group.min; month <= group.max; month++) {
-    if (venueConfirmedForAge(v, month)) return true;
-  }
-  return false;
 }
