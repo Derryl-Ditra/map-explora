@@ -49,7 +49,7 @@ export default function MapHUD() {
     useVenueFilters(hasActualLocation ? userPos : null);
   const [activeVenue, setActiveVenue] = useState<Venue | null>(null);
   const [showShareCard, setShowShareCard] = useState(false);
-  const [mapStyle, setMapStyle] = useState<"dark" | "light">("light");
+  const [mapStyle, setMapStyle] = useState<"dark" | "light">("dark");
   // Mobile is map-first: the map is the default view. The list, search and
   // filters open from the "places" bar or the List toggle.
   const [mobileView, setMobileView] = useState<"list" | "map">("map");
