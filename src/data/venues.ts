@@ -5439,7 +5439,50 @@ export const VENUES: Venue[] = [
   "lat": -6.2706229,
   "lng": 106.8196063,
   "coordinateSource": "maps-pin",
-  "programs": [],
+  "programs": [
+   {
+    "name": "Baby Blossoms",
+    "category": "Sensory & Play",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 12,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.brightlittlestarsedu.com/programs/little-sparkles",
+     "sourceCheckedAt": "2026-11-05"
+    },
+    "note": "Provider class image states 6-12 months; page explicitly places Little Sparkles at Kemang."
+   },
+   {
+    "name": "Giggles and Glows",
+    "category": "Sensory & Play",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.brightlittlestarsedu.com/programs/little-sparkles",
+     "sourceCheckedAt": "2026-11-05"
+    },
+    "note": "Provider prose and class image both state 12-18 months; Little Sparkles at Kemang."
+   },
+   {
+    "name": "Cuddle Bugs",
+    "category": "Sensory & Play",
+    "offering": "offered",
+    "age": {
+     "minMonths": 18,
+     "maxMonths": 24,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.brightlittlestarsedu.com/programs/little-sparkles",
+     "sourceCheckedAt": "2026-11-05"
+    },
+    "note": "Provider class paragraph states 18-24 months; Little Sparkles at Kemang."
+   }
+  ],
   "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Bright+Little+Stars+Kemang",
   "lastCheckedAt": null,
   "fitStatus": "official-chain-program",
@@ -5474,7 +5517,64 @@ export const VENUES: Venue[] = [
   "lat": -6.2743367,
   "lng": 106.7041113,
   "coordinateSource": "maps-pin",
-  "programs": [],
+  "programs": [
+   {
+    "name": "Incredible Infant",
+    "category": "Sensory & Play",
+    "offering": "offered",
+    "age": {
+     "minMonths": 3,
+     "maxMonths": 6,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.brightlittlestarsedu.com/programs/sensory-immersion",
+     "sourceCheckedAt": "2026-11-05"
+    },
+    "note": "Provider class image states exact month bounds; page explicitly offers Sensory Immersion at Bintaro and BSD."
+   },
+   {
+    "name": "Brilliant Baby",
+    "category": "Sensory & Play",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 12,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.brightlittlestarsedu.com/programs/sensory-immersion",
+     "sourceCheckedAt": "2026-11-05"
+    },
+    "note": "Provider class image states exact month bounds; page explicitly offers Sensory Immersion at Bintaro and BSD."
+   },
+   {
+    "name": "Thriving Toddler",
+    "category": "Sensory & Play",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.brightlittlestarsedu.com/programs/sensory-immersion",
+     "sourceCheckedAt": "2026-11-05"
+    },
+    "note": "Provider class image states exact month bounds; page explicitly offers Sensory Immersion at Bintaro and BSD."
+   },
+   {
+    "name": "Talented Toddler",
+    "category": "Sensory & Play",
+    "offering": "offered",
+    "age": {
+     "minMonths": 18,
+     "maxMonths": 24,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.brightlittlestarsedu.com/programs/sensory-immersion",
+     "sourceCheckedAt": "2026-11-05"
+    },
+    "note": "Provider class image states exact month bounds; page explicitly offers Sensory Immersion at Bintaro and BSD."
+   }
+  ],
   "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Bright+Little+Stars+Bintaro",
   "lastCheckedAt": null,
   "fitStatus": "official-chain-program",
@@ -5509,7 +5609,64 @@ export const VENUES: Venue[] = [
   "lat": -6.2912389,
   "lng": 106.6271964,
   "coordinateSource": "maps-pin",
-  "programs": [],
+  "programs": [
+   {
+    "name": "Incredible Infant",
+    "category": "Sensory & Play",
+    "offering": "offered",
+    "age": {
+     "minMonths": 3,
+     "maxMonths": 6,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.brightlittlestarsedu.com/programs/sensory-immersion",
+     "sourceCheckedAt": "2026-11-05"
+    },
+    "note": "Provider class image states exact month bounds; page explicitly offers Sensory Immersion at Bintaro and BSD."
+   },
+   {
+    "name": "Brilliant Baby",
+    "category": "Sensory & Play",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 12,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.brightlittlestarsedu.com/programs/sensory-immersion",
+     "sourceCheckedAt": "2026-11-05"
+    },
+    "note": "Provider class image states exact month bounds; page explicitly offers Sensory Immersion at Bintaro and BSD."
+   },
+   {
+    "name": "Thriving Toddler",
+    "category": "Sensory & Play",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.brightlittlestarsedu.com/programs/sensory-immersion",
+     "sourceCheckedAt": "2026-11-05"
+    },
+    "note": "Provider class image states exact month bounds; page explicitly offers Sensory Immersion at Bintaro and BSD."
+   },
+   {
+    "name": "Talented Toddler",
+    "category": "Sensory & Play",
+    "offering": "offered",
+    "age": {
+     "minMonths": 18,
+     "maxMonths": 24,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.brightlittlestarsedu.com/programs/sensory-immersion",
+     "sourceCheckedAt": "2026-11-05"
+    },
+    "note": "Provider class image states exact month bounds; page explicitly offers Sensory Immersion at Bintaro and BSD."
+   }
+  ],
   "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Bright+Little+Stars+Learning+Center+BSD",
   "lastCheckedAt": null,
   "fitStatus": "official-chain-program",
