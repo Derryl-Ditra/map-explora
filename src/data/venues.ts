@@ -1,3 +1,4 @@
+import { UPDATES } from "./review-aggregate-refresh";
 import { BATCH3_VENUES } from "./venues-batch3";
 
 // GENERATED from the reviewed research dataset under4-places-jabodetabek v15-2026-11-03-golden-baby.
@@ -7433,3 +7434,12 @@ export const VENUES: Venue[] = [
 
  }
 ];
+
+// Aggregate-only checks never reset existing review-theme dates.
+for (const venue of VENUES) {
+  const aggregate = UPDATES[venue.id];
+  if (!aggregate) continue;
+  venue.reviews = venue.reviews
+    ? { ...venue.reviews, rating: aggregate.rating, reviewCount: aggregate.reviewCount }
+    : { ...aggregate, source: "Google Maps", checkedAt: "2026-11-05", praiseThemes: [], complaintThemes: [], sampleNote: "Rating and count only. Review themes not collected." };
+}
