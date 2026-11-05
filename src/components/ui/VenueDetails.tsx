@@ -42,13 +42,6 @@ function formatAgeRange(age: AgeClaim): string {
   return `${lo} - ${formatMonths(age.maxMonths)}`;
 }
 
-// A note that only restates the claim's own range (for example "12-23 mo"
-// under "Walker (12 mo - 23 mo)") adds nothing; provenance notes stay.
-function isDuplicateRangeNote(age: AgeClaim, note?: string): boolean {
-  if (!note || age.sourceConflict) return false;
-  return /^\s*\d+\s*-\s*\d+\s*(mo|months|yr|yrs|years)\s*$/i.test(note);
-}
-
 export default function VenueDetails({
   venue,
   onBack,
@@ -157,25 +150,7 @@ export default function VenueDetails({
                 <span className="text-[1rem] text-[#221d18]">
                   <span className="font-medium">{p.name}</span>{" "}
                   <span className="text-[#6d675f]">({formatAgeRange(p.age)})</span>
-                  {p.note && !isDuplicateRangeNote(p.age, p.note) &&
-                    (
-                      <span className="block text-[1rem] text-[#6d675f] mt-1 leading-snug">
-                        {p.note}
-                        {p.noteUrl && (
-                          <>
-                            {" "}
-                            <a
-                              href={p.noteUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="underline text-[#1a7a4a] font-medium"
-                            >
-                              {p.noteLabel ?? "Source"}
-                            </a>
-                          </>
-                        )}
-                      </span>
-                    )}
+
                 </span>
                 <span className={`text-[0.8125rem] font-bold px-2 py-1 rounded-full shrink-0 bg-[#e3f2e8] text-[#14532d]`}>
                   Verified
