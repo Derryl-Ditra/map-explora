@@ -1,123 +1,85 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useMemo } from "react";
+import { VENUES } from "@/data/venues";
+import { Venue, VenueFilterState } from "@/types/venue";
+import { calculateDistance, calculateETA } from "@/utils/geo";
+import { venueConfirmedForAge, hasVerifiedAgeEvidence } from "@/utils/ageMatch";
+import { venueMatchesSearch } from "@/utils/searchMatch";
+import { isShownToUsers } from "@/utils/visibility";
 
-const JAKARTA_CENTER: [number, number] = [-6.2088, 106.8456];
-const CACHE_KEY = "map-explora:user-pos:v1";
+// Only places with an official aliveness source are shown. The rest stay in the data file.
+const SHOWN_VENUES = VENUES.filter(isShownToUsers);
 
-// One location fix per visit; the locate button requests another. No live tracking.
-type CachedPos = { lat: number; lng: number; accuracy: number | null };
+export function useVenueFilters(userPos: [number, number] | null) {
+  const [filters, setFilters] = useState<VenueFilterState>({
+    searchQuery: "",
+    ageMonths: null,
+    category: "ALL",
+    area: "ALL",
+  });
 
-function readCache(): CachedPos | null {
-  try {
-    const raw = localStorage.getItem(CACHE_KEY);
-    if (!raw) return null;
-    const p = JSON.parse(raw);
-    if (typeof p?.lat !== "number" || typeof p?.lng !== "number") return null;
-    return { lat: p.lat, lng: p.lng, accuracy: typeof p.accuracy === "number" ? p.accuracy : null };
-  } catch {
-    return null;
-  }
-}
+  const updateFilter = <K extends keyof VenueFilterState>(
+    key: K,
+    value: VenueFilterState[K]
+  ) => {
+    setFilters((prev) => ({ ...prev, [key]: value }));
+  };
 
-function writeCache(lat: number, lng: number, accuracy: number | null) {
-  try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify({ lat, lng, accuracy, at: Date.now() }));
-  } catch {
-    // Storage full or blocked: the app still works, the next visit just refixes.
-  }
-}
+  const resetFilters = () => {
+    setFilters({ searchQuery: "", ageMonths: null, category: "ALL", area: "ALL" });
+  };
 
-export function useGeolocation() {
-  const [userPos, setUserPos] = useState<[number, number] | null>(JAKARTA_CENTER);
-  const [accuracy, setAccuracy] = useState<number | null>(null);
-  const [hasActualLocation, setHasActualLocation] = useState(false);
-  const [isLocating, setIsLocating] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [recenterTick, setRecenterTick] = useState(0);
+  const categories = useMemo(
+    () => [...new Set(SHOWN_VENUES.flatMap((v) => v.categories))].sort(),
+    []
+  );
+  const areas = useMemo(
+    () => [...new Set(SHOWN_VENUES.map((v) => v.area))].sort(),
+    []
+  );
 
-  useEffect(() => {
-    const init = requestAnimationFrame(() => {
-    if (typeof navigator === "undefined" || !("geolocation" in navigator)) {
-      setError("Geolocation is not supported by this browser.");
-      setIsLocating(false);
-      return;
-    }
-
-
-    const cached = readCache();
-    if (cached) {
-      setUserPos([cached.lat, cached.lng]);
-      setAccuracy(cached.accuracy);
-      setHasActualLocation(true);
-    }
-
-    const applyFix = (pos: GeolocationPosition) => {
-      if (!mounted) return;
-      const acc = typeof pos.coords.accuracy === "number" ? pos.coords.accuracy : null;
-      setUserPos([pos.coords.latitude, pos.coords.longitude]);
-      setAccuracy(acc);
-      setHasActualLocation(true);
-      setIsLocating(false);
-      setError(null);
-      writeCache(pos.coords.latitude, pos.coords.longitude, acc);
-    };
-
-    const applyError = (err: GeolocationPositionError) => {
-      if (!mounted) return;
-      // A cached fix stays usable silently; only a device with no fix at all
-      // sees the banner.
-      if (!readCache()) {
-        setError(
-          err.code === err.PERMISSION_DENIED
-            ? "Location permission denied. Map is centered on Jakarta."
-            : `Location unavailable: ${err.message}`
-        );
-      }
-      setIsLocating(false);
-    };
-
-    // Browsing: one fix per visit. Cached value above renders instantly.
-    navigator.geolocation.getCurrentPosition(applyFix, applyError, {
-      enableHighAccuracy: false,
-      maximumAge: 60000,
-      timeout: 15000,
+  const { confirmed, unconfirmed } = useMemo(() => {
+    const withDistance = SHOWN_VENUES.map((v) => {
+      const distance = userPos
+        ? calculateDistance(userPos[0], userPos[1], v.lat, v.lng)
+        : undefined;
+      const eta = distance !== undefined ? calculateETA(distance, 25) : undefined;
+      return { ...v, distance: distance !== undefined ? Number(distance.toFixed(1)) : undefined, eta };
     });
-    });
-    let mounted = true;
-    return () => { mounted = false; cancelAnimationFrame(init); };
-  }, []);
 
-  // Locate button: take one fresh fix, then recenter on it.
-  const refresh = useCallback(() => {
-    if (typeof navigator === "undefined" || !("geolocation" in navigator)) return;
-    setIsLocating(true);
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        setUserPos([pos.coords.latitude, pos.coords.longitude]);
-        const acc = typeof pos.coords.accuracy === "number" ? pos.coords.accuracy : null;
-        setAccuracy(acc);
-        setHasActualLocation(true);
-        setIsLocating(false);
-        setError(null);
-        writeCache(pos.coords.latitude, pos.coords.longitude, acc);
-        setRecenterTick((t) => t + 1);
-      },
-      () => {
-        setIsLocating(false);
-        setRecenterTick((t) => t + 1);
-      },
-      { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 }
+    const base = withDistance.filter((v) => {
+      if (!venueMatchesSearch(v, filters.searchQuery)) return false;
+      if (filters.category !== "ALL" && !v.categories.includes(filters.category))
+        return false;
+      if (filters.area !== "ALL" && v.area !== filters.area) return false;
+      return true;
+    });
+
+    // With a real location fix, nearest first. Without one, group by area then name so the list can be scanned.
+    base.sort((a, b) =>
+      Number(hasVerifiedAgeEvidence(b)) - Number(hasVerifiedAgeEvidence(a)) || (userPos
+        ? (a.distance || 0) - (b.distance || 0)
+        : a.area.localeCompare(b.area) || a.branchName.localeCompare(b.branchName))
     );
-  }, []);
+
+    if (filters.ageMonths === null) return { confirmed: base, unconfirmed: [] as Venue[] };
+    const months = filters.ageMonths;
+    const yes: Venue[] = [];
+    const maybe: Venue[] = [];
+    for (const v of base) {
+      (venueConfirmedForAge(v, months) ? yes : maybe).push(v);
+    }
+    return { confirmed: yes, unconfirmed: maybe };
+  }, [filters, userPos]);
 
   return {
-    userPos,
-    accuracy,
-    hasActualLocation,
-    isLocating,
-    error,
-    recenterTick,
-    refresh,
+    filters,
+    updateFilter,
+    resetFilters,
+    categories,
+    areas,
+    confirmed,
+    unconfirmed,
   };
 }
