@@ -1,3 +1,4 @@
+import {readFileSync} from 'node:fs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {importTs} from './loadTs.mjs';
@@ -26,4 +27,9 @@ test('every confirmed place at all 60 stepper months has visible evidence coveri
 test('hidden class never confirms even away from its ambiguous boundary',()=>{
  const v={programs:[{name:'hidden',offering:'offered',age:claim,note:'upper-bound ambiguous'}]};
  assert.equal(verifiedPrograms(v).length,0);assert.equal(venueConfirmedForAge(v,12),false);
+});
+
+test('guide class rows and branch statements share the verified evidence gate',()=>{
+ const s=readFileSync(new URL('../src/app/activities/[slug]/page.tsx',import.meta.url),'utf8');
+ assert.match(s,/isVerifiedAgeClaim\(v.branchAge\)/);assert.match(s,/verifiedPrograms\(v\)/);assert.doesNotMatch(s,/v.programs.filter|Confirm class/);
 });
