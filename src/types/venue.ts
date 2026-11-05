@@ -107,7 +107,7 @@ export interface ReviewSummary {
 
 export interface VenueFilterState {
   searchQuery: string;
-  ageMonths: number | null; // child's exact age in months (0-59); null = any
+  ageGroup: number | null; // selected age-group upper bound (12, 24, 36, 48, 59); null = any
   category: string; // "ALL" or a category present in the dataset
   area: string; // "ALL" or an area present in the dataset
 }
