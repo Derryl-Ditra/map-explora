@@ -68,7 +68,7 @@ export default function SelectionCard({
         <button
           type="button"
           onClick={onDetails}
-          className="flex-1 flex items-center justify-center gap-1 py-3 rounded-full bg-white border border-[#e7e0d4] text-[#221d18] font-semibold text-[1rem]"
+          className="min-h-12 px-4 flex items-center justify-center gap-1 rounded-full bg-white border border-[#e7e0d4] text-[#221d18] font-semibold text-[1rem]"
         >
           Details
           <ChevronRight className="w-4 h-4" />
