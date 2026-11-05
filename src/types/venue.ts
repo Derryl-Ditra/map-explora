@@ -1,11 +1,11 @@
-// Under-4 activities map: domain model (aligned with the research collection plan).
-// "Under 4" means under 48 months.
+// Under-5 activities map: domain model (aligned with the research collection plan).
+// "Under 5" means under 60 months.
 // Honesty rules baked into the type system:
 // - a branch offers MANY programs; each program has its own age range
 // - a program's offering status at this branch is explicit: offered / not-offered /
 //   unknown. Co-occurrence on a brand website never counts as branch offering.
 // - brand-level program ages and branch-level confirmation are SEPARATE:
-//   a chain accepting under-4s never proves this branch runs those classes
+//   a chain accepting under-5s never proves this branch runs those classes
 // - age matching is by exact months against program ranges; coarse UI age chips
 //   are a presentation choice only, never the match logic (18/30-month cutoffs
 //   must not be misclassified)
@@ -127,7 +127,7 @@ export interface ReviewSummary {
 
 export interface VenueFilterState {
   searchQuery: string;
-  ageMonths: number | null; // child's exact age in months (0-47); null = any
+  ageMonths: number | null; // child's exact age in months (0-59); null = any
   category: string; // "ALL" or a category present in the dataset
   area: string; // "ALL" or an area present in the dataset
 }
