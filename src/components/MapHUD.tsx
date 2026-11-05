@@ -1,530 +1,214 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import * as maplibregl from "maplibre-gl";
+import { useState, useCallback, useEffect, useSyncExternalStore } from "react";
+import dynamic from "next/dynamic";
+import { useGeolocation } from "@/hooks/useGeolocation";
+import { useVenueFilters } from "@/hooks/useVenueFilters";
+import { Venue, VenueFilterState } from "@/types/venue";
+import MobileDrawer from "./ui/MobileDrawer";
+import ShareCard from "./ui/ShareCard";
+import { Baby, Crosshair, Loader2, Moon, Sun, MapPin, X } from "lucide-react";
 
-// Turbopack's worker bundling breaks under static export; serve the worker as a static asset.
-if (typeof window !== "undefined") {
-  const base = process.env.NODE_ENV === "production" ? "/map-explora" : "";
-  maplibregl.setWorkerUrl(`${base}/maplibre-worker.js`);
-}
-import "maplibre-gl/dist/maplibre-gl.css";
-import { Venue } from "@/types/venue";
-import { getMonoStyle } from "./vectorStyle";
+// Dynamic import for the map (client-only)
+const VectorMap = dynamic(() => import("./map/VectorMap"), {
+  ssr: false,
+  loading: () => (
+    <div className="h-full w-full bg-[#f6f2ec] flex flex-col items-center justify-center gap-3 text-[#6d675f]">
+      <Loader2 className="w-8 h-8 text-[#1a7a4a] animate-spin" />
+      <span className="text-sm font-semibold">Loading the map...</span>
+    </div>
+  ),
+});
 
-interface VectorMapProps {
-  venues: Venue[];
-  activeVenueId: string | null;
-  onSelectVenue: (venue: Venue) => void;
-  userPos: [number, number] | null; // [lat, lng]
-  showUserMarker?: boolean; // only with a real location fix, never the default center
-  userAccuracy: number | null;      // meters
-  mapStyle?: "dark" | "light";
-  recenterTick?: number;
-  fitTick?: number; // bump to frame all currently matching venues (area/activity filter)
-}
 
-const JAKARTA: [number, number] = [106.8456, -6.2088]; // maplibre is lng,lat
-
-// Browse-state nameplate sprites, cached across renders. Module scope: the
-// key carries the style mode, so dark and light plates coexist safely and a
-// React re-render no longer regenerates every sprite. Dark plate on the
-// light map, white plate on the dark map; cached canvas sprites on a symbol
-// layer so MapLibre's collision handling declutters instead of overlapping.
-const labelSpriteCache = new Map<string, ImageData>();
-
-const LABEL_SOURCE = "venue-labels";
-const LABEL_LAYER = "venue-labels";
-
-function accuracyPolygon(lat: number, lng: number, meters: number): GeoJSON.Feature {
-  const points: [number, number][] = [];
-  const earth = 6378137;
-  const latRad = (lat * Math.PI) / 180;
-  for (let i = 0; i <= 48; i++) {
-    const angle = (i / 48) * 2 * Math.PI;
-    const dx = (meters * Math.cos(angle)) / (earth * Math.cos(latRad));
-    const dy = (meters * Math.sin(angle)) / earth;
-    points.push([lng + (dx * 180) / Math.PI, lat + (dy * 180) / Math.PI]);
-  }
-  return {
-    type: "Feature",
-    properties: {},
-    geometry: { type: "Polygon", coordinates: [points] },
-  };
+function useIsDesktop(): boolean {
+  return useSyncExternalStore(
+    (cb) => {
+      const mq = window.matchMedia("(min-width: 768px)");
+      mq.addEventListener("change", cb);
+      return () => mq.removeEventListener("change", cb);
+    },
+    () => window.matchMedia("(min-width: 768px)").matches,
+    () => false
+  );
 }
 
-export default function VectorMap({
-  venues,
-  activeVenueId,
-  onSelectVenue,
-  userPos,
-  showUserMarker = true,
-  userAccuracy,
-  mapStyle = "dark",
-  recenterTick,
-  fitTick,
-}: VectorMapProps) {
-  const [mapStatus, setMapStatus] = useState<"loading" | "ready" | "error">("loading");
-  const containerRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<maplibregl.Map | null>(null);
-  const markersRef = useRef<Map<string, maplibregl.Marker>>(new Map());
-  const userMarkerRef = useRef<maplibregl.Marker | null>(null);
-  const readyRef = useRef(false);
-  const styleModeRef = useRef<"dark" | "light" | null>(null);
-  const venuesRef = useRef(venues);
-  venuesRef.current = venues;
-  const activeRef = useRef(activeVenueId);
-  activeRef.current = activeVenueId;
-  const onSelectRef = useRef(onSelectVenue);
-  onSelectRef.current = onSelectVenue;
-
-  // Create map once
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container || mapRef.current) return;
-
-    let cancelled = false;
-    let failed = false;
-    const initial = userPos ? [userPos[1], userPos[0]] as [number, number] : JAKARTA;
-
-    const start = (style: maplibregl.StyleSpecification) => {
-      if (cancelled || mapRef.current) return;
-      const map = new maplibregl.Map({
-        container,
-        style,
-        center: initial,
-        zoom: 11,
-        attributionControl: { compact: true },
-      });
-      styleModeRef.current = mapStyle;
-
-      map.once("idle", () => { if (!cancelled && !failed) setMapStatus("ready"); });
-      map.on("error", () => { failed = true; if (!cancelled) setMapStatus("error"); });
-      map.on("load", () => {
-        readyRef.current = true;
-        map.addSource("user-accuracy", {
-          type: "geojson",
-          data: { type: "FeatureCollection", features: [] },
-        });
-        map.addLayer({
-          id: "user-accuracy-fill",
-          type: "fill",
-          source: "user-accuracy",
-          paint: { "fill-color": "#2563eb", "fill-opacity": 0.10 },
-        });
-        map.addLayer({
-          id: "user-accuracy-edge",
-          type: "line",
-          source: "user-accuracy",
-          paint: { "line-color": "#2563eb", "line-width": 1, "line-opacity": 0.3 },
-        });
-        ensureLabelAssets(map);
-        map.on("click", LABEL_LAYER, (e) => {
-          const id = e.features?.[0]?.properties?.venueId;
-          const v = id ? venuesRef.current.find((x) => x.id === id) : undefined;
-          if (v) onSelectRef.current(v);
-        });
-        map.on("mouseenter", LABEL_LAYER, () => {
-          map.getCanvas().style.cursor = "pointer";
-        });
-        map.on("mouseleave", LABEL_LAYER, () => {
-          map.getCanvas().style.cursor = "";
-        });
-        renderMarkers(map);
-      });
-
-      map.on("moveend", () => renderMarkers(map));
-      mapRef.current = map;
-    };
-
-    getMonoStyle(mapStyle).then(start).catch(() => { if (!cancelled) setMapStatus("error"); });
-
-    return () => {
-      cancelled = true;
-      markersRef.current.forEach((m) => m.remove());
-      markersRef.current.clear();
-      userMarkerRef.current?.remove();
-      userMarkerRef.current = null;
-      mapRef.current?.remove();
-      mapRef.current = null;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+export default function MapHUD() {
+  const {
+    userPos,
+    accuracy,
+    hasActualLocation,
+    isLocating,
+    error: locationError,
+    recenterTick,
+    refresh,
+  } = useGeolocation();
+  // Distances are only computed from a real fix. Without location
+  // permission we must not imply proximity to the default map center.
+  const { filters, updateFilter, resetFilters, categories, areas, confirmed, unconfirmed } =
+    useVenueFilters(hasActualLocation ? userPos : null);
+  const [activeVenue, setActiveVenue] = useState<Venue | null>(null);
+  const [showShareCard, setShowShareCard] = useState(false);
+  const [mapStyle, setMapStyle] = useState<"dark" | "light">("light");
+  // Mobile is map-first: the map is the default view. The list, search and
+  // filters open from the "places" bar or the List toggle.
+  const [mobileView, setMobileView] = useState<"list" | "map">("map");
+  const isDesktop = useIsDesktop();
+  const showDetails = !!activeVenue;
+  // Location notice: dismissible, auto-hides, never covers sheet controls.
+  const [locationNoticeGone, setLocationNoticeGone] = useState(false);
+  // Bumped when the area or activity filter changes so the map frames all matches.
+  const [fitTick, setFitTick] = useState(0);
+  // Bumped by the map Age pill: opens the list with the age panel ready.
+  const [ageOpenTick, setAgeOpenTick] = useState(0);
+  // Pin and list selections open the same detail page, without a preview state.
+  const handleSelectVenue = useCallback((venue: Venue) => setActiveVenue(venue), []);
+  const handleSelectFromList = handleSelectVenue;
+  const handleClearActiveVenue = useCallback(() => {
+    setActiveVenue(null);
+    setShowShareCard(false);
+  }, []);
+  const handleSetView = useCallback((view: "list" | "map") => {
+    setMobileView(view);
+    setActiveVenue(null);
+    setShowShareCard(false);
   }, []);
 
-  // Switch monochrome style on mode toggle
+  // Reset the dismissal when the location state changes; auto-hide after 8s.
   useEffect(() => {
-    const map = mapRef.current;
-    if (!map || styleModeRef.current === mapStyle) return;
-    let cancelled = false;
-    getMonoStyle(mapStyle)
-      .then((style) => {
-        if (cancelled) return;
-        styleModeRef.current = mapStyle;
-        map.setStyle(style);
-        map.once("styledata", () => {
-          // Re-add custom sources/layers after style swap
-          if (!map.getSource("user-accuracy")) {
-            map.addSource("user-accuracy", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
-            map.addLayer({ id: "user-accuracy-fill", type: "fill", source: "user-accuracy", paint: { "fill-color": "#2563eb", "fill-opacity": 0.10 } });
-            map.addLayer({ id: "user-accuracy-edge", type: "line", source: "user-accuracy", paint: { "line-color": "#2563eb", "line-width": 1, "line-opacity": 0.3 } });
-          }
-          ensureLabelAssets(map);
-          renderMarkers(map);
-        });
-      })
-      .catch(() => {
-        styleModeRef.current = mapStyle;
-        setMapStatus("error");
-      });
-    return () => { cancelled = true; };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mapStyle]);
+    setLocationNoticeGone(false);
+    if (!locationError) return;
+    const t = setTimeout(() => setLocationNoticeGone(true), 5000);
+    return () => clearTimeout(t);
+  }, [locationError]);
 
-  const venueName = (venue: Venue) =>
-    venue.chain && venue.chain !== venue.branchName ? `${venue.chain} ${venue.branchName}` : venue.branchName;
-
-  // Nameplates invert with the basemap: dark plate on the light map, white
-  // plate on the dark map, so the key carries the mode and a style swap
-  // regenerates sprites instead of reusing the other mode's.
-  const labelKey = (name: string, approximate: boolean, mode: "dark" | "light") =>
-    `${mode}:${approximate ? "a" : "p"}:${name}`;
-
-  function labelSprite(name: string, approximate: boolean, mode: "dark" | "light"): { key: string; image: ImageData } {
-    const key = labelKey(name, approximate, mode);
-    const cached = labelSpriteCache.get(key);
-    if (cached) return { key, image: cached };
-    const scale = 2; // retina rendering via addImage pixelRatio
-    const font = '600 11px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
-    const measure = document.createElement("canvas").getContext("2d")!;
-    measure.font = font;
-    const MAX_TEXT = 168;
-    let text = name;
-    if (measure.measureText(text).width > MAX_TEXT) {
-      // Truncate at a word boundary, never mid-word.
-      let cut = text;
-      while (cut.length > 1 && measure.measureText(cut + "\u2026").width > MAX_TEXT) {
-        cut = cut.slice(0, -1);
-      }
-      const lastSpace = cut.lastIndexOf(" ");
-      text = (lastSpace > 3 ? cut.slice(0, lastSpace) : cut) + "\u2026";
-    }
-    const textW = measure.measureText(text).width;
-    const dotR = 2.5, padX = 7, gap = 5, padY = 3.5;
-    const w = Math.ceil(padX + dotR * 2 + gap + textW + padX) + 2;
-    const h = Math.ceil(11 + padY * 2) + 2;
-    const c = document.createElement("canvas");
-    c.width = w * scale;
-    c.height = h * scale;
-    const ctx = c.getContext("2d")!;
-    ctx.scale(scale, scale);
-    // On the light map the plate is dark (white plate on white map was
-    // invisible); on the dark map it stays white. Text and dot invert to
-    // keep contrast on the plate.
-    const darkPlate = mode === "light";
-    ctx.beginPath();
-    ctx.roundRect(1, 1, w - 2, h - 2, (h - 2) / 2);
-    ctx.fillStyle = darkPlate ? "#1c1917" : "#ffffff";
-    ctx.fill();
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = approximate ? "#a8a29e" : darkPlate ? "#1c1917" : "#e7e5e4";
-    if (approximate) ctx.setLineDash([2, 2]);
-    ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.beginPath();
-    ctx.arc(1 + padX + dotR, h / 2, dotR, 0, Math.PI * 2);
-    ctx.fillStyle = darkPlate ? "#34d399" : "#1a7a4a";
-    ctx.fill();
-    ctx.font = font;
-    ctx.fillStyle = darkPlate ? "#ffffff" : "#6b7280";
-    ctx.textBaseline = "middle";
-    ctx.fillText(text, 1 + padX + dotR * 2 + gap, h / 2 + 0.5);
-    const image = ctx.getImageData(0, 0, c.width, c.height);
-    labelSpriteCache.set(key, image);
-    return { key, image };
-  }
-
-  // Adds sprites, source and layer; safe to call again after a style swap.
-  function ensureLabelAssets(map: maplibregl.Map) {
-    labelSpriteCache.forEach((image, key) => {
-      if (!map.hasImage(key)) map.addImage(key, image, { pixelRatio: 2 });
-    });
-    if (!map.getSource(LABEL_SOURCE)) {
-      map.addSource(LABEL_SOURCE, {
-        type: "geojson",
-        data: { type: "FeatureCollection", features: [] },
-      });
-    }
-    if (!map.getLayer(LABEL_LAYER)) {
-      map.addLayer({
-        id: LABEL_LAYER,
-        type: "symbol",
-        source: LABEL_SOURCE,
-        layout: {
-          "icon-image": ["get", "icon"],
-          // Per-label pixel offset clamps every nameplate inside the
-          // viewport (recomputed on moveend), so panning never clips one.
-          "icon-offset": ["get", "offset"],
-          "icon-allow-overlap": false,
-          "icon-padding": 6,
-          "symbol-z-order": "viewport-y",
-        },
-        paint: { "icon-opacity": 1 },
-      });
-    }
-  }
-
-  // Selected place: full label. Everything else: a quiet dot.
-  function labelElement(venue: Venue): HTMLButtonElement {
-    const el = document.createElement("button");
-    el.type = "button";
-    el.className =
-      "flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[0.875rem] font-bold tracking-tight cursor-pointer select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#2563eb] border bg-[#1a7a4a] text-white border-[#1a7a4a]";
-    el.style.boxShadow = "0 1px 4px rgba(34,29,24,0.25)";
-    el.style.maxWidth = "220px";
-    const dot = document.createElement("span");
-    dot.className = "w-2 h-2 rounded-full shrink-0 bg-white";
-    const label = document.createElement("span");
-    label.className = "truncate";
-    label.textContent = venueName(venue);
-    el.appendChild(dot);
-    el.appendChild(label);
-    return el;
-  }
-
-  function clusterElement(count: number, dimmed: boolean): HTMLButtonElement {
-    const el = document.createElement("button");
-    el.type = "button";
-    el.setAttribute("aria-label", `${count} places, zoom in`);
-    el.className =
-      "w-11 h-11 rounded-full bg-white border-2 border-[#1a7a4a] text-[#14532d] text-[0.9375rem] font-bold flex items-center justify-center cursor-pointer select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#2563eb]";
-    el.style.boxShadow = "0 1px 4px rgba(34,29,24,0.3)";
-    el.style.opacity = dimmed ? "0.4" : "1";
-    el.textContent = String(count);
-    return el;
-  }
-
-  function addMarker(map: maplibregl.Map, el: HTMLElement, lng: number, lat: number, key: string) {
-    const m = new maplibregl.Marker({ element: el }).setLngLat([lng, lat]).addTo(map);
-    markersRef.current.set(key, m);
-  }
-
-  function renderMarkers(map: maplibregl.Map) {
-    // A full rebuild per change is cheap at this dataset size and keeps state simple.
-    markersRef.current.forEach((m) => m.remove());
-    markersRef.current.clear();
-    const activeId = activeRef.current;
-    const dimmed = !!activeId;
-    const CLUSTER_PX = 36;
-    const clusterable = map.getZoom() < 17;
-
-    type Group = { x: number; y: number; members: Venue[] };
-    const groups: Group[] = [];
-    venuesRef.current.forEach((venue) => {
-      if (venue.id === activeId) return;
-      const p = map.project([venue.lng, venue.lat]);
-      const near = clusterable
-        ? groups.find((g) => Math.hypot(g.x - p.x, g.y - p.y) < CLUSTER_PX)
-        : undefined;
-      if (near) {
-        const n = near.members.length;
-        near.x = (near.x * n + p.x) / (n + 1);
-        near.y = (near.y * n + p.y) / (n + 1);
-        near.members.push(venue);
-      } else {
-        groups.push({ x: p.x, y: p.y, members: [venue] });
-      }
-    });
-
-    const labelFeatures: GeoJSON.Feature[] = [];
-    const vw = map.getContainer().clientWidth;
-    const vh = map.getContainer().clientHeight;
-    // Keep nameplates clear of the chrome that floats over the map: the
-    // sidebar on desktop (left) and the locate/reset buttons (top-right).
-    const isDesktop = window.innerWidth >= 768;
-    const EDGE_L = isDesktop ? 472 : 8;
-    const EDGE_R = 64;
-    const EDGE_T = 8;
-    const EDGE_B = 8;
-    groups.forEach((g, i) => {
-      if (g.members.length === 1) {
-        const venue = g.members[0];
-        const { key, image } = labelSprite(venueName(venue), venue.coordinateSource === "area-approximate", styleModeRef.current ?? "light");
-        if (!map.hasImage(key)) map.addImage(key, image, { pixelRatio: 2 });
-        const p = map.project([venue.lng, venue.lat]);
-        const halfW = image.width / 4; // sprite is 2x, anchored center
-        const halfH = image.height / 4;
-        let ox = 0;
-        let oy = 0;
-        if (p.x + halfW > vw - EDGE_R) ox = vw - EDGE_R - (p.x + halfW);
-        if (p.x - halfW < EDGE_L) ox = EDGE_L - (p.x - halfW);
-        if (p.y + halfH > vh - EDGE_B) oy = vh - EDGE_B - (p.y + halfH);
-        if (p.y - halfH < EDGE_T) oy = EDGE_T - (p.y - halfH);
-        labelFeatures.push({
-          type: "Feature",
-          properties: { icon: key, venueId: venue.id, offset: [ox, oy] },
-          geometry: { type: "Point", coordinates: [venue.lng, venue.lat] },
-        });
-      } else {
-        const lng = g.members.reduce((s, v) => s + v.lng, 0) / g.members.length;
-        const lat = g.members.reduce((s, v) => s + v.lat, 0) / g.members.length;
-        const el = clusterElement(g.members.length, dimmed);
-        el.addEventListener("click", (e) => {
-          e.stopPropagation();
-          const bounds = g.members.reduce(
-            (b, v) => b.extend([v.lng, v.lat]),
-            new maplibregl.LngLatBounds([g.members[0].lng, g.members[0].lat], [g.members[0].lng, g.members[0].lat])
-          );
-          map.fitBounds(bounds, { padding: 90, maxZoom: 15, duration: 500 });
-        });
-        addMarker(map, el, lng, lat, `cluster-${i}`);
-      }
-    });
-
-    const labelSrc = map.getSource(LABEL_SOURCE) as maplibregl.GeoJSONSource | undefined;
-    if (labelSrc) labelSrc.setData({ type: "FeatureCollection", features: labelFeatures });
-    if (map.getLayer(LABEL_LAYER)) {
-      // Selection focus: other names fade so the chosen branch stands out.
-      map.setPaintProperty(LABEL_LAYER, "icon-opacity", dimmed ? 0.3 : 1);
-    }
-
-    const active = venuesRef.current.find((v) => v.id === activeId);
-    if (active) {
-      const el = labelElement(active);
-      el.addEventListener("click", (e) => e.stopPropagation());
-      addMarker(map, el, active.lng, active.lat, active.id);
-    }
-  }
-
-  // Venue markers. The venues prop gets a new array identity on every
-  // parent render (spread into VectorMap), so guard on the visible id set:
-  // a GPS tick or hover re-render must not rebuild every marker.
-  const renderedKeyRef = useRef<string>("");
-  useEffect(() => {
-    const map = mapRef.current;
-    if (!map) return;
-    // Before the first load, the load handler renders the markers.
-    if (!readyRef.current) return;
-    const key = venues.map((v) => v.id).join("|") + "#" + (activeVenueId ?? "");
-    if (key === renderedKeyRef.current) return;
-    renderedKeyRef.current = key;
-    renderMarkers(map);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [venues, activeVenueId]);
-
-  // Selecting a place on a phone: keep the pin clear of the bottom card.
-  const savedViewRef = useRef<{ center: [number, number]; zoom: number } | null>(null);
-  useEffect(() => {
-    const map = mapRef.current;
-    if (!map) return;
-    if (!activeVenueId) {
-      // Back: return to the overview the user left, not the street.
-      const saved = savedViewRef.current;
-      savedViewRef.current = null;
-      map.easeTo({ padding: { top: 0, bottom: 0, left: 0, right: 0 }, ...(saved ? { center: saved.center, zoom: saved.zoom } : {}), duration: 400 });
-      return;
-    }
-    if (!savedViewRef.current) {
-      const c = map.getCenter();
-      savedViewRef.current = { center: [c.lng, c.lat], zoom: map.getZoom() };
-    }
-    const v = venuesRef.current.find((x) => x.id === activeVenueId);
-    if (!v) return;
-    const phone = window.innerWidth < 768;
-    map.easeTo({
-      center: [v.lng, v.lat],
-      zoom: Math.max(map.getZoom(), 14),
-      // Center within the visible map area: clear of the bottom card on
-      // phones, clear of the 440px side panel on desktop.
-      padding: phone ? { top: 0, bottom: 200, left: 0, right: 0 } : { top: 0, bottom: 0, left: 440, right: 0 },
-      duration: 500,
-    });
-  }, [activeVenueId]);
-
-  // Area/activity filter change: frame every matching place, clear of the panel.
-  useEffect(() => {
-    const map = mapRef.current;
-    if (!map || !readyRef.current || !fitTick) return;
-    const vs = venuesRef.current;
-    if (vs.length === 0) return;
-    const bounds = new maplibregl.LngLatBounds([vs[0].lng, vs[0].lat], [vs[0].lng, vs[0].lat]);
-    vs.forEach((v) => bounds.extend([v.lng, v.lat]));
-    const desktop = window.innerWidth >= 768;
-    map.fitBounds(bounds, {
-      // Labels clamp inside the viewport on their own, so padding only
-      // clears real chrome: the desktop panel and the mobile peek sheet.
-      padding: desktop
-        ? { top: 60, right: 60, bottom: 60, left: 464 }
-        : { top: 76, bottom: 176, left: 28, right: 28 },
-      maxZoom: 15,
-      duration: 800,
-    });
-  }, [fitTick]);
-
-  // User position marker + accuracy
-  useEffect(() => {
-    const map = mapRef.current;
-    if (!map || !userPos) return;
-    if (!showUserMarker) {
-      // No real fix: no "you are here" dot at the default center.
-      if (userMarkerRef.current) {
-        userMarkerRef.current.remove();
-        userMarkerRef.current = null;
-      }
-      const accSrc0 = map.isStyleLoaded() ? (map.getSource("user-accuracy") as maplibregl.GeoJSONSource | undefined) : undefined;
-      if (accSrc0) accSrc0.setData({ type: "FeatureCollection", features: [] });
-      return;
-    }
-    const [lat, lng] = userPos;
-
-    const applyUser = () => {
-      const accSrc = map.getSource("user-accuracy") as maplibregl.GeoJSONSource | undefined;
-      if (accSrc) {
-        if (userAccuracy && userAccuracy > 20 && userAccuracy < 2000) {
-          accSrc.setData(accuracyPolygon(lat, lng, userAccuracy));
-        } else {
-          accSrc.setData({ type: "FeatureCollection", features: [] });
-        }
-      }
-
-      if (!userMarkerRef.current) {
-        const el = document.createElement("div");
-        el.className = "relative flex items-center justify-center w-7 h-7";
-        const dot = document.createElement("div");
-        dot.className = "relative w-4 h-4 rounded-full bg-[#2563eb] border-2 border-white";
-        dot.style.boxShadow = "0 1px 4px rgba(34,29,24,0.4)";
-        el.appendChild(dot);
-        userMarkerRef.current = new maplibregl.Marker({ element: el }).setLngLat([lng, lat]).addTo(map);
-      } else {
-        userMarkerRef.current.setLngLat([lng, lat]);
-      }
-    };
-
-    if (map.isStyleLoaded()) applyUser();
-    else map.once("load", applyUser);
-  }, [userPos, showUserMarker, userAccuracy]);
-
-  // Manual recenter
-  useEffect(() => {
-    const map = mapRef.current;
-    if (!map || !userPos || !recenterTick) return;
-    map.easeTo({ center: [userPos[1], userPos[0]], zoom: 15, duration: 800 });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recenterTick]);
+  // Choosing an area or activity moves the map to show every matching place.
+  const handleUpdateFilter = useCallback(
+    <K extends keyof VenueFilterState>(key: K, value: VenueFilterState[K]) => {
+      updateFilter(key, value);
+      if (key === "area" || key === "category") setFitTick((t) => t + 1);
+    },
+    [updateFilter]
+  );
+  const handleResetFilters = useCallback(() => {
+    resetFilters();
+    setFitTick((t) => t + 1);
+  }, [resetFilters]);
 
   return (
-    <div
-      style={{ position: "absolute", inset: 0, backgroundColor: mapStyle === "dark" ? "#0d0d0d" : "#f5f5f4" }}
-    >
-      <div ref={containerRef} style={{ position: "absolute", inset: 0 }} />
-      {mapStatus !== "ready" && (
-        <div role={mapStatus === "error" ? "alert" : "status"} className="absolute inset-0 flex items-center justify-center pointer-events-none bg-[#f6f3ec] dark:bg-[#0d0d0d]" style={{ backgroundColor: mapStyle === "dark" ? "#0d0d0d" : "#f6f3ec", color: mapStyle === "dark" ? "#ffffff" : "#51483d" }}>
-          <div className="text-center px-6 pb-64">
-            {mapStatus === "loading" ? <><span className="inline-block w-6 h-6 border-2 border-current border-t-transparent rounded-full animate-spin" /><p>Loading map. You can browse the place list.</p></> : <p>Map could not load. You can still browse places and open Directions.</p>}
+    <div className="relative h-dvh w-screen bg-[#f6f2ec] overflow-hidden flex flex-col font-sans select-none">
+      <h1 className="sr-only">Map Explora - Under-5 baby, toddler and preschool classes in Jakarta and Jabodetabek</h1>
+
+      {/* Location permission notice: above the sheet on phones (never over
+          Back/venue names), top-center on desktop. Dismissible, auto-hides. */}
+      {locationError && !locationNoticeGone && (
+        <div className="absolute bottom-[90px] md:bottom-auto md:top-4 left-1/2 -translate-x-1/2 z-[1001] w-[min(92vw,340px)]">
+          <div className="bg-white border border-[#e7e0d4] rounded-2xl pl-3.5 pr-2 py-2.5 text-[0.9375rem] text-[#4a443c] shadow-sm flex items-center gap-2">
+            <MapPin className="w-4 h-4 text-[#92400e] shrink-0" />
+            <span>{locationError}</span>
+            <button
+              type="button"
+              onClick={() => setLocationNoticeGone(true)}
+              aria-label="Dismiss location notice"
+              className="w-8 h-8 shrink-0 rounded-full flex items-center justify-center text-[#6d675f] hover:text-[#221d18]"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </div>
         </div>
+      )}
+
+      {/* Map Canvas */}
+      <div className="absolute inset-0 z-0">
+        <VectorMap
+          venues={[...confirmed, ...unconfirmed]}
+          activeVenueId={activeVenue?.id || null}
+          onSelectVenue={handleSelectVenue}
+          userPos={userPos}
+          showUserMarker={hasActualLocation}
+          userAccuracy={accuracy}
+          mapStyle={mapStyle}
+          recenterTick={recenterTick}
+          fitTick={fitTick}
+        />
+      </div>
+
+      {/* Floating Map Controls (Top-Right) */}
+      <div className="absolute top-4 right-4 z-[500] flex flex-col gap-2">
+        <button
+          type="button"
+          onClick={refresh}
+          title="Locate My Position"
+          className="w-12 h-12 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#4a443c] hover:text-[#221d18] flex items-center justify-center active:scale-95 transition-all"
+        >
+          {isLocating ? (
+            <Loader2 className="w-5 h-5 animate-spin text-[#1a7a4a]" />
+          ) : (
+            <Crosshair className="w-5 h-5" />
+          )}
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setMapStyle((prev) => (prev === "dark" ? "light" : "dark"))}
+          title="Toggle Map Style"
+          className="w-12 h-12 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#4a443c] hover:text-[#221d18] flex items-center justify-center active:scale-95 transition-all"
+        >
+          {mapStyle === "dark" ? (
+            <Sun className="w-5 h-5 text-[#4a443c]" />
+          ) : (
+            <Moon className="w-5 h-5 text-[#4a443c]" />
+          )}
+        </button>
+      </div>
+
+      {/* Phone: one Age pill on the map, so a child's age is one tap away. */}
+      {!activeVenue && mobileView === "map" && (
+        <button
+          type="button"
+          onClick={() => { handleSetView("list"); setAgeOpenTick((t) => t + 1); }}
+          aria-label="Set your child's age"
+          className="md:hidden absolute top-4 left-[8.5rem] z-[500] min-h-12 px-4 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#14532d] text-[1rem] font-bold flex items-center gap-2 active:scale-95"
+        >
+          <Baby className="w-4 h-4 text-[#1a7a4a]" />
+          {filters.ageMonths === null ? "Age" : `${filters.ageMonths} mo`}
+        </button>
+      )}
+
+      {/* Mobile-Native Bottom Sheet / Desktop Floating HUD */}
+      <MobileDrawer
+        confirmed={confirmed}
+        unconfirmed={unconfirmed}
+        activeVenue={activeVenue}
+        onSelectFromList={handleSelectFromList}
+        showDetails={showDetails}
+        backLabel={!isDesktop && mobileView === "map" ? "Back to map" : "Back to list"}
+        ageOpenTick={ageOpenTick}
+        onClearActiveVenue={handleClearActiveVenue}
+        filters={filters}
+        onUpdateFilter={handleUpdateFilter}
+        onResetFilters={handleResetFilters}
+        categories={categories}
+        areas={areas}
+        onOpenShare={() => setShowShareCard(true)}
+        mobileView={mobileView}
+        onSetMobileView={handleSetView}
+      />
+
+      {!activeVenue && mobileView === "map" && (
+        <button type="button" onClick={() => handleSetView("list")} className="md:hidden absolute bottom-[max(20px,env(safe-area-inset-bottom))] left-4 right-4 z-[500] min-h-14 rounded-2xl bg-[#f6f2ec] border border-[#e7e0d4] shadow-md text-[#1a7a4a] font-bold">
+          List · {confirmed.length + unconfirmed.length} {confirmed.length + unconfirmed.length === 1 ? "place" : "places"}
+        </button>
+      )}
+
+      {/* Meta Threads Share Card Modal */}
+      {showShareCard && activeVenue && (
+        <ShareCard
+          venue={activeVenue}
+          onClose={() => setShowShareCard(false)}
+        />
       )}
     </div>
   );
 }
-
 // Trailing sentinel: absorbs the web editor last-line indent artifact.
