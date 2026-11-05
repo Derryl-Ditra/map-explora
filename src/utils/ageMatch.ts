@@ -46,3 +46,21 @@ export function venueConfirmedForAge(v: Venue, months: number): boolean {
       claimCoversWithNote(p.age, months, p.note) === true
   );
 }
+
+export const AGE_GROUPS = [
+  { label: "12 months and under", min: 0, max: 12 },
+  { label: "13 to 24 months", min: 13, max: 24 },
+  { label: "25 to 36 months", min: 25, max: 36 },
+  { label: "37 to 48 months", min: 37, max: 48 },
+  { label: "49 to 59 months", min: 49, max: 59 },
+];
+// A group match means at least one age in the group fits a confirmed branch
+// claim, not that every child in the group is eligible. Preserve exact boundaries.
+export function venueConfirmedForGroup(v: Venue, groupMax: number): boolean {
+  const group = AGE_GROUPS.find(g => g.max === groupMax);
+  if (!group) return false;
+  for (let month = group.min; month <= group.max; month++) {
+    if (venueConfirmedForAge(v, month)) return true;
+  }
+  return false;
+}
