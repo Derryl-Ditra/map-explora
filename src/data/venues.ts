@@ -6499,54 +6499,206 @@ export const VENUES: Venue[] = [
   "phone": "+62 852-1954-2487"
  },
  {
-  "id": "buumi-playscape-pacific-place",
-  "chain": "Buumi Playscape",
-  "branchName": "Pacific Place",
-  "categories": [
-   "Enrichment"
-  ],
-  "address": "Pacific Place Mall, SCBD, Jl. Jend. Sudirman kav 52-53 Level 3 Unit 98, RT.5/RW.3, Senayan, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12190, Indonesia",
-  "area": "Jakarta Selatan",
-  "city": "Jakarta Selatan",
-  "lat": -6.2250832,
-  "lng": 106.810005,
-  "coordinateSource": "maps-pin",
-  "programs": [
-   {
-    "name": "Playscape",
-    "offering": "offered",
-    "age": {
-     "minMonths": 18,
-     "maxMonths": 36,
-     "level": "brand",
-     "verification": "listed-unconfirmed",
-     "sourceCheckedAt": "2026-11-04",
-     "providerAgeUrl": "https://temanautis.com/acara/holiday-programs-for-toddlers-18m-3y-and-preschoolers-3y-5y"
-    },
-    "note": "Third-party event listing: holiday programme for toddlers 18 months to 3 years, with Buumi Playscape Pacific Place as a venue."
-   }
-  ],
-  "website": "https://www.buumi.co/",
-  "sourceUrl": "https://www.buumi.co/",
-  "lastCheckedAt": "2026-11-04",
-  "fitStatus": "branch-candidate-live-undated",
-  "notes": "Official site lists Pacific Place Lv. 3 and a Hari Anak Nasional 2026 event on 25-26 July 2026. Read 2026-11-04.",
-  "operatingStatus": {
-   "state": "official-listed",
-   "source": "https://www.buumi.co/",
-   "checkedAt": "2026-11-04"
+ "id": "buumi-playscape-pacific-place",
+ "chain": "Buumi Playscape",
+ "branchName": "Pacific Place",
+ "categories": [
+  "Enrichment",
+  "Music",
+  "Arts & Crafts"
+ ],
+ "address": "Pacific Place Mall, SCBD, Jl. Jend. Sudirman kav 52-53 Level 3 Unit 98, RT.5/RW.3, Senayan, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12190, Indonesia",
+ "area": "Jakarta Selatan",
+ "city": "Jakarta Selatan",
+ "lat": -6.2250832,
+ "lng": 106.810005,
+ "coordinateSource": "maps-pin",
+ "programs": [
+  {
+   "name": "Playscape",
+   "offering": "offered",
+   "age": {
+    "minMonths": 18,
+    "maxMonths": 36,
+    "level": "brand",
+    "verification": "listed-unconfirmed",
+    "sourceCheckedAt": "2026-11-04",
+    "providerAgeUrl": "https://temanautis.com/acara/holiday-programs-for-toddlers-18m-3y-and-preschoolers-3y-5y"
+   },
+   "note": "Third-party event listing: holiday programme for toddlers 18 months to 3 years, with Buumi Playscape Pacific Place as a venue."
   },
-  "reviews": {
-   "rating": 4.4,
-   "reviewCount": 448,
-   "source": "Google Maps",
-   "sourceUrl": "https://www.google.com/maps/place/Buumi+Playscape/@-6.2250832,106.810005,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1230ab5d709:0x9ccf3ac2265d1889!8m2!3d-6.2250832!4d106.810005!16s%2Fg%2F11f5v51n9_",
-   "checkedAt": "2026-11-04",
-   "praiseThemes": [],
-   "complaintThemes": []
+  {
+   "name": "Baby Maestro",
+   "category": "Music",
+   "offering": "offered",
+   "age": {
+    "minMonths": 6,
+    "maxMonths": 18,
+    "level": "branch",
+    "verification": "provider-confirmed",
+    "providerAgeUrl": "https://www.instagram.com/buumiplayscape/p/DfRG1cZE96X/",
+    "sourceCheckedAt": "2026-11-05"
+   },
+   "term": "November 2026",
+   "note": "Official November 2026 branch carousel, slide 3: 6M - 18M. Routine class, not playground admission. Recheck with branch after this term."
   },
-  "phone": "+62 21 51400557"
+  {
+   "name": "Baby Art & Craft",
+   "category": "Arts & Crafts",
+   "offering": "offered",
+   "age": {
+    "minMonths": 6,
+    "maxMonths": 18,
+    "level": "branch",
+    "verification": "provider-confirmed",
+    "providerAgeUrl": "https://www.instagram.com/buumiplayscape/p/DfRG1cZE96X/",
+    "sourceCheckedAt": "2026-11-05"
+   },
+   "term": "November 2026",
+   "note": "Official November 2026 branch carousel, slide 4: 6M - 18M. Routine class, not playground admission. Recheck with branch after this term."
+  }
+ ],
+ "website": "https://www.buumi.co/",
+ "sourceUrl": "https://www.buumi.co/",
+ "lastCheckedAt": "2026-11-05",
+ "fitStatus": "branch-confirmed-dated-term",
+ "notes": "Official November 2026 Pacific Place class carousel confirms Baby Maestro and Baby Art & Craft, each 6-18 months. Older third-party holiday lead is retained unconfirmed.",
+ "operatingStatus": {
+  "state": "official-listed",
+  "source": "https://www.buumi.co/",
+  "checkedAt": "2026-11-05"
  },
+ "reviews": {
+  "rating": 4.4,
+  "reviewCount": 448,
+  "source": "Google Maps",
+  "sourceUrl": "https://www.google.com/maps/place/Buumi+Playscape/@-6.2250832,106.810005,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1230ab5d709:0x9ccf3ac2265d1889!8m2!3d-6.2250832!4d106.810005!16s%2Fg%2F11f5v51n9_",
+  "checkedAt": "2026-11-04",
+  "praiseThemes": [],
+  "complaintThemes": []
+ },
+ "phone": "+62 21 51400557"
+},
+ {
+ "id": "buumi-playscape-plaza-senayan",
+ "chain": "Buumi Playscape",
+ "branchName": "Plaza Senayan",
+ "categories": [
+  "Music",
+  "Sensory"
+ ],
+ "address": "Plaza Senayan, Level 3, Plaza Senayan Mall, RT.1/RW.3, Gelora, Tanah Abang, Central Jakarta City, Jakarta 10270, Indonesia",
+ "area": "Jakarta Pusat",
+ "city": "Jakarta Pusat",
+ "lat": -6.2256049,
+ "lng": 106.7992178,
+ "coordinateSource": "maps-pin",
+ "programs": [
+  {
+   "name": "Baby Musical Storytelling",
+   "category": "Music",
+   "offering": "offered",
+   "age": {
+    "minMonths": 6,
+    "maxMonths": 18,
+    "level": "branch",
+    "verification": "provider-confirmed",
+    "providerAgeUrl": "https://www.instagram.com/buumiplayscape/p/DfRULlqk2oI/",
+    "sourceCheckedAt": "2026-11-05"
+   },
+   "term": "November 2026",
+   "note": "Official November 2026 branch carousel, slide 4: 6M - 18M. Routine class, not playground admission. Recheck with branch after this term."
+  },
+  {
+   "name": "Baby Sensory Class",
+   "category": "Sensory",
+   "offering": "offered",
+   "age": {
+    "minMonths": 6,
+    "maxMonths": 18,
+    "level": "branch",
+    "verification": "provider-confirmed",
+    "providerAgeUrl": "https://www.instagram.com/buumiplayscape/p/DfRULlqk2oI/",
+    "sourceCheckedAt": "2026-11-05"
+   },
+   "term": "November 2026",
+   "note": "Official November 2026 branch carousel, slide 5: 6M - 18M. Routine class, not playground admission. Recheck with branch after this term."
+  }
+ ],
+ "website": "https://www.buumi.co/",
+ "instagram": "https://www.instagram.com/buumiplayscape/",
+ "sourceUrl": "https://www.instagram.com/buumiplayscape/p/DfRULlqk2oI/",
+ "lastCheckedAt": "2026-11-05",
+ "fitStatus": "branch-confirmed-dated-term",
+ "notes": "Official November 2026 branch carousel and Buumi site list this branch. Only routine baby sessions with exact 6-18-month ages are confirmed. Other age groups and November pop-ups are not imported.",
+ "operatingStatus": {
+  "state": "official-listed",
+  "source": "https://www.buumi.co/",
+  "checkedAt": "2026-11-05"
+ },
+ "reviews": {
+  "rating": 4.8,
+  "reviewCount": 511,
+  "source": "Google Maps",
+  "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Buumi+Playscape+Plaza+Senayan&query_place_id=ChIJ4yZe3RjxaS4Rl_RYEj8baBg",
+  "checkedAt": "2026-11-05",
+  "praiseThemes": [],
+  "complaintThemes": [],
+    "trend": "insufficient"
+ }
+},
+ {
+ "id": "buumi-playscape-urban-forest-cipete",
+ "chain": "Playclub by Buumi",
+ "branchName": "Urban Forest Cipete",
+ "categories": [
+  "Sensory"
+ ],
+ "address": "Urban Forest, Ground & Level 1, Jl. RS. Fatmawati Raya No.45, RT.10/RW.11, Cilandak Bar., Kec. Cilandak, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12430, Indonesia",
+ "area": "Jakarta Selatan",
+ "city": "Jakarta Selatan",
+ "lat": -6.2800664,
+ "lng": 106.7976344,
+ "coordinateSource": "maps-pin",
+ "programs": [
+  {
+   "name": "Baby & Toddler Sensory (baby session)",
+   "category": "Sensory",
+   "offering": "offered",
+   "age": {
+    "minMonths": 6,
+    "maxMonths": 18,
+    "level": "branch",
+    "verification": "provider-confirmed",
+    "providerAgeUrl": "https://www.instagram.com/buumiplayscape/p/DfRUVRaE6t8/",
+    "sourceCheckedAt": "2026-11-05"
+   },
+   "term": "November 2026",
+   "note": "Official November 2026 branch carousel, slide 4: 6M - 18M. Routine class, not playground admission. Recheck with branch after this term."
+  }
+ ],
+ "website": "https://www.buumi.co/",
+ "instagram": "https://www.instagram.com/buumiplayscape/",
+ "sourceUrl": "https://www.instagram.com/buumiplayscape/p/DfRUVRaE6t8/",
+ "lastCheckedAt": "2026-11-05",
+ "fitStatus": "branch-confirmed-dated-term",
+ "notes": "Official November 2026 branch carousel and Buumi site list this branch. Only routine baby sessions with exact 6-18-month ages are confirmed. Other age groups and November pop-ups are not imported.",
+ "operatingStatus": {
+  "state": "official-listed",
+  "source": "https://www.buumi.co/",
+  "checkedAt": "2026-11-05"
+ },
+ "reviews": {
+  "rating": 4.5,
+  "reviewCount": 289,
+  "source": "Google Maps",
+  "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Playclub+by+Buumi+Urban+Forest&query_place_id=ChIJOeYqip_xaS4R7aHYvcM8Aq0",
+  "checkedAt": "2026-11-05",
+  "praiseThemes": [],
+  "complaintThemes": [],
+    "trend": "insufficient"
+ }
+},
  {
   "id": "aquatic-baby-bintaro",
   "chain": "Aquatic Baby",
