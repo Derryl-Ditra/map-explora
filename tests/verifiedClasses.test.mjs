@@ -12,10 +12,10 @@ test('UI evidence rejects conflicts, ambiguity, missing bounds, missing sources 
  assert.equal(isVerifiedAgeClaim(claim,'upper-bound inclusivity ambiguous'),false);
 });
 test('dataset impact stays explicit without deleting public places',()=>{
- assert.equal(shown.length,136);
- assert.equal(shown.flatMap(verifiedPrograms).length,47);
- assert.equal(shown.filter(v=>!verifiedPrograms(v).length).length,127);
- assert.equal(shown.filter(v=>!hasVerifiedAgeEvidence(v)).length,126);
+ assert.equal(shown.length,138);
+ assert.equal(shown.flatMap(verifiedPrograms).length,52);
+ assert.equal(shown.filter(v=>!verifiedPrograms(v).length).length,126);
+ assert.equal(shown.filter(v=>!hasVerifiedAgeEvidence(v)).length,125);
  assert.equal(shown.filter(v=>venueConfirmedForAge(v,59)).length,1);
 });
 test('every confirmed place at all 60 stepper months has visible evidence covering that month',()=>{
@@ -32,4 +32,9 @@ test('hidden class never confirms even away from its ambiguous boundary',()=>{
 test('guide class rows and branch statements share the verified evidence gate',()=>{
  const s=readFileSync(new URL('../src/app/activities/[slug]/page.tsx',import.meta.url),'utf8');
  assert.match(s,/isVerifiedAgeClaim\(v.branchAge\)/);assert.match(s,/verifiedPrograms\(v\)/);assert.doesNotMatch(s,/v.programs.filter|Confirm class/);
+});
+
+test('Buumi exact baby classes are branch-bound and older holiday claim stays hidden',()=>{
+ const expected={ 'buumi-playscape-pacific-place':2,'buumi-playscape-plaza-senayan':2,'buumi-playscape-urban-forest-cipete':1 };
+ for(const [id,count] of Object.entries(expected)){const v=VENUES.find(v=>v.id===id);assert.ok(v);const ps=verifiedPrograms(v);assert.equal(ps.length,count);for(const p of ps){assert.equal(p.age.minMonths,6);assert.equal(p.age.maxMonths,18);assert.equal(p.term,'November 2026');assert.match(p.age.providerAgeUrl,/instagram.com\/buumiplayscape\/p\//);}assert.equal(venueConfirmedForAge(v,5),false);assert.equal(venueConfirmedForAge(v,6),true);assert.equal(venueConfirmedForAge(v,18),true);assert.equal(venueConfirmedForAge(v,19),false);}
 });
