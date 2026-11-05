@@ -154,7 +154,7 @@ export default function FilterBar({
             <button type="button" aria-label="Increase age by one month" disabled={filters.ageMonths === 59} onClick={() => onUpdateFilter("ageMonths", filters.ageMonths === null ? 0 : Math.min(59, filters.ageMonths + 1))} className="w-11 h-11 rounded-full border border-[#e7e0d4] bg-white text-xl disabled:opacity-40">+</button>
             <Chip active={filters.ageMonths === null} onClick={() => onUpdateFilter("ageMonths", null)}>Any age</Chip>
           </div>
-          <p className="text-sm text-[#51483d]">Matches the branch's confirmed age range. Unconfirmed ages stay separate.</p>
+          <p className="text-sm text-[#51483d]">Matches the branch&apos;s confirmed age range. Unconfirmed ages stay separate.</p>
         </div>
       )}
 
