@@ -1,101 +1,51 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Venue } from "@/types/venue";
 import { X, Copy, Check, Share2 } from "lucide-react";
-import { buildClassLines, buildShareText } from "@/utils/shareText";
+import { buildClassLines, buildShareText, buildVenueUrl } from "@/utils/shareText";
 
-interface ShareCardProps {
-  venue: Venue;
-  onClose: () => void;
-}
-
-export default function ShareCard({ venue, onClose }: ShareCardProps) {
-  const [copied, setCopied] = useState(false);
-
-  const classLines = buildClassLines(venue);
+export default function ShareCard({ venue, onClose }: { venue: Venue; onClose: () => void }) {
+  const [status, setStatus] = useState("");
+  const panel = useRef<HTMLDivElement>(null);
+  const textBox = useRef<HTMLTextAreaElement>(null);
   const shareText = buildShareText(venue);
-
-  const handleCopy = async () => {
+  const classLines = buildClassLines(venue);
+  useEffect(() => {
+    const previous = document.activeElement as HTMLElement | null;
+    panel.current?.focus();
+    return () => previous?.focus();
+  }, []);
+  const share = async () => {
+    if (!navigator.share) { setStatus("Phone sharing is unavailable. Copy the text below."); return; }
     try {
-      await navigator.clipboard.writeText(shareText);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
-    } catch {
-      // clipboard unavailable; user can still screenshot
+      await navigator.share({ title: `${venue.chain ?? ""} ${venue.branchName}`.trim(), text: shareText.replace(buildVenueUrl(venue), "").trim(), url: buildVenueUrl(venue) });
+      setStatus("Shared");
+    } catch (error) {
+      if ((error as DOMException).name !== "AbortError") setStatus("Sharing failed. You can copy or select the text below.");
     }
   };
-
-  return (
-    <div className="fixed inset-0 z-[2000] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="w-full max-w-sm bg-[#f6f2ec] border border-[#e7e0d4] rounded-3xl p-5 shadow-2xl flex flex-col gap-4 text-[#221d18] relative">
-        <button
-          type="button"
-          onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-full bg-white border border-[#e7e0d4] text-[#6d675f] hover:text-[#221d18]"
-        >
-          <X className="w-4 h-4" />
-        </button>
-
-        <div className="flex items-center gap-2 text-[#6d675f] text-[0.9375rem] font-semibold">
-          <Share2 className="w-4 h-4 text-[#1a7a4a]" />
-          <span>Share this place</span>
-        </div>
-
-        <div className="bg-white border border-[#e7e0d4] rounded-2xl p-4 flex flex-col gap-3">
-          <div className="flex flex-col">
-            <span className="text-[0.8125rem] text-[#1a7a4a] font-bold">
-              Under-5 Class Spot
-            </span>
-            <span className="text-[1.0625rem] font-bold text-[#221d18] leading-snug mt-0.5">
-              {venue.chain ? `${venue.chain} - ` : ""}
-              {venue.branchName}
-            </span>
-            <span className="text-[0.9375rem] text-[#6d675f]">
-              {venue.area === venue.city ? venue.area : venue.area + ", " + venue.city}
-            </span>
-          </div>
-
-          {classLines && (
-            <div className="bg-[#f6f2ec] p-3 rounded-xl border border-[#e7e0d4] text-[0.9375rem] text-[#4a443c]">
-              {classLines}
-            </div>
-          )}
-
-          {venue.reviews && venue.reviews.rating !== null && (
-            <div className="flex items-center justify-between bg-[#f6f2ec] p-3 rounded-xl border border-[#e7e0d4] text-[0.9375rem]">
-              <span className="text-[#6d675f] text-[0.9375rem]">Parent reviews:</span>
-              <span className="text-[#221d18] font-bold">
-                {venue.reviews.rating.toFixed(1)} ({venue.reviews.source})
-              </span>
-            </div>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-2 pt-1">
-          <button
-            type="button"
-            onClick={handleCopy}
-            className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full bg-[#1a7a4a] hover:bg-[#14532d] text-white font-bold text-[1rem] transition-all"
-          >
-            {copied ? (
-              <>
-                <Check className="w-4.5 h-4.5 text-white" />
-                <span>Copied to clipboard</span>
-              </>
-            ) : (
-              <>
-                <Copy className="w-4.5 h-4.5 text-white" />
-                <span>Copy Share Text</span>
-              </>
-            )}
-          </button>
-          <span className="text-[0.875rem] text-center text-[#6d675f]">
-            Take a screenshot of the card above and paste the text anywhere.
-          </span>
-        </div>
-      </div>
+  const copy = async () => {
+    try { await navigator.clipboard.writeText(shareText); setStatus("Copied to clipboard"); }
+    catch { setStatus("Copy was blocked. Select the text below and copy it manually."); textBox.current?.focus(); textBox.current?.select(); }
+  };
+  return <div className="fixed inset-0 z-[2000] bg-black/50 backdrop-blur-sm flex items-end md:items-center justify-center p-3" onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
+    <div ref={panel} role="dialog" aria-modal="true" aria-labelledby="share-title" tabIndex={-1} onKeyDown={e => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "Tab") {
+        const items = panel.current?.querySelectorAll<HTMLElement>("button,textarea,a[href]");
+        if (!items?.length) return;
+        const first=items[0],last=items[items.length-1];
+        if (e.shiftKey && document.activeElement===first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement===last) { e.preventDefault(); first.focus(); }
+      }
+    }} className="w-full max-w-sm max-h-[90dvh] overflow-y-auto overscroll-contain bg-[#f6f2ec] rounded-3xl p-5 shadow-2xl flex flex-col gap-4 text-[#221d18] relative">
+      <div className="flex items-center justify-between gap-3"><h2 id="share-title" className="font-bold">Share this place</h2><button type="button" aria-label="Close share" onClick={onClose} className="w-12 h-12 rounded-full bg-white border border-[#e7e0d4] flex items-center justify-center"><X className="w-5 h-5" /></button></div>
+      <div className="p-4 bg-white rounded-2xl border border-[#e7e0d4]"><p className="font-bold">{venue.chain ? `${venue.chain} ` : ""}{venue.branchName}</p><p className="text-[#6d675f]">{venue.area}</p>{classLines && <p className="mt-2 text-sm">{classLines}</p>}</div>
+      <button type="button" onClick={share} className="min-h-12 rounded-full bg-[#1a7a4a] text-white font-bold flex items-center justify-center gap-2"><Share2 className="w-5 h-5" />Share using phone</button>
+      <button type="button" onClick={copy} className="min-h-12 rounded-full border-2 border-[#1a7a4a] text-[#14532d] font-bold flex items-center justify-center gap-2">{status==="Copied to clipboard" ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}Copy share text</button>
+      <p role="status" aria-live="polite" className="text-sm text-[#6d675f]">{status || "The link opens this place directly. Cancel sharing to keep browsing."}</p>
+      <label className="text-sm font-semibold" htmlFor="share-text">Share text</label><textarea id="share-text" ref={textBox} readOnly value={shareText} rows={4} className="w-full p-3 bg-white border border-[#e7e0d4] rounded-xl text-sm select-text" />
     </div>
-  );
+  </div>;
 }
-// Trailing sentinel: absorbs the web editor last-line indent artifact.
