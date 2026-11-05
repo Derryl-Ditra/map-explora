@@ -103,6 +103,16 @@ export interface ReviewSummary {
   sampleNote?: string; // bounded sample framing, e.g. "3 of 7 reviews visible"
   praiseThemes: string[]; // short paraphrased recurring themes, each evidence-backed
   complaintThemes: string[];
+  // Live-Maps review pulse (weekly data job). All optional: absent until collected.
+  latestReviewDate?: string; // ISO date of the newest Google Maps review seen
+  // Judged from the newest 20 reviews; labeled only when 10+ dated reviews span
+  // both halves of the sample period, otherwise "insufficient".
+  trend?: "improving" | "mixed" | "worsening" | "insufficient";
+  trendEvidence?: {
+    sampled: number; // dated reviews in the sample
+    from: string; // ISO date of the oldest dated review sampled
+    to: string; // ISO date of the newest dated review sampled
+  };
 }
 
 export interface VenueFilterState {
