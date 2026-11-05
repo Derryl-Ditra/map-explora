@@ -2,9 +2,10 @@
 
 import { useState, useEffect, useRef, useCallback, useSyncExternalStore } from "react";
 import { Venue, VenueFilterState } from "@/types/venue";
+import { buildMapsLink } from "@/utils/mapsLink";
 import FilterBar from "./FilterBar";
 import VenueDetails from "./VenueDetails";
-import { Search, MapPin, HelpCircle, ShieldCheck } from "lucide-react";
+import { Search, MapPin, HelpCircle, ShieldCheck, Navigation, ArrowLeft, ExternalLink } from "lucide-react";
 
 interface MobileDrawerProps {
   confirmed: Venue[];
@@ -235,6 +236,13 @@ export default function MobileDrawer({
 
   // Hidden while a bottom selection card owns the
   // space. Desktop always shows the sidebar.
+  const detailsScrollRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (activeVenue && showDetails) {
+      detailsScrollRef.current?.scrollTo({ top: 0 });
+    }
+  }, [activeVenue?.id, showDetails]);
+
   const mobileHidden = !!activeVenue && !showDetails;
 
   const sheetH = dragH ?? stops[snap];
@@ -307,7 +315,7 @@ export default function MobileDrawer({
       {header}
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto px-4 pt-1 pb-3 flex flex-col gap-3">
+      <div ref={detailsScrollRef} className="flex-1 min-h-0 overflow-y-auto px-4 pt-1 pb-3 flex flex-col gap-3">
         {activeVenue && showDetails ? (
           <VenueDetails
             venue={activeVenue}
@@ -404,6 +412,16 @@ export default function MobileDrawer({
           </>
         )}
       </div>
+      {activeVenue && showDetails && (
+        <nav aria-label="Place actions" className="md:hidden shrink-0 border-t border-[#e7e0d4] bg-[#f6f2ec] px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] flex items-center gap-3">
+          <button type="button" onClick={() => onSetMobileView("map")} className="min-h-12 px-2 flex items-center gap-1 text-[#1a7a4a] font-semibold text-[0.9375rem]">
+            <ArrowLeft className="w-4 h-4" /> Back to map
+          </button>
+          <a href={buildMapsLink(activeVenue)} target="_blank" rel="noopener noreferrer" className="min-h-12 flex-1 flex items-center justify-center gap-2 px-4 rounded-full bg-[#1a7a4a] text-white font-bold text-[1rem]" aria-label={activeVenue.coordinateSource === "area-approximate" || activeVenue.caution ? "Search in Google Maps" : "Directions in Google Maps"}>
+            <Navigation className="w-4 h-4" />{activeVenue.coordinateSource === "area-approximate" || activeVenue.caution ? "Search Maps" : "Directions"}<ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        </nav>
+      )}
     </aside>
   );
 }

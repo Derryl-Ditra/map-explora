@@ -185,7 +185,7 @@ export default function VenueDetails({
         <button
           type="button"
           onClick={onOpenShare}
-          className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-full bg-white border border-[#e7e0d4] text-[#221d18] hover:border-[#1a7a4a]/50 text-[0.9375rem] font-semibold transition-colors"
+          className="flex items-center gap-1.5 px-2 min-h-11 text-[#6d675f] hover:text-[#221d18] text-[0.9375rem] font-semibold transition-colors"
         >
           <Share2 className="w-4 h-4 text-[#1a7a4a]" />
           <span>Share</span>
@@ -385,7 +385,7 @@ export default function VenueDetails({
         </div>
       </div>
 
-      <div className="pt-1 flex flex-col gap-2.5">
+      <div className="hidden md:flex pt-1 flex-col gap-2.5">
         <a href={buildMapsLink(venue)} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 py-4 rounded-full bg-[#1a7a4a] hover:bg-[#14532d] text-white font-bold text-[1.0625rem] transition-colors">
           <Navigation className="w-5 h-5" />
           {routingBlocked ? "Search in Google Maps" : "Directions in Google Maps"}
@@ -393,6 +393,8 @@ export default function VenueDetails({
         </a>
         <p className="text-[0.875rem] text-[#6d675f]">Check tolls and ganjil/genap settings in Google Maps before travelling.</p>
       </div>
+
+      <p className="md:hidden text-[0.875rem] text-[#6d675f]">Check tolls and ganjil/genap settings in Google Maps before travelling.</p>
 
       {/* Official links */}
       <div className="flex items-center justify-between text-[1rem] pt-1">
