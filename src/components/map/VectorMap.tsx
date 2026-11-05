@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as maplibregl from "maplibre-gl";
 
 // Turbopack's worker bundling breaks under static export; serve the worker as a static asset.
@@ -10,7 +10,7 @@ if (typeof window !== "undefined") {
 }
 import "maplibre-gl/dist/maplibre-gl.css";
 import { Venue } from "@/types/venue";
-import { getMonoStyle, FALLBACK_STYLE_URL } from "./vectorStyle";
+import { getMonoStyle } from "./vectorStyle";
 
 interface VectorMapProps {
   venues: Venue[];
@@ -64,6 +64,7 @@ export default function VectorMap({
   recenterTick,
   fitTick,
 }: VectorMapProps) {
+  const [mapStatus, setMapStatus] = useState<"loading" | "ready" | "error">("loading");
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const markersRef = useRef<Map<string, maplibregl.Marker>>(new Map());
@@ -83,19 +84,22 @@ export default function VectorMap({
     if (!container || mapRef.current) return;
 
     let cancelled = false;
+    let failed = false;
     const initial = userPos ? [userPos[1], userPos[0]] as [number, number] : JAKARTA;
 
-    const start = (style: any) => {
+    const start = (style: maplibregl.StyleSpecification) => {
       if (cancelled || mapRef.current) return;
       const map = new maplibregl.Map({
         container,
         style,
         center: initial,
-        zoom: 13,
+        zoom: 11,
         attributionControl: { compact: true },
       });
       styleModeRef.current = mapStyle;
 
+      map.once("idle", () => { if (!cancelled && !failed) setMapStatus("ready"); });
+      map.on("error", () => { failed = true; if (!cancelled) setMapStatus("error"); });
       map.on("load", () => {
         readyRef.current = true;
         map.addSource("user-accuracy", {
@@ -133,7 +137,7 @@ export default function VectorMap({
       mapRef.current = map;
     };
 
-    getMonoStyle(mapStyle).then(start).catch(() => start(FALLBACK_STYLE_URL[mapStyle]));
+    getMonoStyle(mapStyle).then(start).catch(() => { if (!cancelled) setMapStatus("error"); });
 
     return () => {
       cancelled = true;
@@ -170,7 +174,7 @@ export default function VectorMap({
       })
       .catch(() => {
         styleModeRef.current = mapStyle;
-        map.setStyle(FALLBACK_STYLE_URL[mapStyle]);
+        setMapStatus("error");
       });
     return () => { cancelled = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -504,6 +508,13 @@ export default function VectorMap({
       style={{ position: "absolute", inset: 0, backgroundColor: mapStyle === "dark" ? "#0d0d0d" : "#f5f5f4" }}
     >
       <div ref={containerRef} style={{ position: "absolute", inset: 0 }} />
+      {mapStatus !== "ready" && (
+        <div role={mapStatus === "error" ? "alert" : "status"} className="absolute inset-0 flex items-center justify-center pointer-events-none bg-[#f6f3ec] dark:bg-[#0d0d0d]" style={{ backgroundColor: mapStyle === "dark" ? "#0d0d0d" : "#f6f3ec", color: mapStyle === "dark" ? "#ffffff" : "#51483d" }}>
+          <div className="text-center px-6 pb-64">
+            {mapStatus === "loading" ? <><span className="inline-block w-6 h-6 border-2 border-current border-t-transparent rounded-full animate-spin" /><p>Loading map. You can browse the place list.</p></> : <p>Map could not load. You can still browse places and open Directions.</p>}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
