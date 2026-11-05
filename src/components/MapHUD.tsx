@@ -7,7 +7,6 @@ import { useVenueFilters } from "@/hooks/useVenueFilters";
 import { Venue, VenueFilterState } from "@/types/venue";
 import MobileDrawer from "./ui/MobileDrawer";
 import ShareCard from "./ui/ShareCard";
-import SelectionCard from "./ui/SelectionCard";
 import { Crosshair, Loader2, Moon, Sun, MapPin, X } from "lucide-react";
 
 // Dynamic import for the map (client-only)
@@ -54,43 +53,23 @@ export default function MapHUD() {
   // Mobile is map-first: the map is the default view. The list, search and
   // filters open from the "places" bar or the List toggle.
   const [mobileView, setMobileView] = useState<"list" | "map">("map");
-  // Full detail page open on mobile. A pin tap shows a bottom card instead,
-  // so the map stays visible.
-  const [detailOpen, setDetailOpen] = useState(false);
   const isDesktop = useIsDesktop();
-  const showDetails = !!activeVenue && (detailOpen || isDesktop);
+  const showDetails = !!activeVenue;
   // Location notice: dismissible, auto-hides, never covers sheet controls.
   const [locationNoticeGone, setLocationNoticeGone] = useState(false);
   // Bumped when the area or activity filter changes so the map frames all matches.
   const [fitTick, setFitTick] = useState(0);
-  const handleSelectVenue = useCallback(
-    (venue: Venue, openDetails = false) => {
-      setActiveVenue(venue);
-      setDetailOpen(openDetails);
-    },
-    []
-  );
-
-  const handleSelectFromList = useCallback(
-    (venue: Venue) => handleSelectVenue(venue, true),
-    [handleSelectVenue]
-  );
-
+  // Pin and list selections open the same detail page, without a preview state.
+  const handleSelectVenue = useCallback((venue: Venue) => setActiveVenue(venue), []);
+  const handleSelectFromList = handleSelectVenue;
   const handleClearActiveVenue = useCallback(() => {
     setActiveVenue(null);
-    setDetailOpen(false);
+    setShowShareCard(false);
   }, []);
-
-  // Back from Details on a phone map returns to the map card; elsewhere it
-  // returns to the full list.
-  const handleBackFromDetails = useCallback(() => {
-    if (!isDesktop && mobileView === "map") setDetailOpen(false);
-    else handleClearActiveVenue();
-  }, [isDesktop, mobileView, handleClearActiveVenue]);
-
   const handleSetView = useCallback((view: "list" | "map") => {
     setMobileView(view);
-    setDetailOpen(false);
+    setActiveVenue(null);
+    setShowShareCard(false);
   }, []);
 
   // Reset the dismissal when the location state changes; auto-hide after 8s.
@@ -121,7 +100,7 @@ export default function MapHUD() {
       {/* Location permission notice: above the sheet on phones (never over
           Back/venue names), top-center on desktop. Dismissible, auto-hides. */}
       {locationError && !locationNoticeGone && (
-        <div className="absolute bottom-[266px] md:bottom-auto md:top-4 left-1/2 -translate-x-1/2 z-[1001] w-[min(92vw,340px)]">
+        <div className="absolute bottom-[90px] md:bottom-auto md:top-4 left-1/2 -translate-x-1/2 z-[1001] w-[min(92vw,340px)]">
           <div className="bg-white border border-[#e7e0d4] rounded-2xl pl-3.5 pr-2 py-2.5 text-[0.9375rem] text-[#4a443c] shadow-sm flex items-center gap-2">
             <MapPin className="w-4 h-4 text-[#92400e] shrink-0" />
             <span>{locationError}</span>
@@ -189,7 +168,7 @@ export default function MapHUD() {
         onSelectFromList={handleSelectFromList}
         showDetails={showDetails}
         backLabel={!isDesktop && mobileView === "map" ? "Back to map" : "All places"}
-        onClearActiveVenue={handleBackFromDetails}
+        onClearActiveVenue={handleClearActiveVenue}
         filters={filters}
         onUpdateFilter={handleUpdateFilter}
         onResetFilters={handleResetFilters}
@@ -200,13 +179,10 @@ export default function MapHUD() {
         onSetMobileView={handleSetView}
       />
 
-      {/* Mobile map view: selected place as a bottom card */}
-      {activeVenue && mobileView === "map" && !detailOpen && (
-        <SelectionCard
-          venue={activeVenue}
-          onDetails={() => setDetailOpen(true)}
-          onClose={handleClearActiveVenue}
-        />
+      {!activeVenue && mobileView === "map" && (
+        <button type="button" onClick={() => handleSetView("list")} className="md:hidden absolute bottom-[max(20px,env(safe-area-inset-bottom))] left-4 right-4 z-[500] min-h-14 rounded-2xl bg-[#f6f2ec] border border-[#e7e0d4] shadow-md text-[#1a7a4a] font-bold">
+          List · {confirmed.length + unconfirmed.length} places
+        </button>
       )}
 
       {/* Meta Threads Share Card Modal */}

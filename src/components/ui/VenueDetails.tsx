@@ -81,7 +81,7 @@ export default function VenueDetails({
         <button
           type="button"
           onClick={onBack}
-          className="flex items-center gap-1.5 text-[#1a7a4a] hover:text-[#14532d] py-2 font-semibold transition-colors"
+          className="hidden md:flex items-center gap-1.5 text-[#1a7a4a] hover:text-[#14532d] py-2 font-semibold transition-colors"
         >
           <ArrowLeft className="w-4.5 h-4.5" />
           <span className="text-[1rem]">{backLabel}</span>
@@ -90,7 +90,7 @@ export default function VenueDetails({
         <button
           type="button"
           onClick={onOpenShare}
-          className="flex items-center gap-1.5 px-2 min-h-11 text-[#6d675f] hover:text-[#221d18] text-[0.9375rem] font-semibold transition-colors"
+          className="ml-auto flex items-center gap-2 px-4 min-h-12 rounded-xl border-2 border-[#1a7a4a] bg-white text-[#1a7a4a] hover:bg-[#e3f2e8] text-[1rem] font-bold transition-colors"
         >
           <Share2 className="w-4 h-4 text-[#1a7a4a]" />
           <span>Share</span>
