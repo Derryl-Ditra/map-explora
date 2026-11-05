@@ -1,3 +1,4 @@
+import { verifiedPrograms } from "./ageMatch";
 import { Venue } from "@/types/venue";
 
 // The live app. Any shared text must carry this so recipients know where it came from.
@@ -10,8 +11,7 @@ function fmtMonths(m: number): string {
 }
 
 export function buildClassLines(venue: Venue): string {
-  return venue.programs
-    .filter((p) => p.offering === "offered")
+  return verifiedPrograms(venue)
     .slice(0, 4)
     .map((p) => {
       const lo = p.age.minMonths !== null ? fmtMonths(p.age.minMonths) : "?";
