@@ -134,7 +134,8 @@ export default function MobileDrawer({
   const hasAny = confirmed.length + unconfirmed.length > 0;
 
   const isDesktop = useIsDesktop();
-  const { sheet, handle, content: detailsScrollRef } = useSheetGesture(!isDesktop && showDetails, onDismissToMap);
+  const mobileHidden = mobileView === "map" && !showDetails;
+  const { sheet, handle, content: detailsScrollRef } = useSheetGesture(!isDesktop && !mobileHidden, onDismissToMap);
   const listScrollRef = useRef(0);
   const wasDetails = useRef(false);
   useLayoutEffect(() => {
@@ -154,7 +155,6 @@ export default function MobileDrawer({
     <K extends keyof VenueFilterState>(key: K, value: VenueFilterState[K]) => onUpdateFilter(key, value),
     [onUpdateFilter]
   );
-  const mobileHidden = mobileView === "map" && !showDetails;
 
   const header = (
     <div className="px-4 pt-1 pb-2 shrink-0">
@@ -195,7 +195,7 @@ export default function MobileDrawer({
     <aside
       ref={sheet}
       aria-label="Under-5 class places and filters"
-      style={isDesktop ? undefined : { height: showDetails ? "97dvh" : "100dvh" }}
+      style={isDesktop ? undefined : { height: "97dvh" }}
       className={`
         fixed z-[1000] flex-col transition-transform duration-200 motion-reduce:transition-none
         bottom-0 left-0 right-0 rounded-t-3xl
@@ -207,7 +207,7 @@ export default function MobileDrawer({
         ${mobileHidden ? "hidden md:flex" : "flex"}
       `}
     >
-      {showDetails && <button ref={handle} type="button" aria-label="Close place and return to map" onClick={onDismissToMap} className="md:hidden h-8 shrink-0 flex items-center justify-center touch-none cursor-grab active:cursor-grabbing"><span className="w-10 h-1 rounded-full bg-[#aaa297]" /></button>}
+      {<button ref={handle} type="button" aria-label={showDetails ? "Close place and return to map" : "Close list and return to map"} onClick={onDismissToMap} className="md:hidden h-8 shrink-0 flex items-center justify-center touch-none cursor-grab active:cursor-grabbing"><span className="w-10 h-1 rounded-full bg-[#aaa297]" /></button>}
       {header}
 
 
