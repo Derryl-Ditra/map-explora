@@ -5,14 +5,10 @@ import { useState } from "react";
 import { Venue, AgeClaim } from "@/types/venue";
 import { isVerifiedAgeClaim, verifiedPrograms } from "@/utils/ageMatch";
 import { reviewPulseLine } from "@/utils/reviewPulse";
-import { buildMapsLink } from "@/utils/mapsLink";
 import {
-  Navigation,
-  ExternalLink,
   Share2,
   Clock,
   ShieldCheck,
-  ArrowLeft,
   Flag,
   Star,
   MapPin,
@@ -22,8 +18,6 @@ import {
 
 interface VenueDetailsProps {
   venue: Venue;
-  onBack: () => void;
-  backLabel?: string;
   onOpenShare: () => void;
 }
 
@@ -45,8 +39,6 @@ function formatAgeRange(age: AgeClaim): string {
 
 export default function VenueDetails({
   venue,
-  onBack,
-  backLabel = "All places",
   onOpenShare,
 }: VenueDetailsProps) {
   const [reportOpen, setReportOpen] = useState(false);
@@ -56,7 +48,6 @@ export default function VenueDetails({
   const [reviewSourceOpen, setReviewSourceOpen] = useState(false);
 
   const approximate = venue.coordinateSource === "area-approximate";
-  const routingBlocked = approximate || !!venue.caution;
 
   const saveReport = () => {
     if (!reportText.trim()) return;
@@ -80,15 +71,6 @@ export default function VenueDetails({
     <div className="flex flex-col gap-3.5 text-[#221d18] text-[1rem]">
       {/* Header Bar */}
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <button
-          type="button"
-          onClick={onBack}
-          className="hidden md:flex items-center gap-1.5 text-[#1a7a4a] hover:text-[#14532d] py-2 font-semibold transition-colors"
-        >
-          <ArrowLeft className="w-4.5 h-4.5" />
-          <span className="text-[1rem]">{backLabel}</span>
-        </button>
-
         <button
           type="button"
           onClick={onOpenShare}
@@ -272,16 +254,7 @@ export default function VenueDetails({
         </div>
       </div>
 
-      <div className="hidden md:flex pt-1 flex-col gap-2.5">
-        <a href={buildMapsLink(venue)} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 py-4 rounded-full bg-[#1a7a4a] hover:bg-[#14532d] text-white font-bold text-[1.0625rem] transition-colors">
-          <Navigation className="w-5 h-5" />
-          {routingBlocked ? "Search in Google Maps" : "Directions in Google Maps"}
-          <ExternalLink className="w-4 h-4" />
-        </a>
-        <p className="text-[0.875rem] text-[#6d675f]">Check tolls and ganjil/genap settings in Google Maps before travelling.</p>
-      </div>
-
-      <p className="md:hidden text-[0.875rem] text-[#6d675f]">Check tolls and ganjil/genap settings in Google Maps before travelling.</p>
+      <p className="text-[0.875rem] text-[#6d675f]">Check tolls and ganjil/genap settings in Google Maps before travelling.</p>
 
       {/* Official links */}
       <div className="flex items-center justify-between text-[1rem] pt-1">

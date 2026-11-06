@@ -11,6 +11,8 @@ import VenueDetails from "./VenueDetails";
 import { Search, MapPin, HelpCircle, ShieldCheck, Navigation, ArrowLeft, ExternalLink, X } from "lucide-react";
 
 interface MobileDrawerProps {
+  desktopCollapsed: boolean;
+  onHideSidebar: () => void;
   confirmed: Venue[];
   unconfirmed: Venue[];
   activeVenue: Venue | null;
@@ -114,6 +116,7 @@ function VenueCard({
 
 // Mobile has two explicit modes. Details return to the originating mode.
 export default function MobileDrawer({
+  desktopCollapsed, onHideSidebar,
   confirmed,
   unconfirmed,
   activeVenue,
@@ -196,6 +199,7 @@ export default function MobileDrawer({
 
   return (
     <aside
+      id="places-sidebar"
       ref={sheet}
       aria-label="Under-5 class places and filters"
       style={isDesktop ? undefined : { height: "97dvh" }}
@@ -207,10 +211,11 @@ export default function MobileDrawer({
         md:top-6 md:left-6 md:right-auto md:bottom-auto md:w-[26rem] md:h-[calc(100dvh-48px)]
         md:border md:rounded-3xl md:shadow-[0_4px_24px_rgba(34,29,24,0.10)]
         
-        ${mobileHidden ? "hidden md:flex" : "flex"}
+        ${mobileHidden ? "hidden" : "flex"} ${desktopCollapsed ? "md:hidden" : "md:flex"}
       `}
     >
       {<button ref={handle} type="button" aria-label={showDetails ? "Close place and return to map" : "Close list and return to map"} onClick={onDismissToMap} className="md:hidden h-8 shrink-0 flex items-center justify-center touch-none cursor-grab active:cursor-grabbing"><span className="w-10 h-1 rounded-full bg-[#aaa297]" /></button>}
+      <div className="hidden md:flex justify-end px-4 pt-2 shrink-0"><button type="button" aria-controls="places-sidebar" aria-expanded={true} onClick={onHideSidebar} className="min-h-10 px-3 rounded-full text-[#14532d] font-semibold hover:bg-white">Hide sidebar</button></div>
       {header}
 
 
@@ -220,14 +225,12 @@ export default function MobileDrawer({
         {activeVenue && showDetails ? (
           <VenueDetails
             venue={activeVenue}
-            onBack={onClearActiveVenue}
-            backLabel={backLabel}
             onOpenShare={onOpenShare}
           />
         ) : (
           <>
             <button type="button" onClick={onLocate} className="md:hidden min-h-12 rounded-xl border border-[#e7e0d4] bg-white text-[#14532d] font-semibold">{isLocating ? "Finding your location..." : "Use my location"}</button>
-            {locationNotice && <div role="status" className="md:hidden flex items-center gap-2 rounded-2xl border border-[#e7e0d4] bg-white p-3 text-sm text-[#4a443c]">
+            {locationNotice && <div role="status" className="flex items-center gap-2 rounded-2xl border border-[#e7e0d4] bg-white p-3 text-sm text-[#4a443c]">
               <span className="flex-1">{locationNotice}</span>
               <button type="button" aria-label="Dismiss location notice" onClick={onDismissLocationNotice} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"><X className="h-4 w-4" /></button>
             </div>}
@@ -328,7 +331,7 @@ export default function MobileDrawer({
         </nav>
       )}
       {activeVenue && showDetails && (
-        <nav aria-label="Place actions" className="md:hidden shrink-0 border-t border-[#e7e0d4] bg-[#f6f2ec] px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] flex items-center gap-3">
+        <nav aria-label="Place actions" className=" shrink-0 border-t border-[#e7e0d4] bg-[#f6f2ec] px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] flex items-center gap-3">
           <button type="button" onClick={onClearActiveVenue} className="min-h-12 px-2 flex items-center gap-1 text-[#1a7a4a] font-semibold text-[0.9375rem]">
             <ArrowLeft className="w-4 h-4" /> {backLabel}
           </button>

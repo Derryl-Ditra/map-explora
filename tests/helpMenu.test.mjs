@@ -7,7 +7,7 @@ test('mobile additional content is in an accessible right-side menu, not the old
  assert.match(s,/onKeyDown/);assert.match(s,/Escape/);assert.match(s,/Additional information/);
 });
 
-test('old guide pill stays desktop-only and Age moves to the left',()=>{const home=readFileSync(new URL('../src/app/(english)/page.tsx',import.meta.url),'utf8');assert.match(home,/hidden md:block absolute top-3 left-3/);assert.ok(!s.includes('left-[8.5rem]'));});
+test('Class guides lives only in the information menu, not behind the sidebar',()=>{const home=readFileSync(new URL('../src/app/(english)/page.tsx',import.meta.url),'utf8');assert.doesNotMatch(home,/Class guides|import Link/);assert.match(s,/href="\/activities\/"/);assert.ok(!s.includes('left-[8.5rem]'));});
 
 test('contact is in the help menu at every viewport, without a plain email label',()=>{
  const s=readFileSync(new URL('../src/components/MapHUD.tsx',import.meta.url),'utf8');
