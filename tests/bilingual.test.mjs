@@ -24,3 +24,9 @@ test('localized metadata carries page descriptions, social tags and language URL
  assert.equal(m.description,'Cabang dengan usia resmi.');assert.equal(m.openGraph.description,m.description);assert.equal(m.twitter.description,m.description);assert.equal(m.openGraph.locale,'id_ID');
  assert.equal(localizeTerm('19 Oct 2026 until 17 Jan 2027','id'),'19 Okt 2026 sampai 17 Jan 2027');
 });
+test('provider and Website links with the same destination appear once',async()=>{
+ const {venueLinks}=await importTs('../src/utils/bilingual.ts');
+ const v={sourceUrl:'https://example.org',website:'https://example.org',instagram:'https://instagram.com/example'};
+ assert.deepEqual(venueLinks(v).map(x=>x.url),['https://example.org','https://instagram.com/example']);
+ assert.equal(venueLinks({...v,website:'https://example.org/classes'}).length,3);
+});
