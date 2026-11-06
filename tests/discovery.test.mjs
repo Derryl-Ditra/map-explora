@@ -27,5 +27,5 @@ test('schema describes the visible list without fake offers or ratings',()=>{
 test('map has a homepage ItemList and guide age labels are human readable',async()=>{
  const {readFileSync}=await import('node:fs');
  const home=readFileSync(new URL('../src/app/page.tsx',import.meta.url),'utf8');assert.match(home,/itemListSchema/);assert.match(home,/application\/ld\+json/);
- const page=readFileSync(new URL('../src/app/activities/[slug]/page.tsx',import.meta.url),'utf8');assert.ok(!page.includes('{age.verification}.'));assert.ok(page.includes('age not confirmed'));
+ const page=readFileSync(new URL('../src/components/GuideContent.tsx',import.meta.url),'utf8');assert.ok(!page.includes('{age.verification}.'));assert.ok(page.includes('Class ages not verified yet'));
 });
