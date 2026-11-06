@@ -47,7 +47,7 @@ export function useAppNavigation() {
       const steps = (current.current.venueId ? 1 : 0) + (current.current.mode === "list" ? 1 : 0) + (current.current.share ? 1 : 0);
       if (steps) window.history.go(-steps);
       else apply(MAP);
-    } else if (current.current.mode !== "list") write({ mode, venueId: null, share: false });
+    } else if (current.current.mode !== "list" || current.current.venueId) write({ mode, venueId: null, share: false }, Boolean(current.current.venueId));
   }, [apply, write]);
   const select = useCallback((venue: Venue) => write({ ...current.current, venueId: venue.id, share: false }, Boolean(current.current.venueId)), [write]);
   const close = useCallback(() => window.history.back(), []);
