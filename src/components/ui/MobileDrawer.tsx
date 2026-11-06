@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef, useCallback, useSyncExternalStore } from "react";
 import { Venue, VenueFilterState } from "@/types/venue";
 import { buildMapsLink } from "@/utils/mapsLink";
+import {matchingAgeRanges, type AgeBandId} from '@/utils/ageBands';
 import { hasVerifiedAgeEvidence } from "@/utils/ageMatch";
 import { useSheetGesture } from "@/hooks/useSheetGesture";
 import FilterBar from "./FilterBar";
@@ -53,7 +54,7 @@ function FitPill({ fit }: { fit: "confirmed" | "unconfirmed" | null }) {
     return (
       <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#e3f2e8] text-[#14532d] text-[0.875rem] font-bold shrink-0">
         <ShieldCheck className="w-3.5 h-3.5" />
-        Age confirmed
+        Age overlap
       </span>
     );
   }
@@ -71,9 +72,10 @@ function FitPill({ fit }: { fit: "confirmed" | "unconfirmed" | null }) {
 function VenueCard({
   venue,
   fit,
-  onSelect,
+  onSelect, ageBand,
 }: {
   venue: Venue;
+  ageBand?: AgeBandId | null;
   fit: "confirmed" | "unconfirmed" | null;
   onSelect: () => void;
 }) {
@@ -94,6 +96,7 @@ function VenueCard({
         <FitPill fit={fit} />
       </div>
 
+      {ageBand && fit==='confirmed' && <span className="text-sm text-[#14532d]">Verified ages: {matchingAgeRanges(venue,ageBand).join('; ')}</span>}
       {!hasVerifiedAgeEvidence(venue) && (
         <span className="text-[0.875rem] text-[#6d675f]">Class ages not verified yet</span>
       )}
@@ -130,7 +133,7 @@ export default function MobileDrawer({
   onDismissToMap, onLocate, isLocating, locationNotice, onDismissLocationNotice,
 }: MobileDrawerProps) {
   const total = confirmed.length;
-  const ageActive = filters.ageMonths !== null;
+  const ageActive = filters.ageBand !== null;
   const hasAny = confirmed.length + unconfirmed.length > 0;
 
   const isDesktop = useIsDesktop();
@@ -275,14 +278,15 @@ export default function MobileDrawer({
                   {ageActive && (
                     <span className="text-[1rem] font-semibold text-[#14532d]">
                       {confirmed.length === 0
-                        ? `No place has confirmed classes for ${filters.ageMonths} ${filters.ageMonths === 1 ? "month" : "months"} yet`
-                        : `Confirmed for this age: ${confirmed.length}`}
+                        ? "No confirmed age overlap yet"
+                        : `Places with confirmed age overlap: ${confirmed.length}`}
                     </span>
                   )}
                   {confirmed.map((venue) => (
                     <VenueCard
                       key={venue.id}
                       venue={venue}
+                      ageBand={filters.ageBand}
                       fit={ageActive ? "confirmed" : null}
                       onSelect={() => { listScrollRef.current = detailsScrollRef.current?.scrollTop ?? 0; onSelectFromList(venue); }}
                     />
