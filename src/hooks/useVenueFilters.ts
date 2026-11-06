@@ -4,7 +4,8 @@ import { useState, useMemo } from "react";
 import { VENUES } from "@/data/venues";
 import { Venue, VenueFilterState } from "@/types/venue";
 import { calculateDistance, calculateETA } from "@/utils/geo";
-import { venueConfirmedForAge, hasVerifiedAgeEvidence } from "@/utils/ageMatch";
+import { hasVerifiedAgeEvidence } from "@/utils/ageMatch";
+import { venueOverlapsBand } from '@/utils/ageBands';
 import { venueMatchesSearch } from "@/utils/searchMatch";
 import { isShownToUsers } from "@/utils/visibility";
 
@@ -14,7 +15,7 @@ const SHOWN_VENUES = VENUES.filter(isShownToUsers);
 export function useVenueFilters(userPos: [number, number] | null) {
   const [filters, setFilters] = useState<VenueFilterState>({
     searchQuery: "",
-    ageMonths: null,
+    ageBand: null,
     category: "ALL",
     area: "ALL",
   });
@@ -27,7 +28,7 @@ export function useVenueFilters(userPos: [number, number] | null) {
   };
 
   const resetFilters = () => {
-    setFilters({ searchQuery: "", ageMonths: null, category: "ALL", area: "ALL" });
+    setFilters({ searchQuery: "", ageBand: null, category: "ALL", area: "ALL" });
   };
 
   const categories = useMemo(
@@ -63,12 +64,12 @@ export function useVenueFilters(userPos: [number, number] | null) {
         : a.area.localeCompare(b.area) || a.branchName.localeCompare(b.branchName))
     );
 
-    if (filters.ageMonths === null) return { confirmed: base, unconfirmed: [] as Venue[] };
-    const months = filters.ageMonths;
+    if (filters.ageBand === null) return { confirmed: base, unconfirmed: [] as Venue[] };
+    const band = filters.ageBand;
     const yes: Venue[] = [];
     const maybe: Venue[] = [];
     for (const v of base) {
-      (venueConfirmedForAge(v, months) ? yes : maybe).push(v);
+      (venueOverlapsBand(v, band) ? yes : maybe).push(v);
     }
     return { confirmed: yes, unconfirmed: maybe };
   }, [filters, userPos]);

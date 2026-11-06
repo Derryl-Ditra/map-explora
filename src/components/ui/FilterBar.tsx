@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import {AGE_BANDS, type AgeBandId} from '@/utils/ageBands';
 import { VenueFilterState } from "@/types/venue";
-import { Baby, MapPin, LayoutGrid, ChevronDown, RotateCcw } from "lucide-react";
+import { MapPin, LayoutGrid, ChevronDown, RotateCcw } from "lucide-react";
 
 interface FilterBarProps {
   filters: VenueFilterState;
@@ -49,7 +50,7 @@ function Chip({
   );
 }
 
-type Group = "age" | "area" | "activity";
+type Group = "area" | "activity";
 
   function SummaryButton({
     group,
@@ -86,10 +87,7 @@ type Group = "age" | "area" | "activity";
   }
 
 
-// Compact filter controls: one summary row of three toggles. Only one group
-// expands at a time (chips wrapped, nothing clipped), so venue results stay
-// visible above the fold. Area/activity collapse on pick; age stays open so
-// the exact month stays easy to change.
+// Native age dropdown and compact area/activity controls keep results visible.
 export default function FilterBar({
   filters,
   onUpdateFilter,
@@ -99,13 +97,14 @@ export default function FilterBar({
   onOpenPanel,
   openAgeTick,
 }: FilterBarProps) {
-  // The parent remounts this bar (key) when the map Age pill asks for the age panel.
-  const [open, setOpen] = useState<Group | null>(openAgeTick ? "age" : null);
+  // The map Age action focuses the native dropdown when the list opens.
+  const [open, setOpen] = useState<Group | null>(null);
 
   const anyActive =
-    filters.ageMonths !== null || filters.area !== "ALL" || filters.category !== "ALL";
+    filters.ageBand !== null || filters.area !== "ALL" || filters.category !== "ALL";
 
-  const ageSummary = filters.ageMonths === null ? "Any age" : `${filters.ageMonths} months`;
+  const ageSelect=useRef<HTMLSelectElement>(null);
+  useEffect(()=>{if(openAgeTick)ageSelect.current?.focus();},[openAgeTick]);
 
   const toggle = (g: Group) =>
     setOpen((cur) => {
@@ -119,9 +118,9 @@ export default function FilterBar({
     <div className="w-full shrink-0 flex flex-col gap-2.5">
       {/* Summary row: results stay visible; filters open on demand */}
       <div className="flex flex-wrap items-center gap-2">
-        <SummaryButton open={open} toggle={toggle} group="age" active={filters.ageMonths !== null} label={ageSummary}>
-          <Baby className={`w-4 h-4 ${filters.ageMonths !== null || open === "age" ? "text-white" : "text-[#1a7a4a]"}`} />
-        </SummaryButton>
+        <select ref={ageSelect} aria-label="Child age range" value={filters.ageBand??''} onChange={e=>onUpdateFilter('ageBand',(e.target.value||null) as AgeBandId|null)} className={`max-w-full min-h-11 rounded-full border px-3.5 text-[0.9375rem] ${filters.ageBand?'bg-[#1a7a4a] text-white border-[#1a7a4a] font-bold':'bg-white text-[#4a443c] border-[#e7e0d4]'}`}>
+          <option value="">Any age</option>{AGE_BANDS.map(b=><option key={b.id} value={b.id}>{b.label} · {b.stage}</option>)}
+        </select>
         <SummaryButton open={open} toggle={toggle}
           group="area"
           active={filters.area !== "ALL"}
@@ -148,23 +147,7 @@ export default function FilterBar({
         )}
       </div>
 
-      {open === "age" && (
-        <div className="flex flex-col gap-2 rounded-2xl bg-white/60 border border-[#ece6db] p-3">
-          <label htmlFor="child-age-months" className="text-sm font-semibold text-[#51483d]">Child age in months (0 to 59)</label>
-          <div className="flex flex-wrap items-center gap-2">
-            <button type="button" aria-label="Decrease age by one month" disabled={filters.ageMonths === null || filters.ageMonths === 0} onClick={() => onUpdateFilter("ageMonths", Math.max(0, (filters.ageMonths ?? 0) - 1))} className="w-11 h-11 rounded-full border border-[#e7e0d4] bg-white text-xl disabled:opacity-40">−</button>
-            <input id="child-age-months" type="number" min={0} max={59} step={1} value={filters.ageMonths ?? ""} placeholder="Any" onChange={(e) => {
-              const raw = e.target.value;
-              if (raw === "") { onUpdateFilter("ageMonths", null); return; }
-              const value = Number(raw);
-              if (Number.isInteger(value) && value >= 0 && value <= 59) onUpdateFilter("ageMonths", value);
-            }} className="w-20 h-11 rounded-xl border border-[#e7e0d4] bg-white text-center text-lg font-bold text-[#1a7a4a]" />
-            <button type="button" aria-label="Increase age by one month" disabled={filters.ageMonths === 59} onClick={() => onUpdateFilter("ageMonths", filters.ageMonths === null ? 0 : Math.min(59, filters.ageMonths + 1))} className="w-11 h-11 rounded-full border border-[#e7e0d4] bg-white text-xl disabled:opacity-40">+</button>
-            <Chip active={filters.ageMonths === null} onClick={() => onUpdateFilter("ageMonths", null)}>Any age</Chip>
-          </div>
-          <p className="text-sm text-[#51483d]">Matches the branch&apos;s confirmed age range. Unconfirmed ages stay separate.</p>
-        </div>
-      )}
+      {filters.ageBand && <p className="text-sm text-[#51483d]">Matches at least part of this age range. Check each class&apos;s exact ages. Milestones are approximate, not an entry requirement.</p>}
 
       {open === "area" && (
         <div className="flex flex-wrap items-center gap-2 rounded-2xl bg-white/60 border border-[#ece6db] p-3">
