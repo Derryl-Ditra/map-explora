@@ -8,6 +8,7 @@ import { useVenueFilters } from "@/hooks/useVenueFilters";
 import { VenueFilterState } from "@/types/venue";
 import MobileDrawer from "./ui/MobileDrawer";
 import ShareCard from "./ui/ShareCard";
+import {ageBandLabel} from '@/utils/ageBands';
 import { useAppNavigation } from "@/hooks/useAppNavigation";
 import { HelpCircle, Baby, Crosshair, Loader2, Moon, Sun, MapPin, X } from "lucide-react";
 
@@ -195,7 +196,7 @@ export default function MapHUD() {
           className="md:hidden absolute top-4 left-4 z-[500] min-h-12 px-4 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#14532d] text-[1rem] font-bold flex items-center gap-2 active:scale-95"
         >
           <Baby className="w-4 h-4 text-[#1a7a4a]" />
-          {filters.ageMonths === null ? "Age" : `${filters.ageMonths} mo`}
+          {filters.ageBand === null ? "Age" : ageBandLabel(filters.ageBand)}
         </button>
       )}
 
