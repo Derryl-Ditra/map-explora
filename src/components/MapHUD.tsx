@@ -88,6 +88,7 @@ export default function MapHUD() {
   const [fitTick, setFitTick] = useState(0);
   // Bumped by the map Age pill: opens the list with the age panel ready.
   const [ageOpenTick, setAgeOpenTick] = useState(0);
+  const listTouch = useRef<{ x: number; y: number } | null>(null);
   // Pin and list selections open the same detail page, without a preview state.
   const handleSelectFromList = handleSelectVenue;
   // Each explicit locate attempt gets a fresh five-second notice window.
@@ -226,7 +227,18 @@ export default function MapHUD() {
       />
 
       {!activeVenue && mobileView === "map" && (
-        <button type="button" onClick={() => handleSetView("list")} className="md:hidden absolute bottom-[max(20px,env(safe-area-inset-bottom))] left-4 right-4 z-[500] min-h-14 rounded-2xl bg-[#f6f2ec] border border-[#e7e0d4] shadow-md text-[#1a7a4a] font-bold">
+        <button type="button" onClick={() => handleSetView("list")} onTouchStart={(event) => {
+            const touch = event.touches.length === 1 ? event.touches[0] : null;
+            listTouch.current = touch ? { x: touch.clientX, y: touch.clientY } : null;
+          }} onTouchCancel={() => { listTouch.current = null; }} onTouchEnd={(event) => {
+            const start = listTouch.current, end = event.changedTouches[0];
+            listTouch.current = null;
+            // A completed sheet swipe can suppress the browser's next synthetic
+            // click. Activate a real tap directly; never activate a drag.
+            if (start && end && Math.hypot(end.clientX - start.x, end.clientY - start.y) < 10) {
+              event.preventDefault(); handleSetView("list");
+            }
+          }} className="touch-manipulation md:hidden absolute bottom-[max(20px,env(safe-area-inset-bottom))] left-4 right-4 z-[500] min-h-14 rounded-2xl bg-[#f6f2ec] border border-[#e7e0d4] shadow-md text-[#1a7a4a] font-bold">
           List · {confirmed.length} {confirmed.length === 1 ? "place" : "places"}
         </button>
       )}
