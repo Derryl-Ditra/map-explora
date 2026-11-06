@@ -51,6 +51,8 @@ export default function MapHUD() {
   const { filters, updateFilter, resetFilters, categories, areas, confirmed, unconfirmed } =
     useVenueFilters(hasActualLocation ? userPos : null);
   const { activeVenue, showShareCard, mobileView, setMode: handleSetView, select: handleSelectVenue, close: handleClearActiveVenue, openShare, dismissToMap } = useAppNavigation();
+  const [desktopCollapsed, setDesktopCollapsed] = useState(false);
+  const showSidebarButton = useRef<HTMLButtonElement>(null);
   const [helpOpen, setHelpOpen] = useState(false);
   const helpMenu = useRef<HTMLDivElement>(null);
   const helpButton = useRef<HTMLButtonElement>(null);
@@ -90,7 +92,10 @@ export default function MapHUD() {
   const [ageOpenTick, setAgeOpenTick] = useState(0);
   const listTouch = useRef<{ x: number; y: number } | null>(null);
   // Pin and list selections open the same detail page, without a preview state.
-  const handleSelectFromList = handleSelectVenue;
+  const handleSelectFromList = (venue: Parameters<typeof handleSelectVenue>[0]) => {
+    setDesktopCollapsed(false);
+    handleSelectVenue(venue);
+  };
   // Each explicit locate attempt gets a fresh five-second notice window.
   useEffect(() => {
 
@@ -118,7 +123,7 @@ export default function MapHUD() {
 
       {/* Location permission notice: above the sheet on phones (never over
           Back/venue names), top-center on desktop. Dismissible, auto-hides. */}
-      {locationError && !locationNoticeGone && !activeVenue && mobileView === "map" && (
+      {locationError && !locationNoticeGone && !activeVenue && mobileView === "map" && (!isDesktop || desktopCollapsed) && (
         <div className="absolute bottom-[90px] md:bottom-auto md:top-4 left-1/2 -translate-x-1/2 z-[1001] w-[min(92vw,340px)]">
           <div className="bg-white border border-[#e7e0d4] rounded-2xl pl-3.5 pr-2 py-2.5 text-[0.9375rem] text-[#4a443c] shadow-sm flex items-center gap-2">
             <MapPin className="w-4 h-4 text-[#92400e] shrink-0" />
@@ -140,7 +145,7 @@ export default function MapHUD() {
         <VectorMap
           venues={[...confirmed, ...unconfirmed]}
           activeVenueId={activeVenue?.id || null}
-          onSelectVenue={handleSelectVenue}
+          onSelectVenue={handleSelectFromList}
           userPos={userPos}
           showUserMarker={hasActualLocation}
           userAccuracy={accuracy}
@@ -151,18 +156,19 @@ export default function MapHUD() {
       </div>
 
       {/* Floating Map Controls (Top-Right) */}
-      <div className="absolute top-4 right-4 z-[500] flex flex-col gap-2">
+      <div className="absolute top-4 right-4 z-[500] flex flex-col items-end gap-2">
         <button
           type="button"
           onClick={handleLocate}
-          aria-label="Locate My Position" title="Locate My Position"
-          className="w-12 h-12 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#4a443c] hover:text-[#221d18] flex items-center justify-center active:scale-95 transition-all"
+          aria-label={isDesktop ? "Use my location" : "Locate My Position"} title="Use my location"
+          className="w-12 md:w-auto md:px-4 h-12 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#4a443c] hover:text-[#221d18] flex items-center justify-center gap-2 active:scale-95 transition-all"
         >
           {isLocating ? (
             <Loader2 className="w-5 h-5 animate-spin text-[#1a7a4a]" />
           ) : (
             <Crosshair className="w-5 h-5" />
           )}
+          <span className="hidden md:inline font-semibold">{isLocating ? "Finding your location..." : "Use my location"}</span>
         </button>
 
         <button
@@ -190,13 +196,15 @@ export default function MapHUD() {
         </div>
       </div>
 
+      {desktopCollapsed && <button ref={showSidebarButton} type="button" aria-controls="places-sidebar" aria-expanded={false} onClick={() => setDesktopCollapsed(false)} className="hidden md:flex absolute top-16 left-6 z-[500] min-h-12 px-4 items-center rounded-full bg-[#f6f2ec] border border-[#e7e0d4] shadow-md text-[#14532d] font-bold">Show sidebar</button>}
+
       {/* Phone: one Age pill on the map, so a child's age is one tap away. */}
-      {!activeVenue && mobileView === "map" && (
+      {((!activeVenue && mobileView === "map") || (isDesktop && desktopCollapsed)) && (
         <button
           type="button"
-          onClick={() => { handleSetView("list"); setAgeOpenTick((t) => t + 1); }}
+          onClick={() => { if (isDesktop) setDesktopCollapsed(false); handleSetView("list"); setAgeOpenTick((t) => t + 1); }}
           aria-label="Set your child's age"
-          className="md:hidden absolute top-4 left-4 z-[500] min-h-12 px-4 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#14532d] text-[1rem] font-bold flex items-center gap-2 active:scale-95"
+          className={`${desktopCollapsed ? "md:flex md:top-32 md:left-6" : "md:hidden"} absolute top-4 left-4 z-[500] min-h-12 px-4 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#14532d] text-[1rem] font-bold flex items-center gap-2 active:scale-95`}
         >
           <Baby className="w-4 h-4 text-[#1a7a4a]" />
           {filters.ageBand === null ? "Age" : ageBandLabel(filters.ageBand)}
@@ -205,6 +213,8 @@ export default function MapHUD() {
 
       {/* Mobile-Native Bottom Sheet / Desktop Floating HUD */}
       <MobileDrawer
+        desktopCollapsed={desktopCollapsed}
+        onHideSidebar={() => { setDesktopCollapsed(true); requestAnimationFrame(() => showSidebarButton.current?.focus()); }}
         confirmed={confirmed}
         unconfirmed={unconfirmed}
         activeVenue={activeVenue}
