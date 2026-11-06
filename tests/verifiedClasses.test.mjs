@@ -30,8 +30,8 @@ test('hidden class never confirms even away from its ambiguous boundary',()=>{
 });
 
 test('guide class rows and branch statements share the verified evidence gate',()=>{
- const s=readFileSync(new URL('../src/app/activities/[slug]/page.tsx',import.meta.url),'utf8');
- assert.match(s,/isVerifiedAgeClaim\(v.branchAge\)/);assert.match(s,/verifiedPrograms\(v\)/);assert.doesNotMatch(s,/v.programs.filter|Confirm class/);
+ const s=readFileSync(new URL('../src/components/GuideContent.tsx',import.meta.url),'utf8');
+ assert.match(s,/isVerifiedAgeClaim\(v.branchAge\)/);assert.match(s,/verifiedPrograms\(v\)/);assert.doesNotMatch(s,/v.programs.filter/);
 });
 
 test('Buumi exact baby classes are branch-bound and older holiday claim stays hidden',()=>{

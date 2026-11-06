@@ -18,6 +18,6 @@ test('share has native dispatch, explicit clipboard errors, focus and cancellati
  const s=read('components/ui/ShareCard.tsx');assert.match(s,/navigator.share\(/);assert.match(s,/AbortError/);assert.match(s,/Copy was blocked/);assert.match(s,/aria-modal="true"/);assert.match(s,/aria-live="polite"/);assert.match(s,/textBox.current\?\.select/);
 });
 test('zoom and verified-first list are supported without changing confirmed age rules',()=>{
- assert.match(read('app/layout.tsx'),/userScalable: true/);assert.match(read('app/layout.tsx'),/maximumScale: 5/);
+ assert.match(read('components/RootDocument.tsx'),/userScalable: true/);assert.match(read('components/RootDocument.tsx'),/maximumScale: 5/);
  assert.match(read('hooks/useVenueFilters.ts'),/Number\(hasVerifiedAgeEvidence\(b\)\) - Number\(hasVerifiedAgeEvidence\(a\)\)/);
 });

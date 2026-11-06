@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import "./globals.css";
+import "@/app/globals.css";
 
 // Static export is served under /map-explora in production, so root-relative
 // asset paths must carry the base path explicitly.
@@ -53,13 +53,15 @@ export const metadata: Metadata = {
   other: { "text-scale": "scale" },
 };
 
-export default function RootLayout({
-  children,
+export default function RootDocument({
+  children, language,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode; language: "en" | "id";
 }>) {
   return (
-    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+    <html lang={language} className="h-full antialiased" suppressHydrationWarning>
+      {/* Shared document markup is rendered only by language root layouts. */}
+      {/* eslint-disable-next-line @next/next/no-head-element */}
       <head>
         <link rel="preconnect" href="https://tiles.openfreemap.org" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://tiles.openfreemap.org" />
