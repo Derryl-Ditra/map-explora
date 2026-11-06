@@ -7,7 +7,7 @@ import { hasVerifiedAgeEvidence } from "@/utils/ageMatch";
 import { useSheetGesture } from "@/hooks/useSheetGesture";
 import FilterBar from "./FilterBar";
 import VenueDetails from "./VenueDetails";
-import { Search, MapPin, HelpCircle, ShieldCheck, Navigation, ArrowLeft, ExternalLink } from "lucide-react";
+import { Search, MapPin, HelpCircle, ShieldCheck, Navigation, ArrowLeft, ExternalLink, X } from "lucide-react";
 
 interface MobileDrawerProps {
   confirmed: Venue[];
@@ -32,6 +32,8 @@ interface MobileDrawerProps {
   onDismissToMap: () => void;
   onLocate: () => void;
   isLocating: boolean;
+  locationNotice: string | null;
+  onDismissLocationNotice: () => void;
 }
 
 function useIsDesktop(): boolean {
@@ -125,7 +127,7 @@ export default function MobileDrawer({
   backLabel,
   onSelectFromList,
   ageOpenTick,
-  onDismissToMap, onLocate, isLocating,
+  onDismissToMap, onLocate, isLocating, locationNotice, onDismissLocationNotice,
 }: MobileDrawerProps) {
   const total = confirmed.length;
   const ageActive = filters.ageMonths !== null;
@@ -192,7 +194,6 @@ export default function MobileDrawer({
   return (
     <aside
       ref={sheet}
-      onKeyDown={(e) => { if (e.key === "Escape") onDismissToMap(); }}
       aria-label="Under-5 class places and filters"
       style={isDesktop ? undefined : { height: showDetails ? "97dvh" : "100dvh" }}
       className={`
@@ -223,6 +224,10 @@ export default function MobileDrawer({
         ) : (
           <>
             <button type="button" onClick={onLocate} className="md:hidden min-h-12 rounded-xl border border-[#e7e0d4] bg-white text-[#14532d] font-semibold">{isLocating ? "Finding your location..." : "Use my location"}</button>
+            {locationNotice && <div role="status" className="flex items-center gap-2 rounded-2xl border border-[#e7e0d4] bg-white p-3 text-sm text-[#4a443c]">
+              <span className="flex-1">{locationNotice}</span>
+              <button type="button" aria-label="Dismiss location notice" onClick={onDismissLocationNotice} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"><X className="h-4 w-4" /></button>
+            </div>}
             {/* Search Input */}
             <div className="relative w-full shrink-0">
               <Search className="w-4.5 h-4.5 text-[#6d675f] absolute left-4 top-1/2 -translate-y-1/2" />
