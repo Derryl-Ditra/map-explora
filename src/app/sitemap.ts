@@ -1,8 +1,9 @@
 import type { MetadataRoute } from 'next';
 import { VENUES } from '@/data/venues';
 import { buildAnswerGroups, SITE_URL } from '@/utils/discovery';
+import { jobPages, languageLinks } from '@/utils/bilingual';
 export const dynamic = 'force-static';
 export default function sitemap(): MetadataRoute.Sitemap {
-  // No fabricated lastmod: source-check dates are not page modification dates.
-  return [{ url: `${SITE_URL}/` }, { url: `${SITE_URL}/activities/` }, ...buildAnswerGroups(VENUES).map(g => ({ url: `${SITE_URL}/activities/${g.slug}/` }))];
+ const paths=['/activities/',...buildAnswerGroups(VENUES).map(g=>`/activities/${g.slug}/`),...jobPages('en').map(j=>`/for/${j.slug}/`),'/vs/rookie-id/'];
+ return [{url:SITE_URL+'/'},...paths.flatMap(path=>['','/id'].map(p=>({url:SITE_URL+p+path,alternates:{languages:languageLinks(path)}})))];
 }
