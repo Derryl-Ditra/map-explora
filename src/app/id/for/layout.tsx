@@ -1,2 +1,2 @@
-import '@/app/activities/guides.css';
+import '@/app/guides.css';
 export default function Layout({children}:{children:React.ReactNode}){return children;}
