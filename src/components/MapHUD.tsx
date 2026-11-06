@@ -57,19 +57,35 @@ export default function MapHUD() {
   const showDetails = !!activeVenue;
   // Location notice: dismissible, auto-hides, never covers sheet controls.
   const [locationNoticeGone, setLocationNoticeGone] = useState(false);
+  const [locationAttempt, setLocationAttempt] = useState(0);
+  const handleLocate = useCallback(() => {
+    setLocationNoticeGone(false);
+    setLocationAttempt(n => n + 1);
+    refresh();
+  }, [refresh]);
+  useEffect(() => {
+    const onEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && !event.defaultPrevented && activeVenue && !showShareCard) {
+        event.preventDefault();
+        handleClearActiveVenue();
+      }
+    };
+    window.addEventListener("keydown", onEscape);
+    return () => window.removeEventListener("keydown", onEscape);
+  }, [activeVenue, showShareCard, handleClearActiveVenue]);
   // Bumped when the area or activity filter changes so the map frames all matches.
   const [fitTick, setFitTick] = useState(0);
   // Bumped by the map Age pill: opens the list with the age panel ready.
   const [ageOpenTick, setAgeOpenTick] = useState(0);
   // Pin and list selections open the same detail page, without a preview state.
   const handleSelectFromList = handleSelectVenue;
-  // Reset the dismissal when the location state changes; auto-hide after 8s.
+  // Each explicit locate attempt gets a fresh five-second notice window.
   useEffect(() => {
 
     if (!locationError) return;
     const t = setTimeout(() => setLocationNoticeGone(true), 5000);
     return () => clearTimeout(t);
-  }, [locationError]);
+  }, [locationError, locationAttempt]);
 
   // Choosing an area or activity moves the map to show every matching place.
   const handleUpdateFilter = useCallback(
@@ -126,7 +142,7 @@ export default function MapHUD() {
       <div className="absolute top-4 right-4 z-[500] flex flex-col gap-2">
         <button
           type="button"
-          onClick={() => { setLocationNoticeGone(false); refresh(); }}
+          onClick={handleLocate}
           aria-label="Locate My Position" title="Locate My Position"
           className="w-12 h-12 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#4a443c] hover:text-[#221d18] flex items-center justify-center active:scale-95 transition-all"
         >
@@ -181,7 +197,9 @@ export default function MapHUD() {
         areas={areas}
         onOpenShare={openShare}
         onDismissToMap={dismissToMap}
-        onLocate={refresh}
+        onLocate={handleLocate}
+        locationNotice={locationError && !locationNoticeGone ? locationError : null}
+        onDismissLocationNotice={() => setLocationNoticeGone(true)}
         isLocating={isLocating}
         mobileView={mobileView}
         onSetMobileView={handleSetView}
