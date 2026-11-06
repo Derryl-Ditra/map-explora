@@ -176,13 +176,15 @@ export default function MapHUD() {
             <Moon className="w-5 h-5 text-[#4a443c]" />
           )}
         </button>
-        <div ref={helpMenu} className="md:hidden relative" onKeyDown={(event) => { if(event.key === "Escape") { event.stopPropagation(); setHelpOpen(false); helpButton.current?.focus(); } }}>
+        <div ref={helpMenu} className="relative" onKeyDown={(event) => { if(event.key === "Escape") { event.stopPropagation(); setHelpOpen(false); helpButton.current?.focus(); } }}>
           <button ref={helpButton} type="button" aria-label="Guides and information" aria-expanded={helpOpen} aria-controls="map-help-menu" onClick={() => setHelpOpen(open => !open)} className="w-12 h-12 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#4a443c] flex items-center justify-center focus-visible:outline-2 focus-visible:outline-[#1a7a4a]">
             <HelpCircle className="w-5 h-5" />
           </button>
           {helpOpen && <nav id="map-help-menu" aria-label="Additional information" className="absolute right-0 top-14 w-56 rounded-2xl border border-[#e7e0d4] bg-[#f6f2ec] p-2 shadow-lg text-[#14532d] text-sm font-semibold">
             <Link href="/activities/" className="flex min-h-12 items-center rounded-xl px-3 hover:bg-white focus-visible:outline-2">Class guides</Link>
             <Link href="/venues.json" className="flex min-h-12 items-center rounded-xl px-3 hover:bg-white focus-visible:outline-2">Sources and public data</Link>
+            <Link href="/contact/" className="flex min-h-12 items-center rounded-xl px-3 hover:bg-white focus-visible:outline-2">Contact</Link>
+            <a href="mailto:derrylditramaneti@gmail.com" className="flex min-h-12 items-center rounded-xl px-3 hover:bg-white focus-visible:outline-2">Email</a>
           </nav>}
         </div>
       </div>
