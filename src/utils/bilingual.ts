@@ -19,3 +19,7 @@ export function localizeTerm(term:string,lang:Lang) {
  if(lang==='en')return term;
  return term.replace(/\buntil\b/g,'sampai').replace(/\bOct(?:ober)?\b/g,'Okt').replace(/\bAug(?:ust)?\b/g,'Agu').replace(/\bDec(?:ember)?\b/g,'Des').replace(/\bMay\b/g,'Mei').replace(/\bMarch\b/g,'Mar').replace(/\bJanuary\b/g,'Jan').replace(/\bFebruary\b/g,'Feb').replace(/\bApril\b/g,'Apr').replace(/\bJune\b/g,'Jun').replace(/\bJuly\b/g,'Jul').replace(/\bSeptember\b/g,'Sep').replace(/\bNovember\b/g,'Nov');
 }
+export function venueLinks(v:{sourceUrl:string;operatingStatus?:{source?:string};website?:string;instagram?:string}) {
+ const seen=new Set<string>();
+ return [{kind:'provider',url:v.operatingStatus?.source??v.sourceUrl},{kind:'website',url:v.website},{kind:'instagram',url:v.instagram}].filter((link):link is {kind:string;url:string}=>{if(!link.url||seen.has(link.url))return false;seen.add(link.url);return true;});
+}
