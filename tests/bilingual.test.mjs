@@ -18,3 +18,9 @@ test('translated activity names never leak undefined and every group has a peer'
  const {VENUES}=await importTs('../src/data/venues.ts');const {buildAnswerGroups}=await importTs('../src/utils/discovery.ts');
  for(const g of buildAnswerGroups(VENUES)){assert.ok(!localizeGroup(g,'id').includes('undefined'));assert.notEqual(localizeGroup(g,'id'),g.title);}
 });
+test('localized metadata carries page descriptions, social tags and language URLs',async()=>{
+ const {guideMetadata,localizeTerm}=await importTs('../src/utils/bilingual.ts');
+ const m=guideMetadata('id','/for/18-month-old/','Kelas 18 bulan','Cabang dengan usia resmi.');
+ assert.equal(m.description,'Cabang dengan usia resmi.');assert.equal(m.openGraph.description,m.description);assert.equal(m.twitter.description,m.description);assert.equal(m.openGraph.locale,'id_ID');
+ assert.equal(localizeTerm('19 Oct 2026 until 17 Jan 2027','id'),'19 Okt 2026 sampai 17 Jan 2027');
+});
