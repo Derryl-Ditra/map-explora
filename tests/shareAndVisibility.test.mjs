@@ -7,6 +7,7 @@ const { isShownToUsers } = await importTs("../src/utils/visibility.ts");
 const { VENUES } = await importTs("../src/data/venues.ts");
 
 const venue = {
+  id: "test-venue",
   chain: "Rockstar Academy",
   branchName: "Lotte Mart Bintaro",
   area: "Tangerang Selatan",
@@ -16,19 +17,15 @@ const venue = {
   distance: 2,
 };
 
-test("share text carries the live app link on its own final line", () => {
+test("share text carries concise content and a short live app link", () => {
+  const t = buildShareText({...venue,id:'test'});
   assert.equal(SITE_URL, "https://derryl-ditra.github.io/map-explora/");
-  const lines = buildShareText(venue).split("\n");
-  assert.equal(lines[lines.length - 1], `${SITE_URL}?venue=${venue.id}`);
-  assert.ok(lines.includes("Found via Map Explora (under-5 class map, Jabodetabek)"));
-});
-
-test("share text keeps the existing content", () => {
-  const t = buildShareText(venue);
-  assert.ok(t.startsWith("Under-5 class spot: Rockstar Academy Lotte Mart Bintaro (Tangerang Selatan)"));
-  assert.ok(t.includes("Classes: Learn & Play 1 (6 mo to 18 mo)"));
-  assert.ok(t.includes("Parent reviews: 4.0 on Google Maps (52 reviews)"));
-  assert.ok(t.includes("Straight-line distance: 2 km"));
+  assert.match(t, /^Rockstar Academy Lotte Mart Bintaro \(Tangerang Selatan\)/);
+  assert.ok(t.includes("Classes: Learn & Play 1 6-18mo"));
+  assert.ok(t.includes("Google Maps: 4.0 (52 reviews)"));
+  assert.ok(t.includes("Via Map Explora"));
+  assert.match(t.split("\n").at(-1), /\?v=[a-z0-9]+$/);
+  assert.doesNotMatch(t, /Straight-line|Under-5 class spot|Found via/);
 });
 
 test("only official-listed places are shown to users", () => {
@@ -49,10 +46,4 @@ test("share lines use the verified evidence rule",()=>{
  const base=venue.programs[0];
  const t=buildShareText({...venue,programs:[{...base,name:"Hidden conflict",age:{...base.age,sourceConflict:true}},{...base,name:"Hidden ambiguity",note:"boundary ambiguous"},base]});
  assert.ok(t.includes("Learn & Play 1"));assert.ok(!t.includes("Hidden conflict"));assert.ok(!t.includes("Hidden ambiguity"));
-});
-
-// Unknown location is not the same as a real zero-distance fix.
-test("share omits unknown distance but preserves a genuine zero", () => {
-  assert.doesNotMatch(buildShareText({ ...venue, distance: undefined }), /Straight-line distance/);
-  assert.match(buildShareText({ ...venue, distance: 0 }), /Straight-line distance: 0 km/);
 });
