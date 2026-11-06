@@ -5,6 +5,8 @@ import { VENUES } from "@/data/venues";
 import { isShownToUsers } from "@/utils/visibility";
 import type { Venue } from "@/types/venue";
 
+import { resolveVenueId, shortVenueId } from "@/utils/venueLink";
+
 type View = { mode: "map" | "list"; venueId: string | null; share: boolean };
 const MAP: View = { mode: "map", venueId: null, share: false };
 const visible = VENUES.filter(isShownToUsers);
@@ -16,15 +18,16 @@ export function useAppNavigation() {
   const apply = useCallback((next: View) => { current.current = next; setView(next); }, []);
   const write = useCallback((next: View, replace = false) => {
     const url = new URL(window.location.href);
-    if (next.venueId) url.searchParams.set("venue", next.venueId);
-    else url.searchParams.delete("venue");
+    url.searchParams.delete("venue");
+    if (next.venueId) url.searchParams.set("v", shortVenueId(next.venueId));
+    else url.searchParams.delete("v");
     window.history[replace ? "replaceState" : "pushState"]({ mapExplora: next }, "", url);
     apply(next);
   }, [apply]);
 
   useEffect(() => {
     const hydrate = requestAnimationFrame(() => {
-      const id = new URL(window.location.href).searchParams.get("venue");
+      const id = resolveVenueId(new URL(window.location.href).searchParams, visible);
       const saved = window.history.state?.mapExplora as View | undefined;
       const venueId = visible.some(v => v.id === id) ? id : null;
       if (saved && saved.venueId === venueId) apply(saved);
