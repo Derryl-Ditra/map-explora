@@ -22,4 +22,4 @@ export function localizeTerm(term:string,lang:Lang) {
 export function venueLinks(v:{sourceUrl:string;operatingStatus?:{source?:string};website?:string;instagram?:string}) {
  const seen=new Set<string>();
  return [{kind:'provider',url:v.operatingStatus?.source??v.sourceUrl},{kind:'website',url:v.website},{kind:'instagram',url:v.instagram}].filter((link):link is {kind:string;url:string}=>{if(!link.url||seen.has(link.url))return false;seen.add(link.url);return true;});
- }
+}
