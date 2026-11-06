@@ -161,14 +161,13 @@ export default function MapHUD() {
           type="button"
           onClick={handleLocate}
           aria-label={isDesktop ? "Use my location" : "Locate My Position"} title="Use my location"
-          className="w-12 md:w-auto md:px-4 h-12 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#4a443c] hover:text-[#221d18] flex items-center justify-center gap-2 active:scale-95 transition-all"
+          className="w-12 h-12 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#4a443c] hover:text-[#221d18] flex items-center justify-center gap-2 active:scale-95 transition-all"
         >
           {isLocating ? (
             <Loader2 className="w-5 h-5 animate-spin text-[#1a7a4a]" />
           ) : (
             <Crosshair className="w-5 h-5" />
           )}
-          <span className="hidden md:inline font-semibold">{isLocating ? "Finding your location..." : "Use my location"}</span>
         </button>
 
         <button
