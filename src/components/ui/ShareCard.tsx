@@ -45,7 +45,7 @@ export default function ShareCard({ venue, onClose }: { venue: Venue; onClose: (
       <button type="button" onClick={share} className="min-h-12 rounded-full bg-[#1a7a4a] text-white font-bold flex items-center justify-center gap-2"><Share2 className="w-5 h-5" />Share using phone</button>
       <button type="button" onClick={copy} className="min-h-12 rounded-full border-2 border-[#1a7a4a] text-[#14532d] font-bold flex items-center justify-center gap-2">{status==="Copied to clipboard" ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}Copy share text</button>
       <p role="status" aria-live="polite" className="text-sm text-[#6d675f]">{status || "The link opens this place directly. Cancel sharing to keep browsing."}</p>
-      <label className="text-sm font-semibold" htmlFor="share-text">Share text</label><textarea id="share-text" ref={textBox} readOnly value={shareText} rows={4} className="w-full p-3 bg-white border border-[#e7e0d4] rounded-xl text-sm select-text" />
+      <label className="text-sm font-semibold" htmlFor="share-text">Share text <span className="font-normal text-[#6d675f]">({shareText.length}/500)</span></label><textarea id="share-text" ref={textBox} readOnly value={shareText} rows={9} className="w-full p-3 bg-white border border-[#e7e0d4] rounded-xl text-sm select-text" />
     </div>
   </div>;
 }
