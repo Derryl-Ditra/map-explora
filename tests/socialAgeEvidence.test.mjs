@@ -4,6 +4,7 @@ import {importTs} from './loadTs.mjs';
 const {VENUES}=await importTs('../src/data/venues.ts');
 const {verifiedPrograms,venueConfirmedForAge}=await importTs('../src/utils/ageMatch.ts');
 const expected={
+  "sparks-sports-academy-pajajaran-bogor": ["Sensory Crawler",6,11,"https://www.instagram.com/sparks_sportsacademy/p/DbMzKUxDARb/"],
   "sparks-sports-academy-bintaro-utown": [
     "Sensory Crawler",
     6,
@@ -61,7 +62,14 @@ test('dated official social announcements bind exact ages only to named branches
   assert.equal(venueConfirmedForAge(v,min),true);assert.equal(venueConfirmedForAge(v,max),true);
   assert.equal(venueConfirmedForAge(v,min-1),false);assert.equal(venueConfirmedForAge(v,max+1),false);
  }
- for(const id of ['sparks-sports-academy-pajajaran-bogor','sparks-sports-academy-bsd-tangerang','sparks-sports-academy-cibinong']){
+ for(const id of ['sparks-sports-academy-bsd-tangerang','sparks-sports-academy-cibinong']){
   assert.equal(verifiedPrograms(VENUES.find(v=>v.id===id)).length,0,id);
  }
+});
+
+test('Pajajaran omits disputed street number and retains the verified Maps pin',()=>{
+ const v=VENUES.find(v=>v.id==='sparks-sports-academy-pajajaran-bogor');
+ assert.equal(v.address,'Jl. Raya Pajajaran, RT.02/RW.04, Babakan, Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16128, Indonesia');
+ assert.equal(v.lat,-6.590537);assert.equal(v.lng,106.804468);
+ assert.equal(v.coordinateSource,'maps-pin');
 });

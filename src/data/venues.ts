@@ -5148,7 +5148,7 @@ export const VENUES: Venue[] = [
    "Gym & Movement",
    "Sensory"
   ],
-  "address": "Jl. Raya Pajajaran No.14, RT.02/RW.04, Babakan, Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16128, Indonesia",
+  "address": "Jl. Raya Pajajaran, RT.02/RW.04, Babakan, Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16128, Indonesia",
   "area": "Bogor",
   "city": "Bogor",
   "lat": -6.590537,
@@ -5206,13 +5206,27 @@ export const VENUES: Venue[] = [
      "verification": "listed-unconfirmed"
     },
     "note": "12 Bulan - 7 Tahun"
+   },
+   {
+    "name": "Sensory Crawler",
+    "category": "Sensory",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 11,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.instagram.com/sparks_sportsacademy/p/DbMzKUxDARb/",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Provider announcement dated 24 Jul 2026. Slide 1 gives the exact month band; slide 2 and caption name this branch. Dated class evidence, not a current timetable. Confirm current class and session availability before visiting."
    }
   ],
   "website": "https://academy.sparks-edu.com/bogor/",
   "sourceUrl": "https://academy.sparks-edu.com/bogor/",
-  "lastCheckedAt": "2026-11-03",
+  "lastCheckedAt": "2026-11-07",
   "fitStatus": "branch-candidate-live-undated",
-  "notes": "Official city page: 'Kelas olahraga & sensori untuk anak usia 6 bulan-7 tahun'. Booking routes: WhatsApp +62 813-9000-6606 (all schedule CTAs) and a Loket organizer page https://loket.com/o/lkt-dWhw (no current events listed). No per-branch time schedule published online (checked 2026-11-03). | Unresolved: listed in sensory-page address block but not among trial buttons; sub-level availability unknown",
+  "notes": "Official city page: 'Kelas olahraga & sensori untuk anak usia 6 bulan-7 tahun'. Booking routes: WhatsApp +62 813-9000-6606 (all schedule CTAs) and a Loket organizer page https://loket.com/o/lkt-dWhw (no current events listed). No per-branch time schedule published online (checked 2026-11-03). | Sensory Crawler 6-11 months confirmed by dated official 24 July 2026 branch announcement; not a current timetable or seat guarantee. Street number omitted under owner address-discrepancy rule; Google Maps place ID and coordinates rechecked 2026-11-07, pin unchanged.",
   "reviews": {
    "rating": 4.5,
    "reviewCount": 138,
