@@ -89,10 +89,10 @@ function VenueCard({
     >
       <div className="flex justify-between items-start gap-2">
         <div className="flex flex-col min-w-0">
-          <h4 className="text-[1.0625rem] font-bold text-[#221d18] leading-snug">
+          <h2 className="text-[1.0625rem] font-bold text-[#221d18] leading-snug">
             {venue.chain && venue.chain !== venue.branchName ? `${venue.chain} ` : ""}
             {venue.branchName}
-          </h4>
+          </h2>
           <span className="text-[1rem] text-[#6d675f] mt-0.5">{venue.area}</span>
         </div>
         <FitPill fit={fit} />
@@ -239,6 +239,7 @@ export default function MobileDrawer({
               <Search className="w-4.5 h-4.5 text-[#6d675f] absolute left-4 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
+                aria-label="Search class, brand, area, or street"
                 placeholder="Search class, brand, area, or street"
                 value={filters.searchQuery}
                 
