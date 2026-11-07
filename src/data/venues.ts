@@ -1992,12 +1992,55 @@ export const VENUES: Venue[] = [
   "lat": -6.566859,
   "lng": 106.859207,
   "coordinateSource": "maps-pin",
-  "programs": [],
+  "programs": [
+   {
+    "name": "Crawler",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/AS_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Walker",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 23,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/AS_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Jumper",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 24,
+     "maxMonths": 35,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/AS_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   }
+  ],
   "website": "https://www.rockstaracademy.com/schedules-and-locations",
   "sourceUrl": "https://www.rockstaracademy.com/schedules-and-locations",
-  "lastCheckedAt": "2026-11-03",
-  "fitStatus": "unvalidated-extraction",
-  "notes": "Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch. Outer-ring location (Sentul, Kab. Bogor), beyond core Jabodetabek.",
+  "lastCheckedAt": "2026-11-07",
+  "fitStatus": "branch-confirmed",
+  "notes": "Current branch Winter Term PDF (19 Oct 2026 to 17 Jan 2027) confirms Crawler 6-18 months, Walker 12-23 months, and Jumper 24-35 months. Other programs not exhaustively transcribed. Outer-ring location (Sentul, Kab. Bogor), beyond core Jabodetabek.",
   "reviews": {
    "rating": 4.8,
    "reviewCount": 121,
@@ -2009,8 +2052,8 @@ export const VENUES: Venue[] = [
   },
   "operatingStatus": {
    "state": "official-listed",
-   "source": "https://www.rockstaracademy.com/schedules-and-locations/aeon-mall-sentul-city",
-   "checkedAt": "2026-11-04"
+   "source": "https://www.rockstaracademy.com/lib/upload/files/club/AS_Schedule_Winter_20261.pdf",
+   "checkedAt": "2026-11-07"
   },
   "phone": "+62 21 39713970"
  },
@@ -2029,12 +2072,55 @@ export const VENUES: Venue[] = [
   "lat": -6.350594,
   "lng": 107.195336,
   "coordinateSource": "maps-pin",
-  "programs": [],
+  "programs": [
+   {
+    "name": "Crawler",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/AD_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Walker",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 23,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/AD_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Jumper",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 24,
+     "maxMonths": 35,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/AD_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   }
+  ],
   "website": "https://www.rockstaracademy.com/schedules-and-locations",
   "sourceUrl": "https://www.rockstaracademy.com/schedules-and-locations",
-  "lastCheckedAt": "2026-11-03",
-  "fitStatus": "unvalidated-extraction",
-  "notes": "Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch. Outer-ring location (Cikarang), beyond core Jabodetabek.",
+  "lastCheckedAt": "2026-11-07",
+  "fitStatus": "branch-confirmed",
+  "notes": "Current branch Winter Term PDF (19 Oct 2026 to 17 Jan 2027) confirms Crawler 6-18 months, Walker 12-23 months, and Jumper 24-35 months. Other programs not exhaustively transcribed. Outer-ring location (Cikarang), beyond core Jabodetabek.",
   "reviews": {
    "rating": 4.7,
    "reviewCount": 37,
@@ -2046,8 +2132,8 @@ export const VENUES: Venue[] = [
   },
   "operatingStatus": {
    "state": "official-listed",
-   "source": "https://www.rockstaracademy.com/schedules-and-locations",
-   "checkedAt": "2026-11-04"
+   "source": "https://www.rockstaracademy.com/lib/upload/files/club/AD_Schedule_Winter_20261.pdf",
+   "checkedAt": "2026-11-07"
   },
   "phone": "+62 21 39724242"
  },
@@ -2066,12 +2152,55 @@ export const VENUES: Venue[] = [
   "lat": -6.175134,
   "lng": 106.790086,
   "coordinateSource": "maps-pin",
-  "programs": [],
+  "programs": [
+   {
+    "name": "Crawler",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/CP_Schedule_Winter_Term_2026.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Walker",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 23,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/CP_Schedule_Winter_Term_2026.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Jumper",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 24,
+     "maxMonths": 35,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/CP_Schedule_Winter_Term_2026.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   }
+  ],
   "website": "https://www.rockstaracademy.com/schedules-and-locations",
   "sourceUrl": "https://www.rockstaracademy.com/schedules-and-locations",
-  "lastCheckedAt": "2026-11-03",
-  "fitStatus": "unvalidated-extraction",
-  "notes": "Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
+  "lastCheckedAt": "2026-11-07",
+  "fitStatus": "branch-confirmed",
+  "notes": "Current branch Winter Term PDF (19 Oct 2026 to 17 Jan 2027) confirms Crawler 6-18 months, Walker 12-23 months, and Jumper 24-35 months. Other programs not exhaustively transcribed. Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
   "reviews": {
    "rating": 4.9,
    "reviewCount": 438,
@@ -2083,8 +2212,8 @@ export const VENUES: Venue[] = [
   },
   "operatingStatus": {
    "state": "official-listed",
-   "source": "https://www.rockstaracademy.com/schedules-and-locations",
-   "checkedAt": "2026-11-04"
+   "source": "https://www.rockstaracademy.com/lib/upload/files/club/CP_Schedule_Winter_Term_2026.pdf",
+   "checkedAt": "2026-11-07"
   },
   "phone": "+62 21 50860730"
  },
@@ -2103,12 +2232,55 @@ export const VENUES: Venue[] = [
   "lat": -6.16084,
   "lng": 106.818022,
   "coordinateSource": "maps-pin",
-  "programs": [],
+  "programs": [
+   {
+    "name": "Crawler",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/GM_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Walker",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 23,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/GM_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Jumper",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 24,
+     "maxMonths": 35,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/GM_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   }
+  ],
   "website": "https://www.rockstaracademy.com/schedules-and-locations",
   "sourceUrl": "https://www.rockstaracademy.com/schedules-and-locations",
-  "lastCheckedAt": "2026-11-03",
-  "fitStatus": "unvalidated-extraction",
-  "notes": "Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
+  "lastCheckedAt": "2026-11-07",
+  "fitStatus": "branch-confirmed",
+  "notes": "Current branch Winter Term PDF (19 Oct 2026 to 17 Jan 2027) confirms Crawler 6-18 months, Walker 12-23 months, and Jumper 24-35 months. Other programs not exhaustively transcribed. Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
   "reviews": {
    "rating": 4.7,
    "reviewCount": 291,
@@ -2120,8 +2292,8 @@ export const VENUES: Venue[] = [
   },
   "operatingStatus": {
    "state": "official-listed",
-   "source": "https://www.rockstaracademy.com/schedules-and-locations",
-   "checkedAt": "2026-11-04"
+   "source": "https://www.rockstaracademy.com/lib/upload/files/club/GM_Schedule_Winter_20261.pdf",
+   "checkedAt": "2026-11-07"
   },
   "phone": "+62 21 39729888"
  },
@@ -2373,12 +2545,55 @@ export const VENUES: Venue[] = [
   "lat": -6.249313,
   "lng": 106.984708,
   "coordinateSource": "maps-pin",
-  "programs": [],
+  "programs": [
+   {
+    "name": "Crawler",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/GB_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Walker",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 23,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/GB_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Jumper",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 24,
+     "maxMonths": 35,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/GB_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   }
+  ],
   "website": "https://www.rockstaracademy.com/schedules-and-locations",
   "sourceUrl": "https://www.rockstaracademy.com/schedules-and-locations",
-  "lastCheckedAt": "2026-11-03",
-  "fitStatus": "unvalidated-extraction",
-  "notes": "Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
+  "lastCheckedAt": "2026-11-07",
+  "fitStatus": "branch-confirmed",
+  "notes": "Current branch Winter Term PDF (19 Oct 2026 to 17 Jan 2027) confirms Crawler 6-18 months, Walker 12-23 months, and Jumper 24-35 months. Other programs not exhaustively transcribed. Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
   "reviews": {
    "rating": 4.9,
    "reviewCount": 718,
@@ -2390,8 +2605,8 @@ export const VENUES: Venue[] = [
   },
   "operatingStatus": {
    "state": "official-listed",
-   "source": "https://www.rockstaracademy.com/lib/upload/files/club/GB_Schedule_Fall_2026_Week_5.pdf",
-   "checkedAt": "2026-11-04"
+   "source": "https://www.rockstaracademy.com/lib/upload/files/club/GB_Schedule_Winter_20261.pdf",
+   "checkedAt": "2026-11-07"
   },
   "phone": "+62 21 29579878"
  },
@@ -2410,12 +2625,55 @@ export const VENUES: Venue[] = [
   "lat": -6.26654,
   "lng": 106.618264,
   "coordinateSource": "maps-pin",
-  "programs": [],
+  "programs": [
+   {
+    "name": "Crawler",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/HS_Schedule_Winter_2026%C2%A0W3.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Walker",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 23,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/HS_Schedule_Winter_2026%C2%A0W3.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Jumper",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 24,
+     "maxMonths": 35,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/HS_Schedule_Winter_2026%C2%A0W3.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   }
+  ],
   "website": "https://www.rockstaracademy.com/schedules-and-locations",
   "sourceUrl": "https://www.rockstaracademy.com/schedules-and-locations",
-  "lastCheckedAt": "2026-11-03",
-  "fitStatus": "unvalidated-extraction",
-  "notes": "Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
+  "lastCheckedAt": "2026-11-07",
+  "fitStatus": "branch-confirmed",
+  "notes": "Current branch Winter Term PDF (19 Oct 2026 to 17 Jan 2027) confirms Crawler 6-18 months, Walker 12-23 months, and Jumper 24-35 months. Other programs not exhaustively transcribed. Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
   "reviews": {
    "rating": 4.3,
    "reviewCount": 56,
@@ -2427,8 +2685,8 @@ export const VENUES: Venue[] = [
   },
   "operatingStatus": {
    "state": "official-listed",
-   "source": "https://www.rockstaracademy.com/schedules-and-locations",
-   "checkedAt": "2026-11-04"
+   "source": "https://www.rockstaracademy.com/lib/upload/files/club/HS_Schedule_Winter_2026%C2%A0W3.pdf",
+   "checkedAt": "2026-11-07"
   },
   "phone": "+62 21 39713400"
  },
@@ -2671,12 +2929,55 @@ export const VENUES: Venue[] = [
   "lat": -6.262007,
   "lng": 106.812842,
   "coordinateSource": "maps-pin",
-  "programs": [],
+  "programs": [
+   {
+    "name": "Crawler",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/KV_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Walker",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 23,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/KV_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Jumper",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 24,
+     "maxMonths": 35,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/KV_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   }
+  ],
   "website": "https://www.rockstaracademy.com/schedules-and-locations",
   "sourceUrl": "https://www.rockstaracademy.com/schedules-and-locations",
-  "lastCheckedAt": "2026-11-03",
-  "fitStatus": "unvalidated-extraction",
-  "notes": "Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
+  "lastCheckedAt": "2026-11-07",
+  "fitStatus": "branch-confirmed",
+  "notes": "Current branch Winter Term PDF (19 Oct 2026 to 17 Jan 2027) confirms Crawler 6-18 months, Walker 12-23 months, and Jumper 24-35 months. Other programs not exhaustively transcribed. Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
   "reviews": {
    "rating": 4.9,
    "reviewCount": 683,
@@ -2688,8 +2989,8 @@ export const VENUES: Venue[] = [
   },
   "operatingStatus": {
    "state": "official-listed",
-   "source": "https://www.rockstaracademy.com/schedules-and-locations",
-   "checkedAt": "2026-11-04"
+   "source": "https://www.rockstaracademy.com/lib/upload/files/club/KV_Schedule_Winter_20261.pdf",
+   "checkedAt": "2026-11-07"
   },
   "phone": "+62 21 29056776"
  },
@@ -2708,12 +3009,55 @@ export const VENUES: Venue[] = [
   "lat": -6.188113,
   "lng": 106.739756,
   "coordinateSource": "maps-pin",
-  "programs": [],
+  "programs": [
+   {
+    "name": "Crawler",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/LP_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Walker",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 23,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/LP_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Jumper",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 24,
+     "maxMonths": 35,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/LP_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   }
+  ],
   "website": "https://www.rockstaracademy.com/schedules-and-locations",
   "sourceUrl": "https://www.rockstaracademy.com/schedules-and-locations",
-  "lastCheckedAt": "2026-11-03",
-  "fitStatus": "unvalidated-extraction",
-  "notes": "Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
+  "lastCheckedAt": "2026-11-07",
+  "fitStatus": "branch-confirmed",
+  "notes": "Current branch Winter Term PDF (19 Oct 2026 to 17 Jan 2027) confirms Crawler 6-18 months, Walker 12-23 months, and Jumper 24-35 months. Other programs not exhaustively transcribed. Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
   "reviews": {
    "rating": 4.5,
    "reviewCount": 139,
@@ -2725,8 +3069,8 @@ export const VENUES: Venue[] = [
   },
   "operatingStatus": {
    "state": "official-listed",
-   "source": "https://www.rockstaracademy.com/schedules-and-locations",
-   "checkedAt": "2026-11-04"
+   "source": "https://www.rockstaracademy.com/lib/upload/files/club/LP_Schedule_Winter_20261.pdf",
+   "checkedAt": "2026-11-07"
   },
   "phone": "+62 21 22582777"
  },
@@ -2745,12 +3089,55 @@ export const VENUES: Venue[] = [
   "lat": -6.62182,
   "lng": 106.818407,
   "coordinateSource": "maps-pin",
-  "programs": [],
+  "programs": [
+   {
+    "name": "Crawler",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/LE_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Walker",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 23,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/LE_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Jumper",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 24,
+     "maxMonths": 35,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/LE_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   }
+  ],
   "website": "https://www.rockstaracademy.com/schedules-and-locations",
   "sourceUrl": "https://www.rockstaracademy.com/schedules-and-locations",
-  "lastCheckedAt": "2026-11-03",
-  "fitStatus": "unvalidated-extraction",
-  "notes": "Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
+  "lastCheckedAt": "2026-11-07",
+  "fitStatus": "branch-confirmed",
+  "notes": "Current branch Winter Term PDF (19 Oct 2026 to 17 Jan 2027) confirms Crawler 6-18 months, Walker 12-23 months, and Jumper 24-35 months. Other programs not exhaustively transcribed. Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
   "reviews": {
    "rating": 5,
    "reviewCount": 47,
@@ -2762,8 +3149,8 @@ export const VENUES: Venue[] = [
   },
   "operatingStatus": {
    "state": "official-listed",
-   "source": "https://www.rockstaracademy.com/schedules-and-locations",
-   "checkedAt": "2026-11-04"
+   "source": "https://www.rockstaracademy.com/lib/upload/files/club/LE_Schedule_Winter_20261.pdf",
+   "checkedAt": "2026-11-07"
   },
   "phone": "+62 251 3101100"
  },
@@ -2782,12 +3169,55 @@ export const VENUES: Venue[] = [
   "lat": -6.244283,
   "lng": 106.654139,
   "coordinateSource": "maps-pin",
-  "programs": [],
+  "programs": [
+   {
+    "name": "Crawler",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/LW_Schedule_Winter_2026%C2%A0W3.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Walker",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 23,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/LW_Schedule_Winter_2026%C2%A0W3.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Jumper",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 24,
+     "maxMonths": 35,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/LW_Schedule_Winter_2026%C2%A0W3.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   }
+  ],
   "website": "https://www.rockstaracademy.com/schedules-and-locations",
   "sourceUrl": "https://www.rockstaracademy.com/schedules-and-locations",
-  "lastCheckedAt": "2026-11-03",
-  "fitStatus": "unvalidated-extraction",
-  "notes": "Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
+  "lastCheckedAt": "2026-11-07",
+  "fitStatus": "branch-confirmed",
+  "notes": "Current branch Winter Term PDF (19 Oct 2026 to 17 Jan 2027) confirms Crawler 6-18 months, Walker 12-23 months, and Jumper 24-35 months. Other programs not exhaustively transcribed. Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
   "reviews": {
    "rating": 4.7,
    "reviewCount": 199,
@@ -2799,8 +3229,8 @@ export const VENUES: Venue[] = [
   },
   "operatingStatus": {
    "state": "official-listed",
-   "source": "https://www.rockstaracademy.com/schedules-and-locations/living-world",
-   "checkedAt": "2026-11-04"
+   "source": "https://www.rockstaracademy.com/lib/upload/files/club/LW_Schedule_Winter_2026%C2%A0W3.pdf",
+   "checkedAt": "2026-11-07"
   },
   "phone": "+62 21 29239500"
  },
@@ -3048,12 +3478,55 @@ export const VENUES: Venue[] = [
   "lat": -6.151084,
   "lng": 106.892627,
   "coordinateSource": "maps-pin",
-  "programs": [],
+  "programs": [
+   {
+    "name": "Crawler",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/MI_Schedule_WInter_20262.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Walker",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 23,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/MI_Schedule_WInter_20262.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Jumper",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 24,
+     "maxMonths": 35,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/MI_Schedule_WInter_20262.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   }
+  ],
   "website": "https://www.rockstaracademy.com/schedules-and-locations",
   "sourceUrl": "https://www.rockstaracademy.com/schedules-and-locations",
-  "lastCheckedAt": "2026-11-03",
-  "fitStatus": "unvalidated-extraction",
-  "notes": "Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
+  "lastCheckedAt": "2026-11-07",
+  "fitStatus": "branch-confirmed",
+  "notes": "Current branch Winter Term PDF (19 Oct 2026 to 17 Jan 2027) confirms Crawler 6-18 months, Walker 12-23 months, and Jumper 24-35 months. Other programs not exhaustively transcribed. Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
   "reviews": {
    "rating": 4.5,
    "reviewCount": 197,
@@ -3065,8 +3538,8 @@ export const VENUES: Venue[] = [
   },
   "operatingStatus": {
    "state": "official-listed",
-   "source": "https://www.rockstaracademy.com/schedules-and-locations/mall-of-indonesia",
-   "checkedAt": "2026-11-04"
+   "source": "https://www.rockstaracademy.com/lib/upload/files/club/MI_Schedule_WInter_20262.pdf",
+   "checkedAt": "2026-11-07"
   },
   "phone": "+62 21 29365155"
  },
@@ -3085,12 +3558,55 @@ export const VENUES: Venue[] = [
   "lat": -6.109989,
   "lng": 106.740433,
   "coordinateSource": "maps-pin",
-  "programs": [],
+  "programs": [
+   {
+    "name": "Crawler",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/PA_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Walker",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 23,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/PA_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Jumper",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 24,
+     "maxMonths": 35,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/PA_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   }
+  ],
   "website": "https://www.rockstaracademy.com/schedules-and-locations",
   "sourceUrl": "https://www.rockstaracademy.com/schedules-and-locations",
-  "lastCheckedAt": "2026-11-03",
-  "fitStatus": "unvalidated-extraction",
-  "notes": "Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
+  "lastCheckedAt": "2026-11-07",
+  "fitStatus": "branch-confirmed",
+  "notes": "Current branch Winter Term PDF (19 Oct 2026 to 17 Jan 2027) confirms Crawler 6-18 months, Walker 12-23 months, and Jumper 24-35 months. Other programs not exhaustively transcribed. Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
   "reviews": {
    "rating": 4.9,
    "reviewCount": 230,
@@ -3102,8 +3618,8 @@ export const VENUES: Venue[] = [
   },
   "operatingStatus": {
    "state": "official-listed",
-   "source": "https://www.rockstaracademy.com/schedules-and-locations",
-   "checkedAt": "2026-11-04"
+   "source": "https://www.rockstaracademy.com/lib/upload/files/club/PA_Schedule_Winter_20261.pdf",
+   "checkedAt": "2026-11-07"
   },
   "phone": "+62 21 22570990"
  },
@@ -3122,12 +3638,55 @@ export const VENUES: Venue[] = [
   "lat": -6.380109,
   "lng": 106.8448,
   "coordinateSource": "maps-pin",
-  "programs": [],
+  "programs": [
+   {
+    "name": "Crawler",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/PS_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Walker",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 23,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/PS_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Jumper",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 24,
+     "maxMonths": 35,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/PS_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   }
+  ],
   "website": "https://www.rockstaracademy.com/schedules-and-locations",
   "sourceUrl": "https://www.rockstaracademy.com/schedules-and-locations",
-  "lastCheckedAt": "2026-11-03",
-  "fitStatus": "unvalidated-extraction",
-  "notes": "Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
+  "lastCheckedAt": "2026-11-07",
+  "fitStatus": "branch-confirmed",
+  "notes": "Current branch Winter Term PDF (19 Oct 2026 to 17 Jan 2027) confirms Crawler 6-18 months, Walker 12-23 months, and Jumper 24-35 months. Other programs not exhaustively transcribed. Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
   "reviews": {
    "rating": 4.7,
    "reviewCount": 180,
@@ -3139,8 +3698,8 @@ export const VENUES: Venue[] = [
   },
   "operatingStatus": {
    "state": "official-listed",
-   "source": "https://www.rockstaracademy.com/schedules-and-locations",
-   "checkedAt": "2026-11-04"
+   "source": "https://www.rockstaracademy.com/lib/upload/files/club/PS_Schedule_Winter_20261.pdf",
+   "checkedAt": "2026-11-07"
   },
   "phone": "+62 21 39703939"
  },
@@ -3159,12 +3718,55 @@ export const VENUES: Venue[] = [
   "lat": -6.116706,
   "lng": 106.790852,
   "coordinateSource": "maps-pin",
-  "programs": [],
+  "programs": [
+   {
+    "name": "Crawler",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/PV_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Walker",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 23,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/PV_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Jumper",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 24,
+     "maxMonths": 35,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/PV_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   }
+  ],
   "website": "https://www.rockstaracademy.com/schedules-and-locations",
   "sourceUrl": "https://www.rockstaracademy.com/schedules-and-locations",
-  "lastCheckedAt": "2026-11-03",
-  "fitStatus": "unvalidated-extraction",
-  "notes": "Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
+  "lastCheckedAt": "2026-11-07",
+  "fitStatus": "branch-confirmed",
+  "notes": "Current branch Winter Term PDF (19 Oct 2026 to 17 Jan 2027) confirms Crawler 6-18 months, Walker 12-23 months, and Jumper 24-35 months. Other programs not exhaustively transcribed. Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
   "reviews": {
    "rating": 4.9,
    "reviewCount": 385,
@@ -3176,8 +3778,8 @@ export const VENUES: Venue[] = [
   },
   "operatingStatus": {
    "state": "official-listed",
-   "source": "https://www.rockstaracademy.com/schedules-and-locations",
-   "checkedAt": "2026-11-04"
+   "source": "https://www.rockstaracademy.com/lib/upload/files/club/PV_Schedule_Winter_20261.pdf",
+   "checkedAt": "2026-11-07"
   },
   "phone": "+62 21 6683690"
  },
@@ -3196,12 +3798,55 @@ export const VENUES: Venue[] = [
   "lat": -6.375417,
   "lng": 106.902185,
   "coordinateSource": "maps-pin",
-  "programs": [],
+  "programs": [
+   {
+    "name": "Crawler",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 18,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/TC_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Walker",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 23,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/TC_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   },
+   {
+    "name": "Jumper",
+    "category": "Gym & Movement",
+    "offering": "offered",
+    "age": {
+     "minMonths": 24,
+     "maxMonths": 35,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.rockstaracademy.com/lib/upload/files/club/TC_Schedule_Winter_20261.pdf",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Winter term schedule, 19 Oct 2026 to 17 Jan 2027. Exact month band from the current branch PDF; rounded HTML labels are not used. Confirm session availability before visiting."
+   }
+  ],
   "website": "https://www.rockstaracademy.com/schedules-and-locations",
   "sourceUrl": "https://www.rockstaracademy.com/schedules-and-locations",
-  "lastCheckedAt": "2026-11-03",
-  "fitStatus": "unvalidated-extraction",
-  "notes": "Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
+  "lastCheckedAt": "2026-11-07",
+  "fitStatus": "branch-confirmed",
+  "notes": "Current branch Winter Term PDF (19 Oct 2026 to 17 Jan 2027) confirms Crawler 6-18 months, Walker 12-23 months, and Jumper 24-35 months. Other programs not exhaustively transcribed. Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
   "reviews": {
    "rating": 4.7,
    "reviewCount": 220,
@@ -3213,8 +3858,8 @@ export const VENUES: Venue[] = [
   },
   "operatingStatus": {
    "state": "official-listed",
-   "source": "https://www.rockstaracademy.com/schedules-and-locations",
-   "checkedAt": "2026-11-04"
+   "source": "https://www.rockstaracademy.com/lib/upload/files/club/TC_Schedule_Winter_20261.pdf",
+   "checkedAt": "2026-11-07"
   },
   "phone": "+62 21 39715588"
  },
