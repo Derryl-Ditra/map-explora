@@ -10,7 +10,7 @@ import MobileDrawer from "./ui/MobileDrawer";
 import ShareCard from "./ui/ShareCard";
 import {ageBandLabel} from '@/utils/ageBands';
 import { useAppNavigation } from "@/hooks/useAppNavigation";
-import { HelpCircle, Baby, Crosshair, Loader2, Moon, Sun, MapPin, X } from "lucide-react";
+import { HelpCircle, Baby, Crosshair, Loader2, MapPin, X } from "lucide-react";
 
 // Dynamic import for the map (client-only)
 const VectorMap = dynamic(() => import("./map/VectorMap"), {
@@ -62,7 +62,6 @@ export default function MapHUD() {
     document.addEventListener("pointerdown", close);
     return () => document.removeEventListener("pointerdown", close);
   }, [helpOpen]);
-  const [mapStyle, setMapStyle] = useState<"dark" | "light">("dark");
   // Mobile is map-first: the map is the default view. The list, search and
   // filters open from the "places" bar or the List toggle.
 
@@ -149,7 +148,6 @@ export default function MapHUD() {
           userPos={userPos}
           showUserMarker={hasActualLocation}
           userAccuracy={accuracy}
-          mapStyle={mapStyle}
           recenterTick={recenterTick}
           fitTick={fitTick}
         />
@@ -170,18 +168,6 @@ export default function MapHUD() {
           )}
         </button>
 
-        <button
-          type="button"
-          onClick={() => setMapStyle((prev) => (prev === "dark" ? "light" : "dark"))}
-          aria-label="Toggle Map Style" title="Toggle Map Style"
-          className="w-12 h-12 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#4a443c] hover:text-[#221d18] flex items-center justify-center active:scale-95 transition-all"
-        >
-          {mapStyle === "dark" ? (
-            <Sun className="w-5 h-5 text-[#4a443c]" />
-          ) : (
-            <Moon className="w-5 h-5 text-[#4a443c]" />
-          )}
-        </button>
         <div ref={helpMenu} className="relative" onKeyDown={(event) => { if(event.key === "Escape") { event.stopPropagation(); setHelpOpen(false); helpButton.current?.focus(); } }}>
           <button ref={helpButton} type="button" aria-label="Guides and information" aria-expanded={helpOpen} aria-controls="map-help-menu" onClick={() => setHelpOpen(open => !open)} className="w-12 h-12 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#4a443c] flex items-center justify-center focus-visible:outline-2 focus-visible:outline-[#1a7a4a]">
             <HelpCircle className="w-5 h-5" />
