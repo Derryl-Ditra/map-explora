@@ -4228,6 +4228,20 @@ export const VENUES: Venue[] = [
      "verification": "listed-unconfirmed"
     },
     "note": "12 Bulan - 7 Tahun"
+   },
+   {
+    "name": "Sensory Crawler",
+    "category": "Sensory",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 11,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.instagram.com/sparks_sportsacademy/p/DbMzKUxDARb/",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Provider announcement dated 24 Jul 2026. Slide 1 gives the exact month band; slide 2 and caption name this branch. Dated class evidence, not a current timetable. Confirm current class and session availability before visiting."
    }
   ],
   "website": "https://academy.sparks-edu.com/tangerang/",
@@ -4460,6 +4474,20 @@ export const VENUES: Venue[] = [
      "verification": "listed-unconfirmed"
     },
     "note": "12 Bulan - 7 Tahun"
+   },
+   {
+    "name": "Sensory Crawler",
+    "category": "Sensory",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 11,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.instagram.com/sparks_sportsacademy/p/DbMzKUxDARb/",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Provider announcement dated 24 Jul 2026. Slide 1 gives the exact month band; slide 2 and caption name this branch. Dated class evidence, not a current timetable. Confirm current class and session availability before visiting."
    }
   ],
   "website": "https://academy.sparks-edu.com/bekasi/",
@@ -4900,6 +4928,20 @@ export const VENUES: Venue[] = [
      "verification": "listed-unconfirmed"
     },
     "note": "12 Bulan - 7 Tahun"
+   },
+   {
+    "name": "Sensory Crawler",
+    "category": "Sensory",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 11,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.instagram.com/sparks_sportsacademy/p/DbMzKUxDARb/",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Provider announcement dated 24 Jul 2026. Slide 1 gives the exact month band; slide 2 and caption name this branch. Dated class evidence, not a current timetable. Confirm current class and session availability before visiting."
    }
   ],
   "website": "https://academy.sparks-edu.com/jakarta/",
@@ -5507,6 +5549,20 @@ export const VENUES: Venue[] = [
      "verification": "listed-unconfirmed"
     },
     "note": "12 Bulan - 7 Tahun"
+   },
+   {
+    "name": "Sensory Crawler",
+    "category": "Sensory",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 11,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.instagram.com/sparks_sportsacademy/p/DbMzKUxDARb/",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Provider announcement dated 24 Jul 2026. Slide 1 gives the exact month band; slide 2 and caption name this branch. Dated class evidence, not a current timetable. Confirm current class and session availability before visiting."
    }
   ],
   "website": "https://academy.sparks-edu.com/depok/",
@@ -5595,6 +5651,20 @@ export const VENUES: Venue[] = [
      "verification": "listed-unconfirmed"
     },
     "note": "12 Bulan - 7 Tahun"
+   },
+   {
+    "name": "Sensory Crawler",
+    "category": "Sensory",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 11,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.instagram.com/sparks_sportsacademy/p/DbMzKUxDARb/",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Provider announcement dated 24 Jul 2026. Slide 1 gives the exact month band; slide 2 and caption name this branch. Dated class evidence, not a current timetable. Confirm current class and session availability before visiting."
    }
   ],
   "website": "https://academy.sparks-edu.com/jakarta/",
@@ -5771,6 +5841,20 @@ export const VENUES: Venue[] = [
      "verification": "listed-unconfirmed"
     },
     "note": "12 Bulan - 7 Tahun"
+   },
+   {
+    "name": "Sensory Crawler",
+    "category": "Sensory",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 11,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.instagram.com/sparks_sportsacademy/p/DbMzKUxDARb/",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Provider announcement dated 24 Jul 2026. Slide 1 gives the exact month band; slide 2 and caption name this branch. Dated class evidence, not a current timetable. Confirm current class and session availability before visiting."
    }
   ],
   "website": "https://academy.sparks-edu.com/jakarta/",
@@ -6526,6 +6610,20 @@ export const VENUES: Venue[] = [
      "verification": "listed-unconfirmed"
     },
     "note": "12 Bulan - 7 Tahun"
+   },
+   {
+    "name": "Sensory Crawler",
+    "category": "Sensory",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 11,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.instagram.com/sparks_sportsacademy/p/DbMzKUxDARb/",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Provider announcement dated 24 Jul 2026. Slide 1 gives the exact month band; slide 2 and caption name this branch. Dated class evidence, not a current timetable. Confirm current class and session availability before visiting."
    }
   ],
   "website": "https://academy.sparks-edu.com/tangerang/",
@@ -6575,6 +6673,20 @@ export const VENUES: Venue[] = [
      "providerAgeUrl": "https://gogrow.id/"
     },
     "note": "Official site lists Baby Gym & Sensory and Baby Music Class. No numeric age range read on the page (2026-11-04)."
+   },
+   {
+    "name": "Baby Music Class",
+    "category": "Music",
+    "offering": "offered",
+    "age": {
+     "minMonths": 8,
+     "maxMonths": 23,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "providerAgeUrl": "https://www.instagram.com/letsgogrow.id/p/Da2InNgiXIk/?img_index=4",
+     "sourceCheckedAt": "2026-11-07"
+    },
+    "note": "Provider announcement dated 16 Jul 2026, tagged HUBlife Jakarta. Slide 4 gives the exact month band. Dated class evidence, not a current timetable. Confirm current class and session availability before visiting."
    }
   ],
   "website": "https://gogrow.id/",
