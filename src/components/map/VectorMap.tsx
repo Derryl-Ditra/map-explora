@@ -10,7 +10,7 @@ if (typeof window !== "undefined") {
 }
 import "maplibre-gl/dist/maplibre-gl.css";
 import { Venue } from "@/types/venue";
-import { getMonoStyle } from "./vectorStyle";
+import { getMapStyle } from "./vectorStyle";
 
 interface VectorMapProps {
   venues: Venue[];
@@ -19,18 +19,13 @@ interface VectorMapProps {
   userPos: [number, number] | null; // [lat, lng]
   showUserMarker?: boolean; // only with a real location fix, never the default center
   userAccuracy: number | null;      // meters
-  mapStyle?: "dark" | "light";
   recenterTick?: number;
   fitTick?: number; // bump to frame all currently matching venues (area/activity filter)
 }
 
 const JAKARTA: [number, number] = [106.8456, -6.2088]; // maplibre is lng,lat
 
-// Browse-state nameplate sprites, cached across renders. Module scope: the
-// key carries the style mode, so dark and light plates coexist safely and a
-// React re-render no longer regenerates every sprite. Dark plate on the
-// light map, white plate on the dark map; cached canvas sprites on a symbol
-// layer so MapLibre's collision handling declutters instead of overlapping.
+// Cached dark nameplates keep venue labels readable on the pastel-light map.
 const labelSpriteCache = new Map<string, ImageData>();
 
 const LABEL_SOURCE = "venue-labels";
@@ -60,7 +55,6 @@ export default function VectorMap({
   userPos,
   showUserMarker = true,
   userAccuracy,
-  mapStyle = "dark",
   recenterTick,
   fitTick,
 }: VectorMapProps) {
@@ -70,7 +64,6 @@ export default function VectorMap({
   const markersRef = useRef<Map<string, maplibregl.Marker>>(new Map());
   const userMarkerRef = useRef<maplibregl.Marker | null>(null);
   const readyRef = useRef(false);
-  const styleModeRef = useRef<"dark" | "light" | null>(null);
   const venuesRef = useRef(venues);
   venuesRef.current = venues;
   const activeRef = useRef(activeVenueId);
@@ -97,7 +90,6 @@ export default function VectorMap({
         zoom: 11,
         attributionControl: { compact: true },
       });
-      styleModeRef.current = mapStyle;
 
       map.once("idle", () => { if (!cancelled && !failed) setMapStatus("ready"); });
       map.on("error", () => { failed = true; if (!cancelled) setMapStatus("error"); });
@@ -138,7 +130,7 @@ export default function VectorMap({
       mapRef.current = map;
     };
 
-    getMonoStyle(mapStyle).then(start).catch(() => { if (!cancelled) setMapStatus("error"); });
+    getMapStyle().then(start).catch(() => { if (!cancelled) setMapStatus("error"); });
 
     return () => {
       cancelled = true;
@@ -152,46 +144,14 @@ export default function VectorMap({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Switch monochrome style on mode toggle
-  useEffect(() => {
-    const map = mapRef.current;
-    if (!map || styleModeRef.current === mapStyle) return;
-    let cancelled = false;
-    getMonoStyle(mapStyle)
-      .then((style) => {
-        if (cancelled) return;
-        styleModeRef.current = mapStyle;
-        map.setStyle(style);
-        map.once("styledata", () => {
-          // Re-add custom sources/layers after style swap
-          if (!map.getSource("user-accuracy")) {
-            map.addSource("user-accuracy", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
-            map.addLayer({ id: "user-accuracy-fill", type: "fill", source: "user-accuracy", paint: { "fill-color": "#2563eb", "fill-opacity": 0.10 } });
-            map.addLayer({ id: "user-accuracy-edge", type: "line", source: "user-accuracy", paint: { "line-color": "#2563eb", "line-width": 1, "line-opacity": 0.3 } });
-          }
-          ensureLabelAssets(map);
-          renderMarkers(map);
-        });
-      })
-      .catch(() => {
-        styleModeRef.current = mapStyle;
-        setMapStatus("error");
-      });
-    return () => { cancelled = true; };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mapStyle]);
-
   const venueName = (venue: Venue) =>
     venue.chain && venue.chain !== venue.branchName ? `${venue.chain} ${venue.branchName}` : venue.branchName;
 
-  // Nameplates invert with the basemap: dark plate on the light map, white
-  // plate on the dark map, so the key carries the mode and a style swap
-  // regenerates sprites instead of reusing the other mode's.
-  const labelKey = (name: string, approximate: boolean, mode: "dark" | "light") =>
-    `${mode}:${approximate ? "a" : "p"}:${name}`;
+  const labelKey = (name: string, approximate: boolean) =>
+    `${approximate ? "a" : "p"}:${name}`;
 
-  function labelSprite(name: string, approximate: boolean, mode: "dark" | "light"): { key: string; image: ImageData } {
-    const key = labelKey(name, approximate, mode);
+  function labelSprite(name: string, approximate: boolean): { key: string; image: ImageData } {
+    const key = labelKey(name, approximate);
     const cached = labelSpriteCache.get(key);
     if (cached) return { key, image: cached };
     const scale = 2; // retina rendering via addImage pixelRatio
@@ -218,25 +178,21 @@ export default function VectorMap({
     c.height = h * scale;
     const ctx = c.getContext("2d")!;
     ctx.scale(scale, scale);
-    // On the light map the plate is dark (white plate on white map was
-    // invisible); on the dark map it stays white. Text and dot invert to
-    // keep contrast on the plate.
-    const darkPlate = mode === "light";
     ctx.beginPath();
     ctx.roundRect(1, 1, w - 2, h - 2, (h - 2) / 2);
-    ctx.fillStyle = darkPlate ? "#1c1917" : "#ffffff";
+    ctx.fillStyle = "#1c1917";
     ctx.fill();
     ctx.lineWidth = 1;
-    ctx.strokeStyle = approximate ? "#a8a29e" : darkPlate ? "#1c1917" : "#e7e5e4";
+    ctx.strokeStyle = approximate ? "#a8a29e" : "#1c1917";
     if (approximate) ctx.setLineDash([2, 2]);
     ctx.stroke();
     ctx.setLineDash([]);
     ctx.beginPath();
     ctx.arc(1 + padX + dotR, h / 2, dotR, 0, Math.PI * 2);
-    ctx.fillStyle = darkPlate ? "#34d399" : "#1a7a4a";
+    ctx.fillStyle = "#34d399";
     ctx.fill();
     ctx.font = font;
-    ctx.fillStyle = darkPlate ? "#ffffff" : "#6b7280";
+    ctx.fillStyle = "#ffffff";
     ctx.textBaseline = "middle";
     ctx.fillText(text, 1 + padX + dotR * 2 + gap, h / 2 + 0.5);
     const image = ctx.getImageData(0, 0, c.width, c.height);
@@ -244,7 +200,7 @@ export default function VectorMap({
     return { key, image };
   }
 
-  // Adds sprites, source and layer; safe to call again after a style swap.
+  // Adds the venue sprites, source and layer.
   function ensureLabelAssets(map: maplibregl.Map) {
     labelSpriteCache.forEach((image, key) => {
       if (!map.hasImage(key)) map.addImage(key, image, { pixelRatio: 2 });
@@ -349,7 +305,7 @@ export default function VectorMap({
     groups.forEach((g, i) => {
       if (g.members.length === 1) {
         const venue = g.members[0];
-        const { key, image } = labelSprite(venueName(venue), venue.coordinateSource === "area-approximate", styleModeRef.current ?? "light");
+        const { key, image } = labelSprite(venueName(venue), venue.coordinateSource === "area-approximate");
         if (!map.hasImage(key)) map.addImage(key, image, { pixelRatio: 2 });
         const p = map.project([venue.lng, venue.lat]);
         const halfW = image.width / 4; // sprite is 2x, anchored center
@@ -514,11 +470,11 @@ export default function VectorMap({
 
   return (
     <div
-      style={{ position: "absolute", inset: 0, backgroundColor: mapStyle === "dark" ? "#0d0d0d" : "#f5f5f4" }}
+      style={{ position: "absolute", inset: 0, backgroundColor: "#f5f5f4" }}
     >
       <div ref={containerRef} style={{ position: "absolute", inset: 0 }} />
       {mapStatus !== "ready" && (
-        <div role={mapStatus === "error" ? "alert" : "status"} className="absolute inset-0 flex items-center justify-center pointer-events-none bg-[#f6f3ec] dark:bg-[#0d0d0d]" style={{ backgroundColor: mapStyle === "dark" ? "#0d0d0d" : "#f6f3ec", color: mapStyle === "dark" ? "#ffffff" : "#51483d" }}>
+        <div role={mapStatus === "error" ? "alert" : "status"} className="absolute inset-0 flex items-center justify-center pointer-events-none bg-[#f6f3ec]" style={{ backgroundColor: "#f6f3ec", color: "#51483d" }}>
           <div className="text-center px-6 pb-64">
             {mapStatus === "loading" ? <><span className="inline-block w-6 h-6 border-2 border-current border-t-transparent rounded-full animate-spin" /><p>Loading map. You can browse the place list.</p></> : <p>Map could not load. You can still browse places and open Directions.</p>}
           </div>
