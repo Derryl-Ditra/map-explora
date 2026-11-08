@@ -1,5 +1,6 @@
 import { UPDATES } from "./review-aggregate-refresh";
 import { UPDATES_2026_11_07 } from "./review-aggregate-2026-11-07";
+import { REVIEW_PULSE_2026_11_08 } from "./review-pulse-2026-11-08";
 import { BATCH3_VENUES } from "./venues-batch3";
 
 // GENERATED from the reviewed research dataset under4-places-jabodetabek v15-2026-11-03-golden-baby.
@@ -8553,4 +8554,20 @@ for (const venue of VENUES) {
   venue.reviews = venue.reviews
     ? { ...venue.reviews, rating: aggregate.rating, reviewCount: aggregate.reviewCount, sourceUrl: aggregate.sourceUrl }
     : { ...aggregate, source: "Google Maps", checkedAt: "2026-11-07", praiseThemes: [], complaintThemes: [], sampleNote: "Rating and count only. Review themes not collected." };
+}
+
+// 2026-11-08 review pulse: trend, complaint themes and latest-review month from
+// the full-branch Google Maps collection (current 3 months vs prior 3 months).
+// Branches absent from the map keep their existing review data untouched.
+for (const venue of VENUES) {
+   const pulse = REVIEW_PULSE_2026_11_08[venue.id];
+   if (!pulse || !venue.reviews) continue;
+   venue.reviews = {
+        ...venue.reviews,
+        checkedAt: "2026-11-08",
+        complaintThemes: pulse.complaintThemes.length > 0 ? pulse.complaintThemes : venue.reviews.complaintThemes,
+        latestReview: pulse.latestReview ?? venue.reviews.latestReview,
+        trend: pulse.trend,
+        trendEvidence: pulse.trendEvidence,
+   };
 }
