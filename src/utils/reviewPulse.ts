@@ -1,6 +1,6 @@
 import type { ReviewSummary } from "@/types/venue";
 
-// Review pulse display rules (Derryl, 2026-11-05; window method 2026-11-08):
+// Review pulse display rules (window method introduced 2026-11-08):
 // - a venue WITHOUT collected trend evidence still shows the fallback line
 // - a trend label is DERIVED IN CODE from the stored per-half averages; a
 //   stored trend claim alone is never trusted. Data that fails the guard
