@@ -2,12 +2,14 @@
 
 All 148 branches checked on Google Maps, sort=newest, read-only, 2026-11-08. No CAPTCHA, challenge or lock was hit during collection.
 
-## Coverage: why 136 cards, not 148
+## Coverage: 148 branches, 144 cards
 
-- 148 branches were checked.
+The repo lists 148 venues (140 in venues.ts, 8 in venues-batch3.ts). All 148 were checked on Google Maps on 2026-11-08.
+
 - 4 listings have no review list at their exact verified address and were flagged, not collected: baby-jumper-gym-gading-serpong, gymboree-play-music-kelapa-gading, sparks-sports-academy-cibubur, sparks-sports-academy-sawangan.
-- 144 branches returned a review list.
-- Of those 144, 136 match a venue in this repo and their pulse is merged. 8 collected branches are not venues in this repo (no map entry): i-can-read-bsd2, i-can-read-cikarang, i-can-read-cikupa, i-can-read-galaxy, i-can-read-grandwisata, i-can-read-karawaci, i-can-read-modernland, music-wonderworld-bsd.
+- 144 branches returned a review list. Every one of them is a venue in this repo (136 in venues.ts, 8 in venues-batch3.ts) and every one is merged, so 144 cards carry pulse data.
+
+The trend counts below cover those same 144 collected branches.
 
 ## Trend rule
 
@@ -22,7 +24,7 @@ The label is derived in code (reviewPulse.ts), never trusted from storage:
 
 Minimum before any label: 10+ dated reviews in the window AND 3+ in each 3-month half. Anything below the minimum stores no evidence and the card shows "Not enough recent reviews to judge a trend."
 
-Result across the 144 collected branches: 7 improving, 31 steady, 8 worsening, 98 insufficient.
+Result across the 144 collected branches (all of them merged into the repo): 7 improving, 31 steady, 8 worsening, 98 insufficient.
 
 Dates stay month precision. Google shows relative labels ("3 weeks ago", "5 months ago"), so evidence bounds are ISO months marked approximate, never invented exact days. Labels of 6 months or older fall outside both halves. The UI re-verifies every stored evidence block through the guard in reviewPulse.ts before showing a label (method "maps-window-3m-3m").
 
