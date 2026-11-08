@@ -4,7 +4,7 @@ import { estimatedPrograms } from "@/data/age-estimates";
 import { useState } from "react";
 import { Venue, AgeClaim } from "@/types/venue";
 import { isVerifiedAgeClaim, verifiedPrograms } from "@/utils/ageMatch";
-import { reviewPulseLine } from "@/utils/reviewPulse";
+import { trendVerdict, formatIsoMonth, REVIEW_TREND_FALLBACK } from "@/utils/reviewPulse";
 import {
   Share2,
   Clock,
@@ -194,7 +194,9 @@ export default function VenueDetails({
               {venue.reviews.complaintThemes.length > 0 && (
                 <div className="text-[1rem] text-[#4a443c]">
                   <span className="font-semibold text-[#221d18]">
-                    Concerns (1 reviewer each):{" "}
+                    {venue.reviews.lowRatedCount != null
+                      ? `Concerns (from ${venue.reviews.lowRatedCount} ${venue.reviews.lowRatedCount === 1 ? "review" : "reviews"} rated 3 stars or lower): `
+                      : "Concerns: "}
                   </span>
                   {venue.reviews.complaintThemes.join("; ")}
                 </div>
@@ -204,13 +206,52 @@ export default function VenueDetails({
           {venue.reviews.sampleNote && (
             <span className="text-[0.9375rem] text-[#6d675f]">{venue.reviews.sampleNote}</span>
           )}
-          <span className="text-[0.9375rem] text-[#6d675f]">
-            {reviewPulseLine(venue.reviews)}
-          </span>
+          {(() => {
+            const verdict = trendVerdict(venue.reviews);
+            const badge = verdict.trend
+              ? {
+                  improving: "bg-[#dcfce7] text-[#166534]",
+                  steady: "bg-[#f1ede6] text-[#4a443c]",
+                  worsening: "bg-[#fee2e2] text-[#b91c1c]",
+                  mixed: "bg-[#fef3c7] text-[#92400e]",
+                }[verdict.trend]
+              : "bg-[#f1ede6] text-[#6d675f]";
+            const label = verdict.trend
+              ? verdict.trend.charAt(0).toUpperCase() + verdict.trend.slice(1)
+              : "Not enough data";
+            return (
+              <div className="flex flex-col gap-1">
+                <span
+                  className={`self-start inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.8125rem] font-semibold ${badge}`}
+                >
+                  {label}
+                </span>
+                {verdict.trend && verdict.comparisonText ? (
+                  <span className="text-[0.9375rem] text-[#4a443c]">
+                    {verdict.comparisonText}
+                  </span>
+                ) : (
+                  <span className="text-[0.9375rem] text-[#6d675f]">
+                    {REVIEW_TREND_FALLBACK}
+                  </span>
+                )}
+                {venue.reviews.latestReview?.date && (
+                  <span className="text-[0.9375rem] text-[#6d675f]">
+                    Latest review: {venue.reviews.latestReview.approximate ? formatIsoMonth(venue.reviews.latestReview.date) : venue.reviews.latestReview.date}.
+                  </span>
+                )}
+                {verdict.evidenceText && (
+                  <span className="text-[0.8125rem] text-[#6d675f]">
+                    {verdict.evidenceText}
+                  </span>
+                )}
+              </div>
+            );
+          })()}
           <button
             type="button"
             onClick={() => setReviewSourceOpen((v) => !v)}
-            className="self-start flex items-center gap-1.5 text-[0.9375rem] font-semibold text-[#6d675f] hover:text-[#221d18] py-1 transition-colors"
+            className="self-start flex items-center gap-1.5 min-h-[44px] text-[0.9375rem] font-semibold text-[#6d675f] hover:text-[#221d18] transition-colors"
           >
             <ChevronDown className={`w-3.5 h-3.5 transition-transform ${reviewSourceOpen ? "rotate-180" : ""}`} />
             <span>Review source and dates</span>
