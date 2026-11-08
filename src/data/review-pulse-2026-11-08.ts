@@ -16,10 +16,9 @@ import type { ReviewSummary } from "@/types/venue";
 // Coverage: 148 branches checked, 4 listings had no review list at their
 // exact verified address (flagged, not collected): baby-jumper-gym-gading-serpong,
 // gymboree-play-music-kelapa-gading, sparks-sports-academy-cibubur,
-// sparks-sports-academy-sawangan. Of the 144 collected,
-// 136 match a venue in this repo and are keyed below;
-// 8 collected branches are not venues in this repo
-// (no map entry): i-can-read-bsd2, i-can-read-cikarang, i-can-read-cikupa, i-can-read-galaxy, i-can-read-grandwisata, i-can-read-karawaci, i-can-read-modernland, music-wonderworld-bsd.
+// sparks-sports-academy-sawangan. All 144 collected
+// branches are venues in this repo and are keyed below (136 in
+// venues.ts, 8 in venues-batch3.ts).
 type ReviewPulse = {
   complaintThemes: string[];
   complaintThemeReviewers: number[];
@@ -535,6 +534,72 @@ export const REVIEW_PULSE_2026_11_08: Record<string, ReviewPulse> = {
       checkedAt: "2026-11-08",
     },
   },
+  "i-can-read-bsd2": {
+    complaintThemes: [],
+    complaintThemeReviewers: [],
+    lowRatedCount: 0,
+    latestReview: { date: "2026-11", approximate: true },
+    trendEvidence: {
+      method: "maps-window-3m-3m",
+      sampled: 21,
+      from: "2026-06",
+      to: "2026-11",
+      approximate: true,
+      olderHalf: 4,
+      newerHalf: 17,
+      olderAvg: 5.0,
+      newerAvg: 5.0,
+      olderPositive: 4,
+      olderNegative: 0,
+      newerPositive: 17,
+      newerNegative: 0,
+      checkedAt: "2026-11-08",
+    },
+  },
+  "i-can-read-cikarang": {
+    complaintThemes: [],
+    complaintThemeReviewers: [],
+    lowRatedCount: 0,
+    latestReview: { date: "2026-10", approximate: true },
+    trendEvidence: {
+      method: "maps-window-3m-3m",
+      sampled: 19,
+      from: "2026-06",
+      to: "2026-10",
+      approximate: true,
+      olderHalf: 10,
+      newerHalf: 9,
+      olderAvg: 5.0,
+      newerAvg: 4.89,
+      olderPositive: 10,
+      olderNegative: 0,
+      newerPositive: 9,
+      newerNegative: 0,
+      checkedAt: "2026-11-08",
+    },
+  },
+  "i-can-read-cikupa": {
+    complaintThemes: [],
+    complaintThemeReviewers: [],
+    lowRatedCount: 0,
+    latestReview: { date: "2026-11", approximate: true },
+    trendEvidence: {
+      method: "maps-window-3m-3m",
+      sampled: 34,
+      from: "2026-08",
+      to: "2026-11",
+      approximate: true,
+      olderHalf: 9,
+      newerHalf: 25,
+      olderAvg: 4.89,
+      newerAvg: 4.96,
+      olderPositive: 9,
+      olderNegative: 0,
+      newerPositive: 25,
+      newerNegative: 0,
+      checkedAt: "2026-11-08",
+    },
+  },
   "i-can-read-ciledug": {
     complaintThemes: [],
     complaintThemeReviewers: [],
@@ -596,6 +661,34 @@ export const REVIEW_PULSE_2026_11_08: Record<string, ReviewPulse> = {
     complaintThemeReviewers: [],
     lowRatedCount: 0,
   },
+  "i-can-read-galaxy": {
+    complaintThemes: [],
+    complaintThemeReviewers: [],
+    lowRatedCount: 0,
+    latestReview: { date: "2026-11", approximate: true },
+    trendEvidence: {
+      method: "maps-window-3m-3m",
+      sampled: 47,
+      from: "2026-06",
+      to: "2026-11",
+      approximate: true,
+      olderHalf: 36,
+      newerHalf: 11,
+      olderAvg: 4.97,
+      newerAvg: 5.0,
+      olderPositive: 36,
+      olderNegative: 0,
+      newerPositive: 11,
+      newerNegative: 0,
+      checkedAt: "2026-11-08",
+    },
+  },
+  "i-can-read-grandwisata": {
+    complaintThemes: [],
+    complaintThemeReviewers: [],
+    lowRatedCount: 0,
+    latestReview: { date: "2026-10", approximate: true },
+  },
   "i-can-read-green-lake-city": {
     complaintThemes: [],
     complaintThemeReviewers: [],
@@ -630,6 +723,12 @@ export const REVIEW_PULSE_2026_11_08: Record<string, ReviewPulse> = {
       checkedAt: "2026-11-08",
     },
   },
+  "i-can-read-karawaci": {
+    complaintThemes: [],
+    complaintThemeReviewers: [],
+    lowRatedCount: 0,
+    latestReview: { date: "2026-09", approximate: true },
+  },
   "i-can-read-kelapa-gading": {
     complaintThemes: [],
     complaintThemeReviewers: [],
@@ -645,6 +744,12 @@ export const REVIEW_PULSE_2026_11_08: Record<string, ReviewPulse> = {
     complaintThemes: [],
     complaintThemeReviewers: [],
     lowRatedCount: 0,
+  },
+  "i-can-read-modernland": {
+    complaintThemes: [],
+    complaintThemeReviewers: [],
+    lowRatedCount: 0,
+    latestReview: { date: "2026-09", approximate: true },
   },
   "i-can-read-permata-hijau": {
     complaintThemes: [],
@@ -707,6 +812,12 @@ export const REVIEW_PULSE_2026_11_08: Record<string, ReviewPulse> = {
     complaintThemes: ["coach quality/favoritism"],
     complaintThemeReviewers: [1],
     lowRatedCount: 1,
+  },
+  "music-wonderworld-bsd": {
+    complaintThemes: [],
+    complaintThemeReviewers: [],
+    lowRatedCount: 0,
+    latestReview: { date: "2026-10", approximate: true },
   },
   "outgrow-alam-sutera": {
     complaintThemes: [],
