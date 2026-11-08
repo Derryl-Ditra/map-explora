@@ -9,6 +9,7 @@ test('aggregate refresh keeps source dates and unknown ratings honest', () => {
  assert.equal(v('english-1-pamulang-tangerang').reviews.rating, 4.8);
  assert.equal(v('sparks-sports-academy-cibubur').reviews?.rating ?? null, null);
  assert.equal(v('sparks-sports-academy-sawangan').reviews?.rating ?? null, null);
- assert.equal(v('i-can-read-bintaro').reviews.latestReview, undefined);
- assert.equal(v('i-can-read-bintaro').reviews.checkedAt, '2026-11-03');
+ // 2026-11-08 pulse: latest-review month is approximate, checked date moves to collection day
+ assert.deepEqual(v('i-can-read-bintaro').reviews.latestReview, { date: '2026-11', approximate: true });
+ assert.equal(v('i-can-read-bintaro').reviews.checkedAt, '2026-11-08');
 });
