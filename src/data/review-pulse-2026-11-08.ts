@@ -24,6 +24,10 @@ type ReviewPulse = {
   complaintThemes: string[];
   complaintThemeReviewers: number[];
   lowRatedCount: number;
+  // legacy claim field, never stored: the label is derived in code from the
+  // per-half averages (reviewPulse.ts). Present only so the older merge loop
+  // above (which references it) still type-checks.
+  trend?: "improving" | "mixed" | "steady" | "worsening" | "insufficient";
   latestReview?: { date: string; approximate: true };
   trendEvidence?: NonNullable<ReviewSummary["trendEvidence"]> & {
     method: "maps-window-3m-3m";
