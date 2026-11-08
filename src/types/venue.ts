@@ -103,6 +103,11 @@ export interface ReviewSummary {
   sampleNote?: string; // bounded sample framing, e.g. "3 of 7 reviews visible"
   praiseThemes: string[]; // short paraphrased recurring themes, each evidence-backed
   complaintThemes: string[];
+  // Reviewer support behind complaintThemes (2026-11-08 pulse): parallel array,
+  // complaintThemeReviewers[i] = how many low-rated (<=3 star) customer reviews
+  // matched complaintThemes[i]. Owner responses never count.
+  complaintThemeReviewers?: number[];
+  lowRatedCount?: number; // customer reviews rated <=3 stars in the collected window
   // Live-Maps review pulse (weekly data job). All optional: absent until collected.
   // Both fields come only from a sort=newest Maps review listing.
   latestReview?: {
@@ -119,6 +124,8 @@ export interface ReviewSummary {
   //   inside a 6-month window; 10+ dated reviews in the window AND 3+ in each
   //   3-month half; bounds are ISO months derived from relative labels, so
   //   approximate must be true. Relative wording never becomes an exact day.
+  // Legacy claim field. The UI never trusts it: for the window method the
+  // label is DERIVED in code from the stored per-half averages below.
   trend?: "improving" | "mixed" | "steady" | "worsening" | "insufficient";
   trendEvidence?: {
     method: "maps-sort-newest" | "maps-window-3m-3m"; // how the sample was taken; required so the rule is verifiable
@@ -128,6 +135,17 @@ export interface ReviewSummary {
     approximate?: boolean; // bounds come from relative labels: month precision only
     olderHalf: number; // dated reviews in the older half (prior 3 months for the window method)
     newerHalf: number; // dated reviews in the newer half (current 3 months for the window method)
+    // Window-method evidence, computed from the raw collected reviews. The
+    // trend label is derived from these in code (see reviewPulse.ts):
+    // diff = newerAvg - olderAvg; improving >= +0.3, worsening <= -0.3,
+    // otherwise steady. Positive = 4-5 stars, negative = 1-3 stars.
+    olderAvg?: number;
+    newerAvg?: number;
+    olderPositive?: number;
+    olderNegative?: number;
+    newerPositive?: number;
+    newerNegative?: number;
+    checkedAt?: string; // ISO day this pulse was collected (NOT review dates)
   };
 }
 
