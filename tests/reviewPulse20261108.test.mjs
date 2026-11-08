@@ -89,6 +89,20 @@ test('old themes keep their original checked date when the pulse adds none', () 
   assert.equal(venue.reviews.trendEvidence.checkedAt, '2026-11-08');
 });
 
+test('every pulsed venue with no new themes keeps its original checked date', () => {
+  let checked = 0;
+  for (const venue of VENUES) {
+    const pulse = REVIEW_PULSE_2026_11_08[venue.id];
+    if (!pulse || pulse.complaintThemes.length > 0 || !venue.reviews) continue;
+    checked++;
+    assert.notEqual(venue.reviews.checkedAt, '2026-11-08', `${venue.id} must not get the pulse collection date without new themes`);
+  }
+  assert.ok(checked > 90, `covers all no-new-theme venues, got ${checked}`);
+  // batch3 venues are covered too (QC round 3)
+  assert.equal(VENUES.find(v => v.id === 'i-can-read-bsd2').reviews.checkedAt, '2026-11-05');
+  assert.equal(VENUES.find(v => v.id === 'music-wonderworld-bsd').reviews.checkedAt, '2026-11-05');
+});
+
 test('worsening rockstar branch carries its real evidence', () => {
   const pulse = REVIEW_PULSE_2026_11_08['rockstar-academy-kota-kasablanka'];
   assert.equal(pulse.trendEvidence.newerHalf, 3);
