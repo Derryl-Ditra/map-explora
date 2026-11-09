@@ -155,19 +155,47 @@ export default function MapHUD() {
 
       {/* Floating Map Controls (Top-Right) */}
       <div className="absolute top-4 right-4 z-[500] flex flex-col items-end gap-2">
-        <button
-          type="button"
-          onClick={handleLocate}
-          disabled={isLocating}
-          aria-label={hasActualLocation ? "Center on my location" : "Use my location"} title={hasActualLocation ? "Center on my location" : "Use my location"}
-          className="hidden md:flex w-12 h-12 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#4a443c] hover:text-[#221d18] items-center justify-center gap-2 active:scale-95 transition-all"
-        >
-          {isLocating ? (
-            <Loader2 className="w-5 h-5 animate-spin text-[#1a7a4a]" />
-          ) : (
-            <Crosshair className="w-5 h-5" />
-          )}
-        </button>
+        {/* Screen readers get the locate state; the visible control below
+            carries the same meaning as an icon or short label. */}
+        <span aria-live="polite" className="sr-only">
+          {isLocating ? "Finding your location..." : hasActualLocation ? "Location available" : ""}
+        </span>
+        {isDesktop || hasActualLocation ? (
+          /* Desktop stays icon-only. On phones the labeled pill below
+             collapses to this same icon-only button once a real fix
+             exists; from then on it only recenters the map. */
+          <button
+            type="button"
+            onClick={handleLocate}
+            disabled={isLocating}
+            aria-label={hasActualLocation ? "Center on my location" : "Use my location"} title={hasActualLocation ? "Center on my location" : "Use my location"}
+            className="w-12 h-12 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#4a443c] hover:text-[#221d18] flex items-center justify-center gap-2 active:scale-95 transition-all focus-visible:outline-2 focus-visible:outline-[#1a7a4a]"
+          >
+            {isLocating ? (
+              <Loader2 className="w-5 h-5 animate-spin text-[#1a7a4a]" />
+            ) : (
+              <Crosshair className="w-5 h-5" />
+            )}
+          </button>
+        ) : (
+          /* Phone, no fix yet: a labeled invitation. Hidden in the list
+             view, where the list has its own locate button. */
+          (!activeVenue && mobileView === "map") && (
+            <button
+              type="button"
+              onClick={handleLocate}
+              disabled={isLocating}
+              className="min-h-12 px-4 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#14532d] text-[1rem] font-bold flex items-center gap-2 active:scale-95 disabled:opacity-70 focus-visible:outline-2 focus-visible:outline-[#1a7a4a]"
+            >
+              {isLocating ? (
+                <Loader2 className="w-4 h-4 animate-spin text-[#1a7a4a]" />
+              ) : (
+                <Crosshair className="w-4 h-4 text-[#1a7a4a]" />
+              )}
+              Use my location
+            </button>
+          )
+        )}
 
         <div ref={helpMenu} className="relative" onKeyDown={(event) => { if(event.key === "Escape") { event.stopPropagation(); setHelpOpen(false); helpButton.current?.focus(); } }}>
           <button ref={helpButton} type="button" aria-label="Guides and information" aria-expanded={helpOpen} aria-controls="map-help-menu" onClick={() => setHelpOpen(open => !open)} className="w-12 h-12 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#4a443c] flex items-center justify-center focus-visible:outline-2 focus-visible:outline-[#1a7a4a]">
@@ -224,13 +252,6 @@ export default function MapHUD() {
         mobileView={mobileView}
         onSetMobileView={handleSetView}
       />
-
-      {!activeVenue && mobileView === "map" && (
-        <div className="md:hidden absolute bottom-[calc(max(20px,env(safe-area-inset-bottom))+72px)] left-4 right-4 z-[500] rounded-2xl border border-[#e7e0d4] bg-white p-3 shadow-sm">
-          <p className="text-sm font-bold text-[#221d18] mb-2" aria-live="polite">{hasActualLocation ? "Location available" : "Find classes near you"}</p>
-          <button type="button" onClick={handleLocate} disabled={isLocating} className="w-full min-h-12 px-3 rounded-xl bg-[#1a7a4a] text-white font-bold disabled:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a]">{isLocating ? "Finding your location..." : hasActualLocation ? "Center on my location" : "Use my location"}</button>
-        </div>
-      )}
 
       {!activeVenue && mobileView === "map" && (
         <button type="button" onClick={() => handleSetView("list")} onTouchStart={(event) => {
