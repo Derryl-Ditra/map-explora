@@ -405,9 +405,9 @@ export const BATCH3_VENUES: Venue[] = [
     "sourceUrl": "https://gymnademics.id/id/contact-us/",
     "lastCheckedAt": "2026-11-10",
     "fitStatus": "official-chain-program",
-    "notes": "Official contact page lists a Bintaro branch (Jl. Kasturi Blok HA1-9, Sektor 9). Official site gives 3 months to 6 years for the whole brand only, so no branch-level class age is claimed. Google Maps lists it as 'Gymnademic Indonesia Bintaro' with hours and a phone number. Maps and official site read 2026-11-10.",
+    "notes": "HELD HIDDEN: brand has 4 branches in total (outside the 3-or-fewer focus) and a single-reviewer teacher-conduct allegation exists at the Gading Serpong branch; branch age not confirmed. Official contact page lists a Bintaro branch (Jl. Kasturi Blok HA1-9, Sektor 9). Official site gives 3 months to 6 years for the whole brand only, so no branch-level class age is claimed. Google Maps lists it as 'Gymnademic Indonesia Bintaro' with hours and a phone number. Maps and official site read 2026-11-10.",
     "operatingStatus": {
-      "state": "official-listed",
+      "state": "not-confirmed",
       "source": "https://gymnademics.id/id/contact-us/",
       "checkedAt": "2026-11-10"
     },
@@ -442,9 +442,9 @@ export const BATCH3_VENUES: Venue[] = [
     "sourceUrl": "https://gymnademics.id/id/contact-us/",
     "lastCheckedAt": "2026-11-10",
     "fitStatus": "official-chain-program",
-    "notes": "Official contact page lists a Jakarta Selatan branch (Jl. Erlangga III No. 2, Kebayoran Baru). Official admission page shows 09:00 and 13:00 class slots. Official site gives 3 months to 6 years for the whole brand only, so no branch-level class age is claimed. Google Maps lists it as 'GymnAdemics Indonesia Jakarta Selatan' with hours, phone and reviews through 3 months ago. Maps and official site read 2026-11-10.",
+    "notes": "HELD HIDDEN: brand has 4 branches in total (outside the 3-or-fewer focus) and a single-reviewer teacher-conduct allegation exists at the Gading Serpong branch; branch age not confirmed. Official contact page lists a Jakarta Selatan branch (Jl. Erlangga III No. 2, Kebayoran Baru). Official admission page shows 09:00 and 13:00 class slots. Official site gives 3 months to 6 years for the whole brand only, so no branch-level class age is claimed. Google Maps lists it as 'GymnAdemics Indonesia Jakarta Selatan' with hours, phone and reviews through 3 months ago. Maps and official site read 2026-11-10.",
     "operatingStatus": {
-      "state": "official-listed",
+      "state": "not-confirmed",
       "source": "https://gymnademics.id/id/contact-us/",
       "checkedAt": "2026-11-10"
     },
