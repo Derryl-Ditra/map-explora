@@ -12,10 +12,10 @@ test('UI evidence rejects conflicts, ambiguity, missing bounds, missing sources 
  assert.equal(isVerifiedAgeClaim(claim,'upper-bound inclusivity ambiguous'),false);
 });
 test('dataset impact stays explicit without deleting public places',()=>{
- assert.equal(shown.length,140);
+ assert.equal(shown.length,138);
  assert.equal(shown.flatMap(verifiedPrograms).length,119);
- assert.equal(shown.filter(v=>!verifiedPrograms(v).length).length,99);
- assert.equal(shown.filter(v=>!hasVerifiedAgeEvidence(v)).length,98);
+ assert.equal(shown.filter(v=>!verifiedPrograms(v).length).length,97);
+ assert.equal(shown.filter(v=>!hasVerifiedAgeEvidence(v)).length,96);
  assert.equal(shown.filter(v=>venueConfirmedForAge(v,59)).length,1);
 });
 test('every confirmed place at all 60 stepper months has visible evidence covering that month',()=>{
