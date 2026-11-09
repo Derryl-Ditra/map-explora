@@ -1,4 +1,5 @@
 "use client";
+import { phoneHref } from "@/utils/venueSummary";
 import { estimatedPrograms } from "@/data/age-estimates";
 
 import { useState } from "react";
@@ -7,7 +8,7 @@ import { isVerifiedAgeClaim, verifiedPrograms } from "@/utils/ageMatch";
 import { trendVerdict, formatIsoMonth, REVIEW_TREND_FALLBACK } from "@/utils/reviewPulse";
 import {
   Share2,
-  Clock,
+  Phone,
   ShieldCheck,
   Flag,
   Star,
@@ -323,8 +324,12 @@ export default function VenueDetails({
         </div>
         {venue.phone && (
           <div className="flex items-center gap-1.5 text-[#4a443c]">
-            <Clock className="w-4 h-4 text-[#6d675f]" />
-            <span>{venue.phone}</span>
+            <Phone aria-hidden="true" className="w-4 h-4 text-[#6d675f] shrink-0" />
+            {phoneHref(venue.phone) ? (
+              <a href={phoneHref(venue.phone)!} className="inline-flex items-center min-h-11 underline text-[#1a7a4a] font-semibold" aria-label={`Call ${venue.chain || venue.branchName}: ${venue.phone}`}>
+                {venue.phone}
+              </a>
+            ) : <span>{venue.phone}</span>}
           </div>
         )}
       </div>
