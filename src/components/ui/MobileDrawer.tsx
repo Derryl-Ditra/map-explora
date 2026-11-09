@@ -4,7 +4,7 @@ import { useLayoutEffect, useRef, useCallback, useSyncExternalStore } from "reac
 import { Venue, VenueFilterState } from "@/types/venue";
 import { buildMapsLink } from "@/utils/mapsLink";
 import {matchingAgeRanges, type AgeBandId} from '@/utils/ageBands';
-import { hasVerifiedAgeEvidence } from "@/utils/ageMatch";
+import { cardAgeSummary, cardRatingSummary } from "@/utils/venueSummary";
 import { useSheetGesture } from "@/hooks/useSheetGesture";
 import FilterBar from "./FilterBar";
 import VenueDetails from "./VenueDetails";
@@ -99,9 +99,10 @@ function VenueCard({
       </div>
 
       {ageBand && fit==='confirmed' && <span className="text-sm text-[#14532d]">Verified ages: {matchingAgeRanges(venue,ageBand).join('; ')}</span>}
-      {!hasVerifiedAgeEvidence(venue) && (
-        <span className="text-[0.875rem] text-[#6d675f]">Class ages not verified yet</span>
+      {!(ageBand && fit === 'confirmed') && (
+        <span className="text-[0.875rem] text-[#4a443c]">{cardAgeSummary(venue)}</span>
       )}
+      <span className="text-[0.875rem] text-[#4a443c]">{cardRatingSummary(venue)}</span>
       <div className="flex items-center justify-between gap-2">
         <span className="text-[1rem] text-[#6d675f] truncate">
           {venue.categories.join(", ")}
