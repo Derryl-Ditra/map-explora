@@ -1,8 +1,9 @@
 # Daily refresh 2026-11-10 (run 2 of the daily schedule)
 
-Data-only draft. Nothing here changes schema or UI. New records are not confirmed class listings: they carry fitStatus `official-chain-program` with empty `programs`, because the official site gives ages for the whole brand only (3 months to 6 years), not per branch.
+Data-only draft. Nothing here changes schema or UI. No new public places are added: the 2 GymnAdemics records below are held hidden (operatingStatus not-confirmed), so public counts and tests are unchanged. They are kept as research for Derryl to decide on.
 
-## Added (2 records, venues-batch3.ts)
+## Held hidden, not qualified new adds (2 records, venues-batch3.ts)
+Why they do not qualify: the brand has 4 branches in total (not 3 or fewer), the official site gives ages for the whole brand only (3 months to 6 years) so branch age is unconfirmed, and one review alleges teacher conduct at the Gading Serpong branch. Decision for Derryl: keep hidden, or approve showing them as listed with age not confirmed.
 - GymnAdemics Bintaro. Official contact page https://gymnademics.id/id/contact-us/ lists it (Jl. Kasturi Blok HA1-9, Sektor 9). Maps: 4.4 (7), phone +62 21 7452411. Newest review about 2 years old.
 - GymnAdemics Jakarta Selatan (Kebayoran Baru, Jl. Erlangga III No.2). Same official page. Admission page https://gymnademics.id/id/admission/jakarta-selatan/ shows 09:00 and 13:00 slots. Maps: 5.0 (17), reviews through 3 months ago, phone +62 813-8800-8908.
 - Branch count: the contact page lists Gading Serpong, Bintaro, Jakarta Selatan and Palembang. That is 3 in Jabodetabek and 4 in total, so it is not a strict "3 or fewer" brand overall.
