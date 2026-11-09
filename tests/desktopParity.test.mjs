@@ -3,7 +3,10 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 const read=p=>readFileSync(new URL('../src/components/'+p,import.meta.url),'utf8');
 test('desktop location stays a circular icon with an accessible label and existing action',()=>{
- const h=read('MapHUD.tsx');assert.match(h,/onClick=\{handleLocate\}/);assert.match(h,/aria-label=\{hasActualLocation \? "Center on my location" : "Use my location"\}/);assert.doesNotMatch(h,/md:w-auto md:px-4|hidden md:inline font-semibold/);assert.match(h,/className="hidden md:flex w-12 h-12 rounded-full/);
+ const h=read('MapHUD.tsx');assert.match(h,/onClick=\{handleLocate\}/);assert.match(h,/aria-label=\{hasActualLocation \? "Center on my location" : "Use my location"\}/);assert.doesNotMatch(h,/md:w-auto md:px-4|hidden md:inline font-semibold/);assert.match(h,/className="w-12 h-12 rounded-full/);
+});
+test('mobile locate lives top-right: labeled pill before a fix, icon-only recenter after',()=>{
+ const h=read('MapHUD.tsx');assert.match(h,/isDesktop \|\| hasActualLocation/);assert.match(h,/\)\}\s*Use my location\s*<\/button>/);assert.doesNotMatch(h,/Location available" : "Find classes near you/);
 });
 test('desktop sidebar collapse is independent from mobile map and detail history',()=>{
  const h=read('MapHUD.tsx'),d=read('ui/MobileDrawer.tsx');assert.match(h,/useState\(false\)/);assert.match(h,/Show sidebar/);assert.match(h,/setDesktopCollapsed\(false\);\s*handleSelectVenue/);assert.match(h,/isDesktop && desktopCollapsed/);assert.match(h,/setAgeOpenTick/);assert.match(d,/desktopCollapsed \? "md:hidden" : "md:flex"/);assert.match(d,/id="places-sidebar"/);assert.match(d,/Hide sidebar/);
