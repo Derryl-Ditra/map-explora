@@ -234,9 +234,7 @@ export default function MapHUD() {
         activeVenue={activeVenue}
         onSelectFromList={handleSelectFromList}
         showDetails={showDetails}
-        backLabel={!isDesktop && mobileView === "map" ? "Back to map" : "Back to list"}
         ageOpenTick={ageOpenTick}
-        onClearActiveVenue={handleClearActiveVenue}
         filters={filters}
         onUpdateFilter={handleUpdateFilter}
         onResetFilters={handleResetFilters}
