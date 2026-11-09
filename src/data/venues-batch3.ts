@@ -385,5 +385,79 @@ export const BATCH3_VENUES: Venue[] = [
       "praiseThemes": [],
       "complaintThemes": []
     }
+  },
+  {
+    "id": "gymnademics-bintaro",
+    "chain": "GymnAdemics",
+    "branchName": "Bintaro",
+    "categories": [
+      "Gym & Movement",
+      "Sensory"
+    ],
+    "address": "Bintaro Sektor 9, Jl. Kasturi Blok HA 1 No.9, Pd. Pucung, Kec. Pd. Aren, Kota Tangerang Selatan, Banten 15224, Indonesia",
+    "area": "Tangerang Selatan",
+    "city": "Tangerang Selatan",
+    "lat": -6.2802877,
+    "lng": 106.7123465,
+    "coordinateSource": "maps-pin",
+    "programs": [],
+    "website": "https://gymnademics.id/id/",
+    "sourceUrl": "https://gymnademics.id/id/contact-us/",
+    "lastCheckedAt": "2026-11-10",
+    "fitStatus": "official-chain-program",
+    "notes": "Official contact page lists a Bintaro branch (Jl. Kasturi Blok HA1-9, Sektor 9). Official site gives 3 months to 6 years for the whole brand only, so no branch-level class age is claimed. Google Maps lists it as 'Gymnademic Indonesia Bintaro' with hours and a phone number. Maps and official site read 2026-11-10.",
+    "operatingStatus": {
+      "state": "official-listed",
+      "source": "https://gymnademics.id/id/contact-us/",
+      "checkedAt": "2026-11-10"
+    },
+    "reviews": {
+      "rating": 4.4,
+      "reviewCount": 7,
+      "source": "Google Maps",
+      "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Gymnademic+Indonesia+Bintaro&query_place_id=ChIJgREXMJj6aS4R7eTdAlGasaU",
+      "checkedAt": "2026-11-10",
+      "praiseThemes": [],
+      "complaintThemes": [],
+      "sampleNote": "Only 7 Google Maps ratings. The newest is about 2 years old, so recent activity is not confirmed by reviews."
+    },
+    "phone": "+62 21 7452411"
+  },
+  {
+    "id": "gymnademics-jakarta-selatan",
+    "chain": "GymnAdemics",
+    "branchName": "Jakarta Selatan",
+    "categories": [
+      "Gym & Movement",
+      "Sensory"
+    ],
+    "address": "Jl. Erlangga III No.2, RT.3/RW.3, Selong, Kec. Kby. Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12110, Indonesia",
+    "area": "Jakarta Selatan",
+    "city": "Jakarta Selatan",
+    "lat": -6.2339152,
+    "lng": 106.8080693,
+    "coordinateSource": "maps-pin",
+    "programs": [],
+    "website": "https://gymnademics.id/id/",
+    "sourceUrl": "https://gymnademics.id/id/contact-us/",
+    "lastCheckedAt": "2026-11-10",
+    "fitStatus": "official-chain-program",
+    "notes": "Official contact page lists a Jakarta Selatan branch (Jl. Erlangga III No. 2, Kebayoran Baru). Official admission page shows 09:00 and 13:00 class slots. Official site gives 3 months to 6 years for the whole brand only, so no branch-level class age is claimed. Google Maps lists it as 'GymnAdemics Indonesia Jakarta Selatan' with hours, phone and reviews through 3 months ago. Maps and official site read 2026-11-10.",
+    "operatingStatus": {
+      "state": "official-listed",
+      "source": "https://gymnademics.id/id/contact-us/",
+      "checkedAt": "2026-11-10"
+    },
+    "reviews": {
+      "rating": 5,
+      "reviewCount": 17,
+      "source": "Google Maps",
+      "sourceUrl": "https://www.google.com/maps/search/?api=1&query=GymnAdemics+Indonesia+Jakarta+Selatan&query_place_id=ChIJM2qhySTxaS4RbQ_hC0v9xhM",
+      "checkedAt": "2026-11-10",
+      "praiseThemes": [],
+      "complaintThemes": [],
+      "sampleNote": "17 Google Maps ratings, newest 3 months ago. No concerns in the reviews read."
+    },
+    "phone": "+62 813-8800-8908"
   }
 ];
