@@ -1,5 +1,6 @@
 import { UPDATES } from "./review-aggregate-refresh";
 import { UPDATES_2026_11_07 } from "./review-aggregate-2026-11-07";
+import { REVIEW_PULSE_2026_11_08 } from "./review-pulse-2026-11-08";
 import { BATCH3_VENUES } from "./venues-batch3";
 
 // GENERATED from the reviewed research dataset under4-places-jabodetabek v15-2026-11-03-golden-baby.
@@ -8553,4 +8554,43 @@ for (const venue of VENUES) {
   venue.reviews = venue.reviews
     ? { ...venue.reviews, rating: aggregate.rating, reviewCount: aggregate.reviewCount, sourceUrl: aggregate.sourceUrl }
     : { ...aggregate, source: "Google Maps", checkedAt: "2026-11-07", praiseThemes: [], complaintThemes: [], sampleNote: "Rating and count only. Review themes not collected." };
+}
+
+// 2026-11-08 review pulse: trend, complaint themes and latest-review month from
+// the full-branch Google Maps collection (current 3 months vs prior 3 months).
+// Branches absent from the map keep their existing review data untouched.
+for (const venue of VENUES) {
+  const pulse = REVIEW_PULSE_2026_11_08[venue.id];
+  if (!pulse || !venue.reviews) continue;
+  venue.reviews = {
+    ...venue.reviews,
+    checkedAt: "2026-11-08",
+    complaintThemes: pulse.complaintThemes.length > 0 ? pulse.complaintThemes : venue.reviews.complaintThemes,
+    latestReview: pulse.latestReview ?? venue.reviews.latestReview,
+    trend: pulse.trend,
+    trendEvidence: pulse.trendEvidence,
+  };
+}
+
+
+// QC round 1 fix (2026-11-08): the pulse merge above stamped every venue with
+// checkedAt "2026-11-08", which re-dated older kept themes, and it dropped the
+// theme evidence. This block re-applies the pulse honestly: newly collected
+// themes carry the 2026-11-08 date, kept older themes keep their original
+// collection date, and theme reviewer counts are merged.
+const REVIEW_PULSE_ORIGINAL_THEME_DATES: Record<string, string> = {"anak-air-grand-cibubur":"2026-11-04","anak-air-kemang":"2026-11-04","anak-air-limo":"2026-11-04","aquababies-bintaro":"2026-11-03","aquababies-menteng":"2026-11-03","aquatic-baby-bintaro":"2026-11-04","aquatic-baby-rumabona-cikini-bintaro":"2026-11-05","baby-jumper-gym-pluit":"2026-11-03","bloom-space-kota-wisata":"2026-11-04","bright-little-stars-bintaro":"2026-11-03","bright-little-stars-bsd-learning-center":"2026-11-03","bright-little-stars-bsd-preschool":"2026-11-03","bright-little-stars-kemang":"2026-11-03","english-1-aeon-sentul":"2026-11-05","english-1-bintaro-tangerang":"2026-11-03","english-1-cempaka-putih":"2026-11-03","english-1-cibubur":"2026-11-05","english-1-cikupa-tangerang":"2026-11-03","english-1-ciledug-tangerang":"2026-11-03","english-1-cileungsi":"2026-11-05","english-1-cinere-depok":"2026-11-03","english-1-cipete":"2026-11-03","english-1-grand-wisata":"2026-11-05","english-1-harapan-indah":"2026-11-05","english-1-jagakarsa-tanjung-barat":"2026-11-03","english-1-jatiasih":"2026-11-05","english-1-kemang-pratama":"2026-11-05","english-1-margonda-depok":"2026-11-05","english-1-pajajaran":"2026-11-05","english-1-pamulang-tangerang":"2026-11-05","english-1-pejaten":"2026-11-03","english-1-pesona-square-depok":"2026-11-05","english-1-pluit-village":"2026-11-03","english-1-pondok-indah":"2026-11-03","english-1-puri-indah":"2026-11-03","english-1-rawamangun":"2026-11-03","english-1-sawangan-depok":"2026-11-03","english-1-summarecon":"2026-11-05","english-1-taman-yasmin":"2026-11-05","english-1-tamini-square":"2026-11-03","english-1-tangcity-tangerang":"2026-11-03","english-1-tanjung-duren":"2026-11-03","genesis-baby-toddler-swim-pejaten":"2026-11-04","golden-baby-school-jakarta-garden-city":"2026-11-03","gymboree-play-music-gymboree-play-indonesia-music":"2026-11-03","gymboree-play-music-gymboree-play-music":"2026-11-03","gymboree-play-music-pondok-indah-mall-1":"2026-11-03","i-can-read-alam-sutera":"2026-11-03","i-can-read-bintaro":"2026-11-03","i-can-read-bsd":"2026-11-05","i-can-read-bsd2":"2026-11-05","i-can-read-cikarang":"2026-11-05","i-can-read-cikupa":"2026-11-05","i-can-read-ciledug":"2026-11-03","i-can-read-cinere":"2026-11-03","i-can-read-ciputat":"2026-11-03","i-can-read-gading-serpong":"2026-11-03","i-can-read-gajah-mada":"2026-11-03","i-can-read-galaxy":"2026-11-05","i-can-read-grandwisata":"2026-11-05","i-can-read-green-lake-city":"2026-11-03","i-can-read-i-can-read":"2026-11-03","i-can-read-kalimalang":"2026-11-03","i-can-read-karawaci":"2026-11-05","i-can-read-kelapa-gading":"2026-11-03","i-can-read-kemang":"2026-11-03","i-can-read-menteng":"2026-11-03","i-can-read-modernland":"2026-11-05","i-can-read-permata-hijau":"2026-11-03","i-can-read-pluit":"2026-11-03","i-can-read-puri":"2026-11-03","i-can-read-summarecon-bekasi":"2026-11-03","music-wonderworld-bsd":"2026-11-05","outgrow-alam-sutera":"2026-11-04","rockstar-academy-aeon-mall-deltamas":"2026-11-03","rockstar-academy-central-park-2":"2026-11-03","rockstar-academy-grand-metropolitan-bekasi":"2026-11-03","rockstar-academy-lippo-mall-kemang":"2026-11-03","rockstar-academy-lippo-plaza-ekalokasari":"2026-11-03","rockstar-academy-living-world-alam-sutera":"2026-11-03","rockstar-academy-pluit-village":"2026-11-03","rockstar-academy-the-park-pejaten":"2026-11-03","sparks-sports-academy-bintaro-utown":"2026-11-03","sparks-sports-academy-bsd-tangerang":"2026-11-03","sparks-sports-academy-cikarang":"2026-11-03","sparks-sports-academy-karawaci":"2026-11-03","sparks-sports-academy-kelapa-gading-2":"2026-11-03","sparks-sports-academy-kelapa-gading-jakarta":"2026-11-03","sparks-sports-academy-kemang-ampera":"2026-11-03","sparks-sports-academy-kemang-pratama-bekasi":"2026-11-03","sparks-sports-academy-pajajaran-bogor":"2026-11-03","sparks-sports-academy-siliwangi":"2026-11-03","sparks-sports-academy-taman-mini-square":"2026-11-03","sparks-sports-academy-taman-palem":"2026-11-03","sparks-sports-academy-tanjung-duren":"2026-11-03","sparks-sports-academy-teras-kota-bsd":"2026-11-03","sparks-swim-harapan-indah":"2026-11-05","sparks-swim-pamulang":"2026-11-05","sparks-swim-taman-palem":"2026-11-05","studiorenang-bsd-north-point":"2026-11-04","studiorenang-gading-serpong":"2026-11-04","studiorenang-kelapa-gading":"2026-11-04","studiorenang-meruya":"2026-11-04","the-funtastic-gym-pondok-indah":"2026-11-03"};
+for (const venue of VENUES) {
+  const pulse = REVIEW_PULSE_2026_11_08[venue.id];
+  if (!pulse || !venue.reviews) continue;
+  const newThemes = pulse.complaintThemes.length > 0;
+  venue.reviews = {
+    ...venue.reviews,
+    checkedAt: newThemes ? "2026-11-08" : (REVIEW_PULSE_ORIGINAL_THEME_DATES[venue.id] ?? venue.reviews.checkedAt),
+    complaintThemes: newThemes ? pulse.complaintThemes : venue.reviews.complaintThemes,
+    complaintThemeReviewers: newThemes ? pulse.complaintThemeReviewers : venue.reviews.complaintThemeReviewers,
+    lowRatedCount: newThemes ? pulse.lowRatedCount : venue.reviews.lowRatedCount,
+    latestReview: pulse.latestReview ?? venue.reviews.latestReview,
+    trend: undefined,
+    trendEvidence: pulse.trendEvidence,
+  };
 }

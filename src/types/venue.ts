@@ -103,6 +103,11 @@ export interface ReviewSummary {
   sampleNote?: string; // bounded sample framing, e.g. "3 of 7 reviews visible"
   praiseThemes: string[]; // short paraphrased recurring themes, each evidence-backed
   complaintThemes: string[];
+  // Reviewer support behind complaintThemes (2026-11-08 pulse): parallel array,
+  // complaintThemeReviewers[i] = how many low-rated (<=3 star) customer reviews
+  // matched complaintThemes[i]. Owner responses never count.
+  complaintThemeReviewers?: number[];
+  lowRatedCount?: number; // customer reviews rated <=3 stars in the collected window
   // Live-Maps review pulse (weekly data job). All optional: absent until collected.
   // Both fields come only from a sort=newest Maps review listing.
   latestReview?: {
@@ -110,18 +115,37 @@ export interface ReviewSummary {
     approximate?: boolean; // derived from a relative label ("a month ago"): month
     // precision only - relative wording never becomes an invented exact ISO day.
   };
-  // Judged from the newest Maps reviews (sort=newest, bounded sample of 20).
-  // Labeled only when the evidence backs it: 10+ dated reviews spanning BOTH
-  // halves of [from, to]; otherwise "insufficient". The UI re-verifies these
-  // counts before showing any label.
-  trend?: "improving" | "mixed" | "worsening" | "insufficient";
+  // Judged from the newest Maps reviews. Labeled only when the evidence backs
+  // it; otherwise "insufficient". The UI re-verifies the evidence before
+  // showing any label. Two accepted methods:
+  // - "maps-sort-newest": bounded sample of 20; 10+ dated reviews spanning BOTH
+  //   halves of [from, to], ISO-day bounds.
+  // - "maps-window-3m-3m" (2026-11-08 job): current 3 months vs prior 3 months
+  //   inside a 6-month window; 10+ dated reviews in the window AND 3+ in each
+  //   3-month half; bounds are ISO months derived from relative labels, so
+  //   approximate must be true. Relative wording never becomes an exact day.
+  // Legacy claim field. The UI never trusts it: for the window method the
+  // label is DERIVED in code from the stored per-half averages below.
+  trend?: "improving" | "mixed" | "steady" | "worsening" | "insufficient";
   trendEvidence?: {
-    method: "maps-sort-newest"; // how the sample was taken; required so the rule is verifiable
-    sampled: number; // dated reviews in the bounded sample
-    from: string; // ISO date of the oldest dated review sampled
-    to: string; // ISO date of the newest dated review sampled
-    olderHalf: number; // dated reviews in the older half of [from, to]
-    newerHalf: number; // dated reviews in the newer half of [from, to]
+    method: "maps-sort-newest" | "maps-window-3m-3m"; // how the sample was taken; required so the rule is verifiable
+    sampled: number; // dated reviews in the bounded sample or window
+    from: string; // ISO day, or ISO month (YYYY-MM) when approximate
+    to: string; // ISO day, or ISO month (YYYY-MM) when approximate
+    approximate?: boolean; // bounds come from relative labels: month precision only
+    olderHalf: number; // dated reviews in the older half (prior 3 months for the window method)
+    newerHalf: number; // dated reviews in the newer half (current 3 months for the window method)
+    // Window-method evidence, computed from the raw collected reviews. The
+    // trend label is derived from these in code (see reviewPulse.ts):
+    // diff = newerAvg - olderAvg; improving >= +0.3, worsening <= -0.3,
+    // otherwise steady. Positive = 4-5 stars, negative = 1-3 stars.
+    olderAvg?: number;
+    newerAvg?: number;
+    olderPositive?: number;
+    olderNegative?: number;
+    newerPositive?: number;
+    newerNegative?: number;
+    checkedAt?: string; // ISO day this pulse was collected (NOT review dates)
   };
 }
 
