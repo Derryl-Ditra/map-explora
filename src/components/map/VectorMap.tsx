@@ -64,6 +64,8 @@ export default function VectorMap({
   const markersRef = useRef<Map<string, maplibregl.Marker>>(new Map());
   const userMarkerRef = useRef<maplibregl.Marker | null>(null);
   const readyRef = useRef(false);
+  const recenterRef = useRef({ userPos, recenterTick });
+  recenterRef.current = { userPos, recenterTick };
   const venuesRef = useRef(venues);
   venuesRef.current = venues;
   const activeRef = useRef(activeVenueId);
@@ -95,6 +97,10 @@ export default function VectorMap({
       map.on("error", () => { failed = true; if (!cancelled) setMapStatus("error"); });
       map.on("load", () => {
         readyRef.current = true;
+        const requested = recenterRef.current;
+        if (requested.recenterTick && requested.userPos) {
+          map.easeTo({ center: [requested.userPos[1], requested.userPos[0]], zoom: 15, duration: 800 });
+        }
         map.addSource("user-accuracy", {
           type: "geojson",
           data: { type: "FeatureCollection", features: [] },
@@ -427,7 +433,7 @@ export default function VectorMap({
         userMarkerRef.current.remove();
         userMarkerRef.current = null;
       }
-      const accSrc0 = map.isStyleLoaded() ? (map.getSource("user-accuracy") as maplibregl.GeoJSONSource | undefined) : undefined;
+      const accSrc0 = readyRef.current ? (map.getSource("user-accuracy") as maplibregl.GeoJSONSource | undefined) : undefined;
       if (accSrc0) accSrc0.setData({ type: "FeatureCollection", features: [] });
       return;
     }
@@ -456,14 +462,15 @@ export default function VectorMap({
       }
     };
 
-    if (map.isStyleLoaded()) applyUser();
+    if (readyRef.current) applyUser();
     else map.once("load", applyUser);
-  }, [userPos, showUserMarker, userAccuracy]);
+    return () => { map.off("load", applyUser); };
+  }, [userPos, showUserMarker, userAccuracy, mapStatus]);
 
   // Manual recenter
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !userPos || !recenterTick) return;
+    if (!map || !readyRef.current || !userPos || !recenterTick) return;
     map.easeTo({ center: [userPos[1], userPos[0]], zoom: 15, duration: 800 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recenterTick]);

@@ -4,7 +4,7 @@ import { useLayoutEffect, useRef, useCallback, useSyncExternalStore } from "reac
 import { Venue, VenueFilterState } from "@/types/venue";
 import { buildMapsLink } from "@/utils/mapsLink";
 import {matchingAgeRanges, type AgeBandId} from '@/utils/ageBands';
-import { hasVerifiedAgeEvidence } from "@/utils/ageMatch";
+import { cardAgeSummary, cardRatingSummary } from "@/utils/venueSummary";
 import { useSheetGesture } from "@/hooks/useSheetGesture";
 import FilterBar from "./FilterBar";
 import VenueDetails from "./VenueDetails";
@@ -35,6 +35,7 @@ interface MobileDrawerProps {
   onDismissToMap: () => void;
   onLocate: () => void;
   isLocating: boolean;
+  hasActualLocation: boolean;
   locationNotice: string | null;
   onDismissLocationNotice: () => void;
 }
@@ -99,9 +100,10 @@ function VenueCard({
       </div>
 
       {ageBand && fit==='confirmed' && <span className="text-sm text-[#14532d]">Verified ages: {matchingAgeRanges(venue,ageBand).join('; ')}</span>}
-      {!hasVerifiedAgeEvidence(venue) && (
-        <span className="text-[0.875rem] text-[#6d675f]">Class ages not verified yet</span>
+      {!(ageBand && fit === 'confirmed') && (
+        <span className="text-[0.875rem] text-[#4a443c]">{cardAgeSummary(venue)}</span>
       )}
+      <span className="text-[0.875rem] text-[#4a443c]">{cardRatingSummary(venue)}</span>
       <div className="flex items-center justify-between gap-2">
         <span className="text-[1rem] text-[#6d675f] truncate">
           {venue.categories.join(", ")}
@@ -133,7 +135,7 @@ export default function MobileDrawer({
   backLabel,
   onSelectFromList,
   ageOpenTick,
-  onDismissToMap, onLocate, isLocating, locationNotice, onDismissLocationNotice,
+  onDismissToMap, onLocate, isLocating, hasActualLocation, locationNotice, onDismissLocationNotice,
 }: MobileDrawerProps) {
   const total = confirmed.length;
   const ageActive = filters.ageBand !== null;
@@ -229,7 +231,7 @@ export default function MobileDrawer({
           />
         ) : (
           <>
-            <button type="button" onClick={onLocate} className="md:hidden min-h-12 rounded-xl border border-[#e7e0d4] bg-white text-[#14532d] font-semibold">{isLocating ? "Finding your location..." : "Use my location"}</button>
+            <button type="button" onClick={onLocate} disabled={isLocating} className="md:hidden shrink-0 min-h-12 rounded-xl bg-[#1a7a4a] text-white font-semibold py-2 px-3 disabled:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a]"><span className="block">{isLocating ? "Finding your location..." : hasActualLocation ? "Center on my location" : "Use my location"}</span><span className="block text-xs font-normal">{hasActualLocation ? "Location available" : "Find classes near you"}</span></button>
             {locationNotice && <div role="status" className="flex items-center gap-2 rounded-2xl border border-[#e7e0d4] bg-white p-3 text-sm text-[#4a443c]">
               <span className="flex-1">{locationNotice}</span>
               <button type="button" aria-label="Dismiss location notice" onClick={onDismissLocationNotice} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"><X className="h-4 w-4" /></button>
