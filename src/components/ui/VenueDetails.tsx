@@ -7,7 +7,6 @@ import { Venue, AgeClaim } from "@/types/venue";
 import { isVerifiedAgeClaim, verifiedPrograms } from "@/utils/ageMatch";
 import { trendVerdict, formatIsoMonth, REVIEW_TREND_FALLBACK } from "@/utils/reviewPulse";
 import {
-  Share2,
   Phone,
   ShieldCheck,
   Flag,
@@ -19,7 +18,6 @@ import {
 
 interface VenueDetailsProps {
   venue: Venue;
-  onOpenShare: () => void;
 }
 
 const REPORTS_KEY = "map-explora-venue-reports";
@@ -40,7 +38,6 @@ function formatAgeRange(age: AgeClaim): string {
 
 export default function VenueDetails({
   venue,
-  onOpenShare,
 }: VenueDetailsProps) {
   const [reportOpen, setReportOpen] = useState(false);
   const [reportText, setReportText] = useState("");
@@ -70,18 +67,6 @@ export default function VenueDetails({
 
   return (
     <div className="flex flex-col gap-3.5 text-[#221d18] text-[1rem]">
-      {/* Header Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <button
-          type="button"
-          onClick={onOpenShare}
-          className="ml-auto flex items-center gap-2 px-4 min-h-12 rounded-xl border-2 border-[#1a7a4a] bg-white text-[#1a7a4a] hover:bg-[#e3f2e8] text-[1rem] font-bold transition-colors"
-        >
-          <Share2 className="w-4 h-4 text-[#1a7a4a]" />
-          <span>Share</span>
-        </button>
-      </div>
-
       {/* Title */}
       <div className="flex flex-col">
         <h2 className="text-[1.25rem] font-bold text-[#221d18] leading-snug">
