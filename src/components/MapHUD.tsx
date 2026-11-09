@@ -123,7 +123,7 @@ export default function MapHUD() {
       {/* Location permission notice: above the sheet on phones (never over
           Back/venue names), top-center on desktop. Dismissible, auto-hides. */}
       {locationError && !locationNoticeGone && !activeVenue && mobileView === "map" && (!isDesktop || desktopCollapsed) && (
-        <div className="absolute bottom-[90px] md:bottom-auto md:top-4 left-1/2 -translate-x-1/2 z-[1001] w-[min(92vw,340px)]">
+        <div className="absolute bottom-[204px] md:bottom-auto md:top-4 left-1/2 -translate-x-1/2 z-[1001] w-[min(92vw,340px)]">
           <div className="bg-white border border-[#e7e0d4] rounded-2xl pl-3.5 pr-2 py-2.5 text-[0.9375rem] text-[#4a443c] shadow-sm flex items-center gap-2">
             <MapPin className="w-4 h-4 text-[#92400e] shrink-0" />
             <span>{locationError}</span>
@@ -158,8 +158,9 @@ export default function MapHUD() {
         <button
           type="button"
           onClick={handleLocate}
-          aria-label={isDesktop ? "Use my location" : "Locate My Position"} title="Use my location"
-          className="w-12 h-12 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#4a443c] hover:text-[#221d18] flex items-center justify-center gap-2 active:scale-95 transition-all"
+          disabled={isLocating}
+          aria-label={hasActualLocation ? "Center on my location" : "Use my location"} title={hasActualLocation ? "Center on my location" : "Use my location"}
+          className="hidden md:flex w-12 h-12 rounded-full bg-white border border-[#e7e0d4] shadow-md text-[#4a443c] hover:text-[#221d18] items-center justify-center gap-2 active:scale-95 transition-all"
         >
           {isLocating ? (
             <Loader2 className="w-5 h-5 animate-spin text-[#1a7a4a]" />
@@ -219,9 +220,17 @@ export default function MapHUD() {
         locationNotice={locationError && !locationNoticeGone ? locationError : null}
         onDismissLocationNotice={() => setLocationNoticeGone(true)}
         isLocating={isLocating}
+        hasActualLocation={hasActualLocation}
         mobileView={mobileView}
         onSetMobileView={handleSetView}
       />
+
+      {!activeVenue && mobileView === "map" && (
+        <div className="md:hidden absolute bottom-[calc(max(20px,env(safe-area-inset-bottom))+72px)] left-4 right-4 z-[500] rounded-2xl border border-[#e7e0d4] bg-white p-3 shadow-sm">
+          <p className="text-sm font-bold text-[#221d18] mb-2" aria-live="polite">{hasActualLocation ? "Location available" : "Find classes near you"}</p>
+          <button type="button" onClick={handleLocate} disabled={isLocating} className="w-full min-h-12 px-3 rounded-xl bg-[#1a7a4a] text-white font-bold disabled:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a]">{isLocating ? "Finding your location..." : hasActualLocation ? "Center on my location" : "Use my location"}</button>
+        </div>
+      )}
 
       {!activeVenue && mobileView === "map" && (
         <button type="button" onClick={() => handleSetView("list")} onTouchStart={(event) => {
