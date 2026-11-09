@@ -8,7 +8,7 @@ import { cardAgeSummary, cardRatingSummary } from "@/utils/venueSummary";
 import { useSheetGesture } from "@/hooks/useSheetGesture";
 import FilterBar from "./FilterBar";
 import VenueDetails from "./VenueDetails";
-import { Search, MapPin, HelpCircle, ShieldCheck, Navigation, ArrowLeft, ExternalLink, X } from "lucide-react";
+import { Search, MapPin, HelpCircle, ShieldCheck, Navigation, ArrowLeft, Share2, ExternalLink, X } from "lucide-react";
 
 interface MobileDrawerProps {
   desktopCollapsed: boolean;
@@ -16,7 +16,6 @@ interface MobileDrawerProps {
   confirmed: Venue[];
   unconfirmed: Venue[];
   activeVenue: Venue | null;
-  onClearActiveVenue: () => void;
   filters: VenueFilterState;
   onUpdateFilter: <K extends keyof VenueFilterState>(
     key: K,
@@ -29,7 +28,6 @@ interface MobileDrawerProps {
   mobileView: "list" | "map";
   onSetMobileView: (view: "list" | "map") => void;
   showDetails: boolean;
-  backLabel: string;
   onSelectFromList: (venue: Venue) => void;
   ageOpenTick?: number;
   onDismissToMap: () => void;
@@ -116,13 +114,12 @@ function VenueCard({
   );
 }
 
-// Mobile has two explicit modes. Details return to the originating mode.
+// Mobile has two explicit modes. The detail action returns directly to the map.
 export default function MobileDrawer({
   desktopCollapsed, onHideSidebar,
   confirmed,
   unconfirmed,
   activeVenue,
-  onClearActiveVenue,
   filters,
   onUpdateFilter,
   onResetFilters,
@@ -132,7 +129,6 @@ export default function MobileDrawer({
   mobileView,
   onSetMobileView,
   showDetails,
-  backLabel,
   onSelectFromList,
   ageOpenTick,
   onDismissToMap, onLocate, isLocating, hasActualLocation, locationNotice, onDismissLocationNotice,
@@ -227,7 +223,6 @@ export default function MobileDrawer({
         {activeVenue && showDetails ? (
           <VenueDetails
             venue={activeVenue}
-            onOpenShare={onOpenShare}
           />
         ) : (
           <>
@@ -334,13 +329,14 @@ export default function MobileDrawer({
         </nav>
       )}
       {activeVenue && showDetails && (
-        <nav aria-label="Place actions" className=" shrink-0 border-t border-[#e7e0d4] bg-[#f6f2ec] px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] flex items-center gap-3">
-          <button type="button" onClick={onClearActiveVenue} className="min-h-12 px-2 flex items-center gap-1 text-[#1a7a4a] font-semibold text-[0.9375rem]">
-            <ArrowLeft className="w-4 h-4" /> {backLabel}
+        <nav aria-label="Place actions" className=" shrink-0 border-t border-[#e7e0d4] bg-[#f6f2ec] px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2">
+          <button type="button" onClick={onDismissToMap} aria-label="Back to map" className="min-h-12 min-w-12 px-2 flex flex-col items-center justify-center gap-0.5 rounded-xl text-[#1a7a4a] hover:bg-[#e3f2e8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a] font-semibold text-xs leading-tight">
+            <ArrowLeft aria-hidden="true" className="w-4 h-4" /><span>Map</span>
           </button>
-          <a href={buildMapsLink(activeVenue)} target="_blank" rel="noopener noreferrer" className="min-h-12 flex-1 flex items-center justify-center gap-2 px-4 rounded-full bg-[#1a7a4a] text-white font-bold text-[1rem]" aria-label={activeVenue.coordinateSource === "area-approximate" || activeVenue.caution ? "Search in Google Maps" : "Directions in Google Maps"}>
+          <a href={buildMapsLink(activeVenue)} target="_blank" rel="noopener noreferrer" className="min-h-12 min-w-0 flex items-center justify-center gap-1.5 px-2 rounded-full bg-[#1a7a4a] text-white hover:bg-[#145c38] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a] font-bold text-[1rem]" aria-label={activeVenue.coordinateSource === "area-approximate" || activeVenue.caution ? "Search in Google Maps" : "Directions in Google Maps"}>
             <Navigation className="w-4 h-4" />{activeVenue.coordinateSource === "area-approximate" || activeVenue.caution ? "Search Maps" : "Directions"}<ExternalLink className="w-3.5 h-3.5" />
           </a>
+          <button type="button" onClick={onOpenShare} className="min-h-12 min-w-12 px-2 flex flex-col items-center justify-center gap-0.5 rounded-xl border border-[#1a7a4a] bg-white text-[#1a7a4a] hover:bg-[#e3f2e8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a] font-semibold text-xs leading-tight"><Share2 aria-hidden="true" className="w-4 h-4" /><span>Share</span></button>
         </nav>
       )}
     </aside>
