@@ -8604,6 +8604,7 @@ export const VENUES: Venue[] = [
     "lastCheckedAt": "2026-11-10",
     "fitStatus": "media-claimed",
     "notes": "Partner-listed, not provider-confirmed for under-5s. Official site lists 3 branches (Kelapa Gading, Mampang, Serpong). Traveloka admin phone for slot and Kinder/Kid/Toddler schedule questions: 0819-0540-1140.",
+    "priceListings": [{ "label": "Gymnastics class, 60 minutes", "amountIdr": 250000, "unit": "per session", "listPriceIdr": 300000, "source": "Traveloka", "sourceUrl": "https://www.traveloka.com/id-id/activities/indonesia/product/gymnastics-training-by-gavrila-kelapa-gading-5200228399300", "checkedAt": "2026-11-10", "schedule": "Weekdays 14:00, 15:30, 17:00 on the page; open 11:00-19:00. Ask the admin to confirm Kinder slots." }],
     "operatingStatus": { "state": "official-listed", "source": "https://gavrilagym.online/", "checkedAt": "2026-11-10" },
     "reviews": {
       "rating": 4.7,
@@ -8642,6 +8643,7 @@ export const VENUES: Venue[] = [
     "lastCheckedAt": "2026-11-10",
     "fitStatus": "media-claimed",
     "notes": "Partner-listed, not provider-confirmed for under-5s. Official site lists 3 branches (Kelapa Gading, Mampang, Serpong). Maps reviews for this branch were not read in this run.",
+    "priceListings": [{ "label": "Gymnastics class, 60 minutes", "amountIdr": 250000, "unit": "per session", "source": "Traveloka", "sourceUrl": "https://www.traveloka.com/id-id/activities/indonesia/product/gymnastics-training-by-gavrila-serpong-9054937517250", "checkedAt": "2026-11-10", "schedule": "Open daily 11:00-19:00 on the page; class slots not listed. Kinder (from 3.5 yrs) needs a companion. Ask the branch to confirm slots." }, { "label": "Private online gymnastics, 60 minutes", "amountIdr": 510000, "unit": "per session", "source": "Traveloka", "sourceUrl": "https://www.traveloka.com/id-id/activities/indonesia/product/gymnastics-training-by-gavrila-serpong-9054937517250", "checkedAt": "2026-11-10" }],
     "operatingStatus": { "state": "official-listed", "source": "https://gavrilagym.online/", "checkedAt": "2026-11-10" },
     "reviews": {
       "rating": 4.8,
