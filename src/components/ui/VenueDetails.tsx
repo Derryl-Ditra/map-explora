@@ -14,6 +14,7 @@ import {
   MapPin,
   TriangleAlert,
   ChevronDown,
+  Banknote,
 } from "lucide-react";
 
 interface VenueDetailsProps {
@@ -27,6 +28,16 @@ function formatMonths(m: number): string {
   if (m <= 36) return `${m} mo`;
   const yrs = m / 12;
   return `${Number.isInteger(yrs) ? yrs : yrs.toFixed(1)} yr`;
+}
+
+function formatIdr(n: number): string {
+  return `Rp ${n.toLocaleString("id-ID")}`;
+}
+
+function formatCheckedDate(iso: string): string {
+  const d = new Date(`${iso}T00:00:00Z`);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
 }
 
 function formatAgeRange(age: AgeClaim): string {
@@ -144,6 +155,43 @@ export default function VenueDetails({
               <div className="flex flex-wrap gap-3">{estimate.sources.map((url, i) => <a key={url} href={url} target="_blank" rel="noopener noreferrer" className="text-[#1a7a4a] underline">Source {i + 1}</a>)}</div>
             </div>;
           })}
+        </div>
+      )}
+
+      {/* Prices: booking-site listings only, always with source, label and check date */}
+      {venue.priceListings && venue.priceListings.length > 0 && (
+        <div className="p-4 rounded-2xl border border-[#e7e0d4] bg-white flex flex-col gap-2.5" data-testid="price-listings">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <Banknote aria-hidden="true" className="w-5 h-5 text-[#6d675f]" />
+              <span className="font-bold text-[1rem] text-[#221d18]">Price</span>
+            </div>
+            <span className="text-[0.8125rem] font-bold px-2 py-1 rounded-full shrink-0 bg-[#f1ece2] text-[#4a443c]">
+              Partner-listed
+            </span>
+          </div>
+          {venue.priceListings.map((pl) => (
+            <div key={`${pl.label}-${pl.sourceUrl}`} className="flex flex-col gap-0.5">
+              <span className="text-[1rem] text-[#221d18]">
+                <span className="font-bold">{formatIdr(pl.amountIdr)}</span> {pl.unit}
+                {pl.listPriceIdr ? (
+                  <span className="text-[#6d675f]"> (list price <s>{formatIdr(pl.listPriceIdr)}</s>)</span>
+                ) : null}
+              </span>
+              <span className="text-[0.9375rem] text-[#4a443c]">{pl.label}</span>
+              {pl.schedule && <span className="text-[0.9375rem] text-[#4a443c]">{pl.schedule}</span>}
+              <span className="text-[0.875rem] text-[#6d675f]">
+                From{" "}
+                <a href={pl.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a] font-semibold">
+                  {pl.source}
+                </a>
+                , read {formatCheckedDate(pl.checkedAt)}
+              </span>
+            </div>
+          ))}
+          <p className="text-[0.875rem] text-[#6d675f]">
+            Listed by a booking site, not confirmed by the provider. Prices change; confirm with the provider before you book.
+          </p>
         </div>
       )}
 
