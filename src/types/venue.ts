@@ -11,6 +11,8 @@
 //   must not be misclassified)
 // - coordinates carry provenance; approximate area pins are not routable
 // - no prices, schedules, reviews or availability unless separately verified
+//   (prices live ONLY in priceListings below: each one carries its source,
+//   partner-listed label and check date, and is never a provider-confirmed fee)
 
 export type CoordinateSource =
   | "provider-address" // geocoded from the provider's own stated address
@@ -31,6 +33,19 @@ export type OfferingStatus =
   | "offered" // a branch-level source explicitly lists this program here
   | "not-offered" // a branch-level source explicitly omits/excludes it
   | "unknown"; // no branch-level evidence either way
+
+// A price seen on a third-party booking page (e.g. Traveloka). Never shown
+// without its source, the partner-listed label and the date it was read.
+export interface PriceListing {
+  label: string; // what the price buys, e.g. "Gymnastics class, 60 min"
+  amountIdr: number; // price in IDR as shown on the page
+  unit: string; // e.g. "per session"
+  listPriceIdr?: number; // struck-through list price on the page, if any
+  source: string; // site name, e.g. "Traveloka"
+  sourceUrl: string; // exact product page
+  checkedAt: string; // ISO date the page was read
+  schedule?: string; // slots shown on that page, verbatim summary
+}
 
 export interface VenueProgram {
   name: string; // the class/course, e.g. "Baby Gym", "Pre-Ballet"
@@ -78,6 +93,7 @@ export interface Venue {
     source?: string;
     checkedAt: string; // ISO date the source was read
   };
+  priceListings?: PriceListing[]; // partner-listed only; absent when no booking-site price was read
   reviews?: ReviewSummary; // absent until branch-specific review evidence is collected
   distance?: number; // km, calculated at runtime
   eta?: number; // minutes, calculated at runtime
