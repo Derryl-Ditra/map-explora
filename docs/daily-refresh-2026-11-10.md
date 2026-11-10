@@ -27,3 +27,28 @@ Gymboree (Pondok Indah Mall 1, Kelapa Gading, Karawaci) and Baby Jumper Gym (Gad
 - Gavrila Gymnastics: official site https://gavrilagym.online/ lists exactly 3 locations (Kelapa Gading, Mampang, Serpong). Maps 4.7 (51), 4.8 (62), 4.8 (180). No under-5 age on the official site; third-party says toddler 2.5-4 years. Needs an official age source.
 - Mamio Kids & Baby Gym BSD, Cheeky Peeky Playhouse BSD (a PAUD, so non-formal fit unclear), Genesis BSD (Maps only), Alia's Sensory Class, Garden Sensory Kids, Kiddles Playzone, Sensory Land Kids, PimPimPom Cinere, Kumau Kids Gym, Playful Pals, Tambah Tumbuh, Otterplay Bintaro, Happy Shark Bintaro, Barracuda Aquatic, Miniakidz Cibubur, Tiny Toes Academy, Wonderclub.id, Thunder Academy, Kiddieland Montessori Bogor, Houbii Gym Bogor, Kaba Baita Gym Bekasi.
 - Not checked: possible EF English Course rebrand of english-1-kemang-pratama.
+
+
+## Deep dive, 2026-11-10 07:30-08:00 WIB (after Derryl: "Buumi is under 5. Dig deeper on the rest")
+Method: Google Maps (Derryl's personal account), reviews sorted newest, scrolled and expanded. Counts are reviews actually read, not the listing total. These are allegations from single reviewers, not findings of fact. No safety guarantee either way.
+
+Buumi (service allegations only, not an age-fit issue; age evidence is docs/buumi-age-evidence.md: baby classes 6-18 months at each branch)
+- Pacific Place, 30 read: 1-star and 2-star reviews are about inconsistent rule enforcement, extra charges, the adult non-slip sock rule (Rp35k), unfriendly or rude guards, and only 2 staff supervising the playground. Several 1-stars are rating-only with no text. No claim of injury or harm to a child.
+- Plaza Senayan, 30 read: one 1-star "Unfriendly employees" (1 day ago), everything else 4-5 star. Urban Forest was clean on the earlier scan.
+- Confirmed: recurring service and staff-attitude complaints at Pacific Place. Unverified: any safety issue (none alleged).
+
+KindyROO Kemang (all 8 reviews read)
+- 1-star 3 months ago: staff did not greet parents on chat (owner replied). 1-star 4 years ago: "service not as expected". 1-star 4 years ago: rude admin, about the Pluit branch, not Kemang. No child-safety claim. Official: kindyrooindonesia.com about page says babies from six weeks to five years.
+
+GymnAdemics Gading Serpong (all 17 read)
+- One 1-star a year ago: teachers yell at and grab things from a 1.5-year-old; no owner reply. The other 16 are 4-5 star, including one 3 months ago saying it suits children 1 to 4. Single uncorroborated allegation. Unverified; conduct cannot be confirmed from reviews.
+
+RumaBona (12 read): all 5-star. The pool-roof leak is one remark inside an 8-month-old 5-star review. Not a red flag. Official aquatic-baby.com/lokasi lists RumaBona Cikini Bintaro; programs baby 6 months-2 years, toddler 3-4 years (aquatic-baby.com/program-1).
+
+Outgrow Alam Sutera (41 read): all 5-star, no flag. Official https://outgrow.id/service/baby-class-tangerang/ : Baby Class 6-12 months led by an occupational therapist, by appointment, Alam Sutera address, WhatsApp +62 858-1131-4588. https://outgrow.id/service/kelas-stimulasi-motorik-anak/ : Kelas Tumbuh Tepat 1-5 years, small groups. Maps category Psychotherapist because the core service is play and speech therapy; the under-5 group classes are real but secondary.
+
+Gavrila Gymnastics (3 branches confirmed on the official site: Kelapa Gading, Mampang, Serpong)
+- Reviews: Kelapa Gading 30 read (3-star 3 weeks ago "dirty, hot, toilet smells"; 3-star about slow admin; otherwise positive), Mampang 30 read (no flags). Serpong not scanned yet.
+- Age: the official site says the best age to enrol is 6 years. A 2023 Mommies Daily article lists a Toddler class for 2.5-4 years. The official source does not confirm it, so under-5 stays UNVERIFIED and the place stays hidden until the toddler class is confirmed with the provider.
+
+Still open: Serpong Gavrila scan, Kindy Roo Pre School duplicate listing, EF English rebrand check, other leads above.
