@@ -7300,13 +7300,26 @@ export const VENUES: Venue[] = [
      "providerAgeUrl": "https://outgrow.id/service/baby-class-tangerang/"
     },
     "note": "Occupational-therapist facilitated class for babies 6-12 months. By appointment, Tue-Sun. Official page image dated 2026-10; read 2026-11-04."
+   },
+   {
+    "name": "Kelas Tumbuh Tepat",
+    "offering": "offered",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 60,
+     "level": "branch",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-10",
+     "providerAgeUrl": "https://outgrow.id/service/kelas-stimulasi-motorik-anak/"
+    },
+    "note": "Official page title says 1-5 tahun; year-boundary inclusivity ambiguous, so it is not used for exact-age matching. Small groups led by a licensed therapist, by appointment, Tue-Sun 08:00-20:00. Page footer gives the Alam Sutera address. Read 2026-11-10."
    }
   ],
   "website": "https://outgrow.id/",
   "sourceUrl": "https://outgrow.id/service/baby-class-tangerang/",
   "lastCheckedAt": "2026-11-04",
   "fitStatus": "branch-candidate-live-undated",
-  "notes": "Official page gives the Alam Sutera address; matches Google Maps. Read 2026-11-04.",
+  "notes": "Official page gives the Alam Sutera address; matches Google Maps. Read 2026-11-04. Core service is play and speech therapy (Maps category Psychotherapist); the group classes are secondary. WhatsApp booking only, by appointment. Rechecked 2026-11-10.",
   "operatingStatus": {
    "state": "official-listed",
    "source": "https://outgrow.id/service/baby-class-tangerang/",
@@ -7319,7 +7332,8 @@ export const VENUES: Venue[] = [
    "sourceUrl": "https://www.google.com/maps/place/OUTGROW+(Play+Therapy+%26+Tumbuh+Kembang+Anak)/@-6.2264756,106.6603045,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fbd336c1949f:0x62823beea4bb752a!8m2!3d-6.2264756!4d106.6603045!16s%2Fg%2F11pw8tnjdn",
    "checkedAt": "2026-11-04",
    "praiseThemes": [],
-   "complaintThemes": []
+   "complaintThemes": [],
+   "sampleNote": "41 newest Google Maps reviews read 2026-11-10: all 5-star, mostly therapy and play-class feedback, no concerns found. Not a safety guarantee."
   },
   "phone": "+62 858-1131-4588"
  },
@@ -8514,12 +8528,39 @@ export const VENUES: Venue[] = [
   "lat": -6.2687465,
   "lng": 106.7252377,
   "coordinateSource": "maps-pin",
-  "programs": [],
+  "programs": [
+   {
+    "name": "Baby Class (swim)",
+    "offering": "unknown",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 24,
+     "level": "brand",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-10",
+     "providerAgeUrl": "https://aquatic-baby.com/program-1"
+    },
+    "note": "Aquatic Baby brand page: baby swim class for 6 months to 2 years. Brand-level age; the location page does not say which classes run at RumaBona. Year-boundary inclusivity ambiguous."
+   },
+   {
+    "name": "Toddler Class (swim)",
+    "offering": "unknown",
+    "age": {
+     "minMonths": 36,
+     "maxMonths": 60,
+     "level": "brand",
+     "verification": "provider-confirmed",
+     "sourceCheckedAt": "2026-11-10",
+     "providerAgeUrl": "https://aquatic-baby.com/program-1"
+    },
+    "note": "Aquatic Baby brand page: toddler swim class for ages 3 to 4 years. Brand-level age; branch offering unconfirmed. Year-boundary inclusivity ambiguous. The brand page lists nothing between 2 and 3 years."
+   }
+  ],
   "website": "https://aquatic-baby.com/",
   "sourceUrl": "https://aquatic-baby.com/lokasi",
   "lastCheckedAt": "2026-11-05",
   "fitStatus": "official-chain-program",
-  "notes": "Official location page lists Aquatic Baby classes at RumaBona Cikini Bintaro (Saturdays). Maps listing and rating are for the RumaBona host venue. Aquatic Baby official ages: 6 months to 6 years.",
+  "notes": "Official location page lists Aquatic Baby classes at RumaBona Cikini Bintaro (Saturdays). Maps listing and rating are for the RumaBona host venue. Aquatic Baby official ages: 6 months to 6 years. Official location page lists RumaBona on Saturdays only (rechecked 2026-11-10). Confirm class and age with the provider before going.",
   "operatingStatus": {
    "state": "official-listed",
    "source": "https://aquatic-baby.com/lokasi",
@@ -8532,7 +8573,8 @@ export const VENUES: Venue[] = [
    "sourceUrl": "https://www.google.com/maps/place/RumaBona/@-6.2687465,106.7252377,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f18366b08da7:0x447b563d4a35acc1!8m2!3d-6.2687465!4d106.7252377!16s%2Fg%2F11yf5r8x3y",
    "checkedAt": "2026-11-05",
    "praiseThemes": [],
-   "complaintThemes": []
+   "complaintThemes": [],
+   "sampleNote": "All 12 Google Maps reviews read 2026-11-10 are 5-star. One 8-month-old 5-star review mentions the pool roof leaks a little in rain. The rating is for the RumaBona host venue. Not a safety guarantee."
   }
 
  }
