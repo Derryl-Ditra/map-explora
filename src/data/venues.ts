@@ -8535,7 +8535,83 @@ export const VENUES: Venue[] = [
    "complaintThemes": []
   }
 
- }
+ },
+  {
+    "id": "gavrila-gymnastics-kelapa-gading",
+    "chain": "Gavrila Gymnastics",
+    "branchName": "Kelapa Gading",
+    "categories": ["Gym & Movement"],
+    "address": "Pergudangan Eks GORO, Jl. Kirana Avenue Jl. Pelepah Raya No.5, Kelapa Gading Barat, Jakarta Utara 14240",
+    "area": "Kelapa Gading",
+    "city": "Jakarta Utara",
+    "lat": -6.17298,
+    "lng": 106.8936085,
+    "coordinateSource": "provider-address",
+    "programs": [
+      {
+        "name": "Kinder gymnastics class (Recreational Hall)",
+        "category": "Gym & Movement",
+        "offering": "offered",
+        "age": { "minMonths": 42, "maxMonths": null, "level": "branch", "verification": "listed-unconfirmed", "providerAgeUrl": "https://www.traveloka.com/id-id/activities/indonesia/product/gymnastics-training-by-gavrila-kelapa-gading-5200228399300", "sourceCheckedAt": "2026-11-10" },
+        "note": "Partner-listed (Traveloka Xperience, checked 2026-11-10): Kinder class from 3.5 years; Kid class 6 years and up. The brand's own site (gavrilagym.online) says the best age to enrol is 6, so this is a partner claim, not a provider-confirmed under-5 age. Confirm the Kinder class with the branch before going."
+      }
+    ],
+    "website": "https://gavrilagym.online/",
+    "phone": "081905401140",
+    "sourceUrl": "https://www.traveloka.com/id-id/activities/indonesia/product/gymnastics-training-by-gavrila-kelapa-gading-5200228399300",
+    "lastCheckedAt": "2026-11-10",
+    "fitStatus": "media-claimed",
+    "notes": "Partner-listed, not provider-confirmed for under-5s. Official site lists 3 branches (Kelapa Gading, Mampang, Serpong). Traveloka admin phone for slot and Kinder/Kid/Toddler schedule questions: 0819-0540-1140.",
+    "operatingStatus": { "state": "official-listed", "source": "https://gavrilagym.online/", "checkedAt": "2026-11-10" },
+    "reviews": {
+      "rating": 4.7,
+      "reviewCount": 51,
+      "source": "Google Maps",
+      "sourceUrl": "https://www.google.com/maps/place/?q=place_id:ChIJp1tYK1T1aS4RvOWsspZCsOg",
+      "checkedAt": "2026-11-10",
+      "sampleNote": "30 newest Maps reviews read 2026-11-10: mostly positive; two 3-star reviews (toilet cleanliness about 3 weeks ago, slow admin reply about 4 months ago). Individual customer allegations, not verified facts.",
+      "praiseThemes": [],
+      "complaintThemes": []
+    }
+  },
+  {
+    "id": "gavrila-gymnastics-serpong",
+    "chain": "Gavrila Gymnastics",
+    "branchName": "Serpong",
+    "categories": ["Gym & Movement"],
+    "address": "Jl. Kelurahan No.Sektor 12, Rw. Mekar Jaya, Kec. Serpong, Kota Tangerang Selatan, Banten 15310",
+    "area": "Serpong",
+    "city": "Tangerang Selatan",
+    "lat": -6.3139274,
+    "lng": 106.6889471,
+    "coordinateSource": "provider-address",
+    "programs": [
+      {
+        "name": "Kinder gymnastics class (Recreational Hall)",
+        "category": "Gym & Movement",
+        "offering": "offered",
+        "age": { "minMonths": 42, "maxMonths": null, "level": "branch", "verification": "listed-unconfirmed", "providerAgeUrl": "https://www.traveloka.com/id-id/activities/indonesia/product/gymnastics-training-by-gavrila-serpong-9054937517250", "sourceCheckedAt": "2026-11-10" },
+        "note": "Partner-listed (Traveloka Xperience, checked 2026-11-10): Kinder class from 3.5 years, with a companion; Kid class 6 years and up. The brand's own site (gavrilagym.online) says the best age to enrol is 6, so this is a partner claim, not a provider-confirmed under-5 age. Confirm the Kinder class with the branch before going."
+      }
+    ],
+    "website": "https://gavrilagym.online/",
+    "phone": "087877844661",
+    "sourceUrl": "https://www.traveloka.com/id-id/activities/indonesia/product/gymnastics-training-by-gavrila-serpong-9054937517250",
+    "lastCheckedAt": "2026-11-10",
+    "fitStatus": "media-claimed",
+    "notes": "Partner-listed, not provider-confirmed for under-5s. Official site lists 3 branches (Kelapa Gading, Mampang, Serpong). Maps reviews for this branch were not read in this run.",
+    "operatingStatus": { "state": "official-listed", "source": "https://gavrilagym.online/", "checkedAt": "2026-11-10" },
+    "reviews": {
+      "rating": 4.8,
+      "reviewCount": 180,
+      "source": "Google Maps",
+      "sourceUrl": "https://www.google.com/maps/place/?q=place_id:ChIJLyYyG6X7aS4RQgwHxlJJfQ4",
+      "checkedAt": "2026-11-10",
+      "sampleNote": "Rating only; individual reviews not read on 2026-11-10.",
+      "praiseThemes": [],
+      "complaintThemes": []
+    }
+  }
 ];
 
 // Aggregate-only checks never reset existing review-theme dates.
