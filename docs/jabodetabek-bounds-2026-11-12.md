@@ -1,20 +1,24 @@
 # Jabodetabek-only map and under-2s target
 
-2026-11-12, draft update to #68. No merge or deploy authorized.
+2026-11-12, draft update to #68. Owner selected merge after widening; fresh QC is required before merge. Preview experiment is a separate draft, not approved for merge.
 
 ## Result
 
-The map is now constrained to a mainland Jabodetabek service rectangle:
-west106.30, south-6.85, east107.35, north-5.85. All141 public venue coordinates
+The map is now constrained to Jabodetabek plus Bandung city/Cimahi/Lembang:
+west106.30, south-7.10, east107.85, north-5.85. All141 public venue coordinates
 are inside. This is a product viewport, not an exact administrative polygon;
 it includes margin and some adjoining land/sea. It is not the whole world.
+"Some Bandung" is taken to mean Bandung city and nearby Cimahi/Lembang,
+not all Bandung Regency or all West Java. Bandung city reference point is
+107.60694,-6.92194; Lembang107.62,-6.81 and Cimahi are inside this margin.
+This widening allows panning toward Bandung; it does not add verified venues.
 The geography includes Jakarta, Bogor, Depok, Tangerang and Bekasi, following
 the metropolitan scope documented by the West Java planning dataset below.
 Northern offshore Thousand Islands are not a venue-coverage claim.
 
-- maxBounds constrains the camera and minZoom9 prevents world-level zoom-out.
+- maxBounds constrains the camera and minZoom8.5 prevents world-level zoom-out.
   MapLibre raises the effective minimum as needed to keep the viewport inside
-  the rectangle: measured9.204 on390x844 and9.743 on1280x800.
+  the rectangle: measured8.882 on390x844 and9.182 on1280x800.
 - renderWorldCopies:false prevents repeated world copies.
 - Lock north-up/flat while preserving pan and pinch zoom. Extra QA found that
   rotated/pitched corners escaped the camera rectangle, so rotation/pitch
@@ -40,8 +44,8 @@ build before this bounds change, not the deployed #67 baseline.
 
 | Profile | Before bounds median | With bounds runs | Median | Initial tiles |
 | --- | ---: | --- | ---: | --- |
-|1.6Mbps,150ms|7.350s|7.320/7.298/7.372s|7.320s|6,442,316B compressed|
-|400kbps,400ms|25.958s|26.031/26.039/26.072s|26.039s|6,442,316B compressed|
+|1.6Mbps,150ms|7.350s|7.230/7.367/7.395s|7.367s|6,442,316B compressed|
+|400kbps,400ms|25.958s|25.980/26.020/26.044s|26.020s|6,442,316B compressed|
 
 Conclusion: no meaningful first-load speed gain. The initial6 tiles were already
 inside Jabodetabek. The change prevents later navigation outside the service
@@ -58,7 +62,7 @@ Do not add that gain to the effectively-zero bounds gain.
 
 ## Under2seconds: measured best and hard byte floor
 
-Best final run is7.298s/26.031s; medians7.320s/26.039s. This does not meet2s.
+Best final run is7.230s/25.980s; medians7.367s/26.020s. This does not meet2s.
 These are simulated Chromium map-ready times, not real-phone measurements.
 
 The shared engine alone is333,926 compressed bytes. At400kbps, bytes alone need
@@ -95,6 +99,12 @@ screen at the constrained zoom. No real iOS/Safari or live Pages candidate test.
 Fresh independent review is pending through main.
 
 ## Sources
+
+- https://en.wikipedia.org/wiki/Bandung : city reference coordinate107.60694,-6.92194.
+- https://cityapi.org/cities/id/lembang : Lembang107.62,-6.81.
+- https://www.latlongfinder.net/coordinates/indonesia/bandung : secondary city
+  coordinate corroboration and nearby Cimahi/Lembang context. The exact box
+  and minZoom8.5 are product choices, not sourced administrative boundaries.
 
 - https://wargi.jabarprov.go.id/petav2/dataset/detil/7 : official regional scope,
   ATR/BPN2020 spatial-planning dataset, includes Jabodetabek-Punjur. Does not
