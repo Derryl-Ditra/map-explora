@@ -1,6 +1,6 @@
 # Jabodetabek-only map and under-2s target
 
-2026-11-12, draft update to #68. Owner selected merge after widening; fresh QC is required before merge. Preview experiment is a separate draft, not approved for merge.
+2026-11-12, performance and boundary audit for #68.
 
 ## Result
 
@@ -96,7 +96,14 @@ rectangle. No page errors. Mobile single-pin tap opens correct detail; back to
 map, list/search, single result and detail remain usable. All141 venue pins
 remain reachable by panning; they need not all fit simultaneously on a portrait
 screen at the constrained zoom. No real iOS/Safari or live Pages candidate test.
-Fresh independent review is pending through main.
+Independent correctness review passed region bounds, source tile intersection,
+flat lock, Bandung reachability, build/tests/lint,40 additional venue search/list
+flows and mobile pin/cluster/pan/pinch/twist tests. Desktop sidebar can cover the
+westernmost strip at minimum zoom; hide sidebar or zoom in to inspect that strip.
+A stricter single-shared-link review harness measured about17.7s on slow4G,
+versus about7.4s in the separate page/worker-target harness above. Absolute
+simulated times depend on harness; do not present them as real-device results.
+The same-harness baseline/candidate comparison is still being reconciled.
 
 ## Sources
 
