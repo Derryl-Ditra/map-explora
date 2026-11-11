@@ -16,6 +16,9 @@ Northern offshore Thousand Islands are not a venue-coverage claim.
   MapLibre raises the effective minimum as needed to keep the viewport inside
   the rectangle: measured9.204 on390x844 and9.743 on1280x800.
 - renderWorldCopies:false prevents repeated world copies.
+- Lock north-up/flat while preserving pan and pinch zoom. Extra QA found that
+  rotated/pitched corners escaped the camera rectangle, so rotation/pitch
+  gestures and keyboard rotation are disabled and camera updates clamp both.
 - bounds on every vector/raster source filter out non-intersecting tile requests.
   Explicit source bounds override the worldwide TileJSON bounds, as verified
   in installed MapLibre6.16.0 load_tilejson.ts and tile_bounds.ts.
