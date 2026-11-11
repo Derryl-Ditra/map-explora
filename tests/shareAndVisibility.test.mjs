@@ -28,8 +28,9 @@ test("share text carries concise content and a short live app link", () => {
   assert.doesNotMatch(t, /Straight-line|Under-5 class spot|Found via/);
 });
 
-test("only official-listed places are shown to users", () => {
+test("only official-listed or partner-listed places are shown to users", () => {
   assert.equal(isShownToUsers({ operatingStatus: { state: "official-listed", checkedAt: "2026-11-04" } }), true);
+  assert.equal(isShownToUsers({ operatingStatus: { state: "partner-listed", checkedAt: "2026-11-11" } }), true);
   assert.equal(isShownToUsers({ operatingStatus: { state: "maps-listed", checkedAt: "2026-11-04" } }), false);
   assert.equal(isShownToUsers({ operatingStatus: { state: "not-confirmed", checkedAt: "2026-11-04" } }), false);
   assert.equal(isShownToUsers({}), false);
@@ -38,7 +39,7 @@ test("only official-listed places are shown to users", () => {
 test("hidden places stay in the dataset, and every venue has an operating status", () => {
   const hidden = VENUES.filter((v) => !isShownToUsers(v));
   assert.ok(VENUES.every((v) => v.operatingStatus), "a venue has no operatingStatus");
-  assert.equal(VENUES.length - hidden.length, VENUES.filter((v) => v.operatingStatus.state === "official-listed").length);
+  assert.equal(VENUES.length - hidden.length, VENUES.filter((v) => v.operatingStatus.state === "official-listed" || v.operatingStatus.state === "partner-listed").length);
   assert.ok(hidden.length > 0, "rule hides nothing; gate is vacuous");
 });
 
