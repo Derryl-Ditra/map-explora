@@ -13,6 +13,12 @@ test('Jabodetabek viewport prevents world panning and zoom-out',()=>{
  assert.match(source,/minZoom: region\.minZoom/);
  assert.match(source,/renderWorldCopies: false/);
  assert.match(source,/zoom: 11/);
+ assert.match(source,/maxPitch: 0/);
+ assert.match(source,/dragRotate: false/);
+ assert.match(source,/touchPitch: false/);
+ assert.match(source,/transformCameraUpdate: \(\) => \(\{ bearing: 0, pitch: 0 \}\)/);
+ assert.match(source,/touchZoomRotate\.disableRotation\(\)/);
+ assert.match(source,/keyboard\.disableRotation\(\)/);
 });
 test('tile sources use regional request bounds and preserve map details',async()=>{
  const style=await getMapStyle();
