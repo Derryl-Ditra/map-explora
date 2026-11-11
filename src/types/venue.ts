@@ -75,6 +75,7 @@ export interface Venue {
   programs: VenueProgram[]; // eligibility is derived from these, never flattened
   website?: string; // official links only
   instagram?: string;
+  tiktok?: string;
   phone?: string;
   sourceUrl: string; // where this branch record came from
   lastCheckedAt: string | null; // ISO date this record was checked; null = never
