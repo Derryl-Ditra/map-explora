@@ -55,7 +55,7 @@ type LinkKey = "website" | "instagram" | "tiktok";
 function BrandIcon({ kind }: { kind: LinkKey }) {
   if (kind === "website") {
     return (
-      <svg viewBox="0 0 24 24" aria-hidden="true" className="w-12 h-12">
+      <svg viewBox="0 0 24 24" aria-hidden="true" className="w-11 h-11">
         <rect width="24" height="24" rx="7" fill="#1a7a4a" />
         <g fill="none" stroke="#fff" strokeWidth="1.7" strokeLinecap="round">
           <circle cx="12" cy="12" r="6.5" />
@@ -66,7 +66,7 @@ function BrandIcon({ kind }: { kind: LinkKey }) {
   }
   if (kind === "instagram") {
     return (
-      <svg viewBox="0 0 24 24" aria-hidden="true" className="w-12 h-12">
+      <svg viewBox="0 0 24 24" aria-hidden="true" className="w-11 h-11">
         <defs>
           <linearGradient id="ig-grad" x1="0" y1="1" x2="1" y2="0">
             <stop offset="0" stopColor="#fdb84a" />
@@ -81,7 +81,7 @@ function BrandIcon({ kind }: { kind: LinkKey }) {
     );
   }
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="w-12 h-12">
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="w-11 h-11">
       <rect width="24" height="24" rx="7" fill="#111" />
       <path transform="translate(5.4 5.2) scale(.6)" fill="#25f4ee" d={TT_PATH} />
       <path transform="translate(6.6 6.4) scale(.6)" fill="#fe2c55" d={TT_PATH} />
@@ -101,9 +101,11 @@ function OfficialLinks({ venue }: { venue: Venue }) {
     .map((key) => ({ key, href: venue[key] }))
     .filter((l) => Boolean(l.href));
   if (links.length === 0) return null;
-  // Icon-only 48px tiles, left aligned, one row (5 fit at 320px), wrap if more.
+  // Icon-only 44px tiles beside the title, 12px apart so a thumb cannot hit
+  // the neighbour. 1 to 3 links stack in one column (44px wide, so the title
+  // keeps its width); 4 or more use two columns.
   return (
-    <nav aria-label="Official pages" className="flex flex-wrap gap-2.5" data-testid="official-links">
+    <nav aria-label="Official pages" className={`shrink-0 grid gap-3 ${links.length > 3 ? "grid-cols-2" : "grid-cols-1"}`} data-testid="official-links">
       {links.map(({ key, href }) => (
         <a
           key={key}
@@ -152,17 +154,17 @@ export default function VenueDetails({
 
   return (
     <div className="flex flex-col gap-3.5 text-[#221d18] text-[1rem]">
-      {/* Title */}
-      <div className="flex flex-col">
-        <h2 className="text-[1.25rem] font-bold text-[#221d18] leading-snug">
-          {venue.chain ? `${venue.chain} ` : ""}
-          {venue.branchName}
-        </h2>
-        <span className="text-[1rem] text-[#6d675f] mt-1">{venue.address}</span>
+      {/* Title, with official links as icon tiles on the right (none = full-width title) */}
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-col min-w-0 flex-1">
+          <h2 className="text-[1.25rem] font-bold text-[#221d18] leading-snug break-words">
+            {venue.chain ? `${venue.chain} ` : ""}
+            {venue.branchName}
+          </h2>
+          <span className="text-[1rem] text-[#6d675f] mt-1 break-words">{venue.address}</span>
+        </div>
+        <OfficialLinks venue={venue} />
       </div>
-
-      {/* Official pages: one row of 44px chips; only links this place has */}
-      <OfficialLinks venue={venue} />
 
       {approximate && (
         <p className="text-[0.9375rem] text-[#92400e] border border-[#fcd34d] bg-[#fef3c7] rounded-2xl px-3.5 py-3 flex items-start gap-2">
