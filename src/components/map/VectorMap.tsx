@@ -95,8 +95,16 @@ export default function VectorMap({
         minZoom: region.minZoom,
         maxBounds: region.bounds as [number, number, number, number],
         renderWorldCopies: false,
+        // Rotated/pitched corners can escape the rectangular camera constraint.
+        maxPitch: 0,
+        dragRotate: false,
+        touchPitch: false,
+        transformCameraUpdate: () => ({ bearing: 0, pitch: 0 }),
         attributionControl: { compact: true },
       });
+
+      map.touchZoomRotate.disableRotation();
+      map.keyboard.disableRotation();
 
       map.on("error", () => { failed = true; if (!cancelled) setMapStatus("error"); });
       map.on("load", () => {
