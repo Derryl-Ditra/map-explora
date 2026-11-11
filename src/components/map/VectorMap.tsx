@@ -93,9 +93,11 @@ export default function VectorMap({
         attributionControl: { compact: true },
       });
 
-      map.once("idle", () => { if (!cancelled && !failed) setMapStatus("ready"); });
       map.on("error", () => { failed = true; if (!cancelled) setMapStatus("error"); });
       map.on("load", () => {
+        // The basemap has rendered. Do not keep it covered while the extra
+        // venue-label source loads and the map waits for its first idle event.
+        if (!cancelled && !failed) setMapStatus("ready");
         readyRef.current = true;
         const requested = recenterRef.current;
         if (requested.recenterTick && requested.userPos) {

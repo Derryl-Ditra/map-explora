@@ -11,9 +11,9 @@ test('one Bright basemap keeps colors, POIs, transit and rotating TileJSON', () 
  const build=readFileSync(new URL('../scripts/build-map-styles.mjs',import.meta.url),'utf8');
  assert.match(build,/styles\/bright/);assert.doesNotMatch(build,/positron|transformStyle/);
 });
-test('map waits for idle, reports errors and starts at wider zoom', () => {
+test('map becomes ready at load, reports errors and starts at wider zoom', () => {
  const s=readFileSync(new URL('../src/components/map/VectorMap.tsx',import.meta.url),'utf8');
- assert.match(s,/once\("idle"/);assert.match(s,/map\.on\("error"/);assert.match(s,/zoom: 11/);assert.doesNotMatch(s,/FALLBACK_STYLE_URL|setStyle\(|styleModeRef|mapStyle/);
+ assert.match(s,/map\.on\("load"/);assert.doesNotMatch(s,/once\("idle"/);assert.match(s,/map\.on\("error"/);assert.match(s,/zoom: 11/);assert.doesNotMatch(s,/FALLBACK_STYLE_URL|setStyle\(|styleModeRef|mapStyle/);
  assert.match(s,/ctx.fillStyle = "#1c1917"/);assert.match(s,/ctx.fillStyle = "#ffffff"/);
 });
 test('one map mode has no light/dark switcher or unused toggle state',()=>{
