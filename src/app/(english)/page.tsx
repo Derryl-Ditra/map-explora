@@ -9,6 +9,8 @@ export default function Home() {
   schema.itemListElement = schema.itemListElement.map((entry, i) => ({ ...entry, item: { ...entry.item, url: publicInventory(VENUES)[i].sourceUrl } }));
   return (
     <main className="h-dvh w-screen overflow-hidden">
+      <link rel="preload" as="image" href={`${base}/map-preview/mobile.webp`} media="(max-width: 767px)" fetchPriority="high" />
+      <link rel="preload" as="image" href={`${base}/map-preview/desktop.webp`} media="(min-width: 768px)" fetchPriority="high" />
       <link rel="modulepreload" href={`${base}${vendor.entry}`} />
       {vendor.shared.map((path) => <link key={path} rel="modulepreload" href={`${base}${path}`} />)}
       <MapHUD />
