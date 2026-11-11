@@ -8656,6 +8656,68 @@ export const VENUES: Venue[] = [
       "complaintThemes": []
     }
   }
+,
+  {
+    "id": "kinderra-play-cakung",
+    "chain": "Kinderra Play",
+    "branchName": "Cakung (Jakarta Garden City)",
+    "categories": ["Sensory"],
+    "address": "Ruko Asya Genova, Jl. Asya Boulevard Jl. Jkt Garden City Boulevard No.30, RW.6, Cakung Tim., Kec. Cakung, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13910",
+    "area": "Cakung",
+    "city": "Jakarta Timur",
+    "lat": -6.1668683,
+    "lng": 106.9549352,
+    "coordinateSource": "maps-pin",
+    "programs": [
+      {
+        "name": "Weekend Class (1-3 years)",
+        "category": "Sensory",
+        "offering": "offered",
+        "age": { "minMonths": 12, "maxMonths": 36, "level": "branch", "verification": "listed-unconfirmed", "providerAgeUrl": "https://happykamper.io/id/providers/kinderra-play-early-learning-center-921", "sourceCheckedAt": "2026-11-11" },
+        "note": "Partner-listed (Happy Kamper, checked 2026-11-11). Maps reviewers mention attending the weekend class (read 2026-11-11), so the class runs; ages are partner-listed, not provider-confirmed. Confirm with the provider."
+      },
+      {
+        "name": "Weekend Class (3-5 years)",
+        "category": "Sensory",
+        "offering": "offered",
+        "age": { "minMonths": 36, "maxMonths": 60, "level": "branch", "verification": "listed-unconfirmed", "providerAgeUrl": "https://happykamper.io/id/providers/kinderra-play-early-learning-center-921", "sourceCheckedAt": "2026-11-11" },
+        "note": "Partner-listed (Happy Kamper, checked 2026-11-11). Upper bound 5 years includes children past the under-5 (59 months) scope; boundary month unconfirmed. Confirm with the provider."
+      },
+      {
+        "name": "Kinderra Play Flexi class pack (2x or 3x, 1-5 years)",
+        "category": "Sensory",
+        "offering": "offered",
+        "age": { "minMonths": 12, "maxMonths": 60, "level": "branch", "verification": "listed-unconfirmed", "providerAgeUrl": "https://happykamper.io/id/providers/kinderra-play-early-learning-center-921", "sourceCheckedAt": "2026-11-11" },
+        "note": "Partner-listed (Happy Kamper, checked 2026-11-11): Flexi 2x and Flexi 3x class packs, ages 1-5. Class content not detailed on the listing. Confirm with the provider."
+      }
+    ],
+    "phone": "085286312489",
+    "sourceUrl": "https://happykamper.io/id/providers/kinderra-play-early-learning-center-921",
+    "lastCheckedAt": "2026-11-11",
+    "fitStatus": "media-claimed",
+    "notes": "Partner-listed (Happy Kamper), not provider-confirmed. Single branch: Maps search 'Kinderra Jakarta' returns only this location and Happy Kamper lists only 'Kinderra Cakung Pusat' (both 2026-11-11). Primarily a full-day childcare / early learning center (EYLF-inspired, play-based) that also runs bookable weekend classes for 1-5 year olds. Hours conflict: Maps says opens 7:30 AM, Happy Kamper lists Mon-Fri 06:30-17:30 and Sat-Sun closed, yet weekend classes run. No official brand website found (2026-11-11).",
+    "priceListings": [
+      { "label": "Weekend Class (1-3 yrs)", "amountIdr": 200000, "unit": "per session", "source": "Happy Kamper", "sourceUrl": "https://happykamper.io/id/providers/kinderra-play-early-learning-center-921", "checkedAt": "2026-11-11" },
+      { "label": "Weekend Class (3-5 yrs)", "amountIdr": 200000, "unit": "per session", "source": "Happy Kamper", "sourceUrl": "https://happykamper.io/id/providers/kinderra-play-early-learning-center-921", "checkedAt": "2026-11-11" },
+      { "label": "KINDERRA PLAY FLEXI 3X (1-5 yrs)", "amountIdr": 275000, "unit": "per package", "source": "Happy Kamper", "sourceUrl": "https://happykamper.io/id/providers/kinderra-play-early-learning-center-921", "checkedAt": "2026-11-11" },
+      { "label": "KINDERRA PLAY FLEXI 2X (1-5 yrs)", "amountIdr": 300000, "unit": "per package", "source": "Happy Kamper", "sourceUrl": "https://happykamper.io/id/providers/kinderra-play-early-learning-center-921", "checkedAt": "2026-11-11" }
+    ],
+    "operatingStatus": {
+      "state": "partner-listed",
+      "source": "https://www.google.com/maps/place/Kinderra+Play+Early+Learning+Center/@-6.1668683,106.9549352,17z/data=!3m1!4b1!4m6!3m5!1s0xaec8ee186b25a48f:0x790c002a8b5c5da7!8m2!3d-6.1668683!4d106.9549352!16s%2Fg%2F11mycknm1_",
+      "checkedAt": "2026-11-11"
+    },
+    "reviews": {
+      "rating": 5.0,
+      "reviewCount": 5,
+      "source": "Google Maps",
+      "sourceUrl": "https://www.google.com/maps/place/Kinderra+Play+Early+Learning+Center/@-6.1668683,106.9549352,17z/data=!3m1!4b1!4m6!3m5!1s0xaec8ee186b25a48f:0x790c002a8b5c5da7!8m2!3d-6.1668683!4d106.9549352!16s%2Fg%2F11mycknm1_",
+      "checkedAt": "2026-11-11",
+      "praiseThemes": [],
+      "complaintThemes": [],
+      "sampleNote": "All 5 Google Maps reviews read 2026-11-11 are 5-star, posted within the last 4 months. Two mention attending the weekend class, one the holiday class. Only 5 ratings: too few to judge. Not a safety guarantee."
+    }
+  }
 ];
 
 // Aggregate-only checks never reset existing review-theme dates.

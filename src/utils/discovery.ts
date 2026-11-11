@@ -2,7 +2,10 @@ import type { Venue } from '@/types/venue';
 
 export const SITE_URL = 'https://derryl-ditra.github.io/map-explora';
 export const venueName = (v: Venue) => [v.chain, v.branchName].filter(Boolean).join(" ");
-export const publicInventory = (venues: Venue[]) => venues.filter(v => v.operatingStatus?.state === 'official-listed');
+// Published inventory: brand-listed branches plus, per the owner's 2026-11-11
+// decision, small brands evidenced by a booking-platform provider page AND an
+// active Maps listing ("partner-listed"). maps-listed alone stays hidden.
+export const publicInventory = (venues: Venue[]) => venues.filter(v => v.operatingStatus?.state === 'official-listed' || v.operatingStatus?.state === 'partner-listed');
 export type AnswerGroup = { slug: string; title: string; area: string; activity?: string; venues: Venue[] };
 const regions = ['Jakarta', 'Bogor', 'Depok', 'Bekasi', 'Tangerang'];
 const activities: { category: string; slug: string; label: string }[] = [
