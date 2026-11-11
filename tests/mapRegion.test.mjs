@@ -6,9 +6,9 @@ const region=JSON.parse(readFileSync('src/data/map-region.json','utf8'));
 const source=readFileSync('src/components/map/VectorMap.tsx','utf8');
 const code=buildSync({entryPoints:['src/components/map/vectorStyle.ts'],bundle:true,write:false,format:'esm',platform:'node'}).outputFiles[0].text;
 const {getMapStyle}=await import('data:text/javascript;base64,'+Buffer.from(code).toString('base64'));
-test('Jabodetabek viewport prevents world panning and zoom-out',()=>{
- assert.deepEqual(region.bounds,[106.3,-6.85,107.35,-5.85]);
- assert.equal(region.minZoom,9);
+test('Jabodetabek plus Bandung viewport prevents world panning and zoom-out',()=>{
+ assert.deepEqual(region.bounds,[106.3,-7.1,107.85,-5.85]);
+ assert.equal(region.minZoom,8.5);
  assert.match(source,/maxBounds: region\.bounds/);
  assert.match(source,/minZoom: region\.minZoom/);
  assert.match(source,/renderWorldCopies: false/);
