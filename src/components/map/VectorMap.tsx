@@ -13,6 +13,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import { Venue } from "@/types/venue";
 import { getMapStyle } from "./vectorStyle";
 import region from "@/data/map-region.json";
+import MapPreview from "./MapPreview";
 
 interface VectorMapProps {
   venues: Venue[];
@@ -492,14 +493,14 @@ export default function VectorMap({
 
   return (
     <div
+      data-map-status={mapStatus}
       style={{ position: "absolute", inset: 0, backgroundColor: "#f5f5f4" }}
     >
       <div ref={containerRef} style={{ position: "absolute", inset: 0 }} />
-      {mapStatus !== "ready" && (
-        <div role={mapStatus === "error" ? "alert" : "status"} className="absolute inset-0 flex items-center justify-center pointer-events-none bg-[#f6f3ec]" style={{ backgroundColor: "#f6f3ec", color: "#51483d" }}>
-          <div className="text-center px-6 pb-64">
-            {mapStatus === "loading" ? <><span className="inline-block w-6 h-6 border-2 border-current border-t-transparent rounded-full animate-spin" /><p>Loading map. You can browse the place list.</p></> : <p>Map could not load. You can still browse places and open Directions.</p>}
-          </div>
+      {mapStatus === "loading" && <MapPreview />}
+      {mapStatus === "error" && (
+        <div role="alert" className="absolute inset-0 flex items-center justify-center pointer-events-none bg-[#f6f3ec] text-[#51483d]">
+          <p className="text-center px-6 pb-64">Map could not load. You can still browse places and open Directions.</p>
         </div>
       )}
     </div>
