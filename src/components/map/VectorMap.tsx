@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import * as maplibregl from "maplibre-gl";
-
-// Turbopack's worker bundling breaks under static export; serve the worker as a static asset.
-if (typeof window !== "undefined") {
-  const base = process.env.NODE_ENV === "production" ? "/map-explora" : "";
-  maplibregl.setWorkerUrl(`${base}/maplibre-worker.js`);
-}
+import type * as MapLibre from "maplibre-gl";
+import vendor from "@/data/map-vendor.json";
+let maplibregl: typeof import("maplibre-gl");
+const base = process.env.NODE_ENV === "production" ? "/map-explora" : "";
+const library = () => import(/* webpackIgnore: true */ `${base}${vendor.entry}`).then((module: typeof import("maplibre-gl")) => {
+  module.setWorkerUrl(`${base}${vendor.worker}`);
+  return module;
+});
 import "maplibre-gl/dist/maplibre-gl.css";
 import { Venue } from "@/types/venue";
 import { getMapStyle } from "./vectorStyle";
@@ -60,9 +61,9 @@ export default function VectorMap({
 }: VectorMapProps) {
   const [mapStatus, setMapStatus] = useState<"loading" | "ready" | "error">("loading");
   const containerRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<maplibregl.Map | null>(null);
-  const markersRef = useRef<Map<string, maplibregl.Marker>>(new Map());
-  const userMarkerRef = useRef<maplibregl.Marker | null>(null);
+  const mapRef = useRef<MapLibre.Map | null>(null);
+  const markersRef = useRef<Map<string, MapLibre.Marker>>(new Map());
+  const userMarkerRef = useRef<MapLibre.Marker | null>(null);
   const readyRef = useRef(false);
   const recenterRef = useRef({ userPos, recenterTick });
   recenterRef.current = { userPos, recenterTick };
@@ -83,7 +84,7 @@ export default function VectorMap({
     let failed = false;
     const initial = userPos ? [userPos[1], userPos[0]] as [number, number] : JAKARTA;
 
-    const start = (style: maplibregl.StyleSpecification) => {
+    const start = (style: MapLibre.StyleSpecification) => {
       if (cancelled || mapRef.current) return;
       const map = new maplibregl.Map({
         container,
@@ -138,7 +139,7 @@ export default function VectorMap({
       mapRef.current = map;
     };
 
-    getMapStyle().then(start).catch(() => { if (!cancelled) setMapStatus("error"); });
+    Promise.all([getMapStyle(), library()]).then(([style, module]) => { maplibregl = module; start(style); }).catch(() => { if (!cancelled) setMapStatus("error"); });
 
     return () => {
       cancelled = true;
@@ -209,7 +210,7 @@ export default function VectorMap({
   }
 
   // Adds the venue sprites, source and layer.
-  function ensureLabelAssets(map: maplibregl.Map) {
+  function ensureLabelAssets(map: MapLibre.Map) {
     labelSpriteCache.forEach((image, key) => {
       if (!map.hasImage(key)) map.addImage(key, image, { pixelRatio: 2 });
     });
@@ -268,12 +269,12 @@ export default function VectorMap({
     return el;
   }
 
-  function addMarker(map: maplibregl.Map, el: HTMLElement, lng: number, lat: number, key: string) {
+  function addMarker(map: MapLibre.Map, el: HTMLElement, lng: number, lat: number, key: string) {
     const m = new maplibregl.Marker({ element: el }).setLngLat([lng, lat]).addTo(map);
     markersRef.current.set(key, m);
   }
 
-  function renderMarkers(map: maplibregl.Map) {
+  function renderMarkers(map: MapLibre.Map) {
     // A full rebuild per change is cheap at this dataset size and keeps state simple.
     markersRef.current.forEach((m) => m.remove());
     markersRef.current.clear();
@@ -345,7 +346,7 @@ export default function VectorMap({
       }
     });
 
-    const labelSrc = map.getSource(LABEL_SOURCE) as maplibregl.GeoJSONSource | undefined;
+    const labelSrc = map.getSource(LABEL_SOURCE) as MapLibre.GeoJSONSource | undefined;
     if (labelSrc) labelSrc.setData({ type: "FeatureCollection", features: labelFeatures });
     if (map.getLayer(LABEL_LAYER)) {
       // Selection focus: other names fade so the chosen branch stands out.
@@ -435,14 +436,14 @@ export default function VectorMap({
         userMarkerRef.current.remove();
         userMarkerRef.current = null;
       }
-      const accSrc0 = readyRef.current ? (map.getSource("user-accuracy") as maplibregl.GeoJSONSource | undefined) : undefined;
+      const accSrc0 = readyRef.current ? (map.getSource("user-accuracy") as MapLibre.GeoJSONSource | undefined) : undefined;
       if (accSrc0) accSrc0.setData({ type: "FeatureCollection", features: [] });
       return;
     }
     const [lat, lng] = userPos;
 
     const applyUser = () => {
-      const accSrc = map.getSource("user-accuracy") as maplibregl.GeoJSONSource | undefined;
+      const accSrc = map.getSource("user-accuracy") as MapLibre.GeoJSONSource | undefined;
       if (accSrc) {
         if (userAccuracy && userAccuracy > 20 && userAccuracy < 2000) {
           accSrc.setData(accuracyPolygon(lat, lng, userAccuracy));
