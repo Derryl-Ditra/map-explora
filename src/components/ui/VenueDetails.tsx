@@ -47,6 +47,68 @@ function formatAgeRange(age: AgeClaim): string {
   return `${lo} - ${formatMonths(age.maxMonths)}`;
 }
 
+const ICON_PROPS = {
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 2,
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+  "aria-hidden": true,
+  className: "w-[18px] h-[18px] shrink-0",
+} as const;
+
+function GlobeIcon() {
+  return (
+    <svg {...ICON_PROPS}><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" /></svg>
+  );
+}
+function InstagramIcon() {
+  return (
+    <svg {...ICON_PROPS}><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" /></svg>
+  );
+}
+function TikTokIcon() {
+  return (
+    <svg {...ICON_PROPS}><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5" /><path d="M14 3c.4 2.6 2.1 4.2 5 4.4" /></svg>
+  );
+}
+
+function OfficialLinks({ venue }: { venue: Venue }) {
+  const links = [
+    { key: "website", label: "Website", href: venue.website, Icon: GlobeIcon },
+    { key: "instagram", label: "Instagram", href: venue.instagram, Icon: InstagramIcon },
+    { key: "tiktok", label: "TikTok", href: venue.tiktok, Icon: TikTokIcon },
+  ].filter((l) => Boolean(l.href));
+  if (links.length === 0) return null;
+  // Layout by count. 1 chip keeps its natural width, left aligned. 2 chips
+  // share the row and wrap rather than overflow. 3 chips sit in equal columns
+  // with the icon above the label, so they fit one row from 320px up.
+  const n = links.length;
+  const wrap = n === 3 ? "grid grid-cols-3 gap-2" : "flex flex-wrap gap-2";
+  const chip =
+    n === 3
+      ? "rounded-2xl flex-col gap-0.5 px-1 py-1.5 min-h-[3.25rem] text-[0.8125rem]"
+      : `rounded-full ${n === 2 ? "flex-auto " : ""}flex-row gap-1.5 px-3.5 min-h-11 text-[0.8125rem] min-[360px]:text-[0.875rem]`;
+  return (
+    <nav aria-label="Official pages" className={wrap} data-testid="official-links">
+      {links.map(({ key, label, href, Icon }) => (
+        <a
+          key={key}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${label} (opens in a new tab)`}
+          className={`${chip} inline-flex items-center justify-center border border-[#e7e0d4] bg-white text-[#14532d] font-semibold leading-tight hover:bg-[#e3f2e8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a]`}
+        >
+          <Icon />
+          <span>{label}</span>
+        </a>
+      ))}
+    </nav>
+  );
+}
+
 export default function VenueDetails({
   venue,
 }: VenueDetailsProps) {
@@ -86,6 +148,9 @@ export default function VenueDetails({
         </h2>
         <span className="text-[1rem] text-[#6d675f] mt-1">{venue.address}</span>
       </div>
+
+      {/* Official pages: one row of 44px chips; only links this place has */}
+      <OfficialLinks venue={venue} />
 
       {approximate && (
         <p className="text-[0.9375rem] text-[#92400e] border border-[#fcd34d] bg-[#fef3c7] rounded-2xl px-3.5 py-3 flex items-start gap-2">
@@ -331,51 +396,17 @@ export default function VenueDetails({
 
       <p className="text-[0.875rem] text-[#6d675f]">Check tolls and ganjil/genap settings in Google Maps before travelling.</p>
 
-      {/* Official links */}
-      <div className="flex items-center justify-between text-[1rem] pt-1">
-        <div className="flex items-center gap-3">
-          {venue.website && (
-            <a
-              href={venue.website}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline text-[#1a7a4a] font-semibold"
-            >
-              Official site
+      {/* Phone */}
+      {venue.phone && (
+        <div className="flex items-center gap-1.5 text-[1rem] text-[#4a443c]">
+          <Phone aria-hidden="true" className="w-4 h-4 text-[#6d675f] shrink-0" />
+          {phoneHref(venue.phone) ? (
+            <a href={phoneHref(venue.phone)!} className="inline-flex items-center min-h-11 underline text-[#1a7a4a] font-semibold" aria-label={`Call ${venue.chain || venue.branchName}: ${venue.phone}`}>
+              {venue.phone}
             </a>
-          )}
-          {venue.instagram && (
-            <a
-              href={venue.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline text-[#1a7a4a] font-semibold"
-            >
-              Instagram
-            </a>
-          )}
-          {venue.tiktok && (
-            <a
-              href={venue.tiktok}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline text-[#1a7a4a] font-semibold"
-            >
-              TikTok
-            </a>
-          )}
+          ) : <span>{venue.phone}</span>}
         </div>
-        {venue.phone && (
-          <div className="flex items-center gap-1.5 text-[#4a443c]">
-            <Phone aria-hidden="true" className="w-4 h-4 text-[#6d675f] shrink-0" />
-            {phoneHref(venue.phone) ? (
-              <a href={phoneHref(venue.phone)!} className="inline-flex items-center min-h-11 underline text-[#1a7a4a] font-semibold" aria-label={`Call ${venue.chain || venue.branchName}: ${venue.phone}`}>
-                {venue.phone}
-              </a>
-            ) : <span>{venue.phone}</span>}
-          </div>
-        )}
-      </div>
+      )}
 
       {/* Why we list this: verification detail, one level down */}
       <div className="border-t border-[#e7e0d4] pt-1">
