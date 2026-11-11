@@ -1,0 +1,35 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { buildSync } from 'esbuild';
+const region=JSON.parse(readFileSync('src/data/map-region.json','utf8'));
+const source=readFileSync('src/components/map/VectorMap.tsx','utf8');
+const code=buildSync({entryPoints:['src/components/map/vectorStyle.ts'],bundle:true,write:false,format:'esm',platform:'node'}).outputFiles[0].text;
+const {getMapStyle}=await import('data:text/javascript;base64,'+Buffer.from(code).toString('base64'));
+test('Jabodetabek plus Bandung viewport prevents world panning and zoom-out',()=>{
+ assert.deepEqual(region.bounds,[106.3,-7.1,107.85,-5.85]);
+ assert.equal(region.minZoom,8.5);
+ assert.match(source,/maxBounds: region\.bounds/);
+ assert.match(source,/minZoom: region\.minZoom/);
+ assert.match(source,/renderWorldCopies: false/);
+ assert.match(source,/zoom: 11/);
+ assert.match(source,/maxPitch: 0/);
+ assert.match(source,/dragRotate: false/);
+ assert.match(source,/touchPitch: false/);
+ assert.match(source,/transformCameraUpdate: \(\) => \(\{ bearing: 0, pitch: 0 \}\)/);
+ assert.match(source,/touchZoomRotate\.disableRotation\(\)/);
+ assert.match(source,/keyboard\.disableRotation\(\)/);
+});
+test('tile sources use regional request bounds and preserve map details',async()=>{
+ const style=await getMapStyle();
+ assert.equal(style.glyphs,undefined);
+ assert.equal(style.sources.openmaptiles.url,'https://tiles.openfreemap.org/planet');
+ for(const s of Object.values(style.sources)) if(['raster','vector'].includes(s.type)) assert.deepEqual(s.bounds,region.bounds);
+ assert.ok(style.layers.some(l=>l['source-layer']==='poi'));
+ assert.ok(style.layers.some(l=>l.id==='poi_transit'));
+ const original=JSON.parse(readFileSync('src/data/map-style-light.json','utf8'));
+ assert.deepEqual(style.layers,original.layers);
+ assert.equal(style.sprite,original.sprite);
+ const second=await getMapStyle();style.sources.openmaptiles.bounds[0]=0;
+ assert.equal(second.sources.openmaptiles.bounds[0],region.bounds[0]);
+});

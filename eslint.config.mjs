@@ -14,6 +14,7 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     "legacy/**",
     "public/maplibre-worker.js",
+    "public/vendor/maplibre/**",
     ".agents/**",
     ".gemini/**",
   ]),

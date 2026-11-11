@@ -1,18 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import vm from 'node:vm';
-const bright = JSON.parse(readFileSync(new URL('../src/data/map-style-light.json', import.meta.url), 'utf8'));
-const source = readFileSync(new URL('../src/components/map/vectorStyle.ts', import.meta.url), 'utf8');
-// Execute the function body against a fresh style, not just a source-text assertion.
-const body = source.slice(source.indexOf('{', source.indexOf('export function getMapStyle')) + 1, source.lastIndexOf('}')).replace(/ as StyleSpecification/g, '');
-const getStyle = vm.runInNewContext(`(function() { ${body} })`, { bright, structuredClone, Promise });
-test('local glyph rendering removes remote font downloads without changing layers or source', async () => {
-  const style = await getStyle();
-  assert.equal(style.glyphs, undefined);
-  const expected = structuredClone(bright);
-  delete expected.glyphs;
-  assert.deepEqual(style, expected);
-  assert.ok(bright.glyphs, 'do not mutate the checked-in provider style');
-  assert.notEqual(style, await getStyle(), 'each map owns its style');
+import { buildSync } from 'esbuild';
+const bright=JSON.parse(readFileSync('src/data/map-style-light.json','utf8'));
+const region=JSON.parse(readFileSync('src/data/map-region.json','utf8'));
+const code=buildSync({entryPoints:['src/components/map/vectorStyle.ts'],bundle:true,write:false,format:'esm',platform:'node'}).outputFiles[0].text;
+const {getMapStyle}=await import('data:text/javascript;base64,'+Buffer.from(code).toString('base64'));
+test('local glyph rendering removes remote fonts and preserves layers with regional source bounds',async()=>{
+ const style=await getMapStyle();
+ assert.equal(style.glyphs,undefined);
+ const expected=structuredClone(bright);delete expected.glyphs;
+ for(const s of Object.values(expected.sources)) if(['raster','vector'].includes(s.type)) s.bounds=[...region.bounds];
+ assert.deepEqual(style,expected);
+ assert.ok(bright.glyphs,'do not mutate checked-in provider style');
+ assert.notEqual(style,await getMapStyle(),'each map owns its style');
 });

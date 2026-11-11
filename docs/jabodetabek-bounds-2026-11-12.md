@@ -1,0 +1,127 @@
+# Jabodetabek-only map and under-2s target
+
+2026-11-12, performance and boundary audit for #68.
+
+## Result
+
+The map is now constrained to Jabodetabek plus Bandung city/Cimahi/Lembang:
+west106.30, south-7.10, east107.85, north-5.85. All141 public venue coordinates
+are inside. This is a product viewport, not an exact administrative polygon;
+it includes margin and some adjoining land/sea. It is not the whole world.
+"Some Bandung" is taken to mean Bandung city and nearby Cimahi/Lembang,
+not all Bandung Regency or all West Java. Bandung city reference point is
+107.60694,-6.92194; Lembang107.62,-6.81 and Cimahi are inside this margin.
+This widening allows panning toward Bandung; it does not add verified venues.
+The geography includes Jakarta, Bogor, Depok, Tangerang and Bekasi, following
+the metropolitan scope documented by the West Java planning dataset below.
+Northern offshore Thousand Islands are not a venue-coverage claim.
+
+- maxBounds constrains the camera and minZoom8.5 prevents world-level zoom-out.
+  MapLibre raises the effective minimum as needed to keep the viewport inside
+  the rectangle: measured8.882 on390x844 and9.182 on1280x800.
+- renderWorldCopies:false prevents repeated world copies.
+- Lock north-up/flat while preserving pan and pinch zoom. Extra QA found that
+  rotated/pitched corners escaped the camera rectangle, so rotation/pitch
+  gestures and keyboard rotation are disabled and camera updates clamp both.
+- bounds on every vector/raster source filter out non-intersecting tile requests.
+  Explicit source bounds override the worldwide TileJSON bounds, as verified
+  in installed MapLibre6.16.0 load_tilejson.ts and tile_bounds.ts.
+- The map retains its roads, POIs, transit icons, labels, colors and all141 venues.
+  Initial zoom11 is unchanged. No list-first, static preview, or fake ready event.
+
+Tiles are indivisible rectangular files. An edge tile that intersects the
+service rectangle can include neighboring territory. This does not download
+only polygons inside an exact Jabodetabek administrative border. Exact clipping
+would need regional tiles generated/hosted separately, not just client bounds.
+The small worldwide TileJSON metadata is still fetched to follow the provider's
+rotating tile version; it is metadata, not a worldwide map download.
+
+## Same-profile measurements
+
+390x844,DPR2,4x CPU, fresh context each navigation, normal HTTP caching within
+that context.3 runs per final variant. Baseline is the existing #68 shared-vendor
+build before this bounds change, not the deployed #67 baseline.
+
+| Profile | Before bounds median | With bounds runs | Median | Initial tiles |
+| --- | ---: | --- | ---: | --- |
+|1.6Mbps,150ms|7.350s|7.230/7.367/7.395s|7.367s|6,442,316B compressed|
+|400kbps,400ms|25.958s|25.980/26.020/26.044s|26.020s|6,442,316B compressed|
+
+Conclusion: no meaningful first-load speed gain. The initial6 tiles were already
+inside Jabodetabek. The change prevents later navigation outside the service
+area and its tile traffic; it does not eliminate existing in-region requests.
+
+Rejected one-run experiments, not shipping:
+- Closer initial zoom12:6 denser tiles,791,562B;9.129s/32.877s, worse.
+- Wider initial zoom10:6 tiles,423,809B;7.301s/25.379s. Small change, different
+  first-view scale, and only one run. No reliable win claimed; keep zoom11.
+
+The original shared-vendor improvement versus deployed #67 still stands:
+8.371s to7.350s on1.6Mbps and28.546s to25.958s on400kbps before the bounds addition.
+Do not add that gain to the effectively-zero bounds gain.
+
+## Under2seconds: measured best and hard byte floor
+
+Best final run is7.230s/25.980s; medians7.367s/26.020s. This does not meet2s.
+These are simulated Chromium map-ready times, not real-phone measurements.
+
+The shared engine alone is333,926 compressed bytes. At400kbps, bytes alone need
+6.68s; at1.6Mbps they need1.67s. This excludes latency, HTML, app code, CSS,
+map tiles, sprite, layout and GPU work. The initial tiles alone are442,316B,
+another8.85s at400kbps or2.21s at1.6Mbps. Engine+tiles are776,242B, with an ideal
+single-link transfer floor15.52s/3.88s before all other work. These are calculated
+lower bounds, not separately measured loads. The actual shared-link timing is
+not perfectly modeled by separate CDP page/worker throttles.
+
+A2s total budget can carry at most100KB on400kbps or400KB on1.6Mbps before latency.
+The current engine+tiles alone exceeds both. Bounds or icons cannot close that.
+The next serious path is a separate lean map entry with a much smaller renderer
+and regional tile payload, with heavier evidence/details lazy-loaded. That is
+an architecture experiment requiring its own coverage/interaction tests, not a
+promised under2s fix. A preview could paint sooner but cannot honestly be counted
+as the full interactive map being ready. Browser repeat-visit caches help but
+are not a cold-first-load solution.
+
+## QC
+
+156/156 tests, lint and production build pass locally. Tests execute getMapStyle
+and confirm regional bounds on every tile source, unchanged provider layers and
+sprite, local glyph behavior, minZoom/maxBounds configuration and fresh clones.
+
+Chromium390x844 and1280x800: initial and zoom-out pixels inspected. Local-only
+QA capture exposed the map instance in the browser response, not in source or
+production output. Tried zoom0 with centers at[0,0],[110,-8],[105,-7],[107,-5]:
+all clamped to the region. Observed tile requests all intersected the source
+rectangle. No page errors. Mobile single-pin tap opens correct detail; back to
+map, list/search, single result and detail remain usable. All141 venue pins
+remain reachable by panning; they need not all fit simultaneously on a portrait
+screen at the constrained zoom. No real iOS/Safari or live Pages candidate test.
+Independent correctness review passed region bounds, source tile intersection,
+flat lock, Bandung reachability, build/tests/lint,40 additional venue search/list
+flows and mobile pin/cluster/pan/pinch/twist tests. Desktop sidebar can cover the
+westernmost strip at minimum zoom; hide sidebar or zoom in to inspect that strip.
+A stricter single-shared-link review harness measured about17.7s on slow4G,
+versus about7.4s in the separate page/worker-target harness above. Absolute
+simulated times depend on harness; do not present them as real-device results.
+The same-harness baseline/candidate comparison is still being reconciled.
+
+## Sources
+
+- https://en.wikipedia.org/wiki/Bandung : city reference coordinate107.60694,-6.92194.
+- https://cityapi.org/cities/id/lembang : Lembang107.62,-6.81.
+- https://www.latlongfinder.net/coordinates/indonesia/bandung : secondary city
+  coordinate corroboration and nearby Cimahi/Lembang context. The exact box
+  and minZoom8.5 are product choices, not sourced administrative boundaries.
+
+- https://wargi.jabarprov.go.id/petav2/dataset/detil/7 : official regional scope,
+  ATR/BPN2020 spatial-planning dataset, includes Jabodetabek-Punjur. Does not
+  supply this product rectangle's exact coordinates.
+- https://en.wikipedia.org/wiki/Jakarta_metropolitan_area : secondary scope
+  corroboration. The rectangle is an explicit product choice, not copied bounds.
+- https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MapOptions/ : camera
+  maxBounds,minZoom,renderWorldCopies semantics.
+- https://maplibre.org/maplibre-style-spec/sources/ : source bounds semantics.
+- https://tiles.openfreemap.org/planet : rotating source metadata and tile host.
+- Installed MapLibre6.16.0 source load_tilejson.ts, vector_tile_source.ts and
+  tile_bounds.ts verify explicit options precedence and tile intersection tests.
+- Existing asset/source audit: docs/map-first-asset-audit-2026-11-11.md.

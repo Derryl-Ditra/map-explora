@@ -48,3 +48,6 @@ map-explora-main/
 /public/icon-512.png
 /public/icon-maskable-512.png
 /public/favicon.ico
+
+# Reproducible MapLibre modules emitted by prebuild
+/public/vendor/maplibre/
