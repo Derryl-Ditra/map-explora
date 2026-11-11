@@ -40,8 +40,8 @@ build before this bounds change, not the deployed #67 baseline.
 
 | Profile | Before bounds median | With bounds runs | Median | Initial tiles |
 | --- | ---: | --- | ---: | --- |
-|1.6Mbps,150ms|7.350s|7.406/7.372/7.223s|7.372s|6,442,316B compressed|
-|400kbps,400ms|25.958s|25.926/25.938/25.960s|25.938s|6,442,316B compressed|
+|1.6Mbps,150ms|7.350s|7.320/7.298/7.372s|7.320s|6,442,316B compressed|
+|400kbps,400ms|25.958s|26.031/26.039/26.072s|26.039s|6,442,316B compressed|
 
 Conclusion: no meaningful first-load speed gain. The initial6 tiles were already
 inside Jabodetabek. The change prevents later navigation outside the service
@@ -58,7 +58,7 @@ Do not add that gain to the effectively-zero bounds gain.
 
 ## Under2seconds: measured best and hard byte floor
 
-Best final run is7.223s/25.926s; medians7.372s/25.938s. This does not meet2s.
+Best final run is7.298s/26.031s; medians7.320s/26.039s. This does not meet2s.
 These are simulated Chromium map-ready times, not real-phone measurements.
 
 The shared engine alone is333,926 compressed bytes. At400kbps, bytes alone need
