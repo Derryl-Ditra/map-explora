@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import {importTs} from './loadTs.mjs';
 const {VENUES}=await importTs('../src/data/venues.ts');
 const {isVerifiedAgeClaim,verifiedPrograms,hasVerifiedAgeEvidence,venueConfirmedForAge}=await importTs('../src/utils/ageMatch.ts');
-const shown=VENUES.filter(v=>v.operatingStatus?.state==='official-listed');
+const shown=VENUES.filter(v=>v.operatingStatus?.state==='official-listed'||v.operatingStatus?.state==='partner-listed');
 const claim={level:'branch',verification:'provider-confirmed',minMonths:6,maxMonths:18,providerAgeUrl:'https://provider.example/ages'};
 test('UI evidence rejects conflicts, ambiguity, missing bounds, missing sources and catalog claims',()=>{
  assert.equal(isVerifiedAgeClaim(claim),true);
@@ -12,10 +12,10 @@ test('UI evidence rejects conflicts, ambiguity, missing bounds, missing sources 
  assert.equal(isVerifiedAgeClaim(claim,'upper-bound inclusivity ambiguous'),false);
 });
 test('dataset impact stays explicit without deleting public places',()=>{
- assert.equal(shown.length,140);
+ assert.equal(shown.length,141);
  assert.equal(shown.flatMap(verifiedPrograms).length,119);
- assert.equal(shown.filter(v=>!verifiedPrograms(v).length).length,99);
- assert.equal(shown.filter(v=>!hasVerifiedAgeEvidence(v)).length,98);
+ assert.equal(shown.filter(v=>!verifiedPrograms(v).length).length,100);
+ assert.equal(shown.filter(v=>!hasVerifiedAgeEvidence(v)).length,99);
  assert.equal(shown.filter(v=>venueConfirmedForAge(v,59)).length,1);
 });
 test('every confirmed place at all 60 stepper months has visible evidence covering that month',()=>{
