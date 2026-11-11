@@ -5,8 +5,8 @@ let api={};try{api=await importTs('../src/utils/discovery.ts')}catch{}
 const {VENUES}=await importTs('../src/data/venues.ts');
 test('public inventory excludes hidden records and never invents branch eligibility',()=>{
  assert.equal(typeof api.publicInventory,'function');
- const list=api.publicInventory(VENUES);assert.equal(list.length,VENUES.filter(v=>v.operatingStatus?.state==='official-listed').length);
- assert.ok(list.every(v=>v.operatingStatus.state==='official-listed'));
+ const list=api.publicInventory(VENUES);const shown=v=>v.operatingStatus?.state==='official-listed'||v.operatingStatus?.state==='partner-listed';assert.equal(list.length,VENUES.filter(shown).length);
+ assert.ok(list.every(shown));
  for(const v of list) assert.deepEqual(v.programs,VENUES.find(source=>source.id===v.id).programs);
 });
 test('answer groups are substantial, distinct and made only from public inventory',()=>{
@@ -14,7 +14,7 @@ test('answer groups are substantial, distinct and made only from public inventor
  const groups=api.buildAnswerGroups(VENUES);assert.ok(groups.length>=20&&groups.length<=40);
  assert.equal(new Set(groups.map(g=>g.slug)).size,groups.length);
  const sets=groups.map(g=>g.venues.map(v=>v.id).sort().join('|'));assert.equal(new Set(sets).size,sets.length);
- for(const g of groups){assert.ok(g.venues.length>=4);assert.ok(g.venues.every(v=>v.operatingStatus.state==='official-listed'));assert.match(g.slug,/^[a-z0-9-]+$/);}
+ for(const g of groups){assert.ok(g.venues.length>=4);assert.ok(g.venues.every(v=>v.operatingStatus.state==='official-listed'||v.operatingStatus.state==='partner-listed'));assert.match(g.slug,/^[a-z0-9-]+$/);}
 });
 test('schema describes the visible list without fake offers or ratings',()=>{
  assert.equal(typeof api.itemListSchema,'function');
