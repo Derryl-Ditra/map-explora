@@ -31,3 +31,7 @@ A Jakarta kids-activity booking platform with provider pages that show ages, pri
 
 - Happy Kamper under-5 listings whose providers were not yet identified (category pages omit provider names; activity pages need individual fetches): Early Stimulation Class - Toddler 13-36m (Duren Sawit, from Rp 200.000), Toddler Class: Practical Skills for Little Ones 1-3 yrs (Kembangan, from Rp 175.000), Weekdays Sensory Class 1-5 yrs (Penjaringan, from Rp 250.000), Sensory class 0-2 yrs (Pesanggrahan, from Rp 700.000), swim classes from age 4 (Jagakarsa/Condet/Ciracas/Bulungan branches, from Rp 62.500-80.000), futsal classes ages 2-7 (Tibi Futsal, Pasar Minggu; Rinjani Futsal, Makasar; from Rp 125.000).
 - Gavrila Mampang: on the official site, no Traveloka page; still unverified.
+
+## Policy update 2026-11-11 (owner decision)
+
+Question put to the owner with PR #62: is partner + Maps evidence enough to publish small brands? Answer: "Yes. And merge please." Implemented as a new operatingStatus state "partner-listed" (booking-platform provider page AND an active Google Maps listing, no official brand list found). `isShownToUsers` and `publicInventory` publish official-listed and partner-listed; maps-listed alone stays hidden. Kinderra Play Cakung is the first record with this state, moving the public count from 140 to 141.
