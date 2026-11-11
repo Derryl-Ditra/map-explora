@@ -354,6 +354,16 @@ export default function VenueDetails({
               Instagram
             </a>
           )}
+          {venue.tiktok && (
+            <a
+              href={venue.tiktok}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline text-[#1a7a4a] font-semibold"
+            >
+              TikTok
+            </a>
+          )}
         </div>
         {venue.phone && (
           <div className="flex items-center gap-1.5 text-[#4a443c]">
