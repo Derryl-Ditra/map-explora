@@ -131,8 +131,7 @@ and module references are tested, including bundle-size bounds, hashed paths,
 shared imports, correct TypeScript class-field semantics and license presence.
 Independent reviewer reproduced the gain and returned SHIP with caveats:
 stale HTML can404 after deploy until reload; real iOS/Safari and live Pages not
-tested; single-pin tap not reproduced. Remove unused legacy worker from the
-artifact before calling the draft finished. No merge without the owner's yes.
+tested; single-pin tap not reproduced. The unused legacy standalone worker has been removed from this draft. No merge without the owner's yes.
 
 ## Sources and provenance
 
