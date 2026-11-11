@@ -8703,7 +8703,7 @@ export const VENUES: Venue[] = [
       { "label": "KINDERRA PLAY FLEXI 2X (1-5 yrs)", "amountIdr": 300000, "unit": "per package", "source": "Happy Kamper", "sourceUrl": "https://happykamper.io/id/providers/kinderra-play-early-learning-center-921", "checkedAt": "2026-11-11" }
     ],
     "operatingStatus": {
-      "state": "maps-listed",
+      "state": "partner-listed",
       "source": "https://www.google.com/maps/place/Kinderra+Play+Early+Learning+Center/@-6.1668683,106.9549352,17z/data=!3m1!4b1!4m6!3m5!1s0xaec8ee186b25a48f:0x790c002a8b5c5da7!8m2!3d-6.1668683!4d106.9549352!16s%2Fg%2F11mycknm1_",
       "checkedAt": "2026-11-11"
     },
