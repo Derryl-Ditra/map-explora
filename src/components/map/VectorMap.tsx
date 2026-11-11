@@ -12,6 +12,7 @@ const library = () => import(/* webpackIgnore: true */ `${base}${vendor.entry}`)
 import "maplibre-gl/dist/maplibre-gl.css";
 import { Venue } from "@/types/venue";
 import { getMapStyle } from "./vectorStyle";
+import region from "@/data/map-region.json";
 
 interface VectorMapProps {
   venues: Venue[];
@@ -91,6 +92,9 @@ export default function VectorMap({
         style,
         center: initial,
         zoom: 11,
+        minZoom: region.minZoom,
+        maxBounds: region.bounds as [number, number, number, number],
+        renderWorldCopies: false,
         attributionControl: { compact: true },
       });
 
