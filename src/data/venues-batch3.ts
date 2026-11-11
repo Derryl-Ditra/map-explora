@@ -33,6 +33,7 @@ export const BATCH3_VENUES: Venue[] = [
       }
     ],
     "website": "https://icanread.co.id/",
+    "instagram": "https://www.instagram.com/icanread_indonesia/",
     "sourceUrl": "https://icanread.asia/indonesia/english/LocateUs",
     "lastCheckedAt": "2026-11-05",
     "fitStatus": "official-chain-program",
@@ -83,6 +84,7 @@ export const BATCH3_VENUES: Venue[] = [
       }
     ],
     "website": "https://icanread.co.id/",
+    "instagram": "https://www.instagram.com/icanread_indonesia/",
     "sourceUrl": "https://icanread.asia/indonesia/english/LocateUs",
     "lastCheckedAt": "2026-11-05",
     "fitStatus": "official-chain-program",
@@ -133,6 +135,7 @@ export const BATCH3_VENUES: Venue[] = [
       }
     ],
     "website": "https://icanread.co.id/",
+    "instagram": "https://www.instagram.com/icanread_indonesia/",
     "sourceUrl": "https://icanread.asia/indonesia/english/LocateUs",
     "lastCheckedAt": "2026-11-05",
     "fitStatus": "official-chain-program",
@@ -183,6 +186,7 @@ export const BATCH3_VENUES: Venue[] = [
       }
     ],
     "website": "https://icanread.co.id/",
+    "instagram": "https://www.instagram.com/icanread_indonesia/",
     "sourceUrl": "https://icanread.asia/indonesia/english/LocateUs",
     "lastCheckedAt": "2026-11-05",
     "fitStatus": "official-chain-program",
@@ -233,6 +237,7 @@ export const BATCH3_VENUES: Venue[] = [
       }
     ],
     "website": "https://icanread.co.id/",
+    "instagram": "https://www.instagram.com/icanread_indonesia/",
     "sourceUrl": "https://icanread.asia/indonesia/english/LocateUs",
     "lastCheckedAt": "2026-11-05",
     "fitStatus": "official-chain-program",
@@ -283,6 +288,7 @@ export const BATCH3_VENUES: Venue[] = [
       }
     ],
     "website": "https://icanread.co.id/",
+    "instagram": "https://www.instagram.com/icanread_indonesia/",
     "sourceUrl": "https://icanread.asia/indonesia/english/LocateUs",
     "lastCheckedAt": "2026-11-05",
     "fitStatus": "official-chain-program",
@@ -333,6 +339,7 @@ export const BATCH3_VENUES: Venue[] = [
       }
     ],
     "website": "https://icanread.co.id/",
+    "instagram": "https://www.instagram.com/icanread_indonesia/",
     "sourceUrl": "https://icanread.asia/indonesia/english/LocateUs",
     "lastCheckedAt": "2026-11-05",
     "fitStatus": "official-chain-program",
@@ -367,6 +374,7 @@ export const BATCH3_VENUES: Venue[] = [
     "coordinateSource": "maps-pin",
     "programs": [],
     "website": "https://musicwonderworld.com/id/",
+    "instagram": "https://www.instagram.com/music.wonderworld/",
     "sourceUrl": "https://musicwonderworld.com/id/",
     "lastCheckedAt": "2026-11-05",
     "fitStatus": "branch-category-confirmed-live-undated",
