@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect, useSyncExternalStore, useRef } from "react";
 import dynamic from "next/dynamic";
+import MapPreview from "./map/MapPreview";
 import Link from "next/link";
 import { useGeolocation } from "@/hooks/useGeolocation";
 import { useVenueFilters } from "@/hooks/useVenueFilters";
@@ -15,12 +16,7 @@ import { HelpCircle, Baby, Crosshair, Loader2, MapPin, X } from "lucide-react";
 // Dynamic import for the map (client-only)
 const VectorMap = dynamic(() => import("./map/VectorMap"), {
   ssr: false,
-  loading: () => (
-    <div className="h-full w-full bg-[#f6f2ec] flex flex-col items-center justify-center gap-3 text-[#6d675f]">
-      <Loader2 className="w-8 h-8 text-[#1a7a4a] animate-spin" />
-      <span className="text-sm font-semibold">Loading the map...</span>
-    </div>
-  ),
+  loading: () => <MapPreview />,
 });
 
 
