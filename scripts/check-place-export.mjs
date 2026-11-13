@@ -8,7 +8,10 @@ for(const lang of ['en','id']){
  for(const id of ids){
   const path=`${lang==='id'?'/id':''}/places/${id}/`;
   const html=await readFile(root+path+'index.html','utf8');
-  assert.ok(html.includes('<h1>'));assert.ok(html.includes('application/ld+json'));
+  assert.ok(html.includes('<h1>'));
+  const publicText=html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'').replace(/<[^>]*>/g,' ');
+  assert.doesNotMatch(publicText,/exact[- ]age[- ]match|upper[- ]bound inclusivity|sourceConflict|not re-fetched|in-app routing/i);
+  if(lang==='id')assert.doesNotMatch(publicText,/Official page:|Page undated|per session|\b[0-9]+-[0-9]+mths\b|official rate card|Product title and description/i);assert.ok(html.includes('application/ld+json'));
   const schema=JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]);
   assert.deepEqual(Object.keys(schema).sort(),['@context','@type','address','name','url']);
   assert.equal(schema['@type'],'Place');assert.ok(schema.url.endsWith(path));
