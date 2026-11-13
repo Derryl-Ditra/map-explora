@@ -51,3 +51,6 @@ map-explora-main/
 
 # Reproducible MapLibre modules emitted by prebuild
 /public/vendor/maplibre/
+
+# Reproducible per-place share cards
+/public/place-cards/
