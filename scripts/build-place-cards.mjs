@@ -22,36 +22,52 @@ for(const lang of ['en','id']){
  await mkdir(`public/place-cards/${lang}`,{recursive:true});
  for(const {v,f} of places){
   const t=(en,id)=>lang==='id'?id:en;
-  const name=[v.chain,v.branchName].filter(Boolean).join(' '),rows=lines(name,43);
+  const name=[v.chain,v.branchName].filter(Boolean).join(' '),rows=lines(name,34);
   if(rows.length>3)throw new Error('Card name needs layout review: '+name);
   const region=/unclassified/i.test(v.city)?'':v.city;
   // Reuse the map sheet: rocking-horse header chip, white age rows with
   // green Verified pills, and its compact white Branch reviews block.
   let body=`<rect width="1200" height="630" fill="#f6f2ec"/><rect x="48" y="28" width="60" height="60" rx="20" fill="#1a7a4a"/>${horse}${text('Map Explora',124,69,36,'#221d18','bold')}<rect x="354" y="35" width="146" height="46" rx="23" fill="#e3f2e8"/>${text('Under 5',427,67,30,'#14532d','bold','middle')}${text(region,1152,67,32,'#6d675f','normal','end')}`;
-  body+=rows.map((s,i)=>text(s,48,145+i*50,46,'#221d18','bold')).join('');
-  body+=`<rect x="48" y="264" width="1104" height="216" rx="24" fill="#fff" stroke="#e7e0d4" stroke-width="2"/>${shield}${text(t('Classes here by age','Kelas di sini menurut usia'),114,305,34,'#221d18','bold')}`;
+  const dense=f.classes.length>1;
+  const titleSize=dense?54:60,titleStep=dense?58:64;
+  const top=148+(rows.length-1)*titleStep+26;
+  body+=rows.map((s,i)=>text(s,48,148+i*titleStep,titleSize,'#221d18','bold')).join('');
   let slots=0;
   const shown=[];
-  for(const c of f.classes){const nameRows=lines(c.name,31);if(slots+nameRows.length>3)break;shown.push({...c,nameRows,slot:slots});slots+=nameRows.length;}
-  if(f.classes.length>shown.length)body+=text(t(`+${f.classes.length-shown.length} on the page`,`+${f.classes.length-shown.length} di halaman`),1124,305,28,'#6d675f','normal','end');
+  const candidates=f.classes.length?f.classes:f.branchAge?[{name:t('Branch statement','Usia menurut cabang'),...f.branchAge,branch:true}]:[];
+  for(const c of candidates){const nameRows=lines(c.name,candidates.length===1?46:31);if(slots+nameRows.length>3)break;shown.push({...c,nameRows,slot:slots});slots+=nameRows.length;}
+  const spacious=shown.length<=1;
+  const height=spacious?196:80+slots*50;
+  body+=`<rect x="48" y="${top}" width="1104" height="${height}" rx="24" fill="#fff" stroke="#e7e0d4" stroke-width="2"/><g transform="translate(0 ${top-264})">${shield}</g>${text(t('Classes here by age','Kelas di sini menurut usia'),114,top+43,36,'#221d18','bold')}`;
+  if(f.classes.length>shown.length)body+=text(t(`+${f.classes.length-shown.length} on the page`,`+${f.classes.length-shown.length} di halaman`),1124,top+43,28,'#6d675f','normal','end');
   if(shown.length){
    shown.forEach(c=>{
-    const y=354+c.slot*52;
-    body+=c.nameRows.map((r,j)=>text(r,72,y+j*52,36)).join('');
-    body+=text(t(`${c.min} to ${c.max} mo`,`${c.min} s.d. ${c.max} bln`),918,y,36,'#6d675f','normal','end');
-    body+=`<rect x="944" y="${y-33}" width="184" height="44" rx="22" fill="#e3f2e8"/>${text(t('Verified','Terverifikasi'),1036,y-2,28,'#14532d','bold','middle')}`;
+    const y=top+94+c.slot*50;
+    if(spacious){
+     body+=c.nameRows.map((r,j)=>text(r,72,y+j*46,44)).join('');
+     const ageY=top+height-26;
+     body+=text(t(`${c.min} to ${c.max} months`,`${c.min} sampai ${c.max} bulan`),72,ageY,44,'#6d675f');
+     body+=`<rect x="902" y="${ageY-36}" width="226" height="48" rx="24" fill="#e3f2e8"/>${text(t('Verified','Terverifikasi'),1015,ageY-2,34,'#14532d','bold','middle')}`;
+    }else{
+     body+=c.nameRows.map((r,j)=>text(r,72,y+j*50,38)).join('');
+     body+=text(t(`${c.min} to ${c.max} mo`,`${c.min} s.d. ${c.max} bln`),918,y,38,'#6d675f','normal','end');
+     body+=`<rect x="944" y="${y-33}" width="184" height="44" rx="22" fill="#e3f2e8"/>${text(t('Verified','Terverifikasi'),1036,y-2,28,'#14532d','bold','middle')}`;
+    }
    });
   }else{
-   body+=text(t('Class ages not verified yet','Usia kelas belum terverifikasi'),72,367,40,'#6d675f');
-   body+=text(t('Ask the provider before visiting','Tanyakan ke penyedia sebelum datang'),72,429,36,'#6d675f');
+   body+=text(t('Class ages not verified yet','Usia kelas belum terverifikasi'),72,top+105,46,'#6d675f');
+   body+=text(t('Ask the provider before visiting','Tanyakan ke penyedia sebelum datang'),72,top+162,40,'#6d675f');
   }
-  body+=`<rect x="48" y="496" width="1104" height="78" rx="24" fill="#fff" stroke="#e7e0d4" stroke-width="2"/>${star}${text(t('Branch reviews','Ulasan cabang'),114,545,34,'#221d18','bold')}`;
+  const reviewTop=top+height+16,reviewHeight=100;
+  body+=`<rect x="48" y="${reviewTop}" width="1104" height="${reviewHeight}" rx="24" fill="#fff" stroke="#e7e0d4" stroke-width="2"/><g transform="translate(0 ${reviewTop-496})">${star}</g>${text(t('Branch reviews','Ulasan cabang'),114,reviewTop+42,36,'#221d18','bold')}`;
   if(f.rating){
-   body+=text(`${f.rating.rating.toFixed(1)} (${f.rating.count})`,620,545,36,'#221d18','bold','end');
-   body+=text(`Google Maps · ${dates(f.rating.date,lang)}`,1124,545,30,'#6d675f','normal','end');
-  }else body+=text(t('No rating recorded','Belum ada catatan rating'),1124,545,34,'#6d675f','normal','end');
+   body+=text(`${f.rating.rating.toFixed(1)} (${f.rating.count})`,1124,reviewTop+42,40,'#221d18','bold','end');
+   body+=text(`Google Maps · ${dates(f.rating.date,lang)}`,114,reviewTop+80,32,'#6d675f');
+  }else body+=text(t('No rating recorded','Belum ada catatan rating'),114,reviewTop+80,34,'#6d675f');
   const note=f.notice==='unknown'?t('Confirm class ages with the provider.','Konfirmasi usia kelas ke penyedia.'):f.notice==='conflict'?t('Other class age sources disagree. Ask the provider.','Sumber usia kelas lain berbeda. Tanyakan ke penyedia.'):f.notice==='uncertain'?t('Other class ages need confirmation.','Usia kelas lain masih perlu konfirmasi.'):t('Ages from provider sources. Confirm before visiting.','Usia sesuai sumber. Konfirmasi sebelum datang.');
-  body+=text(note,48,612,32,f.uncertain?'#92400e':'#6d675f');
+  const footerY=reviewTop+reviewHeight+38;
+  if(footerY>620)throw new Error('Card exceeds height: '+v.id);
+  body+=text(note,48,footerY,32,f.uncertain?'#92400e':'#6d675f');
   const path=`public/place-cards/${lang}/${v.id}.png`;
   const png=await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">${body}</svg>`)).png({compressionLevel:9}).toBuffer();
   if(png.length>=300000)throw new Error('Card exceeds 300KB: '+path);
