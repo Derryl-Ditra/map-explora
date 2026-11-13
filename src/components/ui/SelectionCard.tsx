@@ -1,7 +1,7 @@
 "use client";
 
 import { hasVerifiedAgeEvidence } from "@/utils/ageMatch";
-import { buildMapsLink } from "@/utils/mapsLink";
+import { buildMapsLink, canRouteVenue } from "@/utils/mapsLink";
 import { Venue } from "@/types/venue";
 import { Navigation, X, ChevronRight } from "lucide-react";
 
@@ -22,7 +22,7 @@ export default function SelectionCard({
 }: SelectionCardProps) {
   const verifiedAges = hasVerifiedAgeEvidence(venue);
   const name = `${venue.chain && venue.chain !== venue.branchName ? `${venue.chain} ` : ""}${venue.branchName}`;
-  const routable = venue.coordinateSource !== "area-approximate" && !venue.caution;
+  const routable = canRouteVenue(venue);
 
   return (
     <div className="fixed bottom-4 left-4 right-4 z-[1000] md:hidden bg-white border border-[#e7e0d4] rounded-3xl shadow-xl p-4 flex flex-col gap-3">
