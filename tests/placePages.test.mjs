@@ -30,3 +30,11 @@ test('Bahasa page copy uses reviewed price translations and deduplicates region'
  assert.equal(placeText('Source text','en'),'Source text');
  assert.equal(placeRegion('Jakarta Timur','Jakarta Timur'),'Jakarta Timur');
 });
+
+test('public source notes omit internal matching and boundary annotations in both languages',async()=>{
+ const {publicProgramNote,publicCaution}=await importTs('../src/utils/placeLanguage.ts');
+ for(const lang of ['en','id'])for(const v of places){
+  for(const p of v.programs)assert.doesNotMatch(publicProgramNote(p.note,lang),/exact[- ]age[- ]match|upper[- ]bound inclusivity|sourceConflict/i);
+  if(v.caution)assert.doesNotMatch(publicCaution(v.caution,lang),/not re-fetched|in-app routing/i);
+ }
+});
