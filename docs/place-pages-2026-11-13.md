@@ -15,7 +15,7 @@ Draft only. No promise of search ranking, indexing, booking availability or curr
 
 ## Build / checks
 
-`npm run build` generates the PNGs before the Next static export. Generated `public/place-cards` is ignored; sharp is an explicit pinned dev dependency, esbuild was already pinned.
+`npm run build` generates the PNGs before the Next static export. Generated `public/place-cards` is ignored; the PNG generator uses sharp already pinned in the existing Next dependency lock; esbuild was already pinned. No dependency versions change.
 
 `npm test`:162 tests. `npm run lint`: no warnings/errors. `npm run build`: success. `node scripts/check-place-export.mjs`:282 initial HTML documents, unique metadata, canonical/language tags, minimal Place schema,282 sitemap URLs and282 1200x630 PNGs checked. No-JavaScript page body also checked.
 
