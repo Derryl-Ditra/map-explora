@@ -32,7 +32,7 @@ const translations: Record<string,string> = {
   "Age conflict: Bloom pages start at 19 months; the ABC Kids / Brighton school listing starts at 20 months. Confirm the 19-month boundary with Bloom.": "Halaman Bloom menyebut mulai 19 bulan, sedangkan daftar ABC Kids / Brighton mulai 20 bulan. Tanyakan apakah anak 19 bulan sudah bisa ikut.",
   "Product title and description say 8-19 bulan; the current November 2026 Cibubur timetable says Gym Bayi 8-18 bulan. Conflicting upper bounds: not confirmed. Product thumbnail is an older 2-5-year Gym Class poster.": "Judul dan keterangan produk menyebut 8-19 bulan. Jadwal Cibubur November 2026 menyebut Gym Bayi 8-18 bulan. Batas usia berbeda, jadi belum terkonfirmasi. Gambar produk masih memakai poster lama kelas usia 2-5 tahun.",
   "\"3 yrs\" upper bound ambiguous. Source states a single age; exact upper eligibility not stated.": "Sumber hanya menyebut usia 3 tahun. Batas usia atasnya belum jelas; tanyakan usia tepat yang masih bisa ikut.",
-  "Official location: PIM1 Ground Floor / Outdoor Area. Earlier Maps address evidence says PIM3; not re-fetched in this correction. Confirm the entrance with the branch before visiting; in-app routing remains off.": "Lokasi resmi: PIM1 lantai dasar, area luar. Alamat Maps yang dibaca sebelumnya menyebut PIM3; alamat itu belum diperiksa ulang saat koreksi ini. Tanyakan pintu masuk ke cabang sebelum datang. Petunjuk arah dari pin peta tetap dimatikan."
+  "Official location: PIM1 Ground Floor / Outdoor Area. Earlier Maps address evidence says PIM3; not re-fetched in this correction. Confirm the entrance with the branch before visiting; in-app routing remains off.": "Lokasi resmi: PIM1 lantai dasar, area luar. Alamat Maps yang dibaca sebelumnya menyebut PIM3; tanyakan pintu masuk ke cabang sebelum datang."
 };
 export function placeText(text: string | undefined,lang: 'en'|'id',fallback=''): string {
  if(!text)return '';return lang==='en'?text:(translations[text] ?? fallback);
@@ -50,4 +50,9 @@ export function publicCaution(text:string,lang:'en'|'id') {
  if(lang==='id')return placeText(text,lang,'Tanyakan alamat dan pintu masuk ke cabang sebelum datang.');
  if(text.startsWith('Official location: PIM1'))return 'The official location is PIM1 Ground Floor / Outdoor Area. An earlier Maps record gives PIM3. Confirm the entrance with the branch before visiting.';
  return text;
+}
+
+export function publicAddress(address:string,lang:'en'|'id'='en') {
+ const clean=address.replace(/\s*\(official location page;[^)]*\)/gi,'');
+ return lang==='id'?clean.replace('Ground Floor, Outdoor Area,','Lantai dasar, area luar,'):clean;
 }
