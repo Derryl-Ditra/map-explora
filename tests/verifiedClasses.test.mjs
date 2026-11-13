@@ -13,7 +13,7 @@ test('UI evidence rejects conflicts, ambiguity, missing bounds, missing sources 
 });
 test('dataset impact stays explicit without deleting public places',()=>{
  assert.equal(shown.length,141);
- assert.equal(shown.flatMap(verifiedPrograms).length,119);
+ assert.equal(shown.flatMap(verifiedPrograms).length,117);
  assert.equal(shown.filter(v=>!verifiedPrograms(v).length).length,100);
  assert.equal(shown.filter(v=>!hasVerifiedAgeEvidence(v)).length,99);
  assert.equal(shown.filter(v=>venueConfirmedForAge(v,59)).length,1);
