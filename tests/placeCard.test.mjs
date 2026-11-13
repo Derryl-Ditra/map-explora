@@ -18,7 +18,8 @@ test('preview supports 1,2,several named classes and never relabels branch age a
  assert.equal(placeCardFacts(byId('anak-air-limo')).classes.length,0);
  const base={...byId('anak-air-limo'),programs:[],branchAge:{level:'branch',verification:'provider-confirmed',providerAgeUrl:'https://example.com',minMonths:1,maxMonths:4}};
  assert.deepEqual(placeCardFacts(base).classes,[]);
- assert.equal(placeCardFacts(base).notice,'unknown');
+ assert.deepEqual(placeCardFacts(base).branchAge,{min:1,max:4});
+ assert.equal(placeCardFacts(base).notice,'verified');
 });
 test('rating needs usable score, count, source URL and evidence date',()=>{
  const v=byId('golden-baby-school-jakarta-garden-city');assert.deepEqual(placeCardFacts(v).rating,{rating:4.9,count:108,source:'Google Maps',date:'2026-11-03'});
@@ -26,7 +27,7 @@ test('rating needs usable score, count, source URL and evidence date',()=>{
  assert.equal(placeCardFacts({...v,reviews:undefined}).rating,null);
 });
 
-test('unknown class ages never receive the verified-source footer',()=>{ for(const v of VENUES){const f=placeCardFacts(v);if(!f.classes.length)assert.equal(f.notice,'unknown');}assert.equal(placeCardFacts(byId('gymnademics-gading-serpong')).notice,'unknown');});
+test('unknown class ages never receive the verified-source footer',()=>{ for(const v of VENUES){const f=placeCardFacts(v);if(!f.classes.length&&!f.branchAge)assert.equal(f.notice,'unknown');}assert.deepEqual(placeCardFacts(byId('gymnademics-gading-serpong')).branchAge,{min:3,max:72});});
 
 // Keep this preview in the existing map sheet's visual world.
 test('renderer reuses map UI tokens and rows instead of the rejected split panels',async()=>{
@@ -34,4 +35,9 @@ test('renderer reuses map UI tokens and rows instead of the rejected split panel
  for(const token of ['#f6f2ec','#221d18','#1a7a4a','#e7e0d4','#e3f2e8','#14532d','Plus Jakarta Sans','Map Explora','Under 5','Classes here by age','Branch reviews','Terverifikasi'])assert.ok(s.includes(token),token);
  assert.doesNotMatch(s,/CLASS PREVIEW|CUPLIKAN KELAS|DejaVu|#286249/);
  assert.ok(s.includes('slots+nameRows.length>3'));assert.ok(s.includes('f.classes.length-shown.length'));
+});
+
+test('branch statements use the same evidence rule as the sheet without becoming named classes',()=>{
+ const v=byId('gymnademics-gading-serpong');assert.deepEqual(placeCardFacts(v).classes,[]);assert.deepEqual(placeCardFacts(v).branchAge,{min:3,max:72});
+ for(const patch of [{sourceConflict:true},{verification:'unknown'},{providerAgeUrl:undefined},{minMonths:null}])assert.equal(placeCardFacts({...v,branchAge:{...v.branchAge,...patch}}).branchAge,null);
 });
