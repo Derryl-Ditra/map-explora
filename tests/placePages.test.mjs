@@ -20,3 +20,13 @@ test('metadata is unique, bilingual and branch-specific for every page',()=>{
 test('Place schema never infers coordinates, rating, offers or opening hours',()=>{
  for(const v of places){for(const lang of ['en','id']){const s=placeSchema(v,lang);assert.deepEqual(Object.keys(s).sort(),['@context','@type','address','name','url']);assert.equal(s['@type'],'Place');assert.equal(s.address,v.address);}}
 });
+
+test('Bahasa page copy uses reviewed price translations and deduplicates region',async()=>{
+ const {placeText,placeRegion}=await importTs('../src/utils/placeLanguage.ts');
+ for(const v of places)for(const p of v.priceListings || []){
+  for(const key of ['unit','label','note','schedule'])if(p[key])assert.ok(placeText(p[key],'id'),`${v.id}: ${key} needs a reviewed translation`);
+ }
+ assert.equal(placeText('Unreviewed English evidence','id'),'');
+ assert.equal(placeText('Source text','en'),'Source text');
+ assert.equal(placeRegion('Jakarta Timur','Jakarta Timur'),'Jakarta Timur');
+});
