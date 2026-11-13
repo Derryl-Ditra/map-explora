@@ -30,3 +30,16 @@ test('provider and Website links with the same destination appear once',async()=
  assert.deepEqual(venueLinks(v).map(x=>x.url),['https://example.org','https://instagram.com/example']);
  assert.equal(venueLinks({...v,website:'https://example.org/classes'}).length,3);
 });
+
+test('discovery text preserves mixed listing provenance and limited price coverage',async()=>{
+ const {VENUES}=await importTs('../src/data/venues.ts');
+ const {publicInventory}=await importTs('../src/utils/discovery.ts');
+ const count=publicInventory(VENUES).length;
+ for(const lang of ['en','id']){
+  const text=buildLlms(lang,count);
+  assert.ok(text.includes(String(count)));
+  assert.match(text,lang==='en'?/official sources or partner listings/:/sumber resmi atau listing mitra/);
+  assert.match(text,lang==='en'?/prices with sources and check dates/:/harga tercatat/);
+  assert.doesNotMatch(text,/places appear in official provider sources|Jadwal, harga, ketersediaan/);
+ }
+});
