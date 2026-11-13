@@ -22,3 +22,16 @@ Rockstar: use the known venue name, not the stored Jl.Nn placeholder. Source nam
 Implementation is display-only. Raw research addresses, ratings, ages and map coordinates stay untouched. All153 Share texts omit plus codes and unnamed roads. Public place pages and minimal Place schema use the same cleaned location. No language default change. Place-schema address remains a string, with no coordinates or new precision implied.
 
 Self-QA:167tests, lint, static build and282page export audit pass. Four changed Share lines only. Mobile390px Share dialogs inspected for all4; Bintaro page warning checked. Independent QC pending.
+
+## Independent QC fixes
+
+The shared public location now drives activity and job-guide lists, map Details, homepage/activity ItemList JSON-LD and place pages. Incomplete locations have the same explanatory note, including the Bintaro source conflict. Area-only locations no longer emit precise geo coordinates in ItemList schema or a direct routing destination: their Maps action is a venue/area search, not a silent pin move. Raw pin data is preserved.
+
+Living World copy explicitly says Alam Sutera is stored-record-derived. The current official listing only confirms Living World, not that full branch name or a street address. Deltamas is flagged as area-only. Gymboree PIM is area-only but stays hidden/not-confirmed. AEON Sentul has a stored named street (Jl.MH.Thamrin), so it is not falsely labeled area-only.
+
+A complete built-output scan found no old plus codes or unnamed street in any HTML page. The following raw machine-readable files still contain the original research strings by design. This is not a claim that the raw export has been corrected:
+
+* `venues.json`: PP4G+MF5, GR9H+956, Jl. Nn No.42.
+* `_next/static/chunks/0x7m6b8ufyiuh.js`: PP4G+MF5, GR9H+956, Jl. Nn No.42.
+
+The raw source dataset is untouched. `/venues.json/` and its Next route payload remain historical exports, not current address validation. The JS data bundle also preserves raw source strings for the local map data.168tests, lint, build and282place export audit pass after these fixes.
