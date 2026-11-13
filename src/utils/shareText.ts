@@ -1,13 +1,15 @@
 import { publicLocation, withoutMapCodes } from "./publicLocation";
-import { verifiedPrograms } from "./ageMatch";
+import { verifiedPrograms, isVerifiedAgeClaim } from "./ageMatch";
+import { shortPlacePath } from "./placeShortLink";
 import { shortVenueId } from "./venueLink";
 import { Venue } from "@/types/venue";
 
 export const SITE_URL = "https://derryl-ditra.github.io/map-explora/";
-export const SHARE_TEXT_BUDGET = 440; // 60 characters below a single Threads post.
+export const SHARE_TEXT_BUDGET = 320;
 
 export function buildVenueUrl(venue: Pick<Venue, "id">): string {
-  return `${SITE_URL}?v=${shortVenueId(venue.id)}`;
+  const path=shortPlacePath(venue.id);
+  return path ? SITE_URL.replace(/\/$/,'')+path : `${SITE_URL}?v=${shortVenueId(venue.id)}`;
 }
 
 // Preserve exact program boundaries; no rounding years or filling age gaps.
@@ -18,15 +20,14 @@ export function buildClassLines(venue: Venue, limit = 4): string {
   return lines.join(", ");
 }
 
-function ageSummary(venue: Venue): string {
-  const ranges = verifiedPrograms(venue).map(p => [p.age.minMonths!, p.age.maxMonths!]).sort((a,b) => a[0]-b[0]);
-  const merged: number[][] = [];
-  for (const [lo,hi] of ranges) {
-    const last = merged.at(-1);
-    if (last && lo <= last[1]) last[1] = Math.max(last[1], hi);
-    else merged.push([lo,hi]);
-  }
-  return merged.length ? `Class ages: ${merged.map(([lo,hi]) => `${lo}-${hi}mo`).join(', ')}` : '';
+export function ageSummary(venue: Venue,lang:'id'|'en'='en'): string {
+ const p=verifiedPrograms(venue),id=lang==='id';
+ if(p.length===1)return `${p[0].name} · ${p[0].age.minMonths}-${p[0].age.maxMonths} ${id?'bulan':'months'}`;
+ const ranges=p.map(p=>[p.age.minMonths!,p.age.maxMonths!]).sort((a,b)=>a[0]-b[0]);const merged:number[][]=[];
+ for(const[lo,hi]of ranges){const last=merged.at(-1);if(last&&lo<=last[1])last[1]=Math.max(last[1],hi);else merged.push([lo,hi]);}
+ if(merged.length)return `${id?'Usia':'Ages'} ${merged.map(([lo,hi])=>`${lo}-${hi}`).join(', ')} ${id?'bulan, tergantung kelas':'months, by class'}`;
+ if(venue.branchAge&&isVerifiedAgeClaim(venue.branchAge))return `${venue.branchAge.minMonths}-${venue.branchAge.maxMonths} ${id?'bulan, menurut cabang':'months, branch statement'}`;
+ return id?'Tanyakan usia kelas ke cabang':'Ask the branch about class ages';
 }
 
 export function conciseAddress(address: string): string {
@@ -36,19 +37,9 @@ export function conciseAddress(address: string): string {
   return line.split(/\bRT\.?\s*\d|\bRW\.?\s*\d|\b(?:LG|UG|\d+(?:st|nd|rd|th))\s+Floor|\bLantai\b|\bLt\.?\s*\d|\s*\(Google Maps/i)[0].trim();
 }
 
-export function buildShareText(venue: Venue): string {
-  const name = `${venue.chain ? `${venue.chain} ` : ''}${venue.branchName} (${venue.area})`;
-  const location = publicLocation(venue);
-  const label = location.share ?? conciseAddress(location.address);
-  const address = location.storedName ? `Area / venue (stored record): ${label}` : location.areaOnly && !/^Area:/i.test(label) ? `Area: ${label}` : label;
-  const reviews = venue.reviews && venue.reviews.rating !== null
-    ? `${venue.reviews.source}: ${venue.reviews.rating.toFixed(1)}${venue.reviews.reviewCount !== null ? ` (${venue.reviews.reviewCount} reviews)` : ''}` : '';
-  const format = (classes: string, location = address) => [name, location, classes, reviews, 'Via Map Explora', buildVenueUrl(venue)].filter(Boolean).join('\n');
-  const classes = buildClassLines(venue);
-  const detailed = format(classes ? `Classes: ${classes}` : '');
-  if (detailed.length <= SHARE_TEXT_BUDGET) return detailed;
-  // Long program lists become a truthful union of verified ranges, not a
-  // min/max span that could wrongly fill a gap. Full classes remain at the link.
-  const compact = format(ageSummary(venue));
-  return compact.length <= SHARE_TEXT_BUDGET ? compact : format(ageSummary(venue), '');
+export function buildShareText(venue: Venue,lang:'id'|'en'='en',variant:'plain'|'whatsapp'='plain'): string {
+ const name=`${venue.chain?venue.chain+' ':''}${venue.branchName}`;
+ const l=publicLocation(venue);
+ const area=l.storedName?`${l.share} (${lang==='id'?'catatan tersimpan':'stored record'})`:l.conflict?l.share!.replace(/^Area: /,''):venue.area||venue.city;
+ return [variant==='whatsapp'?`*${name}*`:name,area,ageSummary(venue,lang),'',buildVenueUrl(venue)].join('\n');
 }
