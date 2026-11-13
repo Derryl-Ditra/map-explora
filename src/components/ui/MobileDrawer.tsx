@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, useRef, useCallback, useSyncExternalStore } from "react";
 import { Venue, VenueFilterState } from "@/types/venue";
-import { buildMapsLink } from "@/utils/mapsLink";
+import { buildMapsLink, canRouteVenue } from "@/utils/mapsLink";
 import {matchingAgeRanges, type AgeBandId} from '@/utils/ageBands';
 import { cardAgeSummary, cardRatingSummary } from "@/utils/venueSummary";
 import { useSheetGesture } from "@/hooks/useSheetGesture";
@@ -333,8 +333,8 @@ export default function MobileDrawer({
           <button type="button" onClick={onDismissToMap} aria-label="Back to map" className="min-h-12 min-w-12 px-2 flex flex-col items-center justify-center gap-0.5 rounded-xl text-[#1a7a4a] hover:bg-[#e3f2e8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a] font-semibold text-xs leading-tight">
             <ArrowLeft aria-hidden="true" className="w-4 h-4" /><span>Map</span>
           </button>
-          <a href={buildMapsLink(activeVenue)} target="_blank" rel="noopener noreferrer" className="min-h-12 min-w-0 flex items-center justify-center gap-1.5 px-2 rounded-full bg-[#1a7a4a] text-white hover:bg-[#145c38] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a] font-bold text-[1rem]" aria-label={activeVenue.coordinateSource === "area-approximate" || activeVenue.caution ? "Search in Google Maps" : "Directions in Google Maps"}>
-            <Navigation className="w-4 h-4" />{activeVenue.coordinateSource === "area-approximate" || activeVenue.caution ? "Search Maps" : "Directions"}<ExternalLink className="w-3.5 h-3.5" />
+          <a href={buildMapsLink(activeVenue)} target="_blank" rel="noopener noreferrer" className="min-h-12 min-w-0 flex items-center justify-center gap-1.5 px-2 rounded-full bg-[#1a7a4a] text-white hover:bg-[#145c38] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a] font-bold text-[1rem]" aria-label={!canRouteVenue(activeVenue) ? "Search in Google Maps" : "Directions in Google Maps"}>
+            <Navigation className="w-4 h-4" />{!canRouteVenue(activeVenue) ? "Search Maps" : "Directions"}<ExternalLink className="w-3.5 h-3.5" />
           </a>
           <button type="button" onClick={onOpenShare} className="min-h-12 min-w-12 px-2 flex flex-col items-center justify-center gap-0.5 rounded-xl border border-[#1a7a4a] bg-white text-[#1a7a4a] hover:bg-[#e3f2e8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a] font-semibold text-xs leading-tight"><Share2 aria-hidden="true" className="w-4 h-4" /><span>Share</span></button>
         </nav>

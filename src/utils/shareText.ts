@@ -1,3 +1,4 @@
+import { publicLocation, withoutMapCodes } from "./publicLocation";
 import { verifiedPrograms } from "./ageMatch";
 import { shortVenueId } from "./venueLink";
 import { Venue } from "@/types/venue";
@@ -29,15 +30,17 @@ function ageSummary(venue: Venue): string {
 }
 
 export function conciseAddress(address: string): string {
-  const parts = address.split(',').map(p => p.trim());
+  const parts = withoutMapCodes(address).split(',').map(p => p.trim());
   const street = parts.find(p => /\b(?:jl\.?|jalan)\s/i.test(p));
-  const line = street ?? parts.find(p => p && !/\b(?:RT\.?\s*\d|RW\.?\s*\d|Indonesia|Kec\.|Kecamatan|Kabupaten|Daerah Khusus|\d{5})\b/i.test(p)) ?? '';
+  const line = street ?? parts.find(p => p && !/^(?:Ground Floor|Outdoor Area|(?:LG|UG|\d+(?:st|nd|rd|th)) Floor)$/i.test(p) && !/\b(?:RT\.?\s*\d|RW\.?\s*\d|Indonesia|Kec\.|Kecamatan|Kabupaten|Daerah Khusus|\d{5})\b/i.test(p)) ?? '';
   return line.split(/\bRT\.?\s*\d|\bRW\.?\s*\d|\b(?:LG|UG|\d+(?:st|nd|rd|th))\s+Floor|\bLantai\b|\bLt\.?\s*\d|\s*\(Google Maps/i)[0].trim();
 }
 
 export function buildShareText(venue: Venue): string {
   const name = `${venue.chain ? `${venue.chain} ` : ''}${venue.branchName} (${venue.area})`;
-  const address = conciseAddress(venue.address);
+  const location = publicLocation(venue);
+  const label = location.share ?? conciseAddress(location.address);
+  const address = location.storedName ? `Area / venue (stored record): ${label}` : location.areaOnly && !/^Area:/i.test(label) ? `Area: ${label}` : label;
   const reviews = venue.reviews && venue.reviews.rating !== null
     ? `${venue.reviews.source}: ${venue.reviews.rating.toFixed(1)}${venue.reviews.reviewCount !== null ? ` (${venue.reviews.reviewCount} reviews)` : ''}` : '';
   const format = (classes: string, location = address) => [name, location, classes, reviews, 'Via Map Explora', buildVenueUrl(venue)].filter(Boolean).join('\n');
