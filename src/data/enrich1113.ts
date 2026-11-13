@@ -314,8 +314,8 @@ const UPDATES: Record<string, Partial<Venue>> = {
     ],
     "sourceUrl": "https://thefuntasticgym.com/our-locations/",
     "lastCheckedAt": "2026-11-13",
-    "notes": "Official location page names PIM1 Ground Floor / Outdoor Area and links a dedicated PIM1 schedule. Its Maps embed identifies the same branch place. The old PIM2 schedule is still live; Maps address still says PIM3. No relocation date is established. Coordinates and reviews are unchanged. Schedule is undated.",
-    "caution": "Official location: PIM1 Ground Floor / Outdoor Area. Maps address still says PIM3 and an old PIM2 schedule remains live. Confirm the entrance with the branch before visiting; in-app routing remains off.",
+    "notes": "Official location page names PIM1 Ground Floor / Outdoor Area and links a dedicated PIM1 schedule. Its Maps embed identifies the same branch place. Earlier captured Maps address evidence says PIM3; that address was not re-fetched in this correction. PIM2 schedule access differs across checks and is not used to establish location. No relocation date is established. Coordinates and reviews are unchanged. Schedule is undated.",
+    "caution": "Official location: PIM1 Ground Floor / Outdoor Area. Earlier Maps address evidence says PIM3; not re-fetched in this correction. Confirm the entrance with the branch before visiting; in-app routing remains off.",
     "operatingStatus": {
       "state": "official-listed",
       "source": "https://thefuntasticgym.com/our-locations/",
