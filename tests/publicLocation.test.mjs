@@ -24,3 +24,18 @@ test('Cibinong retains sourced street; Funtastic keeps venue not floor; Living W
  assert.equal(withoutMapCodes('GR9H+956, Jl. Tegar Beriman (GR9H+956), Tengah'),'Jl. Tegar Beriman, Tengah');
  assert.equal(withoutMapCodes('Jl. Example No.10A, Blok B7 01'),'Jl. Example No.10A, Blok B7 01');
 });
+
+test('all public list JSON-LD uses the same display address without asserting area-only coordinates',async()=>{
+ const {itemListSchema}=await importTs('../src/utils/discovery.ts');
+ const venues=placePageInventory(VENUES);const schema=itemListSchema({slug:'test',title:'Test',area:'All',venues});
+ for(let i=0;i<venues.length;i++){const item=schema.itemListElement[i].item;assert.equal(item.address,publicLocation(venues[i]).address);assert.doesNotMatch(item.address,code);if(publicLocation(venues[i]).areaOnly)assert.equal(item.geo,undefined);}
+ assert.equal(publicLocation(byId('rockstar-academy-living-world-alam-sutera')).storedName,true);
+ assert.match(publicLocation(byId('rockstar-academy-living-world-alam-sutera'),'id').notice,/catatan tersimpan/);
+ assert.equal(publicLocation(byId('rockstar-academy-aeon-mall-deltamas')).areaOnly,true);
+ assert.equal(publicLocation(byId('rockstar-academy-aeon-mall-sentul-city')).areaOnly,false);
+});
+
+test('area-only and source-conflicting locations search by readable location, never route to unverified coordinates',async()=>{
+ const {buildMapsLink,canRouteVenue}=await importTs('../src/utils/mapsLink.ts');
+ for(const id of ['sparks-sports-academy-bintaro-utown','rockstar-academy-living-world-alam-sutera','rockstar-academy-aeon-mall-deltamas']){const v=byId(id);assert.equal(canRouteVenue(v),false);const u=new URL(buildMapsLink(v));assert.equal(u.pathname,'/maps/search/');assert.doesNotMatch(u.searchParams.get('query'),code);assert.equal(u.searchParams.has('destination'),false);}
+});
