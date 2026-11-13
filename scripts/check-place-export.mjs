@@ -16,8 +16,8 @@ for(const lang of ['en','id']){
   assert.deepEqual(Object.keys(schema).sort(),['@context','@type','address','name','url']);
   assert.equal(schema['@type'],'Place');assert.ok(schema.url.endsWith(path));
   const image=html.match(/<meta property="og:image" content="([^"]+)"/)[1];
-  assert.ok(image.endsWith(`/place-cards/${lang}/${id}.png`));
-  const png=await readFile(`${root}/place-cards/${lang}/${id}.png`);
+  assert.ok(image.endsWith(`/place-cards/v2/${lang}/${id}.png`));
+  const png=await readFile(`${root}/place-cards/v2/${lang}/${id}.png`);
   assert.equal(png.readUInt32BE(16),1200);assert.equal(png.readUInt32BE(20),630);
   assert.ok(sitemap.includes(`<loc>https://derryl-ditra.github.io/map-explora${path}</loc>`));
   assert.ok(html.includes('rel="canonical"'));assert.ok(html.includes('hrefLang="en"')||html.includes('hrefLang="en"'.toLowerCase()));
