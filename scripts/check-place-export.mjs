@@ -18,7 +18,7 @@ for(const lang of ['en','id']){
   const image=html.match(/<meta property="og:image" content="([^"]+)"/)[1];
   assert.ok(image.endsWith(`/place-cards/${lang}/${id}.png`));
   const png=await readFile(`${root}/place-cards/${lang}/${id}.png`);
-  assert.equal(png.readUInt32BE(16),1200);assert.equal(png.readUInt32BE(20),630);
+  assert.ok(png.length<300000,`${lang}/${id} card must stay under300KB`);assert.equal(png.readUInt32BE(16),1200);assert.equal(png.readUInt32BE(20),630);
   assert.ok(sitemap.includes(`<loc>https://derryl-ditra.github.io/map-explora${path}</loc>`));
   assert.ok(html.includes('rel="canonical"'));assert.ok(html.includes('hrefLang="en"')||html.includes('hrefLang="en"'.toLowerCase()));
  }
