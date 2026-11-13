@@ -5,7 +5,7 @@
   "scripts": {
     "predev": "node scripts/decode-icons.mjs",
     "dev": "next dev",
-    "prebuild": "node scripts/decode-icons.mjs && node scripts/build-map-styles.mjs && node scripts/build-map-vendor.mjs",
+    "prebuild": "node scripts/decode-icons.mjs && node scripts/build-map-styles.mjs && node scripts/build-map-vendor.mjs && node scripts/build-place-cards.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
