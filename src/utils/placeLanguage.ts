@@ -38,3 +38,16 @@ export function placeText(text: string | undefined,lang: 'en'|'id',fallback=''):
  if(!text)return '';return lang==='en'?text:(translations[text] ?? fallback);
 }
 export function placeRegion(city:string,area:string) { return city.trim().toLowerCase()===area.trim().toLowerCase()?city:`${city} · ${area}`; }
+
+export function publicProgramNote(text:string|undefined,lang:'en'|'id') {
+ if(!text)return '';
+ if(/exact[- ]age[- ]match|upper[- ]bound inclusivity|sourceConflict|JSON-LD|in-app routing|not re-fetched/i.test(text)) {
+  return lang==='id'?'Batas usia perlu ditanyakan langsung ke cabang. Cek sumber sebelum memilih kelas.':'Confirm the exact age limit with the branch before choosing this class.';
+ }
+ return placeText(text,lang);
+}
+export function publicCaution(text:string,lang:'en'|'id') {
+ if(lang==='id')return placeText(text,lang,'Tanyakan alamat dan pintu masuk ke cabang sebelum datang.');
+ if(text.startsWith('Official location: PIM1'))return 'The official location is PIM1 Ground Floor / Outdoor Area. An earlier Maps record gives PIM3. Confirm the entrance with the branch before visiting.';
+ return text;
+}
