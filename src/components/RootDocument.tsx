@@ -17,8 +17,8 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://derryl-ditra.github.io/map-explora/" },
-  title: "Map Explora: Under 5 Activities in Jabodetabek",
-  description: "Find baby, toddler and preschool classes near you: swimming, gym, music, art and more across Jakarta, Bogor, Depok, Tangerang and Bekasi. Compare age evidence and confirm suitability with the provider.",
+  title: "Find under-5 activities in Jabodetabek",
+  description: "Explore activities for children under 5 across the Jabodetabek area.",
   manifest: `${base}/manifest.webmanifest`,
   icons: {
     icon: [
@@ -29,18 +29,19 @@ export const metadata: Metadata = {
     apple: [{ url: `${base}/apple-touch-icon.png`, sizes: "180x180" }],
   },
   openGraph: {
-    title: "Under 5 Activities in Jabodetabek",
-    description: "Find baby, toddler and preschool classes near you: swimming, gym, music, art and more across Jakarta, Bogor, Depok, Tangerang and Bekasi. Compare age evidence and confirm suitability with the provider.",
+    siteName: "Map Explora",
+    title: "Find under-5 activities in Jabodetabek",
+    description: "Explore activities for children under 5 across the Jabodetabek area.",
     url: "https://derryl-ditra.github.io/map-explora/",
     type: "website",
     locale: "en_US",
-    images: [{ url: "https://derryl-ditra.github.io/map-explora/og.png", width: 1200, height: 630, alt: "Under 5 Activities in Jabodetabek" }],
+    images: [{ url: "https://derryl-ditra.github.io/map-explora/og-preview-v2.png", width: 1200, height: 630, alt: "Map Explora rocking horse on a map of Jabodetabek" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Under 5 Activities in Jabodetabek",
-    description: "Find baby, toddler and preschool classes near you: swimming, gym, music, art and more across Jakarta, Bogor, Depok, Tangerang and Bekasi. Compare age evidence and confirm suitability with the provider.",
-    images: ["https://derryl-ditra.github.io/map-explora/og.png"],
+    title: "Find under-5 activities in Jabodetabek",
+    description: "Explore activities for children under 5 across the Jabodetabek area.",
+    images: [{url:"https://derryl-ditra.github.io/map-explora/og-preview-v2.png",alt:"Map Explora rocking horse on a map of Jabodetabek"}],
   },
   appleWebApp: {
     capable: true,

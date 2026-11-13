@@ -12,7 +12,7 @@ test('desktop sidebar collapse is independent from mobile map and detail history
  const h=read('MapHUD.tsx'),d=read('ui/MobileDrawer.tsx');assert.match(h,/useState\(false\)/);assert.match(h,/Show sidebar/);assert.match(h,/setDesktopCollapsed\(false\);\s*handleSelectVenue/);assert.match(h,/isDesktop && desktopCollapsed/);assert.match(h,/setAgeOpenTick/);assert.match(d,/desktopCollapsed \? "md:hidden" : "md:flex"/);assert.match(d,/id="places-sidebar"/);assert.match(d,/Hide sidebar/);
 });
 test('native share is capability gated, copy always remains available',()=>{
- const s=read('ui/ShareCard.tsx');assert.match(s,/typeof navigator.share === "function"/);assert.match(s,/nativeShareAvailable && <button/);assert.match(s,/onClick=\{copy\}/);assert.doesNotMatch(s,/Share using phone/);
+ const s=read('ui/ShareCard.tsx');assert.match(s,/typeof navigator.share === "function"/);assert.match(s,/nativeShareAvailable && <button/);assert.match(s,/onClick=\{\(\)=>copy\('plain'\)\}/);assert.doesNotMatch(s,/Share using phone/);
 });
 test('Age opening from collapsed details replaces the detail entry with list without an async back race',()=>{
  const h=read('MapHUD.tsx');assert.doesNotMatch(h,/if \(isDesktop\) \{ handleClearActiveVenue/);

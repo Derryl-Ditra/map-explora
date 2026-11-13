@@ -15,7 +15,7 @@ test('browser history handles surfaces and only known visible venue deeplinks',(
  const s=read('hooks/useAppNavigation.ts');assert.match(s,/popstate/);assert.match(s,/visible.some/);assert.match(s,/resolveVenueId/);assert.match(s,/history.back\(\)/);assert.match(s,/history.go\(-steps\)/);
 });
 test('share has native dispatch, explicit clipboard errors, focus and cancellation handling',()=>{
- const s=read('components/ui/ShareCard.tsx');assert.match(s,/navigator.share\(/);assert.match(s,/AbortError/);assert.match(s,/Copy was blocked/);assert.match(s,/aria-modal="true"/);assert.match(s,/aria-live="polite"/);assert.match(s,/textBox.current\?\.select/);
+ const s=read('components/ui/ShareCard.tsx');assert.match(s,/navigator.share\(/);assert.match(s,/AbortError/);assert.match(s,/Select and copy the text below/);assert.match(s,/aria-modal="true"/);assert.match(s,/aria-live="polite"/);assert.match(s,/textBox.current\?\.select/);
 });
 test('zoom and verified-first list are supported without changing confirmed age rules',()=>{
  assert.match(read('components/RootDocument.tsx'),/userScalable: true/);assert.match(read('components/RootDocument.tsx'),/maximumScale: 5/);

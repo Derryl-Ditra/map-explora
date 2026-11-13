@@ -54,3 +54,6 @@ map-explora-main/
 
 # Reproducible per-place share cards
 /public/place-cards/
+
+# Generated home preview; keep old og.png for prior shares
+/public/og-preview-v2.png

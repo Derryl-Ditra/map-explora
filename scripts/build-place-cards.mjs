@@ -1,21 +1,14 @@
-import { build } from 'esbuild';
-import sharp from 'sharp';
-import { mkdir, rm } from 'node:fs/promises';
-import { pathToFileURL } from 'node:url';
-const cache='.next/place-card-data.mjs';
-await mkdir('.next',{recursive:true});
-await build({stdin:{contents:"import {VENUES} from './src/data/venues'; import {placePageInventory} from './src/utils/placePages'; export default placePageInventory(VENUES);",resolveDir:process.cwd(),loader:'ts'},bundle:true,platform:'node',format:'esm',outfile:cache});
-const {default:places}=await import(pathToFileURL(process.cwd()+'/'+cache));
-await rm('public/place-cards',{recursive:true,force:true});
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));
-function lines(s,max){const out=[];for(const w of s.split(/\s+/)){if(!out.length||out.at(-1).length+w.length+1>max)out.push(w);else out[out.length-1]+=' '+w;}return out;}
-for(const lang of ['en','id']){
- await mkdir(`public/place-cards/${lang}`,{recursive:true});
- for(const v of places){
-  const name=[v.chain,v.branchName].filter(Boolean).join(' '),rows=lines(name,34);
-  if(rows.length>4)throw new Error('Card name needs layout review: '+name);
-  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect width="1200" height="630" fill="#f6f2ec"/><rect x="40" y="40" width="1120" height="550" rx="26" fill="#edf5ee" stroke="#d7e1d6"/><text x="90" y="110" font-family="DejaVu Sans,sans-serif" font-size="23" fill="#176b42">MAP EXPLORA · ${esc(v.city)}</text>${rows.map((s,i)=>`<text x="90" y="${190+i*60}" font-family="DejaVu Sans,sans-serif" font-size="48" font-weight="bold" fill="#221d18">${esc(s)}</text>`).join('')}<text x="90" y="495" font-family="DejaVu Sans,sans-serif" font-size="25" fill="#4d5a4d">${lang==='id'?'Kelas, usia, biaya dan sumber cabang':'Class ages, recorded prices and branch sources'}</text><text x="90" y="545" font-family="DejaVu Sans,sans-serif" font-size="20" fill="#5f6d5f">${lang==='id'?'Konfirmasi langsung sebelum datang':'Confirm with the provider before visiting'}</text></svg>`;
-  await sharp(Buffer.from(svg)).png().toFile(`public/place-cards/${lang}/${v.id}.png`);
- }
-}
-await rm(cache);console.log(`Built ${places.length*2} place share images (1200x630)`);
+import{build}from'esbuild';import sharp from'sharp';import{mkdir,rm,writeFile,readFile}from'node:fs/promises';import{pathToFileURL}from'node:url';
+// Preserve the old image paths for links already shared.
+await import('./build-legacy-place-cards.mjs');
+const cache='.next/place-card-data.mjs';await mkdir('.next',{recursive:true});await build({stdin:{contents:"import{VENUES}from'./src/data/venues';import{placePageInventory}from'./src/utils/placePages';export default placePageInventory(VENUES)",resolveDir:process.cwd(),loader:'ts'},bundle:true,platform:'node',format:'esm',outfile:cache});const{default:places}=await import(pathToFileURL(process.cwd()+'/'+cache));
+// Existing Bright basemap, captured without symbol labels. Geographic crop is
+// centered on the stored pin. It is not a new street-location verification.
+const mapImage=Buffer.from((await readFile('scripts/preview-map.base64','utf8')).trim(),'base64');
+const mercY=lat=>Math.log(Math.tan(Math.PI/4+lat*Math.PI/360));const scale=512*2**9.7;
+const xy=v=>[1400+(v.lng-106.81)/360*scale,1000-(mercY(v.lat)-mercY(-6.35))/(2*Math.PI)*scale];
+const horse=`<g transform="translate(532 247) scale(5.65)" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 17.5c5.667 4.667 11.333 4.667 17 0"/><path d="M19 18.5l-2 -8.5l1 -2l2 1l1.5 -1.5l-2.5 -4.5c-5.052 .218 -5.99 3.133 -7 6h-6a3 3 0 0 0 -3 3"/><path d="M5 18.5l2 -9.5"/><path d="M8 20l2 -5h4l2 5"/></g>`;
+function overlay(){return Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect x="492" y="207" width="216" height="216" rx="66" fill="#1a7a4a"/>${horse}<text x="1176" y="610" text-anchor="end" fill="#4a443c" font-family="Arial,sans-serif" font-size="16">© OpenStreetMap · OpenFreeMap</text></svg>`);}
+const audit=[];
+for(const lang of['en','id']){await mkdir(`public/place-cards/v2/${lang}`,{recursive:true});for(const v of places){const[x,y]=xy(v);const left=Math.max(0,Math.min(1600,Math.round(x-600))),top=Math.max(0,Math.min(1370,Math.round(y-315)));const png=await sharp(mapImage).extract({left:Math.round(left/2),top:Math.round(top/2),width:600,height:315}).resize(1200,630).composite([{input:overlay()}]).png({palette:true,colours:64,effort:1,compressionLevel:9}).toBuffer();if(png.length>=300000)throw Error('PNG too large');await writeFile(`public/place-cards/v2/${lang}/${v.id}.png`,png);audit.push({id:v.id,lang,bytes:png.length});}}
+await sharp(mapImage).extract({left:400,top:343,width:600,height:315}).resize(1200,630).composite([{input:overlay()}]).png({palette:true,colours:64,effort:1,compressionLevel:9}).toFile('public/og-preview-v2.png');await writeFile('.next/place-card-audit.json',JSON.stringify(audit));await rm(cache);console.log(`Built${audit.length} images, max${Math.max(...audit.map(x=>x.bytes))}bytes`);

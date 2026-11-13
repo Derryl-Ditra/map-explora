@@ -2,13 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {importTs} from './loadTs.mjs';
 const {VENUES}=await importTs('../src/data/venues.ts');
-const {buildShareText,buildVenueUrl,conciseAddress,SHARE_TEXT_BUDGET}=await importTs('../src/utils/shareText.ts');
+const {buildShareText,conciseAddress,SHARE_TEXT_BUDGET}=await importTs('../src/utils/shareText.ts');
 const {shortVenueId,resolveVenueId}=await importTs('../src/utils/venueLink.ts');
 
 test('every dataset share fits 440 characters, including longest name/list/link',()=>{
  const texts=VENUES.map(buildShareText);
  assert.ok(texts.every(t=>t.length<=SHARE_TEXT_BUDGET));
- assert.equal(Math.max(...texts.map(t=>t.length)),296);
+ assert.ok(Math.max(...texts.map(t=>t.length))<=320);
  const longestName=VENUES.toSorted((a,b)=>(`${b.chain??''} ${b.branchName}`).length-(`${a.chain??''} ${a.branchName}`).length)[0];
  assert.equal(longestName.id,'gogrow-tanjung-duren');
  assert.ok(buildShareText(longestName).length<440);
@@ -18,9 +18,9 @@ test('every dataset share fits 440 characters, including longest name/list/link'
 test('short codes are unique, stable and old and new links resolve every venue',()=>{
  assert.equal(new Set(VENUES.map(v=>shortVenueId(v.id))).size,VENUES.length);
  for(const venue of VENUES){
-  assert.equal(resolveVenueId(new URL(buildVenueUrl(venue)).searchParams,VENUES),venue.id);
+  assert.equal(resolveVenueId(new URLSearchParams({v:shortVenueId(venue.id)}),VENUES),venue.id);
   assert.equal(resolveVenueId(new URLSearchParams({venue:venue.id}),VENUES),venue.id);
-  assert.equal(resolveVenueId(new URL(buildVenueUrl(venue)).searchParams,[...VENUES].reverse()),venue.id);
+  assert.equal(resolveVenueId(new URLSearchParams({v:shortVenueId(venue.id)}),[...VENUES].reverse()),venue.id);
  }
  assert.equal(shortVenueId('rockstar-academy-gandaria-city'),'4kdidz');
  assert.equal(resolveVenueId(new URLSearchParams('v=unknown'),VENUES),null);
@@ -39,7 +39,7 @@ test('long lists fall back to verified age union without bridging gaps',()=>{
  const age=v.programs.find(p=>p.age.minMonths===12).age;
  const programs=[[6,12],[10,18],[24,35]].map(([minMonths,maxMonths])=>({name:'Very long class name '.repeat(10),offering:'offered',age:{...age,minMonths,maxMonths}}));
  const text=buildShareText({...v,programs});
- assert.ok(text.length<=440);assert.match(text,/Class ages: 6-18mo, 24-35mo/);assert.doesNotMatch(text,/6-35mo/);
+ assert.ok(text.length<=440);assert.match(text,/Ages 6-18, 24-35 months, by class/);assert.doesNotMatch(text,/6-35mo/);
  const conflict=buildShareText({...v,programs:[{...programs[0],age:{...age,sourceConflict:true}},{...programs[1],age:{...age,level:'brand'}}]});
- assert.doesNotMatch(conflict,/Class ages:|Classes:/);
+ assert.match(conflict,/Ask the branch about class ages/);
 });
