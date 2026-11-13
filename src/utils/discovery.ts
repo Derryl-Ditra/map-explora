@@ -1,3 +1,4 @@
+import { publicLocation } from './publicLocation';
 import type { Venue } from '@/types/venue';
 
 export const SITE_URL = 'https://derryl-ditra.github.io/map-explora';
@@ -35,5 +36,5 @@ export function answerSummary(g: AnswerGroup) {
   return `${g.venues.length} provider-listed ${g.activity ? g.activity.toLowerCase() + " " : "class "}options in ${g.area} include ${g.venues.slice(0, 3).map(venueName).join(', ')}. Compare the branch age evidence below, then confirm the class with the provider.`;
 }
 export function itemListSchema(g: AnswerGroup) {
-  return { '@context': 'https://schema.org', '@type': 'ItemList', name: g.title, url: `${SITE_URL}/activities/${g.slug}/`, numberOfItems: g.venues.length, itemListOrder: 'https://schema.org/ItemListUnordered', itemListElement: g.venues.map((v, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Place', name: venueName(v), url: `${SITE_URL}/activities/${g.slug}/#${v.id}`, address: v.address, ...(v.coordinateSource !== "area-approximate" && !v.caution && v.lat != null && v.lng != null ? { geo: { '@type': 'GeoCoordinates', latitude: v.lat, longitude: v.lng } } : {}) } })) };
+  return { '@context': 'https://schema.org', '@type': 'ItemList', name: g.title, url: `${SITE_URL}/activities/${g.slug}/`, numberOfItems: g.venues.length, itemListOrder: 'https://schema.org/ItemListUnordered', itemListElement: g.venues.map((v, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Place', name: venueName(v), url: `${SITE_URL}/activities/${g.slug}/#${v.id}`, address: publicLocation(v).address, ...(v.coordinateSource !== "area-approximate" && !v.caution && !publicLocation(v).areaOnly && v.lat != null && v.lng != null ? { geo: { '@type': 'GeoCoordinates', latitude: v.lat, longitude: v.lng } } : {}) } })) };
 }
