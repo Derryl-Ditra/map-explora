@@ -1,4 +1,5 @@
 "use client";
+import { publicLocation } from "@/utils/publicLocation";
 import { phoneHref } from "@/utils/venueSummary";
 import { estimatedPrograms } from "@/data/age-estimates";
 
@@ -132,7 +133,7 @@ export default function VenueDetails({
   const [whyOpen, setWhyOpen] = useState(false);
   const [reviewSourceOpen, setReviewSourceOpen] = useState(false);
 
-  const approximate = venue.coordinateSource === "area-approximate";
+  const approximate = venue.coordinateSource === "area-approximate" || publicLocation(venue).areaOnly;
 
   const saveReport = () => {
     if (!reportText.trim()) return;
@@ -161,7 +162,7 @@ export default function VenueDetails({
             {venue.chain ? `${venue.chain} ` : ""}
             {venue.branchName}
           </h2>
-          <span className="text-[1rem] text-[#6d675f] mt-1 break-words">{venue.address}</span>
+          <span className="text-[1rem] text-[#6d675f] mt-1 break-words">{publicLocation(venue).address}</span>{publicLocation(venue).notice&&<p className="text-[0.9375rem] mt-2">{publicLocation(venue).notice}</p>}
         </div>
         <OfficialLinks venue={venue} />
       </div>
