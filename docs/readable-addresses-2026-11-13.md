@@ -9,7 +9,7 @@ Audit: all153 records,141 public place pages, current share formatter. Four publ
 | Sparks Bintaro Utown | PP4G+MF5 | Area: Sawah Baru, Ciputat |
 | Sparks Cibinong | Jl. Tegar Beriman (GR9H+956) | Jl. Tegar Beriman |
 | Funtastic Pondok Indah | Ground Floor | Pondok Indah Mall 1 |
-| Rockstar Living World Alam Sutera | Jl. Nn No.42 | Living World Alam Sutera |
+| Rockstar Living World Alam Sutera | Jl. Nn No.42 | Area / venue (stored record): Living World Alam Sutera |
 
 Sparks Bintaro: official source read13November now says PP4G+G9M, Sawah Baru, Ciputat, South Tangerang City, Banten15413. Stored Maps record says PP4G+MF5, Sawah Lama. Do not invent a street or silently relocate the pin. The area-only line is explicit, the place page warns about the source mismatch and says its pin has not been re-verified. Source: https://academy.sparks-edu.com/tangerang/
 
@@ -32,6 +32,8 @@ Living World copy explicitly says Alam Sutera is stored-record-derived. The curr
 A complete built-output scan found no old plus codes or unnamed street in any HTML page. The following raw machine-readable files still contain the original research strings by design. This is not a claim that the raw export has been corrected:
 
 * `venues.json`: PP4G+MF5, GR9H+956, Jl. Nn No.42.
-* `_next/static/chunks/0rnkosia6lx-u.js`: PP4G+MF5, GR9H+956, Jl. Nn No.42.
+* `_next/static/chunks/0.h1~g~c65~63.js`: PP4G+MF5, GR9H+956, Jl. Nn No.42.
 
-The raw source dataset is untouched. `/venues.json/` and its Next route payload remain historical exports, not current address validation. The JS data bundle also preserves raw source strings for the local map data.169tests, lint, build and282place export audit pass after these fixes.
+The raw source dataset is untouched. `/venues.json/` and its Next route payload remain historical exports, not current address validation. The JS data bundle also preserves raw source strings for the local map data.170tests, lint, build and282place export audit pass after these fixes.
+
+Final Share regression: every stored-derived label explicitly says "Area / venue (stored record)", and every other area-only location has an "Area:" prefix. The 390px Living World Share dialog was checked after this fix. No confirmed street address is implied.
