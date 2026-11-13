@@ -20,10 +20,10 @@ const venue = {
 test("share text carries concise content and a short live app link", () => {
   const t = buildShareText({...venue,id:'test'});
   assert.equal(SITE_URL, "https://derryl-ditra.github.io/map-explora/");
-  assert.match(t, /^Rockstar Academy Lotte Mart Bintaro \(Tangerang Selatan\)/);
-  assert.ok(t.includes("Classes: Learn & Play 1 6-18mo"));
-  assert.ok(t.includes("Google Maps: 4.0 (52 reviews)"));
-  assert.ok(t.includes("Via Map Explora"));
+  assert.match(t, /^Rockstar Academy Lotte Mart Bintaro\n/);
+  assert.ok(t.includes("Learn & Play 1 · 6-18 months"));
+  assert.ok(!t.includes("Google Maps"));
+  assert.ok(!t.includes("Via Map Explora"));
   assert.match(t.split("\n").at(-1), /\?v=[a-z0-9]+$/);
   assert.doesNotMatch(t, /Straight-line|Under-5 class spot|Found via/);
 });
@@ -46,5 +46,5 @@ test("hidden places stay in the dataset, and every venue has an operating status
 test("share lines use the verified evidence rule",()=>{
  const base=venue.programs[0];
  const t=buildShareText({...venue,programs:[{...base,name:"Hidden conflict",age:{...base.age,sourceConflict:true}},{...base,name:"Hidden ambiguity",note:"boundary ambiguous"},base]});
- assert.ok(t.includes("Learn & Play 1"));assert.ok(!t.includes("Hidden conflict"));assert.ok(!t.includes("Hidden ambiguity"));
+ assert.ok(t.includes("Learn & Play 1 · 6-18 months"));assert.ok(!t.includes("Hidden conflict"));assert.ok(!t.includes("Hidden ambiguity"));
 });
