@@ -1,5 +1,6 @@
 import type { Venue } from '../types/venue';
 import { publicInventory, venueName, SITE_URL } from './discovery';
+import { publicAddress } from './placeLanguage';
 import { shortVenueId } from './venueLink';
 export type PlaceLang = 'en' | 'id';
 // Explicit sourcing exclusion, independent of ordinary map visibility. Do not
@@ -22,5 +23,5 @@ export function placeMetadata(v: Venue,lang: PlaceLang) {
 }
 export function placeSchema(v: Venue,lang: PlaceLang) {
  // No Offers, rating, opening hours, geo, age eligibility or live availability.
- return {'@context':'https://schema.org','@type':'Place',name:venueName(v),url:placeUrl(v,lang),address:v.address};
+ return {'@context':'https://schema.org','@type':'Place',name:venueName(v),url:placeUrl(v,lang),address:publicAddress(v.address,lang)};
 }
