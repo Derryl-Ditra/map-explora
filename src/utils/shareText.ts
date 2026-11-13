@@ -39,7 +39,8 @@ export function conciseAddress(address: string): string {
 export function buildShareText(venue: Venue): string {
   const name = `${venue.chain ? `${venue.chain} ` : ''}${venue.branchName} (${venue.area})`;
   const location = publicLocation(venue);
-  const address = location.share ?? conciseAddress(location.address);
+  const label = location.share ?? conciseAddress(location.address);
+  const address = location.storedName ? `Area / venue (stored record): ${label}` : location.areaOnly && !/^Area:/i.test(label) ? `Area: ${label}` : label;
   const reviews = venue.reviews && venue.reviews.rating !== null
     ? `${venue.reviews.source}: ${venue.reviews.rating.toFixed(1)}${venue.reviews.reviewCount !== null ? ` (${venue.reviews.reviewCount} reviews)` : ''}` : '';
   const format = (classes: string, location = address) => [name, location, classes, reviews, 'Via Map Explora', buildVenueUrl(venue)].filter(Boolean).join('\n');
