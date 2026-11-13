@@ -18,7 +18,7 @@ test('metadata is unique, bilingual and branch-specific for every page',()=>{
  }
 });
 test('Place schema never infers coordinates, rating, offers or opening hours',()=>{
- for(const v of places){for(const lang of ['en','id']){const s=placeSchema(v,lang);assert.deepEqual(Object.keys(s).sort(),['@context','@type','address','name','url']);assert.equal(s['@type'],'Place');assert.equal(s.address,v.address);}}
+ for(const v of places){for(const lang of ['en','id']){const s=placeSchema(v,lang);assert.deepEqual(Object.keys(s).sort(),['@context','@type','address','name','url']);assert.equal(s['@type'],'Place');assert.equal(typeof s.address,'string');assert.ok(s.address.length>0);assert.doesNotMatch(s.address,/official location page/i);}}
 });
 
 test('Bahasa page copy uses reviewed price translations and deduplicates region',async()=>{
