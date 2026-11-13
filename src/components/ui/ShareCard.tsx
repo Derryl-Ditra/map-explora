@@ -5,6 +5,10 @@ import { Venue } from "@/types/venue";
 import { X, Copy, Check, Share2 } from "lucide-react";
 import { buildClassLines, buildShareText, buildVenueUrl } from "@/utils/shareText";
 
+import { placePageInventory, placeUrl } from '@/utils/placePages';
+
+// OPTIONAL REVIEW COMMIT: revert this file to keep map-short-link sharing.
+// Landing pages keep the map as the primary CTA. No send occurs without a tap.
 export default function ShareCard({ venue, onClose }: { venue: Venue; onClose: () => void }) {
   const nativeShareAvailable = useSyncExternalStore(
     () => () => {},
@@ -14,7 +18,12 @@ export default function ShareCard({ venue, onClose }: { venue: Venue; onClose: (
   const [status, setStatus] = useState("");
   const panel = useRef<HTMLDivElement>(null);
   const textBox = useRef<HTMLTextAreaElement>(null);
-  const shareText = buildShareText(venue);
+  const shareUrl = placePageInventory([venue]).length ? placeUrl(venue, 'id') : buildVenueUrl(venue);
+  const linkedText = buildShareText(venue).replace(buildVenueUrl(venue), shareUrl);
+  // Longer permanent IDs must not push a copied post over500 characters.
+  const shareText = linkedText.length <= 500 ? linkedText : [
+    `${venue.chain ?? ''} ${venue.branchName}`.trim(), 'Via Map Explora', shareUrl,
+  ].join('\n');
   const classLines = buildClassLines(venue);
   useEffect(() => {
     const previous = document.activeElement as HTMLElement | null;
@@ -24,7 +33,7 @@ export default function ShareCard({ venue, onClose }: { venue: Venue; onClose: (
   const share = async () => {
     if (!navigator.share) { setStatus("Phone sharing is unavailable. Copy the text below."); return; }
     try {
-      await navigator.share({ title: `${venue.chain ?? ""} ${venue.branchName}`.trim(), text: shareText.replace(buildVenueUrl(venue), "").trim(), url: buildVenueUrl(venue) });
+      await navigator.share({ title: `${venue.chain ?? ""} ${venue.branchName}`.trim(), text: shareText.replace(shareUrl, "").trim(), url: shareUrl });
       setStatus("Shared");
     } catch (error) {
       if ((error as DOMException).name !== "AbortError") setStatus("Sharing failed. You can copy or select the text below.");
@@ -49,7 +58,7 @@ export default function ShareCard({ venue, onClose }: { venue: Venue; onClose: (
       <div className="p-4 bg-white rounded-2xl border border-[#e7e0d4]"><p className="font-bold">{venue.chain ? `${venue.chain} ` : ""}{venue.branchName}</p><p className="text-[#6d675f]">{venue.area}</p>{classLines && <p className="mt-2 text-sm">{classLines}</p>}</div>
       {nativeShareAvailable && <button type="button" onClick={share} className="min-h-12 rounded-full bg-[#1a7a4a] text-white font-bold flex items-center justify-center gap-2"><Share2 className="w-5 h-5" />Share</button>}
       <button type="button" onClick={copy} className="min-h-12 rounded-full border-2 border-[#1a7a4a] text-[#14532d] font-bold flex items-center justify-center gap-2">{status==="Copied to clipboard" ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}Copy share text</button>
-      <p role="status" aria-live="polite" className="text-sm text-[#6d675f]">{status || "The link opens this place directly."}</p>
+      <p role="status" aria-live="polite" className="text-sm text-[#6d675f]">{status || "The link opens this place page. Use its map button to compare nearby places."}</p>
       <label className="text-sm font-semibold" htmlFor="share-text">Share text <span className="font-normal text-[#6d675f]">({shareText.length}/500)</span></label><textarea id="share-text" ref={textBox} readOnly value={shareText} rows={9} className="w-full p-3 bg-white border border-[#e7e0d4] rounded-xl text-sm select-text" />
     </div>
   </div>;
