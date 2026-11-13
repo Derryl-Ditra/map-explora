@@ -1,6 +1,10 @@
 // Only reviewed translations are published. Unmapped source prose stays at
 // its source link, never silently promoted to translated or verified evidence.
 const translations: Record<string,string> = {
+  "per 2-hour public-play ticket": "per tiket bermain 2 jam",
+  "Public play: 1 child + 1 adult, not class tuition": "Bermain untuk 1 anak + 1 pendamping, bukan biaya kelas",
+  "Selected date only; confirm public-play slots before visiting. No refund or rescheduling. Anti-slip socks required. The listing says playground equipment is for ages 12 months to 12 years, with an adult aged at least 18. This is not a baby-class price or confirmed class eligibility. Other channels may quote different prices; confirm the final fee and any extras.": "Hanya untuk tanggal yang dipilih. Pastikan jadwal bermain sebelum datang. Tiket tidak bisa dikembalikan atau dijadwal ulang. Wajib memakai kaus kaki antiselip. Listing menyebut alat bermain untuk usia 12 bulan sampai 12 tahun, didampingi orang dewasa minimal 18 tahun. Ini bukan biaya kelas bayi atau konfirmasi usia kelas. Harga di tempat lain bisa berbeda. Tanyakan harga akhir dan biaya tambahannya.",
+
   "per session": "per sesi",
   "per package": "per paket",
   "registration fee": "biaya pendaftaran",
