@@ -32,7 +32,7 @@ Review the 10 record updates below. Official-listed means a price was read on th
 
 ### Funtastic: PIM1 is the best-supported displayed location; entrance still needs confirmation
 
-The operator location page explicitly lists PIM1 Ground Floor / Outdoor Area and links a dedicated PIM1 schedule. The embedded Maps place identifies the same branch. The old PIM2 schedule still resolves and Maps’ address says PIM3. No relocation date is established. A Maps interior photo dated August 2024 cannot settle the current entrance. The mall site redirected to pondokindahmall.id and denied access, so this is not mall-directory confirmation. Keep coordinates unchanged and routing off until the entrance is confirmed.
+The operator location page explicitly lists PIM1 Ground Floor / Outdoor Area and links a dedicated PIM1 schedule. The embedded Maps place identifies the same branch. PIM2 schedule access differs across checks (full schedule returned in this research; the independent check reported 404), so it is not used to establish location. Earlier captured Maps address evidence says PIM3; that address was not re-fetched in this correction. No relocation date is established. A Maps interior photo dated August 2024 cannot settle the current entrance. The mall site redirected to pondokindahmall.id and denied access, so this is not mall-directory confirmation. Keep coordinates unchanged and routing off until the entrance is confirmed.
 
 ### Bloom: unresolved at the exact boundaries
 
