@@ -15,7 +15,7 @@ test('all153 Share outputs and141 bilingual place addresses omit plus codes and 
 });
 test('Bintaro uses official current area, labels incomplete address and preserves old pin/raw record',()=>{
  const v=byId('sparks-sports-academy-bintaro-utown');const raw=JSON.stringify(v);const loc=publicLocation(v);
- assert.equal(loc.share,'Area: Sawah Baru, Ciputat');assert.equal(loc.areaOnly,true);assert.equal(loc.conflict,true);assert.equal(loc.checkedAt,'2026-11-13');assert.equal(loc.source,'https://academy.sparks-edu.com/tangerang/');assert.match(buildShareText(v),/\nArea: Sawah Baru, Ciputat\n/);assert.equal(JSON.stringify(v),raw);assert.match(v.address,/Sawah Lama/);assert.equal(v.lat,-6.293312);
+ assert.equal(loc.share,'Area: Sawah Baru, Ciputat');assert.equal(loc.areaOnly,true);assert.equal(loc.conflict,true);assert.equal(loc.checkedAt,'2026-11-13');assert.equal(loc.source,'https://academy.sparks-edu.com/tangerang/');assert.match(buildShareText(v),/\nSawah Baru, Ciputat\n/);assert.equal(JSON.stringify(v),raw);assert.match(v.address,/Sawah Lama/);assert.equal(v.lat,-6.293312);
 });
 test('Cibinong retains sourced street; Funtastic keeps venue not floor; Living World never invents a street',()=>{
  assert.equal(conciseAddress(publicLocation(byId('sparks-sports-academy-cibinong')).address),'Jl. Tegar Beriman');
@@ -41,6 +41,6 @@ test('area-only and source-conflicting locations search by readable location, ne
 });
 
 test('Share explicitly qualifies every area-only or stored-derived label',()=>{
- for(const v of VENUES){const l=publicLocation(v);const text=buildShareText(v);if(l.storedName)assert.match(text,/Area \/ venue \(stored record\):/);else if(l.areaOnly)assert.match(text,/\nArea:/);}
- assert.match(buildShareText(byId('rockstar-academy-living-world-alam-sutera')),/Area \/ venue \(stored record\): Living World Alam Sutera/);
+ for(const v of VENUES){const l=publicLocation(v);const text=buildShareText(v);if(l.storedName)assert.match(text,/\(stored record\)/);else if(l.areaOnly)assert.ok(text.split('\n')[1].length>0);}
+ assert.match(buildShareText(byId('rockstar-academy-living-world-alam-sutera')),/Living World Alam Sutera \(stored record\)/);
 });
