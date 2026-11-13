@@ -39,3 +39,8 @@ test('area-only and source-conflicting locations search by readable location, ne
  const {buildMapsLink,canRouteVenue}=await importTs('../src/utils/mapsLink.ts');
  for(const id of ['sparks-sports-academy-bintaro-utown','rockstar-academy-living-world-alam-sutera','rockstar-academy-aeon-mall-deltamas']){const v=byId(id);assert.equal(canRouteVenue(v),false);const u=new URL(buildMapsLink(v));assert.equal(u.pathname,'/maps/search/');assert.doesNotMatch(u.searchParams.get('query'),code);assert.equal(u.searchParams.has('destination'),false);}
 });
+
+test('Share explicitly qualifies every area-only or stored-derived label',()=>{
+ for(const v of VENUES){const l=publicLocation(v);const text=buildShareText(v);if(l.storedName)assert.match(text,/Area \/ venue \(stored record\):/);else if(l.areaOnly)assert.match(text,/\nArea:/);}
+ assert.match(buildShareText(byId('rockstar-academy-living-world-alam-sutera')),/Area \/ venue \(stored record\): Living World Alam Sutera/);
+});
