@@ -32,6 +32,6 @@ Living World copy explicitly says Alam Sutera is stored-record-derived. The curr
 A complete built-output scan found no old plus codes or unnamed street in any HTML page. The following raw machine-readable files still contain the original research strings by design. This is not a claim that the raw export has been corrected:
 
 * `venues.json`: PP4G+MF5, GR9H+956, Jl. Nn No.42.
-* `_next/static/chunks/0x7m6b8ufyiuh.js`: PP4G+MF5, GR9H+956, Jl. Nn No.42.
+* `_next/static/chunks/0rnkosia6lx-u.js`: PP4G+MF5, GR9H+956, Jl. Nn No.42.
 
-The raw source dataset is untouched. `/venues.json/` and its Next route payload remain historical exports, not current address validation. The JS data bundle also preserves raw source strings for the local map data.168tests, lint, build and282place export audit pass after these fixes.
+The raw source dataset is untouched. `/venues.json/` and its Next route payload remain historical exports, not current address validation. The JS data bundle also preserves raw source strings for the local map data.169tests, lint, build and282place export audit pass after these fixes.
