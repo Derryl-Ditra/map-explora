@@ -237,7 +237,20 @@ export default function VenueDetails({
         </div>
       )}
 
-      {/* Prices: booking-site listings only, always with source, label and check date */}
+      {venue.programs.some((program) => program.age.sourceConflict) && (
+        <div className="p-4 rounded-2xl border border-amber-300 bg-amber-50 flex flex-col gap-2" data-testid="age-conflicts">
+          <span className="font-bold text-[#221d18]">Age details need confirmation</span>
+          {venue.programs.filter((program) => program.age.sourceConflict).map((program) => (
+            <div key={program.name} className="text-[0.875rem] text-[#6d675f]">
+              <p><strong>{program.name}:</strong> {program.note}</p>
+              {program.age.providerAgeUrl && <a href={program.age.providerAgeUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a] mr-3">Program source</a>}
+              {program.noteUrl && <a href={program.noteUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">{program.noteLabel || "Other source"}</a>}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Prices: provenance belongs to each listing; legacy entries default to partner. */}
       {venue.priceListings && venue.priceListings.length > 0 && (
         <div className="p-4 rounded-2xl border border-[#e7e0d4] bg-white flex flex-col gap-2.5" data-testid="price-listings">
           <div className="flex flex-wrap items-center justify-between gap-2">
@@ -246,7 +259,7 @@ export default function VenueDetails({
               <span className="font-bold text-[1rem] text-[#221d18]">Price</span>
             </div>
             <span className="text-[0.8125rem] font-bold px-2 py-1 rounded-full shrink-0 bg-[#f1ece2] text-[#4a443c]">
-              Partner-listed
+              Listed prices
             </span>
           </div>
           {venue.priceListings.map((pl) => (
@@ -257,7 +270,9 @@ export default function VenueDetails({
                   <span className="text-[#6d675f]"> (list price <s>{formatIdr(pl.listPriceIdr)}</s>)</span>
                 ) : null}
               </span>
+              <span className="text-[0.8125rem] font-bold text-[#4a443c]">{pl.sourceKind === "official" ? "Official-listed" : "Partner-listed"}</span>
               <span className="text-[0.9375rem] text-[#4a443c]">{pl.label}</span>
+              {pl.note && <span className="text-[0.875rem] text-[#6d675f]">{pl.note}</span>}
               {pl.schedule && <span className="text-[0.9375rem] text-[#4a443c]">{pl.schedule}</span>}
               <span className="text-[0.875rem] text-[#6d675f]">
                 From{" "}
@@ -269,7 +284,8 @@ export default function VenueDetails({
             </div>
           ))}
           <p className="text-[0.875rem] text-[#6d675f]">
-            Listed by a booking site, not confirmed by the provider. Prices change; confirm with the provider before you book.
+            Prices change; confirm the current fee, eligibility and conditions with the provider before you book.
+            {venue.priceListings.some((pl) => pl.sourceKind !== "official") && " Partner-listed prices are listed by a booking site, not confirmed by the provider."}
           </p>
         </div>
       )}
