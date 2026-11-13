@@ -11,7 +11,7 @@ test('preview keeps conflicts out of named class ages',()=>{
  assert.deepEqual(placeCardFacts(byId('bloom-space-kota-wisata')).classes,[{name:'Little Sprouts',min:12,max:19}]);
  assert.deepEqual(placeCardFacts(byId('membumi-playspace-cibubur')).classes,[{name:'Musik & Cerita Bayi',min:6,max:18}]);
 });
-test('preview supports 1,2,several classes, branch-age fallback and unknown ages',()=>{
+test('preview supports 1,2,several named classes and never relabels branch age as a class',()=>{
  assert.equal(placeCardFacts(byId('golden-baby-school-jakarta-garden-city')).classes.length,1);
  assert.equal(placeCardFacts(byId('buumi-playscape-pacific-place')).classes.length,2);
  assert.equal(placeCardFacts(byId('the-funtastic-gym-pondok-indah')).classes.length,4);
@@ -27,3 +27,11 @@ test('rating needs usable score, count, source URL and evidence date',()=>{
 });
 
 test('unknown class ages never receive the verified-source footer',()=>{ for(const v of VENUES){const f=placeCardFacts(v);if(!f.classes.length)assert.equal(f.notice,'unknown');}assert.equal(placeCardFacts(byId('gymnademics-gading-serpong')).notice,'unknown');});
+
+// Keep this preview in the existing map sheet's visual world.
+test('renderer reuses map UI tokens and rows instead of the rejected split panels',async()=>{
+ const{readFile}=await import('node:fs/promises');const s=await readFile('scripts/build-place-cards.mjs','utf8');
+ for(const token of ['#f6f2ec','#221d18','#1a7a4a','#e7e0d4','#e3f2e8','#14532d','Plus Jakarta Sans','Map Explora','Under 5','Classes here by age','Branch reviews','Terverifikasi'])assert.ok(s.includes(token),token);
+ assert.doesNotMatch(s,/CLASS PREVIEW|CUPLIKAN KELAS|DejaVu|#286249/);
+ assert.ok(s.includes('slots+nameRows.length>3'));assert.ok(s.includes('f.classes.length-shown.length'));
+});
