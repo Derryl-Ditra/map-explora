@@ -1,41 +1,51 @@
-# November 13 source follow-up: Bloom Space and The Funtastic Gym
+# Nov 13 data refresh - draft for review
 
-Research-only draft. Sources read November 13, 2026, WIB. No venue, age, price, rating, status, visibility or UI field changes. No provider contact. No deployment.
+Checked 13 November 2026 WIB. This follow-up supersedes the initial research-only note. No merge, deployment, provider contact, record removal or government-facility addition.
 
-## Scope and result
+## Recommendation
 
-A limited follow-up on two unresolved records, not a new inventory-wide recheck. The earlier November 12-13 audit is not repeated here. No closure confirmed and no new pin justified by this pass. No current numeric tuition quote found in these sources. A website continuing to advertise classes is listing evidence, not confirmation of the next class.
+Review the 10 record updates below. Official-listed means a price was read on the operator page, not a fee guarantee. Funtastic has enough operator evidence to correct the displayed mall to PIM1, but not enough to enable pin routing. Bloom’s exact class-boundary conflict remains unresolved; the draft removes false precision from confirmed matching rather than picking a winner.
 
-## The Funtastic Gym: do not confuse its mall or an expired offer
+## Before and after
 
-- The official schedule is explicitly titled **Pondok Indah Mall 2**. It lists age-specific recurring classes: Bugs 4-10 months, Birds 10-19 months, Beasts/Super Beasts 19 months-3 years, Funny Bugs 3 years, and Giggle Worms/Good Friends 4 and 5 years. A five-year-old is outside an under-5 filter; the mixed class title does not mean every participant fits that filter.
-- Example of source-stated schedule, not reserved availability: Saturday Beasts/Super Beasts 09:00-09:50 (19 months-3 years), Birds 10:00-10:50 (10-19 months), Funny Bugs 13:15-14:15 (3 years). The page has no visible validity/term date. Do not present these as confirmed slots for a particular date.
-- Existing inventory wording refers to PIM3 and already carries a PIM2 identity conflict. A fresh direct Maps check still gives a PIM3 Outdoor Area street address, but its separate parent-place field says "Located in: Pondok Indah Mall 1". It links the same operator website and branch phone. The PIM2/PIM3 conflict is therefore not resolved, and Maps itself adds a third mall label. Do not move the pin or silently pick a mall.
-- The JJC benefit page offers a free introductory class and membership/tuition discounts **only through September 30, 2026**, with a JJC membership-card requirement. That date has passed. Its 2023/2024 linked promotion articles are not a new offer. Do not promote its free trial or discounts as current.
-- The official membership page describes make-up classes after advance absence notice; a one/two-month freeze with advance notice/form and paid return month; leaving with 30 days' notice via form; one age-appropriate complimentary practice per week with advance registration. No numeric regular tuition is stated. These general terms are not a full cancellation/refund policy or written branch quote.
+| Record | Before | Draft after | Sources |
+|---|---|---|---|
+| anak-air-grand-cibubur | No price listing | Rp 715,000 per package: One child, 4 lessons x 30 minutes; Rp 275,000 registration fee: Separate registration charge (conditions visible on card) | https://www.anakair.co.id/wp-content/uploads/2026/08/Harga-Cibubur-1024x793.png<br>https://www.anakair.co.id/cabang-cibubur/ |
+| anak-air-kebagusan | No price listing | Rp 715,000 per package: One child, 4 lessons x 30 minutes; Rp 275,000 registration fee: Separate registration charge (conditions visible on card) | https://www.anakair.co.id/wp-content/uploads/2026/08/Harga-TB-Simatupang-1024x793.png<br>https://www.anakair.co.id/cabang-tb-simatupang/ |
+| anak-air-kemang | No price listing | Rp 825,000 per package: One child, 4 lessons x 30 minutes; Rp 275,000 registration fee: Separate registration charge (conditions visible on card) | https://www.anakair.co.id/wp-content/uploads/2026/08/Harga-Kemang-1024x793.png<br>https://www.anakair.co.id/cabang-kemang/ |
+| anak-air-limo | No price listing | Rp 605,000 per package: One child, 4 lessons x 30 minutes; Rp 275,000 registration fee: Separate registration charge (conditions visible on card) | https://www.anakair.co.id/wp-content/uploads/2026/08/Harga-Limo-1024x793.png<br>https://www.anakair.co.id/cabang-limo/ |
+| anak-air-pondok-indah | No price listing | Rp 825,000 per package: One child, 4 lessons x 30 minutes; Rp 275,000 registration fee: Separate registration charge (conditions visible on card) | https://www.anakair.co.id/wp-content/uploads/2026/08/Harga-Pondok-Indah-1024x793.png<br>https://www.anakair.co.id/cabang-pondok-indah/ |
+| bloom-space-kota-wisata | No phone; Seedlings and Growing Explorer treated as confirmed exact ages | Add +62 813-3339-7070. Flag Seedlings (6-11 vs 6-12) and Growing Explorer (19 vs 20-month start) as conflicts, not confirmed age matches. Display both claims and sources. Little Sprouts unchanged. | https://bloomspace.id/our-contact<br>https://bloomspace.id/<br>https://bloomspace.id/baby-gym<br>https://abckids-brighton.sch.id/baby-gym<br>https://www.instagram.com/bloomspace.indonesia/p/Dfjoc88GZCf/ |
+| golden-baby-school-jakarta-garden-city | No price listing | Rp 100,000 per session: Baby Crawler class (5-13 months) (conditions visible on card) | https://goldenschool.id/the-baby-crawler-class-at-golden-baby-school/ |
+| gymnademics-gading-serpong | No price listing | Rp 1,000,000 per trial package: 5 trial sessions, not regular tuition (conditions visible on card) | https://gymnademics.id/id/admission/gading-serpong/ |
+| membumi-playspace-cibubur | No price listing | Rp 734,000 per 2-week membership: Basic membership, November 2026 (listing marked estimated); Rp 1,174,000 per 1-month membership: Basic membership, November 2026 (listing marked estimated) (conditions visible on card) | https://take.app/membumiplayspace/p/cmubbm6oo001k0agmftt3piki |
+| the-funtastic-gym-pondok-indah | PIM3 address with PIM2 conflict; PIM2 age source; no website | PIM1 Ground Floor / Outdoor Area from official location page; PIM1 schedule source; official website. Coordinates unchanged and routing caution retained. | https://thefuntasticgym.com/our-locations/<br>https://thefuntasticgym.com/schedule/schedules-pondok-indah-mall-1/ |
 
-Fresh Maps listing evidence: ordinary "Closed · Opens 10 AM" hours at the overnight check, aggregate 4.9 from 44 reviews. This is operating-listing evidence, not provider confirmation. The review-sort control did not expose a menu after normal click and one coordinate-click recovery. No newest-review date or trend inferred from the default order. No reviewer names or text copied.
+## Price conditions carried into the draft
 
-Sources:
-1. Official recurring schedule: https://thefuntasticgym.com/schedule/schedules-pondok-indah-mall-2/
-2. Official membership information: https://thefuntasticgym.com/members/
-3. Official home: https://thefuntasticgym.com/
-4. JJC benefit, expired September 30, 2026: https://jjc.or.id/kojin/kojintokuten/the-funtastic-gym/
-5. Direct Maps check: https://www.google.com/maps/place/The+Funtastic+Gym+of+Pondok+Indah/@-6.2662619,106.7850749,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f11b951034e5:0xe606753195967fe1!8m2!3d-6.2662619!4d106.7850749!16s%2Fg%2F11rfdzw2mr?entry=ttu&g_ep=EgoyMDI2MTExMC4wIKXMDSoASAFQAw%3D%3D
+- Five Anak Air branches: one child / four 30-minute lessons. Registration Rp275,000 is separate with its own branch-page source. Cards have no validity period or baby-class allocation; do not imply that these are confirmed baby-class fees.
+- Golden Baby School: Baby Crawler only, 5-13 months, Saturday 09:00-10:00 WIB. Rp100,000/session is not school or daycare tuition. No end date or registration terms stated.
+- GymnAdemics Gading Serpong: Rp1,000,000 for five trial sessions. Tuesday-Saturday by availability, all sessions within two weeks, unused sessions non-refundable. Not regular tuition.
+- Membumi Cibubur: Basic November 2026 membership Rp734,000/two weeks or Rp1,174,000/month; storefront marks the listing estimated. Rp185,000 registration extra. Advance booking/admin confirmation required, no walk-ins. Full T&C supplied after registration, so dates, eligibility and refunds remain open. No claim of a final payable total.
 
-## Bloom Space: extra class evidence, still no dated operating confirmation
+## Conflict verdicts
 
-- The dedicated site's homepage says Seedlings 6-12 months and Growing Explorer 19 months-3 years. Its detailed baby-gym page says Seedlings 6-11 months, Little Sprouts 12-19 months, Growing Explorer 19 months-3 years and Blooming Kiddies 3-5 years.
-- A Bloom Space page hosted by ABC Kids & Brighton repeats the brand description and classes, but says Seedlings 6-11 months and Growing Explorer **20 months-3 years**, not 19 months. Its Yoga is "Coming Soon", while the dedicated homepage advertises adult yoga. These page-level differences should not be averaged into an invented age band or readiness claim.
-- ABC Kids & Brighton's own home says its schools are independent under the Karya Kasih Mandiri Foundation. This is evidence about that school organization, not proof of Bloom's ownership or a fresh operating-status confirmation.
-- Neither baby-gym page supplies a dated next class or numeric current fee. This pass does not resolve the earlier operating-status gap. Keep Bloom's operation unresolved in the research and ask for branch-specific dated class/age/fee confirmation before making it actionable. No inquiry was sent.
+### Funtastic: PIM1 is the best-supported displayed location; entrance still needs confirmation
 
-Sources:
-6. Dedicated homepage: https://bloomspace.id/
-7. Dedicated class detail: https://bloomspace.id/baby-gym
-8. School-hosted Bloom page: https://abckids-brighton.sch.id/baby-gym
-9. School organization description: https://abckids-brighton.sch.id/
+The operator location page explicitly lists PIM1 Ground Floor / Outdoor Area and links a dedicated PIM1 schedule. The embedded Maps place identifies the same branch. The old PIM2 schedule still resolves and Maps’ address says PIM3. No relocation date is established. A Maps interior photo dated August 2024 cannot settle the current entrance. The mall site redirected to pondokindahmall.id and denied access, so this is not mall-directory confirmation. Keep coordinates unchanged and routing off until the entrance is confirmed.
 
-## Limits
+### Bloom: unresolved at the exact boundaries
 
-Eight pages fetched successfully from four domains, plus one direct Maps listing. Mostly operator/school pages plus one membership-association benefit page. No newest-sorted review sample, booking availability, visitor statistics or provider confirmation. The Maps aggregate is recorded in these notes only, not written to the live venue dataset. Read dates are not source-update dates. No government facility sourced.
+Homepage: Seedlings 6-12 months. Baby-gym detail: 6-11. Both Bloom pages: Growing Explorer from 19 months. ABC Kids / Brighton school page: from 20. Its Instagram profile links the same website and has a Seedlings activity post dated 10 November 2026, but no age range in that post. The Seedlings highlight requires login and could not be inspected. No dated age chart settles the conflict. The next useful check is an enquiry to the official WhatsApp asking which class takes a 12-month-old and a 19-month-old; no enquiry was sent. Its official contact-page map embeds Selera Klasik, so it was not used to move Bloom’s pin.
+
+## Coverage and not-ready items
+
+Compared the 141-place audit ledger against the existing dataset; the eight explicit official-price records are now proposals, not blanket tuition coverage. The 24 conditional/promo and nine partner/ambiguous-price rows were not promoted to standard tuition. Remaining missing prices stay missing. No closure or permanent-open claim was inferred from ordinary daily opening hours. Government-related additions were excluded; no existing records were silently removed.
+
+## Implementation and QA
+
+- Price sourceKind is optional for compatibility. Omitted means partner; only explicit official entries display Official-listed. The badge is per price row so mixed provenance cannot be mislabeled.
+- Every price keeps amount, unit, scope, exact URL, check date and conditions. No arithmetic total is represented as a merchant quote.
+- Age-conflict notices show both sources. Seedlings and Growing Explorer no longer count as confirmed; public inventory stays 141, confirmed program rows fall from 119 to 117.
+- 159 tests passed; lint and production static build passed. Browser regression checked 320, 390 and 1280px, price/source conditions, entrance caution, phone link and no horizontal overflow. Actual mobile/desktop screenshots inspected.
+- No merge or deploy. Draft PR requires owner review.
