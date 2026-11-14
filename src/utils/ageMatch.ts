@@ -35,3 +35,17 @@ export function venueConfirmedForAge(v: Venue, months: number): boolean {
   return !!(v.branchAge && claimCovers(v.branchAge, months) === true) ||
     verifiedPrograms(v).some(p => claimCovers(p.age, months) === true);
 }
+
+// Inclusive whole-month display ranges only. Keep source claims and named
+// class boundaries intact; a missing month must stay a visible gap.
+export function mergeAgeRanges(ranges: ReadonlyArray<readonly [number, number]>): [number, number][] {
+  const sorted = ranges.map(([lo, hi]): [number, number] => [lo, hi])
+    .sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const merged: [number, number][] = [];
+  for (const [lo, hi] of sorted) {
+    const last = merged.at(-1);
+    if (last && lo <= last[1] + 1) last[1] = Math.max(last[1], hi);
+    else merged.push([lo, hi]);
+  }
+  return merged;
+}
