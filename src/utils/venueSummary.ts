@@ -1,5 +1,5 @@
 import type { Venue } from '../types/venue';
-import { isVerifiedAgeClaim, verifiedPrograms } from './ageMatch';
+import { isVerifiedAgeClaim, verifiedPrograms, mergeAgeRanges } from './ageMatch';
 
 export function cardAgeSummary(venue: Venue): string {
   const claims = [
@@ -10,8 +10,9 @@ export function cardAgeSummary(venue: Venue): string {
   const ranges = [...new Map(sorted.map(age => [`${age.minMonths}:${age.maxMonths}`, age])).values()];
   if (!ranges.length) return 'Class ages not verified yet';
   if (ranges.length === 1) return `Verified ages: ${ranges[0].minMonths} to ${ranges[0].maxMonths} months`;
-  const visible = ranges.slice(0, 2).map(age => `${age.minMonths}-${age.maxMonths} mo`).join(', ');
-  return `By class: ${visible}${ranges.length > 2 ? ` +${ranges.length - 2} more` : ''}`;
+  const merged = mergeAgeRanges(ranges.map(age => [age.minMonths!, age.maxMonths!]));
+  const visible = merged.slice(0, 2).map(([lo, hi]) => `${lo}-${hi} mo`).join(', ');
+  return `By class: ${visible}${merged.length > 2 ? ` +${merged.length - 2} more` : ''}`;
 }
 
 export function cardRatingSummary(venue: Venue): string {
