@@ -1,6 +1,6 @@
 # Daily source refresh: 15 November 2026
 
-Draft only. Five existing venues enriched; no new pins, no age-fit upgrades. Visible count remains 141. No coordinates, reviews, programme ages, exact-age eligibility, source-data check dates or display logic changed. Four official listing-presence checks carry their own new operatingStatus date; this does not re-date a complete venue audit.
+Draft only. Five existing venues enriched; no new pins, no age-fit upgrades. Visible count remains 141. No coordinates, reviews, programme ages, exact-age eligibility, source-data check dates or display logic changed. Phone numbers are labelled as shared enquiry numbers on map cards and EN/ID place pages. Four official listing-presence checks carry their own new operatingStatus date; this does not re-date a complete venue audit.
 
 ## Changes
 
@@ -11,6 +11,8 @@ Draft only. Five existing venues enriched; no new pins, no age-fit upgrades. Vis
 | Aquatic Baby Bintaro Sektor 5 | Shared provider WhatsApp +62 811-1698-740; listed days Tue/Thu/Sat/Sun recorded in provenance notes, not a claim of available slots | https://aquatic-baby.com/lokasi |
 | Aquatic Baby RumaBona Cikini Bintaro | Same shared provider enquiry; Saturday venue listing rechecked, exact class/age offering remains unconfirmed | https://aquatic-baby.com/lokasi |
 | Buumi Playscape Plaza Senayan | Happy Kamper starting public-play ticket Rp195,000, listed range Rp195,000-Rp225,000, 2 hours, 1 child + 1 adult. Partner-listed, not class tuition | https://happykamper.io/id/activities/buumi-playscape-plaza-senayan |
+
+The activity title names Plaza Senayan, while the provider title also names Play Club by Buumi Urban Forest. The price note explicitly asks parents to confirm the ticket and price apply to Plaza Senayan before booking; no outlet-specific checkout was performed.
 
 The Plaza Senayan terms say selected date only, no refund or rescheduling, mandatory anti-slip socks, cleaning closure 13:00-14:00 with remaining time resumed afterward, equipment for 12 months-12 years with an adult 18+. These playground terms do not change the separately verified November baby-class ages. Exact final price and public-play availability require confirmation. The generic FAQ's softer cancellation wording conflicts with the activity-specific no-refund/no-reschedule terms; the specific terms are used.
 
@@ -30,7 +32,7 @@ All sources below read on 2026-11-15 unless marked search-only. Check date is no
 
 | Source | Type | Use and limit |
 | --- | --- | --- |
-| https://aquababiesindonesia.id/contact/ | Official provider | Rendered page: Menteng/Bintaro links and shared WhatsApp. Main location/contact lists differ in other branches; only these two used. |
+| https://aquababiesindonesia.id/contact/ | Official provider | Rendered page: Menteng/Bintaro links and shared WhatsApp. HTML has two anchors with exact href `https://wa.me/6281928443322`, rechecked after QC on 15 Nov, so WhatsApp is supported, not inferred from a phone number. Main location/contact lists differ in other branches; only these two used. |
 | https://aquababiesindonesia.id/locations/ | Official provider | Both target branches listed. No exact branch programme ages. |
 | https://aquababiesindonesia.id/ | Official provider | Brand baby swimming 0 months-3 years only. |
 | https://aquatic-baby.com/lokasi | Official provider | Branch names, addresses, listed days and shared number. No class availability guarantee. |
@@ -50,7 +52,9 @@ All sources below read on 2026-11-15 unless marked search-only. Check date is no
 
 ## Checks
 
-201/201 tests, lint and production build pass. The existing enrich1114 data entry point invokes enrich1115 last; the large generated venues.ts file is unchanged. New tests isolate five affected venue records, verify four phone/source pairs and starting-price conditions, protect all ages/reviews/pins/fit/global dates, verify Indonesian price copy, unchanged 141 visible places and no Kid Castle import. Visual checks cover mobile phone links and English/Bahasa public-play price cards. Independent QC required before showing candidate images or seeking merge approval. No production deployment.
+202/202 tests, lint and production build pass. The existing enrich1114 data entry point invokes enrich1115 last; the large generated venues.ts file is unchanged. QC follow-up: a different reviewer must recheck the changed head. The four operatingStatus dates of 2026-11-15 are listing-presence checks only and should be eyeballed in review.
+
+New tests isolate five affected venue records, verify four phone/source pairs and starting-price conditions, protect all ages/reviews/pins/fit/global dates, verify Indonesian price copy, unchanged 141 visible places and no Kid Castle import. Visual checks cover mobile phone links and English/Bahasa public-play price cards. Independent QC required before showing candidate images or seeking merge approval. No production deployment.
 
 ## Follow-up, not included
 
