@@ -43,3 +43,9 @@ export function buildShareText(venue: Venue,lang:'id'|'en'='en',variant:'plain'|
  const area=l.storedName?`${l.share} (${lang==='id'?'catatan tersimpan':'stored record'})`:l.conflict?l.share!.replace(/^Area: /,''):venue.area||venue.city;
  return [variant==='whatsapp'?`*${name}*`:name,area,ageSummary(venue,lang),'',buildVenueUrl(venue)].join('\n');
 }
+
+// Explicit place-page origin wins. Direct map visits use the document language.
+export function shareLanguage(params: URLSearchParams,documentLang: string): 'id'|'en' {
+ const origin=params.get('shareLang');
+ return origin==='id'||origin==='en'?origin:documentLang==='id'?'id':'en';
+}
