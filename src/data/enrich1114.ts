@@ -1,4 +1,5 @@
 import type { Venue } from "@/types/venue";
+import enrich1115 from "./enrich1115";
 
 // Nov14 source snapshots. No coordinate, age-fit or review changes.
 export default function enrich1114(venues: Venue[]) {
@@ -20,4 +21,6 @@ export default function enrich1114(venues: Venue[]) {
       note: "Selected date only; confirm public-play slots before visiting. No refund or rescheduling. Anti-slip socks required. The listing says playground equipment is for ages 12 months to 12 years, with an adult aged at least 18. This is not a baby-class price or confirmed class eligibility. Other channels may quote different prices; confirm the final fee and any extras."
     }];
   }
+  // The existing data entry point applies the next dated source patch last.
+  enrich1115(venues);
 }
