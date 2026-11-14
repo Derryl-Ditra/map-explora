@@ -11,6 +11,7 @@ export function useGeolocation() {
   const [accuracy, setAccuracy] = useState<number | null>(null);
   const [hasActualLocation, setHasActualLocation] = useState(false);
   const [isLocating, setIsLocating] = useState(false);
+  const [errorCode,setErrorCode]=useState<number|null>(null);
   const [error, setError] = useState<string | null>(null);
   const [recenterTick, setRecenterTick] = useState(0);
   const mounted = useRef(true);
@@ -29,6 +30,7 @@ export function useGeolocation() {
     pending.current = true;
     setIsLocating(true);
     setError(null);
+    setErrorCode(null);
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         pending.current = false;
@@ -38,6 +40,7 @@ export function useGeolocation() {
         setHasActualLocation(true);
         setIsLocating(false);
         setError(null);
+    setErrorCode(null);
         setRecenterTick(t => t + 1);
       },
       (err) => {
@@ -46,6 +49,7 @@ export function useGeolocation() {
         setIsLocating(false);
         setHasActualLocation(false);
         setAccuracy(null);
+        setErrorCode(err.code);
         setError(err.code === 1
           ? "Location permission denied. You can still browse places or enable location in browser settings."
           : err.code === 3
@@ -56,5 +60,5 @@ export function useGeolocation() {
     );
   }, []);
 
-  return { userPos, accuracy, hasActualLocation, isLocating, error, recenterTick, refresh };
+  return { userPos, accuracy, hasActualLocation, isLocating, error, errorCode, recenterTick, refresh };
 }
