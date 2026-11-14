@@ -1,5 +1,5 @@
 import { publicLocation, withoutMapCodes } from "./publicLocation";
-import { verifiedPrograms, isVerifiedAgeClaim } from "./ageMatch";
+import { verifiedPrograms, isVerifiedAgeClaim, mergeAgeRanges } from "./ageMatch";
 import { shortPlacePath } from "./placeShortLink";
 import { shortVenueId } from "./venueLink";
 import { Venue } from "@/types/venue";
@@ -23,8 +23,7 @@ export function buildClassLines(venue: Venue, limit = 4): string {
 export function ageSummary(venue: Venue,lang:'id'|'en'='en'): string {
  const p=verifiedPrograms(venue),id=lang==='id';
  if(p.length===1)return `${p[0].name} · ${p[0].age.minMonths}-${p[0].age.maxMonths} ${id?'bulan':'months'}`;
- const ranges=p.map(p=>[p.age.minMonths!,p.age.maxMonths!]).sort((a,b)=>a[0]-b[0]);const merged:number[][]=[];
- for(const[lo,hi]of ranges){const last=merged.at(-1);if(last&&lo<=last[1])last[1]=Math.max(last[1],hi);else merged.push([lo,hi]);}
+ const merged=mergeAgeRanges(p.map(p=>[p.age.minMonths!,p.age.maxMonths!]));
  if(merged.length)return `${id?'Usia':'Ages'} ${merged.map(([lo,hi])=>`${lo}-${hi}`).join(', ')} ${id?'bulan, tergantung kelas':'months, by class'}`;
  if(venue.branchAge&&isVerifiedAgeClaim(venue.branchAge))return `${venue.branchAge.minMonths}-${venue.branchAge.maxMonths} ${id?'bulan, menurut cabang':'months, branch statement'}`;
  return id?'Tanyakan usia kelas ke cabang':'Ask the branch about class ages';

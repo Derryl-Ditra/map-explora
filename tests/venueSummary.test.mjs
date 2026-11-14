@@ -8,9 +8,9 @@ test('card age overview counts separate checked ranges without filling gaps',()=
  assert.equal(cardAgeSummary(venue),'Verified ages: 6 to 18 months');
  assert.equal(cardAgeSummary({...venue,programs:[...venue.programs,{name:'Toddler',offering:'offered',age:{...claim,minMonths:30,maxMonths:48}}]}),'By class: 6-18 mo, 30-48 mo');
 });
-test('dense and duplicate age claims stay compact and preserve the range count',()=>{
+test('dense overlapping claims merge and duplicate claims stay compact',()=>{
  const programs = [6,12,18,24,30,36].map(minMonths=>({name:'Class',offering:'offered',age:{...claim,minMonths,maxMonths:minMonths+11}}));
- assert.equal(cardAgeSummary({programs}), 'By class: 6-17 mo, 12-23 mo +4 more');
+ assert.equal(cardAgeSummary({programs}), 'By class: 6-47 mo');
  assert.equal(cardAgeSummary({...venue,branchAge:claim,programs:[...venue.programs,...venue.programs]}),'Verified ages: 6 to 18 months');
 });
 test('age overview sorts by lower bound before choosing two ranges',()=>{
