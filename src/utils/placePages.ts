@@ -13,7 +13,7 @@ export function governmentRelated(v: Venue): boolean {
 export function placePageInventory(venues: Venue[]) { return publicInventory(venues).filter(v=>!governmentRelated(v)); }
 export function placePath(v: Pick<Venue,'id'>,lang: PlaceLang) { return `${lang==='id'?'/id':''}/places/${v.id}/`; }
 export function placeUrl(v: Pick<Venue,'id'>,lang: PlaceLang) { return SITE_URL+placePath(v,lang); }
-export function placeMapUrl(v: Pick<Venue,'id'>) { return `${SITE_URL}/?v=${shortVenueId(v.id)}`; }
+export function placeMapUrl(v: Pick<Venue,'id'>,lang?: PlaceLang) { return `${SITE_URL}/?v=${shortVenueId(v.id)}${lang?`&shareLang=${lang}`:''}`; }
 export function placeDescription(v: Venue,lang: PlaceLang) {
  const suffix=lang==='id'?': cek lokasi dan usia kelas.':': see location and class ages.';
  const full=venueName(v)+suffix;return full.length<=80?full:venueName(v)+(lang==='id'?': lokasi dan usia.':': location and ages.');
