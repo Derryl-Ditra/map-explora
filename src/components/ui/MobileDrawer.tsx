@@ -1,4 +1,5 @@
 "use client";
+import LocationNotice from "./LocationNotice";
 
 import { useLayoutEffect, useRef, useCallback, useSyncExternalStore } from "react";
 import { Venue, VenueFilterState } from "@/types/venue";
@@ -35,6 +36,7 @@ interface MobileDrawerProps {
   isLocating: boolean;
   hasActualLocation: boolean;
   locationNotice: string | null;
+  locationDenied: boolean;
   onDismissLocationNotice: () => void;
 }
 
@@ -131,7 +133,7 @@ export default function MobileDrawer({
   showDetails,
   onSelectFromList,
   ageOpenTick,
-  onDismissToMap, onLocate, isLocating, hasActualLocation, locationNotice, onDismissLocationNotice,
+  onDismissToMap, onLocate, isLocating, hasActualLocation, locationNotice, locationDenied, onDismissLocationNotice,
 }: MobileDrawerProps) {
   const total = confirmed.length;
   const ageActive = filters.ageBand !== null;
@@ -228,7 +230,7 @@ export default function MobileDrawer({
           <>
             <button type="button" onClick={onLocate} disabled={isLocating} className="md:hidden shrink-0 min-h-12 rounded-xl bg-[#1a7a4a] text-white font-semibold py-2 px-3 disabled:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a]"><span className="block">{isLocating ? "Finding your location..." : hasActualLocation ? "Center on my location" : "Use my location"}</span><span className="block text-xs font-normal">{hasActualLocation ? "Location available" : "Find classes near you"}</span></button>
             {locationNotice && <div role="status" className="flex items-center gap-2 rounded-2xl border border-[#e7e0d4] bg-white p-3 text-sm text-[#4a443c]">
-              <span className="flex-1">{locationNotice}</span>
+              <LocationNotice message={locationNotice} denied={locationDenied} />
               <button type="button" aria-label="Dismiss location notice" onClick={onDismissLocationNotice} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"><X className="h-4 w-4" /></button>
             </div>}
             {/* Search Input */}

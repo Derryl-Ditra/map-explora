@@ -1,4 +1,5 @@
 "use client";
+import LocationNotice from "./ui/LocationNotice";
 
 import { useState, useCallback, useEffect, useSyncExternalStore, useRef } from "react";
 import dynamic from "next/dynamic";
@@ -43,6 +44,7 @@ export default function MapHUD() {
     hasActualLocation,
     isLocating,
     error: locationError,
+    errorCode: locationErrorCode,
     recenterTick,
     refresh,
   } = useGeolocation();
@@ -98,10 +100,10 @@ export default function MapHUD() {
   // Each explicit locate attempt gets a fresh five-second notice window.
   useEffect(() => {
 
-    if (!locationError) return;
+    if (!locationError || locationErrorCode===1) return;
     const t = setTimeout(() => setLocationNoticeGone(true), 5000);
     return () => clearTimeout(t);
-  }, [locationError, locationAttempt]);
+  }, [locationError, locationErrorCode, locationAttempt]);
 
   // Choosing an area or activity moves the map to show every matching place.
   const handleUpdateFilter = useCallback(
@@ -126,7 +128,7 @@ export default function MapHUD() {
         <div className="absolute bottom-[204px] md:bottom-auto md:top-4 left-1/2 -translate-x-1/2 z-[1001] w-[min(92vw,340px)]">
           <div className="bg-white border border-[#e7e0d4] rounded-2xl pl-3.5 pr-2 py-2.5 text-[0.9375rem] text-[#4a443c] shadow-sm flex items-center gap-2">
             <MapPin className="w-4 h-4 text-[#92400e] shrink-0" />
-            <span>{locationError}</span>
+            <LocationNotice message={locationError} denied={locationErrorCode===1} />
             <button
               type="button"
               onClick={() => setLocationNoticeGone(true)}
@@ -244,6 +246,7 @@ export default function MapHUD() {
         onDismissToMap={dismissToMap}
         onLocate={handleLocate}
         locationNotice={locationError && !locationNoticeGone ? locationError : null}
+        locationDenied={locationErrorCode===1}
         onDismissLocationNotice={() => setLocationNoticeGone(true)}
         isLocating={isLocating}
         hasActualLocation={hasActualLocation}
