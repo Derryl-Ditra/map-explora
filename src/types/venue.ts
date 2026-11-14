@@ -79,6 +79,7 @@ export interface Venue {
   instagram?: string;
   tiktok?: string;
   phone?: string;
+  phoneScope?: "shared-enquiry"; // omit for existing unspecified phone records
   sourceUrl: string; // where this branch record came from
   lastCheckedAt: string | null; // ISO date this record was checked; null = never
   fitStatus: string; // raw verification status code from the reviewed dataset
