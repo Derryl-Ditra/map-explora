@@ -21,7 +21,7 @@ Draft inventory:153 to155 stored records;141 to143 visible partner/official list
 ### Morning Nest Preschool, Bojongsari
 - Partner: https://happykamper.io/id/providers/morning-nest-preschool-955 and https://happykamper.io/id/activities/nest-beginner-2-4-yo . Nest Beginners is a bookable play-based class for2-4years,3days/week. Price option explicitly Monthly Nest Beginners Rp1,200,000. Do not flatten the same page's Prorated Explorers Rp4,400,000 into this class's monthly price.
 - Maps: https://www.google.com/maps/search/?api=1&query=Morning+Nest+Preschool&query_place_id=ChIJg9v8YxbpaS4Rw1e-dsRtKXY . Read16Nov: same provider/JlRayaCurug, opens07:30, links https://booking.happykamper.io/p/D4a ; phone+6282317583596. No closure label or reviews.
-- Pin disagreement: partner -6.3890943,106.731591 versus Maps -6.3856249,106.7296567, about440m apart. Maps pin takes precedence, street number omitted. The exact doorway has not been confirmed. This limitation needs QC attention; do not call it an on-site validation.
+- Pin disagreement: partner -6.3890943,106.731591 versus Maps -6.3856249,106.7296567, about 440 m apart. Maps pin takes precedence, street number omitted. The exact doorway has not been confirmed. This limitation needs QC attention; do not call it an on-site validation.
 - English partner description says age2-4, not exact boundary months; listed-unconfirmed only. No dated term or price-expiry date. Bounded Bahasa complaint/closure search returned partner listings, no independent review corpus. No safety conclusion.
 - Proposed: partner-listed; not a new verified age match.
 
@@ -154,3 +154,6 @@ All rows below are unverified partner leads, including excluded activity types. 
 | Sagita Mom Kids & Baby Spa | Paket kids top to toe | https://happykamper.io/en/activities/paket-kids-top-to-toe |
 | Bamboo Cyber School | Belajar Inggris OFFLINE Level Beginner | https://happykamper.io/en/activities/belajar-inggris-offline-level-beginner |
 | CforClover | Taba Squishy | https://happykamper.io/en/activities/taba-squishy |
+
+## Independent QC follow-up
+Morning Nest now has a visible bilingual entrance caution, following the existing address-conflict pattern. Sociable class notes name its special-needs focus and distinguish the general3-16year profile from the18-36month toddler listing. Both remain unconfirmed age matches. Sensory is a loose activity category: Sociable teaches practical life skills in a special-needs setting, and Morning Nest is broader play-based early learning. It is not a statement of provider credentials, clinical benefit or exact curriculum. Category taxonomy improvement is deferred rather than adding an unsupported new filter.
