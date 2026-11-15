@@ -57,3 +57,6 @@ map-explora-main/
 
 # Generated home preview; keep old og.png for prior shares
 /public/og-preview-v2.png
+
+# Public-source candidate snapshots, never application inventory
+.harvest/
