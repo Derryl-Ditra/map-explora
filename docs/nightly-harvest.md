@@ -19,14 +19,14 @@ node --test tests/harvest.test.mjs
 Outputs, all ignored by git:
 - `.harvest/happykamper/snapshot.json`: whitelisted JSON-LD fields, checkpointed after every page. No raw HTML, reviewer names, reviews, photos or account data.
 - `report.json`: this invocation's counts, added/changed URLs, manual-review location groups, exclusion reasons, and sitemap omissions. A group is NOT a verified branch.
-- `quarantine.json`: dated failed-page exclusions and persistent site-stop signals; inspect manually, never clear automatically.
+- `quarantine.json`: dated failed-page/verification exclusions and persistent hard site-stop signals; inspect manually, never clear automatically.
 - Preserve the prior snapshot to compare later runs. Do not commit full harvested datasets. Review changed/new evidence, not the raw page count.
 
 Scope update, 15 November 12:39 WIB: cautious collection, Jabodetabek only, multiple sources in Bahasa Indonesia and English. No faster account browsing.
 
 Default pacing is one request at a time, at least three seconds between completed requests, 40 activity pages per batch and a hard 100-page live batch ceiling. Every live invocation checks robots first; any non-empty Disallow stops for manual review. Discovery reads only the Jakarta, Tangerang, Tangerang Selatan, Bekasi, Depok and Bogor activity landing pages and collects their exact linked English leaf activities. Regional pages may be incomplete or contain mislabeled places: this is not exhaustive coverage or proof of location. No nationwide sitemap crawl runs.
 
-HTTP 403/429 or challenge signals pause the entire site, persist a site-stop entry and prevent future automatic runs until manual resolution. Other failures (including redirects and malformed pages) are quarantined with URL, reason and date; collection continues past those pages without following redirects or retrying. Later runs skip all quarantined URLs, including under --refresh, so one bad page cannot wedge the queue. The report names quarantines. Do not clear a site-stop entry on a timer or bypass it. Resolve through a supported alternative or a genuinely new external signal. Robots/discovery errors stop safely before activity collection.
+HTTP 403/429 or explicit access-denied/DataDome signals pause the entire site, persist a site-stop entry and prevent future automatic runs until manual resolution. AI, robot, human-verification, CAPTCHA and checking-browser pages (English or Indonesian) are skipped and quarantined with reason/date, never retried or bypassed. A verification page alone does not pause unrelated pages; HTTP 403/429 remains a hard site-stop even when its body uses verification wording. Other failures (including redirects and malformed pages) are quarantined with URL, reason and date; collection continues past those pages without following redirects or retrying. Later runs skip all quarantined URLs, including under --refresh, so one bad page cannot wedge the queue. The report names quarantines. Do not clear a site-stop entry on a timer or bypass it. Resolve through a supported alternative or a genuinely new external signal. Robots/discovery errors stop safely before activity collection.
 
 Offline replay reads only the named fixture and previous snapshot. It does not check robots or make network requests. Use a different output folder for replay and live runs.
 
