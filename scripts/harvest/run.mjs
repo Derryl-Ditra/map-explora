@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import {readFile,writeFile,mkdir,rename} from 'node:fs/promises';
 import {resolve} from 'node:path';
-import {parseActivity,clusterActivities,diffSnapshots,fetchPublic,selectBatch,checkRobots,triage,regionalUrls} from './core.mjs';
+import {parseActivity,clusterActivities,diffSnapshots,fetchWithQuarantine,selectBatch,checkRobots,triage,regionalUrls} from './core.mjs';
 const args=process.argv.slice(2);
 const value=(flag,fallback)=>{const i=args.indexOf(flag);return i<0?fallback:args[i+1];};
 const allowed=new Set(['--out','--limit','--delay-ms','--refresh','--replay']);
@@ -23,6 +23,8 @@ let quarantine=[];
 try{quarantine=JSON.parse(await readFile(quarantinePath,'utf8'));}catch(e){if(e.code!=='ENOENT')throw e;}
 if(!Array.isArray(quarantine))throw Error('Invalid quarantine file');
 if(quarantine.some(r=>r.siteStop))throw Error('STOP: site is paused, manual resolution required before another run');
+const saveQuarantine=()=>writeFile(quarantinePath,JSON.stringify(quarantine,null,2)+'\n');
+const request=url=>fetchWithQuarantine(url,quarantine,saveQuarantine);
 const blocked=new Set(quarantine.map(r=>r.sourceUrl));
 const startedAt=new Date().toISOString(),updated=new Map(before.map(r=>[r.sourceUrl,r])),errors=[];
 const sleep=()=>new Promise(r=>setTimeout(r,delay));
@@ -30,10 +32,10 @@ const replayFile=value('--replay',null);
 const replay=replayFile?JSON.parse(await readFile(resolve(replayFile),'utf8')):null;
 let urls;
 if(replay){urls=replay.map(p=>p.sourceUrl);}else{
- const robots=await fetchPublic('https://happykamper.io/robots.txt');checkRobots(robots);await sleep();
+ const robots=await request('https://happykamper.io/robots.txt');checkRobots(robots);await sleep();
  const regionSlugs=['jakarta','tangerang','tangerang-selatan','bekasi','depok','bogor'];
  const found=new Set();
- for(const city of regionSlugs){await sleep();for(const u of regionalUrls(await fetchPublic(`https://happykamper.io/en/activities/in/${city}`)))found.add(u);}
+ for(const city of regionSlugs){await sleep();for(const u of regionalUrls(await request(`https://happykamper.io/en/activities/in/${city}`)))found.add(u);}
  urls=[...found].sort();
 }
 if(!urls.length)throw Error('STOP: regional pages have no leaf activities');
@@ -41,11 +43,11 @@ const batch=selectBatch(urls.filter(u=>!blocked.has(u)),before,limit,args.includ
 let fetched=0;
 for(const url of batch){
  if(!replay)await sleep();
- try{const body=replay?replay.find(p=>p.sourceUrl===url).html:await fetchPublic(url);const record=parseActivity(body,url,new Date().toISOString());updated.set(url,record);fetched++;}
+ try{const body=replay?replay.find(p=>p.sourceUrl===url).html:await request(url);const record=parseActivity(body,url,new Date().toISOString());updated.set(url,record);fetched++;}
  catch(e){
   const reason=String(e.message).slice(0,500);
   const siteStop=/HTTP (403|429)\b|site challenge/i.test(reason);
-  errors.push({url,error:reason});quarantine.push({sourceUrl:url,reason,siteStop,at:new Date().toISOString()});
+  errors.push({url,error:reason});if(!quarantine.some(q=>q.sourceUrl===url))quarantine.push({sourceUrl:url,reason,siteStop,at:new Date().toISOString()});
   await writeFile(quarantinePath,JSON.stringify(quarantine,null,2)+'\n');console.error(reason);
   if(siteStop)break;
   continue;
