@@ -93,3 +93,9 @@ test('persisted site challenge blocks future automatic runs until manual resolut
  const result=spawnSync(process.execPath,['scripts/harvest/run.mjs','--out',out,'--replay','tests/fixtures/harvest-buumi.json'],{encoding:'utf8'});assert.notEqual(result.status,0);assert.match(result.stderr,/manual resolution/);
  }finally{await rm(temp,{recursive:true,force:true});}
 });
+
+test('a robots or discovery request challenge is persisted too, not retried next night',async()=>{
+ const{fetchWithQuarantine}=await import('../scripts/harvest/core.mjs');const q=[];let saved=false;
+ await assert.rejects(()=>fetchWithQuarantine('https://happykamper.io/robots.txt',q,async()=>{saved=true;},async()=>new Response('slow',{status:429})),/STOP/);
+ assert.equal(saved,true);assert.equal(q[0].siteStop,true);assert.equal(q[0].sourceUrl,'https://happykamper.io/robots.txt');
+});
