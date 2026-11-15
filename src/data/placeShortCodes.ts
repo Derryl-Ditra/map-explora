@@ -144,5 +144,7 @@ export const PLACE_SHORT_CODES: Record<string,string> = {
  "studiorenang-gading-serpong": "i7K",
  "studiorenang-kelapa-gading": "f9J",
  "studiorenang-meruya": "4Cc",
- "the-funtastic-gym-pondok-indah": "n3J"
+ "the-funtastic-gym-pondok-indah": "n3J",
+ "sociable-inclusive-learning-meruya": "Ad4",
+ "morning-nest-preschool-bojongsari": "E4f"
 };
