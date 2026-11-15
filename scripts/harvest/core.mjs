@@ -77,3 +77,10 @@ export function regionalUrls(html){
  const urls=[...html.matchAll(/href=["']([^"']+)["']/g)].map(m=>m[1].startsWith('/')?`https://happykamper.io${m[1]}`:m[1]);
  return leafUrls(urls.map(u=>`<loc>${u}</loc>`).join(''));
 }
+export async function fetchWithQuarantine(url,quarantine,save,fetcher=fetch){
+ try{return await fetchPublic(url,fetcher);}catch(e){
+  const reason=String(e.message).slice(0,500),siteStop=/HTTP (403|429)\b|site challenge/i.test(reason);
+  if(!quarantine.some(q=>q.sourceUrl===url))quarantine.push({sourceUrl:url,reason,siteStop,at:new Date().toISOString()});
+  await save();throw e;
+ }
+}
