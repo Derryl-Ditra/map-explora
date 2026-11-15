@@ -1,0 +1,70 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {parseActivity,leafUrls,clusterActivities,diffSnapshots,contentHash,assertSourceUrl,fetchPublic} from '../scripts/harvest/core.mjs';
+const html = (nodes) => `<script type="application/ld+json">${JSON.stringify(nodes)}</script>`;
+const source='https://happykamper.io/en/activities/play-a';
+const nodes=[{'@type':'Service',name:'Play A',description:'Tiket 2 jam usia 1-5 tahun',provider:{name:'Small Play'},offers:{lowPrice:0,highPrice:50000,priceCurrency:'IDR'}},{'@type':'LocalBusiness',name:'Small Play',address:{streetAddress:'Jl Melati Jakarta'},geo:{latitude:-6.2,longitude:106.8},review:[{author:{name:'PRIVATE_NAME'},reviewBody:'PRIVATE_BODY'}]},{'@type':'FAQPage',mainEntity:[{name:'What ages?',acceptedAnswer:{text:'1-5 years'}}]}];
+test('parses graph/type arrays, preserves zero prices, never upgrades partner evidence or copies review PII',()=>{
+ const r=parseActivity(html({'@graph':nodes.map(n=>({...n,'@type':[n['@type']]}))}),source,'2026-11-15');
+ assert.equal(r.provider,'Small Play');assert.equal(r.price.low,0);assert.equal(r.evidenceTier,'partner-listed-unverified');assert.equal(r.ageClaim.verification,'unverified-template');assert.equal(r.regionCandidate,true);assert.equal(r.sourceDate,null);assert.equal(JSON.stringify(r).includes('PRIVATE_'),false);
+});
+test('invalid JSON, missing service, bad geo, unknown and non-IDR prices stay non-publishable',()=>{
+ assert.throws(()=>parseActivity('<script type="application/ld+json">{bad}</script>',source,'2026-11-15'));
+ const n=structuredClone(nodes);n[1].geo.latitude=0;n[0].offers={lowPrice:'',highPrice:'x',priceCurrency:'USD'};
+ const r=parseActivity(html(n),source,'2026-11-15');assert.equal(r.regionCandidate,false);assert.equal(r.price,null);assert.equal(r.publishable,false);
+ assert.throws(()=>parseActivity(html(nodes.slice(1)),source,'2026-11-15'));
+});
+test('leaf sitemap drops area/category/lang duplicates and validates host',()=>{
+ assert.deepEqual(leafUrls('<loc>https://happykamper.io/id/activities/a</loc><loc>https://happykamper.io/en/activities/a</loc><loc>https://happykamper.io/en/activities/in</loc><loc>https://happykamper.io/en/activities/in/jakarta</loc><loc>https://evil.test/en/activities/a</loc>'),['https://happykamper.io/en/activities/a']);
+ for(const u of ['https://evil.test/a','https://happykamper.io.evil/a','http://happykamper.io/','https://x@happykamper.io/'])assert.throws(()=>assertSourceUrl(u));
+});
+test('dedupe needs exact provider and rounded location, not provider alone',()=>{
+ const a=parseActivity(html(nodes),source,'2026-11-15');const b={...a,sourceUrl:source+'2'};const c={...a,geo:{lat:-6.8,lng:106.8}};
+ assert.deepEqual(clusterActivities([a,b,c]).map(g=>g.activities.length).sort(),[1,2]);
+ const noGeo={...a,geo:null};assert.equal(clusterActivities([noGeo,{...noGeo,sourceUrl:source+'3'}]).length,2);
+});
+test('diff ignores render date and retrieval but detects price changes; omissions are not closures',()=>{
+ const a=parseActivity(html(nodes),source,'2026-11-15');const b=parseActivity(html(nodes.map(n=>({...n,dateModified:'2099-01-01'}))),source,'2026-11-16');
+ assert.equal(contentHash(a),contentHash(b));assert.deepEqual(diffSnapshots([a],[b]),{added:[],changed:[],notObserved:[]});
+ assert.deepEqual(diffSnapshots([a],[]),{added:[],changed:[],notObserved:[source]});
+ b.price.low=100;assert.deepEqual(diffSnapshots([a],[b]).changed,[source]);
+});
+test('HTTP 403/429/challenge/redirect failures halt instead of retry or bypass',async()=>{
+ for(const response of [new Response('denied',{status:403}),new Response('slow',{status:429}),new Response('verify you are human'),new Response('',{status:302,headers:{location:'https://evil.test'}})]){
+ await assert.rejects(()=>fetchPublic(source,async()=>response),/STOP/);
+ }
+});
+
+test('batch selection is bounded, spreads alphabetic names, resumes by URL and refreshes explicitly',async()=>{
+ const {selectBatch,checkRobots}=await import('../scripts/harvest/core.mjs');
+ const urls=[source,source+'2',source+'3'];assert.equal(selectBatch(urls,[{sourceUrl:source}],1,false).length,1);
+ assert.equal(selectBatch([source],[{sourceUrl:source}],1,false).length,0);
+ assert.deepEqual(selectBatch([source],[{sourceUrl:source}],1,true),[source]);
+ assert.throws(()=>selectBatch(urls,[],0,false));
+ assert.doesNotThrow(()=>checkRobots('User-agent: *\nAllow: /'));
+ assert.throws(()=>checkRobots('User-agent: *\nDisallow: /private'),/STOP/);
+});
+
+test('triage excludes government/free parks, therapy, school/daycare-only and out-of-region districts',async()=>{
+ const {triage}=await import('../scripts/harvest/core.mjs');
+ for(const row of [{provider:'Free Activities',activity:'Taman Lansia',category:['Free Activity']},{activity:'PHYSIOTHERAPY LOCAL'},{activity:'Daycare Fullday'},{address:'Karawang, Jawa Barat'}]){
+ assert.equal(triage({regionCandidate:true,category:[],...row}).status,'excluded');
+ }
+ assert.equal(triage({regionCandidate:true,category:['Sports'],activity:'Toddler swimming'}).status,'needs-review');
+});
+
+test('CLI replay creates checkpoint and report, rerun is no-op, invalid out never mutates source',async()=>{
+ const {mkdtemp,readFile,rm}=await import('node:fs/promises');const{tmpdir}=await import('node:os');const{join}=await import('node:path');const{spawnSync}=await import('node:child_process');
+ const temp=await mkdtemp(join(tmpdir(),'harvest-test-')),out=join(temp,'.harvest','candidate');
+ try{
+ const args=['scripts/harvest/run.mjs','--out',out,'--replay','tests/fixtures/harvest-buumi.json'];
+ let result=spawnSync(process.execPath,args,{encoding:'utf8'});assert.equal(result.status,0,result.stderr);
+ let report=JSON.parse(await readFile(join(out,'report.json'),'utf8'));assert.equal(report.summary.fetched,1);assert.equal(report.summary.strongBranchesAdded,0);assert.equal(report.candidates.length,1);
+ result=spawnSync(process.execPath,args,{encoding:'utf8'});assert.equal(result.status,0,result.stderr);report=JSON.parse(await readFile(join(out,'report.json'),'utf8'));assert.deepEqual(report.diff,{added:[],changed:[],notObserved:[]});assert.equal(report.summary.fetched,0);
+ result=spawnSync(process.execPath,['scripts/harvest/run.mjs','--out',join(temp,'src'),'--replay','tests/fixtures/harvest-buumi.json'],{encoding:'utf8'});assert.notEqual(result.status,0);
+ }finally{await rm(temp,{recursive:true,force:true});}
+});
+
+test('blank, boolean and nonfinite numeric evidence cannot become zero prices or coordinates',()=>{
+ for(const v of ['  ',false,'Infinity','not a number']){const n=structuredClone(nodes);n[0].offers.lowPrice=v;assert.equal(parseActivity(html(n),source,'2026-11-15').price,null);}
+});
