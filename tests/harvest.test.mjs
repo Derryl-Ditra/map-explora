@@ -99,3 +99,17 @@ test('a robots or discovery request challenge is persisted too, not retried next
  await assert.rejects(()=>fetchWithQuarantine('https://happykamper.io/robots.txt',q,async()=>{saved=true;},async()=>new Response('slow',{status:429})),/STOP/);
  assert.equal(saved,true);assert.equal(q[0].siteStop,true);assert.equal(q[0].sourceUrl,'https://happykamper.io/robots.txt');
 });
+
+test('English and Indonesian robot/AI verification pages are quarantined and skipped without bypass',async()=>{
+ const{fetchWithQuarantine}=await import('../scripts/harvest/core.mjs');
+ for(const body of ['Are you a robot?','Checking your browser before accessing','Verify that you are not a robot','AI verification required','Please complete the CAPTCHA','Verifikasi bahwa Anda bukan robot','Memeriksa browser Anda','Buktikan Anda manusia','Pemeriksaan AI diperlukan','Silakan selesaikan verifikasi keamanan']){
+  const q=[];await assert.rejects(()=>fetchWithQuarantine(source,q,async()=>{},async()=>new Response(body)),/STOP: verification page/);
+  assert.equal(q.length,1);assert.equal(q[0].siteStop,false);assert.ok(q[0].at);
+ }
+ const good=await fetchPublic(source,async()=>new Response('Kelas robotika untuk anak, belajar membuat robot.'));assert.match(good,/robotika/);
+});
+
+test('HTTP403 and HTTP429 remain hard site stops even with verification wording',async()=>{
+ const{fetchWithQuarantine}=await import('../scripts/harvest/core.mjs');
+ for(const status of [403,429]){const q=[];await assert.rejects(()=>fetchWithQuarantine(source,q,async()=>{},async()=>new Response('Are you a robot?',{status})),/STOP: HTTP/);assert.equal(q[0].siteStop,true);}
+});
