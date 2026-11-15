@@ -428,6 +428,7 @@ export default function VenueDetails({
       <p className="text-[0.875rem] text-[#6d675f]">Check tolls and ganjil/genap settings in Google Maps before travelling.</p>
 
       {/* Phone */}
+      {venue.phone && venue.phoneScope === "shared-enquiry" && <p className="text-[0.875rem] text-[#6d675f]">Shared enquiry number</p>}
       {venue.phone && (
         <div className="flex items-center gap-1.5 text-[1rem] text-[#4a443c]">
           <Phone aria-hidden="true" className="w-4 h-4 text-[#6d675f] shrink-0" />
