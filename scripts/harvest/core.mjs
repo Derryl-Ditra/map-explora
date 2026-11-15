@@ -53,7 +53,8 @@ export async function fetchPublic(url,fetcher=fetch){
  const reader=response.body.getReader();let bytes=0;const chunks=[];
  try{for(;;){const {done,value}=await reader.read();if(done)break;bytes+=value.length;if(bytes>8_000_000)throw Error('STOP: response too large');chunks.push(value);}}finally{await reader.cancel();}
  const body=Buffer.concat(chunks).toString('utf8');
- if(/verify you are human|access denied|datadome|<title>just a moment|captcha challenge/i.test(body))throw Error('STOP: site challenge');
+ if(/are you (?:a |an? )?robot|(?:verify|confirm|prove|check)[^.<>\n]{0,80}(?:human|not a robot)|checking your browser|(?:ai|robot|human)[ -]?(?:verification|check)|captcha|verifikasi[^.<>\n]{0,80}(?:robot|manusia|keamanan|ai\b)|(?:buktikan|pastikan)[^.<>\n]{0,60}manusia|memeriksa (?:browser|peramban)|pemeriksaan (?:ai|robot|manusia)|<title>just a moment/i.test(body))throw Error('STOP: verification page, quarantine and skip without retry');
+ if(/access denied|datadome/i.test(body))throw Error('STOP: site challenge');
  return body;
 }
 export function selectBatch(urls,records,limit,refresh){
