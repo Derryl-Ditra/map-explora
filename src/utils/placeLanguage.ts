@@ -1,6 +1,9 @@
 // Only reviewed translations are published. Unmapped source prose stays at
 // its source link, never silently promoted to translated or verified evidence.
 const translations: Record<string,string> = {
+  "The partner map point is about 440 m from the Google Maps pin. Confirm the entrance with the provider before visiting.": "Titik peta mitra berjarak sekitar 440 m dari pin Google Maps. Tanyakan pintu masuk ke penyedia sebelum datang.",
+  "Sociable focuses on special-needs education. Its general partner profile lists ages 3-16, while this toddler class description says 18-36 months. Confirm suitability, support needs, age and the next session with the provider.": "Sociable berfokus pada pendidikan anak berkebutuhan khusus. Profil umum di mitra menyebut usia 3-16 tahun, sedangkan keterangan kelas balita ini menyebut 18-36 bulan. Tanyakan kecocokan kelas, kebutuhan pendampingan, syarat usia dan jadwal berikutnya ke penyedia.",
+
   "Toddler Class, 1 session": "Kelas balita, 1 sesi",
   "Monthly Nest Beginners, 3 days per week": "Nest Beginners bulanan, 3 hari per minggu",
   "Partner listing only. Confirm the next session and current fee; no price validity date is stated.": "Harga dari mitra. Tanyakan jadwal berikutnya dan biaya terbaru; tanggal akhir harga belum disebut.",
