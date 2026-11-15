@@ -73,3 +73,7 @@ export function triage(r){
  if(/daycare|day care|full daycare|fullday|full day care/i.test(r.activity??''))reasons.push('daycare-only package, not a class');
  return {status:reasons.length?'excluded':'needs-review',reasons:reasons.length?reasons:['verify under-5 age, category, branch identity, government link and closure before promotion']};
 }
+export function regionalUrls(html){
+ const urls=[...html.matchAll(/href=["']([^"']+)["']/g)].map(m=>m[1].startsWith('/')?`https://happykamper.io${m[1]}`:m[1]);
+ return leafUrls(urls.map(u=>`<loc>${u}</loc>`).join(''));
+}
