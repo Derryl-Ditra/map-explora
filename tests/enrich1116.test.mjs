@@ -14,3 +14,8 @@ test('Nov16 two reviewed partner branches do not become verified age matches',()
 test('Nov16 excludes unresolved red-flag or identity leads',()=>{
  for(const name of ['bright-cubs-pik','harahap-swimming-jagakarsa','scuola-bogor'])assert.equal(VENUES.some(v=>v.id===name),false);
 });
+
+test('Nov16 QC cautions and specialist focus remain visible and translated',()=>{
+ const m=VENUES.find(v=>v.id==='morning-nest-preschool-bojongsari');assert.match(m.caution,/440 m/);assert.ok(placeText(m.caution,'id'));
+ const s=VENUES.find(v=>v.id==='sociable-inclusive-learning-meruya');assert.match(s.programs[0].note,/special-needs/);assert.match(s.programs[0].note,/3-16/);assert.ok(placeText(s.programs[0].note,'id'));
+});
