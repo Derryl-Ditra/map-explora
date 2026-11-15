@@ -494,7 +494,7 @@ export const BATCH3_VENUES: Venue[] = [
           "providerAgeUrl": "https://happykamper.io/id/activities/toddler-class-practical-skills-for-little-ones-bahasa-indonesia",
           "sourceCheckedAt": "2026-11-16"
         },
-        "note": "Happy Kamper lists 18-36 months in the class description. Confirm the age and next session with the provider."
+        "note": "Sociable focuses on special-needs education. Its general partner profile lists ages 3-16, while this toddler class description says 18-36 months. Confirm suitability, support needs, age and the next session with the provider."
       }
     ],
     "website": "https://www.sociablegrouplearning.com/",
@@ -571,6 +571,7 @@ export const BATCH3_VENUES: Venue[] = [
         "note": "Partner listing only. Confirm the current fee, class dates and any registration charge; no price validity date is stated."
       }
     ],
-    "notes": "Happy Kamper lists bookable play-based Nest Beginners classes, not only daycare. Maps lists the same provider on Jl. Raya Curug with opening hours and links Happy Kamper. The partner coordinate is about440m south-east of the Maps pin; Maps pin takes precedence and the street number is omitted. Maps has no public reviews. Not a safety guarantee or confirmed age match."
+    "notes": "Happy Kamper lists bookable play-based Nest Beginners classes, not only daycare. Maps lists the same provider on Jl. Raya Curug with opening hours and links Happy Kamper. The partner coordinate is about 440 m south-east of the Maps pin; Maps pin takes precedence and the street number is omitted. Maps has no public reviews. Not a safety guarantee or confirmed age match.",
+    "caution": "The partner map point is about 440 m from the Google Maps pin. Confirm the entrance with the provider before visiting."
   }
 ];
