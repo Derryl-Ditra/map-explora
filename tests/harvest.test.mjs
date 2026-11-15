@@ -68,3 +68,28 @@ test('CLI replay creates checkpoint and report, rerun is no-op, invalid out neve
 test('blank, boolean and nonfinite numeric evidence cannot become zero prices or coordinates',()=>{
  for(const v of ['  ',false,'Infinity','not a number']){const n=structuredClone(nodes);n[0].offers.lowPrice=v;assert.equal(parseActivity(html(n),source,'2026-11-15').price,null);}
 });
+
+test('regional discovery accepts only exact leaf links on the approved city pages',async()=>{
+ const{regionalUrls}=await import('../scripts/harvest/core.mjs');
+ const page='<a href="/en/activities/a">a</a><a href="https://happykamper.io/en/activities/b">b</a><a href="/id/activities/a">id</a><a href="https://evil.test/en/activities/c">bad</a><a href="/en/activities/in/bali">bali</a>';
+ assert.deepEqual(regionalUrls(page),['https://happykamper.io/en/activities/a','https://happykamper.io/en/activities/b']);
+});
+
+test('CLI quarantines bad pages, continues valid pages, and skips quarantined URLs on resume',async()=>{
+ const{mkdtemp,writeFile,readFile,rm}=await import('node:fs/promises');const{tmpdir}=await import('node:os');const{join}=await import('node:path');const{spawnSync}=await import('node:child_process');
+ const temp=await mkdtemp(join(tmpdir(),'harvest-quarantine-')),out=join(temp,'.harvest','candidate'),fixture=join(temp,'pages.json');
+ try{const good=JSON.parse(await readFile('tests/fixtures/harvest-buumi.json','utf8'));await writeFile(fixture,JSON.stringify([{sourceUrl:source,html:'<html>broken schema</html>'},...good]));
+ const args=['scripts/harvest/run.mjs','--out',out,'--replay',fixture];spawnSync(process.execPath,args,{encoding:'utf8'});
+ const report=JSON.parse(await readFile(join(out,'report.json'),'utf8'));assert.equal(report.summary.fetched,1);assert.equal(report.summary.quarantinedUrls,1);
+ const quarantine=JSON.parse(await readFile(join(out,'quarantine.json'),'utf8'));assert.equal(quarantine[0].sourceUrl,source);assert.ok(quarantine[0].at);assert.match(quarantine[0].reason,/Missing/);
+ const rerun=spawnSync(process.execPath,args,{encoding:'utf8'});assert.equal(rerun.status,0,rerun.stderr);assert.equal(JSON.parse(await readFile(join(out,'report.json'),'utf8')).summary.selected,0);
+ }finally{await rm(temp,{recursive:true,force:true});}
+});
+
+test('persisted site challenge blocks future automatic runs until manual resolution',async()=>{
+ const{mkdtemp,mkdir,writeFile,rm}=await import('node:fs/promises');const{tmpdir}=await import('node:os');const{join}=await import('node:path');const{spawnSync}=await import('node:child_process');
+ const temp=await mkdtemp(join(tmpdir(),'harvest-stop-')),out=join(temp,'.harvest','candidate');
+ try{await mkdir(out,{recursive:true});await writeFile(join(out,'quarantine.json'),JSON.stringify([{sourceUrl:source,reason:'site challenge',siteStop:true,at:'2026-11-15'}]));
+ const result=spawnSync(process.execPath,['scripts/harvest/run.mjs','--out',out,'--replay','tests/fixtures/harvest-buumi.json'],{encoding:'utf8'});assert.notEqual(result.status,0);assert.match(result.stderr,/manual resolution/);
+ }finally{await rm(temp,{recursive:true,force:true});}
+});
