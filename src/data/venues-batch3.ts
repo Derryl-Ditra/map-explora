@@ -573,5 +573,88 @@ export const BATCH3_VENUES: Venue[] = [
     ],
     "notes": "Happy Kamper lists bookable play-based Nest Beginners classes, not only daycare. Maps lists the same provider on Jl. Raya Curug with opening hours and links Happy Kamper. The partner coordinate is about 440 m south-east of the Maps pin; Maps pin takes precedence and the street number is omitted. Maps has no public reviews. Not a safety guarantee or confirmed age match.",
     "caution": "The partner map point is about 440 m from the Google Maps pin. Confirm the entrance with the provider before visiting."
+  },
+{
+  "id": "kiddiegym-bogor-siliwangi",
+  "chain": "Kiddieland & Kiddiegym",
+  "branchName": "Bogor Siliwangi",
+  "categories": [
+    "Gym & Movement",
+    "Sensory"
+  ],
+  "address": "Jl. Siliwangi No.60, Bondongan, Kota Bogor, Jawa Barat 16131",
+  "area": "Bondongan",
+  "city": "Bogor",
+  "lat": -6.6154323,
+  "lng": 106.8089309,
+  "coordinateSource": "maps-pin",
+  "programs": [
+    {
+      "name": "Little Sensory Class",
+      "category": "Sensory",
+      "offering": "offered",
+      "age": {
+        "minMonths": 6,
+        "maxMonths": 24,
+        "level": "branch",
+        "verification": "provider-confirmed",
+        "providerAgeUrl": "https://montessorischoolbogor.com/id/programs/classes/",
+        "sourceCheckedAt": "2026-11-17"
+      },
+      "note": "The official Bogor page lists these ages but gives no current term. Confirm birthday cutoffs, the next session and the fee with the provider."
+    },
+    {
+      "name": "Toddler Sensory Class",
+      "category": "Sensory",
+      "offering": "offered",
+      "age": {
+        "minMonths": 24,
+        "maxMonths": 48,
+        "level": "branch",
+        "verification": "provider-confirmed",
+        "providerAgeUrl": "https://montessorischoolbogor.com/id/programs/classes/",
+        "sourceCheckedAt": "2026-11-17"
+      },
+      "note": "The official Bogor page lists these ages but gives no current term. Confirm birthday cutoffs, the next session and the fee with the provider."
+    },
+    {
+      "name": "Kiddiegym: Baby Gym",
+      "category": "Gym & Movement",
+      "offering": "offered",
+      "age": {
+        "minMonths": 6,
+        "maxMonths": 48,
+        "level": "branch",
+        "verification": "listed-unconfirmed",
+        "providerAgeUrl": "https://montessorischoolbogor.com/id/programs/classes/",
+        "sourceCheckedAt": "2026-11-17",
+        "sourceConflict": true
+      },
+      "note": "Gym and sensory classes share the school building. A June 2025 parent review questioned the school's Montessori materials and cleanliness; this is one parent's account, not a safety finding. Visit and ask about the class before enrolling.",
+      "noteUrl": "https://viaverborum.wordpress.com/2025/06/27/review-walker-kiddieland-kiddiegym-montessori-bogor/",
+      "noteLabel": "Parent review, June 2025"
+    }
+  ],
+  "website": "https://montessorischoolbogor.com/",
+  "phone": "+6287719380999",
+  "sourceUrl": "https://montessorischoolbogor.com/id/programs/classes/",
+  "lastCheckedAt": "2026-11-17",
+  "fitStatus": "branch-confirmed-live-undated",
+  "operatingStatus": {
+    "state": "official-listed",
+    "source": "https://montessorischoolbogor.com/",
+    "checkedAt": "2026-11-17"
+  },
+  "notes": "Official branch page and Maps share Siliwangi 60 and the same phone. Maps showed opening hours and no permanent-closure label. Only gym and sensory classes are included, not school enrollment. No current price is published here.",
+  "reviews": {
+    "rating": 4.9,
+    "reviewCount": 350,
+    "source": "Google Maps",
+    "sourceUrl": "https://www.google.com/maps/search/?api=1&query=KiddieLand+Montessori+Preschool+%26+Kindergarten+Bogor&query_place_id=ChIJIRHVFQDFaS4R6YniN4Cf79g",
+    "checkedAt": "2026-11-17",
+    "praiseThemes": [],
+    "complaintThemes": [],
+    "sampleNote": "350 Google Maps ratings. Newest-sorted list showed a review a week ago; too few reviews read to judge a trend."
   }
+}
 ];
