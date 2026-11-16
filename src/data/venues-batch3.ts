@@ -467,5 +467,111 @@ export const BATCH3_VENUES: Venue[] = [
       "sampleNote": "17 Google Maps ratings, newest 3 months ago. No concerns in the reviews read."
     },
     "phone": "+62 813-8800-8908"
+  },
+  {
+    "id": "sociable-inclusive-learning-meruya",
+    "chain": "Sociable Inclusive Learning",
+    "branchName": "Meruya",
+    "categories": [
+      "Sensory"
+    ],
+    "address": "Ruko Taman Plaza Meruya II Blok A No.16, Meruya Utara, Kembangan, Jakarta Barat",
+    "area": "Meruya Utara",
+    "city": "Jakarta Barat",
+    "lat": -6.1950873,
+    "lng": 106.737696,
+    "coordinateSource": "maps-pin",
+    "programs": [
+      {
+        "name": "Toddler Class: Practical Skills",
+        "category": "Sensory",
+        "offering": "offered",
+        "age": {
+          "minMonths": 18,
+          "maxMonths": 36,
+          "level": "branch",
+          "verification": "listed-unconfirmed",
+          "providerAgeUrl": "https://happykamper.io/id/activities/toddler-class-practical-skills-for-little-ones-bahasa-indonesia",
+          "sourceCheckedAt": "2026-11-16"
+        },
+        "note": "Sociable focuses on special-needs education. Its general partner profile lists ages 3-16, while this toddler class description says 18-36 months. Confirm suitability, support needs, age and the next session with the provider."
+      }
+    ],
+    "website": "https://www.sociablegrouplearning.com/",
+    "phone": "+628118752027",
+    "sourceUrl": "https://happykamper.io/id/activities/toddler-class-practical-skills-for-little-ones-bahasa-indonesia",
+    "lastCheckedAt": "2026-11-16",
+    "fitStatus": "media-claimed",
+    "operatingStatus": {
+      "state": "partner-listed",
+      "source": "https://www.google.com/maps/search/?api=1&query=Sociable+Inclusive+Learning&query_place_id=ChIJq0nFsQT5aS4R-vX8yqrN-u0",
+      "checkedAt": "2026-11-16"
+    },
+    "priceListings": [
+      {
+        "sourceKind": "partner",
+        "label": "Toddler Class, 1 session",
+        "amountIdr": 175000,
+        "unit": "per session",
+        "source": "Happy Kamper",
+        "sourceUrl": "https://happykamper.io/id/activities/toddler-class-practical-skills-for-little-ones-bahasa-indonesia",
+        "checkedAt": "2026-11-16",
+        "note": "Partner listing only. Confirm the next session and current fee; no price validity date is stated."
+      }
+    ],
+    "notes": "Official website uses Sociable Group Learning; the Maps listing links that website at the same Meruya address and phone. The partner class description starts 8 September 2025; this is not a current-term confirmation. Maps shows opening hours, no closure label, and no public reviews. No review trend or safety conclusion is available."
+  },
+  {
+    "id": "morning-nest-preschool-bojongsari",
+    "chain": "Morning Nest Preschool",
+    "branchName": "Bojongsari",
+    "categories": [
+      "Sensory"
+    ],
+    "address": "Jl. Raya Curug, Curug, Bojongsari, Kota Depok, Jawa Barat 16517",
+    "area": "Bojongsari",
+    "city": "Depok",
+    "lat": -6.3856249,
+    "lng": 106.7296567,
+    "coordinateSource": "maps-pin",
+    "programs": [
+      {
+        "name": "Nest Beginners",
+        "category": "Sensory",
+        "offering": "offered",
+        "age": {
+          "minMonths": 24,
+          "maxMonths": 48,
+          "level": "branch",
+          "verification": "listed-unconfirmed",
+          "providerAgeUrl": "https://happykamper.io/id/activities/nest-beginner-2-4-yo",
+          "sourceCheckedAt": "2026-11-16"
+        },
+        "note": "Happy Kamper lists ages 2-4 years. Confirm the age and next session with the provider."
+      }
+    ],
+    "phone": "+6282317583596",
+    "sourceUrl": "https://happykamper.io/id/activities/nest-beginner-2-4-yo",
+    "lastCheckedAt": "2026-11-16",
+    "fitStatus": "media-claimed",
+    "operatingStatus": {
+      "state": "partner-listed",
+      "source": "https://www.google.com/maps/search/?api=1&query=Morning+Nest+Preschool&query_place_id=ChIJg9v8YxbpaS4Rw1e-dsRtKXY",
+      "checkedAt": "2026-11-16"
+    },
+    "priceListings": [
+      {
+        "sourceKind": "partner",
+        "label": "Monthly Nest Beginners, 3 days per week",
+        "amountIdr": 1200000,
+        "unit": "per 1-month membership",
+        "source": "Happy Kamper",
+        "sourceUrl": "https://happykamper.io/id/activities/nest-beginner-2-4-yo",
+        "checkedAt": "2026-11-16",
+        "note": "Partner listing only. Confirm the current fee, class dates and any registration charge; no price validity date is stated."
+      }
+    ],
+    "notes": "Happy Kamper lists bookable play-based Nest Beginners classes, not only daycare. Maps lists the same provider on Jl. Raya Curug with opening hours and links Happy Kamper. The partner coordinate is about 440 m south-east of the Maps pin; Maps pin takes precedence and the street number is omitted. Maps has no public reviews. Not a safety guarantee or confirmed age match.",
+    "caution": "The partner map point is about 440 m from the Google Maps pin. Confirm the entrance with the provider before visiting."
   }
 ];

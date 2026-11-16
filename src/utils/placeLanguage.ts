@@ -1,6 +1,16 @@
 // Only reviewed translations are published. Unmapped source prose stays at
 // its source link, never silently promoted to translated or verified evidence.
 const translations: Record<string,string> = {
+  "The partner map point is about 440 m from the Google Maps pin. Confirm the entrance with the provider before visiting.": "Titik peta mitra berjarak sekitar 440 m dari pin Google Maps. Tanyakan pintu masuk ke penyedia sebelum datang.",
+  "Sociable focuses on special-needs education. Its general partner profile lists ages 3-16, while this toddler class description says 18-36 months. Confirm suitability, support needs, age and the next session with the provider.": "Sociable berfokus pada pendidikan anak berkebutuhan khusus. Profil umum di mitra menyebut usia 3-16 tahun, sedangkan keterangan kelas balita ini menyebut 18-36 bulan. Tanyakan kecocokan kelas, kebutuhan pendampingan, syarat usia dan jadwal berikutnya ke penyedia.",
+
+  "Toddler Class, 1 session": "Kelas balita, 1 sesi",
+  "Monthly Nest Beginners, 3 days per week": "Nest Beginners bulanan, 3 hari per minggu",
+  "Partner listing only. Confirm the next session and current fee; no price validity date is stated.": "Harga dari mitra. Tanyakan jadwal berikutnya dan biaya terbaru; tanggal akhir harga belum disebut.",
+  "Partner listing only. Confirm the current fee, class dates and any registration charge; no price validity date is stated.": "Harga dari mitra. Tanyakan biaya terbaru, tanggal kelas dan biaya pendaftaran; tanggal akhir harga belum disebut.",
+  "Happy Kamper lists 18-36 months in the class description. Confirm the age and next session with the provider.": "Keterangan kelas di Happy Kamper menyebut 18-36 bulan. Tanyakan syarat usia dan jadwal berikutnya ke penyedia.",
+  "Happy Kamper lists ages 2-4 years. Confirm the age and next session with the provider.": "Happy Kamper menyebut usia 2-4 tahun. Tanyakan syarat usia dan jadwal berikutnya ke penyedia.",
+
   "starting price per 2-hour public-play ticket": "harga mulai untuk tiket bermain 2 jam",
   "The listing shows Rp195,000-Rp225,000. The provider title also names Urban Forest; confirm this ticket and price apply to Plaza Senayan before booking. Selected date only; confirm the final price and public-play slots. No refund or rescheduling. Playground closes for cleaning 13:00-14:00; remaining playtime can continue afterward. Anti-slip socks required. Equipment is listed for ages 12 months to 12 years with an adult aged at least 18. Not baby-class tuition or confirmed class eligibility.": "Listing mencantumkan Rp195.000-Rp225.000. Nama penyedia juga menyebut Urban Forest. Pastikan tiket dan harga ini berlaku untuk Plaza Senayan sebelum memesan. Hanya untuk tanggal yang dipilih; pastikan harga akhir dan jadwal bermain. Tiket tidak bisa dikembalikan atau dijadwal ulang. Area bermain ditutup untuk dibersihkan pukul 13.00-14.00; sisa waktu bermain bisa dilanjutkan setelahnya. Wajib memakai kaus kaki antiselip. Alat bermain untuk usia 12 bulan sampai 12 tahun, dengan pendamping minimal 18 tahun. Ini bukan biaya kelas bayi atau konfirmasi usia kelas.",
   "per 2-hour public-play ticket": "per tiket bermain 2 jam",
