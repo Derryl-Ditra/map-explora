@@ -3,91 +3,106 @@
     "sourceUrl": "https://happykamper.io/en/activities/blind-box-taba-squishy",
     "provider": "CforClover",
     "verdict": "hold-or-out-of-scope",
-    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough."
+    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough.",
+    "beforeOrder": 0
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/halaman-tujuh",
     "provider": "Free Activities",
     "verdict": "hold-or-out-of-scope",
-    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough."
+    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough.",
+    "beforeOrder": 1
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/physiotherapy-local",
     "provider": "Colibri Allied Care",
     "verdict": "hold-or-out-of-scope",
-    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough."
+    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough.",
+    "beforeOrder": 2
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/daycare-fullday",
     "provider": "Daycare RTK & Awwal Learning",
     "verdict": "hold-or-out-of-scope",
-    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough."
+    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough.",
+    "beforeOrder": 3
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/paket-kelinci",
     "provider": "D'Kandang Amazing Farm",
     "verdict": "hold-or-out-of-scope",
-    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough."
+    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough.",
+    "beforeOrder": 4
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/kelas-renang-reguler-dasar-cabang-jagakarsa",
     "provider": "Harahap Swimming School",
     "verdict": "hold-or-out-of-scope",
-    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough."
+    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough.",
+    "beforeOrder": 5
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/free-trial",
     "provider": "Bintaro Inline Skate",
     "verdict": "hold-or-out-of-scope",
-    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough."
+    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough.",
+    "beforeOrder": 6
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/fun-ride-foto-berkuda",
     "provider": "Diponegoro Stable",
     "verdict": "hold-or-out-of-scope",
-    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough."
+    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough.",
+    "beforeOrder": 7
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/paket-body-massage",
     "provider": "Sagita Mom Kids & Baby Spa",
     "verdict": "hold-or-out-of-scope",
-    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough."
+    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough.",
+    "beforeOrder": 8
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/taman-lansia-buni",
     "provider": "Free Activities",
     "verdict": "hold-or-out-of-scope",
-    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough."
+    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough.",
+    "beforeOrder": 9
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/private-piano-class",
     "provider": "Prelude Music School",
     "verdict": "hold-or-out-of-scope",
-    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough."
+    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough.",
+    "beforeOrder": 10
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/trial-swimming-class",
     "provider": "Damay Therapy Center",
     "verdict": "hold-or-out-of-scope",
-    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough."
+    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough.",
+    "beforeOrder": 11
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/group-class-baby-toddler",
     "provider": "KIDDIES 88 KIDS ACTIVITY",
     "verdict": "hold-or-out-of-scope",
-    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough."
+    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough.",
+    "afterOrder": 0
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/kc-kindercenter-2-5-tahun",
     "provider": "Kindercenter",
     "verdict": "hold-or-out-of-scope",
-    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough."
+    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough.",
+    "afterOrder": 1
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/tiny-tints-kelas-stimulasi-2-4-tahun",
     "provider": "Majiku kids",
     "verdict": "branch-check-ready",
-    "reason": "Explicit under5 age in activity description, class activity, regional location; exact branch/operation still manual."
+    "reason": "Explicit under5 age in activity description, class activity, regional location; exact branch/operation still manual.",
+    "afterOrder": 2
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/weekend-class-umur-3-5-tahun",
@@ -99,54 +114,63 @@
     "sourceUrl": "https://happykamper.io/en/activities/24-sesi-sensory-class",
     "provider": "Biruuu Playground",
     "verdict": "hold-or-out-of-scope",
-    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough."
+    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough.",
+    "afterOrder": 3
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/playdate-class-im-a-little-teapot",
     "provider": "Precious Montessori School",
     "verdict": "branch-check-ready",
-    "reason": "Explicit under5 age in activity description, class activity, regional location; exact branch/operation still manual."
+    "reason": "Explicit under5 age in activity description, class activity, regional location; exact branch/operation still manual.",
+    "afterOrder": 4
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/pop-up-class-sensory-class",
     "provider": "Kayy Kiddoz",
     "verdict": "hold-or-out-of-scope",
-    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough."
+    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough.",
+    "afterOrder": 5
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/private-class-sensory-motorik",
     "provider": "SENSORIA KIDS ACADEMY",
     "verdict": "hold-or-out-of-scope",
-    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough."
+    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough.",
+    "afterOrder": 6
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/sensory-class-2",
     "provider": "Kidzero Play",
     "verdict": "branch-check-ready",
-    "reason": "Explicit under5 age in activity description, class activity, regional location; exact branch/operation still manual."
+    "reason": "Explicit under5 age in activity description, class activity, regional location; exact branch/operation still manual.",
+    "afterOrder": 7
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/sensory-class-3",
     "provider": "Jiico Education Home",
     "verdict": "hold-or-out-of-scope",
-    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough."
+    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough.",
+    "afterOrder": 8
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/sensory-class-the-ocean-explorer",
     "provider": "ABC PLAYPALS",
     "verdict": "hold-or-out-of-scope",
-    "reason": "Dated6September event without clear year/current session; held."
+    "reason": "Dated6September event without clear year/current session; held.",
+    "afterOrder": 9
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/3d-stickers",
     "provider": "CforClover",
     "verdict": "hold-or-out-of-scope",
-    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough."
+    "reason": "No clear non-care under5 class-age statement in activity body; title/FAQ alone is not enough.",
+    "afterOrder": 10
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/animal-actors-the-explorers-club",
     "provider": "SQP Park (Scientia Square Park)",
     "verdict": "hold-or-out-of-scope",
-    "reason": "Park package with no precise class-age in description; template FAQ insufficient."
+    "reason": "Park package with no precise class-age in description; template FAQ insufficient.",
+    "afterOrder": 11
   }
 ]
