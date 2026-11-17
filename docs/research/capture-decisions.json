@@ -23,9 +23,9 @@
   {
     "sourceUrl": "https://happykamper.io/en/activities/sensory-class-2",
     "state": "hold",
-    "reason": "Exact branch Maps identity/current operation unresolved; class6months-7years conflicts with templateFAQ0-3years.",
-    "source": "docs/research/capture-method.md",
-    "checkedAt": "2026-11-17"
+    "reason": "Dated official November sessions and matching provider contact resolve recent activity; partner and Maps pins differ by about 640 m, so exact venue identity remains unresolved. Official bio starts at seven months, partner body at six months and template FAQ at zero.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
   },
   {
     "sourceUrl": "https://happykamper.io/en/activities/sensory-class-the-ocean-explorer",
@@ -40,5 +40,215 @@
     "reason": "Exact current playdate/domain scope unresolved: partner1-5years/60minutes versus operator-style page8months-4.5years/90minutes.",
     "source": "docs/research/capture-method.md",
     "checkedAt": "2026-11-17"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/group-class-baby-toddler",
+    "state": "reviewed",
+    "reason": "Four exact branch packets completed. Official branch-specific brochures resolve ages and package scope. Wijaya Maps has only two reviews, including one unrelated travel item and one older communication complaint, preserved visibly rather than treated as clean coaching evidence. No automatic publication or merge.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/kc-kindercenter-2-5-tahun",
+    "state": "reviewed",
+    "reason": "Activity body describes daycare with meals and snacks, not a separately verified under-5 enrichment class. Excluded from this proposal.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/24-sesi-sensory-class",
+    "state": "hold",
+    "reason": "Google Maps Jatisari listing explicitly says temporarily closed on 18 November 2026. Do not publish until a new source resolves operation.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/pop-up-class-sensory-class",
+    "state": "hold",
+    "reason": "Clinic-based class requires a clear non-therapy enrichment scope before publication.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/private-class-sensory-motorik",
+    "state": "hold",
+    "reason": "Assessment/development consultation context leaves care-versus-enrichment scope unresolved.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/sensory-class-3",
+    "state": "hold",
+    "reason": "Maps address and phone match, but no hours, reviews or official current operation evidence were found.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/aza-football-academy-u6-u12-u17",
+    "state": "hold",
+    "reason": "Partner age 4-17 and an unclaimed football directory are leads only. Current exact training-site pin, operation and provider age evidence remain unchecked.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/baca-tulis-hitung-english",
+    "state": "hold",
+    "reason": "Ciomas tutoring identity has partner and old recruitment leads, but current operation and exact Maps branch remain unchecked.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/basic",
+    "state": "hold",
+    "reason": "Official FAQ lists minimum age four; current training-site offering, pin and conflicts still need review.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/belajar-inggris-offline-level-advanced",
+    "state": "reviewed",
+    "reason": "This advanced English activity is listed from age five, outside under-60-month scope. No under-5 activity established in the inspected sources.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/private-baby-toddler-class",
+    "state": "reviewed",
+    "reason": "Same Kiddies88 Maspen branch as the reviewed group class. Official branch brochures replace generic partner ages and unclear price units.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/3d-stickers",
+    "state": "reviewed",
+    "reason": "Retail sticker pack, not a class. Excluded from this proposal.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/animal-actors-the-explorers-club",
+    "state": "hold",
+    "reason": "Park field-trip package explicitly invokes informal animal-assisted therapy. Under-5 non-therapy class scope is not established.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/belajar-inggris-offline-level-beginner",
+    "state": "reviewed",
+    "reason": "Listed age starts at five. No under-60-month eligibility established; excluded from this proposal.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/bimba-baca-menulis",
+    "state": "hold",
+    "reason": "Non-formal literacy class for kindergarten pupils is a plausible under-5 lead. Exact branch Maps identity, current operation and age scope need checking. Body fees also differ from the single aggregate price.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/bimba-calis-pendaftaran-baru",
+    "state": "hold",
+    "reason": "Kindergarten literacy class, but generic header ages differ from school-grade-based body scope. Exact Bintaro training site and operation require checking.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/bimbel-calistung",
+    "state": "hold",
+    "reason": "Partner describes a kindergarten literacy class, not enough to confirm exact branch operation and current age eligibility.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/calistung-home-visit",
+    "state": "reviewed",
+    "reason": "Home-visit tutoring, not a verified public class venue. Do not expose the listed residential point as a visitor destination.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/chic-a-boo-28-june",
+    "state": "hold",
+    "reason": "Specific June 28 event has no clear year or fresh upcoming session. Historical age bands cannot prove a current class.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/coding-class",
+    "state": "reviewed",
+    "reason": "Listed minimum age five, outside under-60-month scope.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/dance-hip-hop",
+    "state": "reviewed",
+    "reason": "Listed minimum age five, outside under-60-month scope.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/dancing-ball",
+    "state": "hold",
+    "reason": "Body explicitly describes May 2025. It is historical, not evidence of a current session.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/drawing-level-intermediate",
+    "state": "reviewed",
+    "reason": "Listed ages thirteen to eighteen, outside under-5 scope.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/english-fun-learning",
+    "state": "reviewed",
+    "reason": "At-home instruction, with no exact publicly visitable class venue established. Keep residential pin out of public map.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/face-painting-dan-paket-ultah",
+    "state": "reviewed",
+    "reason": "Event face-painting service package, not a verified under-5 class. Government-complex address is not a verified class venue.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/first-kids",
+    "state": "reviewed",
+    "reason": "Exact coordinates and address are in Yogyakarta, outside Jabodetabek. Listed minimum age six also outside scope.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/flp-functional-life-skills-program",
+    "state": "reviewed",
+    "reason": "Allied-care program explicitly for ages six to fifteen. Outside under-5 enrichment scope.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/free-trial",
+    "state": "hold",
+    "reason": "Official FAQ starts at age four, not the partner template zero. Training-site points differ by about 230 m. Exact class/site binding and current operation remain unchecked.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/free-trial-cabang-revo-7",
+    "state": "hold",
+    "reason": "Plausible Revo7 Duren Sawit football lead. Partner age only; exact current training site, Maps status and provider identity need checking.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/free-trial-class",
+    "state": "hold",
+    "reason": "Plausible Saturn under-5 football lead, but provider page names multiple sites. Bekasi trial pin must not borrow the Panglima Polim school site identity.",
+    "source": "docs/research/2026-11-18-branch-depth.md",
+    "checkedAt": "2026-11-18"
   }
 ]
