@@ -1,6 +1,12 @@
 // Only reviewed translations are published. Unmapped source prose stays at
 // its source link, never silently promoted to translated or verified evidence.
 const translations: Record<string,string> = {
+  "The official Bogor page lists these ages but gives no current term. Confirm birthday cutoffs, the next session and the fee with the provider.": "Halaman resmi Bogor menyebut usia ini, tetapi belum ada periode kelas terbaru. Tanyakan batas usia saat ulang tahun, jadwal berikutnya dan biayanya ke penyedia.",
+  "Gym and sensory classes share the school building. A June 2025 parent review questioned the school's Montessori materials and cleanliness; this is one parent's account, not a safety finding. Visit and ask about the class before enrolling.": "Kelas gym dan sensori berada di gedung sekolah yang sama. Ulasan orang tua pada Juni 2025 mempertanyakan alat Montessori sekolah dan kebersihannya. Ini pengalaman satu orang tua, bukan kesimpulan soal keamanan. Kunjungi dan tanyakan kelasnya sebelum mendaftar.",
+  "Parent review, June 2025": "Ulasan orang tua, Juni 2025",
+  "350 Google Maps ratings. Newest-sorted list showed a review a week ago; too few reviews read to judge a trend.": "Ada 350 penilaian di Google Maps. Daftar yang diurutkan dari terbaru menampilkan ulasan seminggu lalu. Ulasan yang dibaca belum cukup untuk menilai perubahan.",
+  "Gym and sensory classes share the school building.": "Kelas gym dan sensori berada di gedung sekolah yang sama.",
+
   "The partner map point is about 440 m from the Google Maps pin. Confirm the entrance with the provider before visiting.": "Titik peta mitra berjarak sekitar 440 m dari pin Google Maps. Tanyakan pintu masuk ke penyedia sebelum datang.",
   "Sociable focuses on special-needs education. Its general partner profile lists ages 3-16, while this toddler class description says 18-36 months. Confirm suitability, support needs, age and the next session with the provider.": "Sociable berfokus pada pendidikan anak berkebutuhan khusus. Profil umum di mitra menyebut usia 3-16 tahun, sedangkan keterangan kelas balita ini menyebut 18-36 bulan. Tanyakan kecocokan kelas, kebutuhan pendampingan, syarat usia dan jadwal berikutnya ke penyedia.",
 
