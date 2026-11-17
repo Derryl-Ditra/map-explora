@@ -30,7 +30,7 @@ The queue defaults to the actual current VENUES inventory. Do not run the discov
 
 ## Test result
 
-Fixed first12 per strategy on the same218 indexed leaves.25 source leaves were read live sequentially on17November, one request at least3s apart. Manual labels are committed for audit.
+Fixed first12 per strategy on the same218 indexed leaves.25 source leaves were read live sequentially on17November, one request at least3s apart. Manual labels and ordered cohorts are committed for audit. This is a frozen pre-disposition measurement, not the current work queue: the subsequent Majiku, Precious, Kidzero and ABC holds now remove those URLs from active capture until their stated blockers are resolved. Benchmarking never clears or ignores live holds during capture.
 
 |Metric|Before hash queue|After branch-first queue|
 |---|---:|---:|
