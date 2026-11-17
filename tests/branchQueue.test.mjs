@@ -28,3 +28,10 @@ test('durable site stop prevents a new output directory from bypassing quarantin
 test('source-grounded long provider alias enters expansion lane without merging branch records',()=>{
  const r=row('Weekend Class 3-5 tahun','Kinderra Play Early Learning Center');const q=reviewQueue([r],{venues:[{chain:'Kinderra Play'}],bindings:[{provider:r.provider,chain:'Kinderra Play'}]});assert.equal(q.lanes.existingBrand.length,1);assert.equal(q.lanes.priority.length,0);assert.equal(q.allRecordsRetained,1);
 });
+test('all documented branch blockers persist and advance the actual review queue',()=>{
+ const records=JSON.parse(readFileSync('docs/research/capture-index.json')).records,decisions=JSON.parse(readFileSync('docs/research/capture-decisions.json'));
+ const providers=['Majiku kids','Precious Montessori School','Kidzero Play','ABC PLAYPALS'];const q=reviewQueue(records,{decisions});for(const provider of providers){const d=decisions.find(d=>records.find(r=>r.sourceUrl===d.sourceUrl)?.provider===provider);assert.equal(d?.state,'hold',provider);assert.ok(!q.queue.some(r=>r.sourceUrl===d.sourceUrl));assert.ok(q.lanes.held.some(r=>r.sourceUrl===d.sourceUrl));}
+});
+test('frozen benchmark remains reproducible after live reviewed/hold dispositions advance queue',()=>{
+ const labels=JSON.parse(readFileSync('docs/research/capture-benchmark-labels.json'));for(const key of['beforeOrder','afterOrder'])assert.deepEqual(labels.filter(r=>Number.isInteger(r[key])).map(r=>r[key]).sort((a,b)=>a-b),Array.from({length:12},(_,i)=>i));const r=spawnSync(process.execPath,['scripts/harvest/benchmark-review.mjs'],{encoding:'utf8'});assert.equal(r.status,0,r.stderr);const x=JSON.parse(r.stdout);assert.equal(x.before.under5ClassDescriptionPackets,0);assert.equal(x.after.under5ClassDescriptionPackets,3);
+});
