@@ -4,7 +4,7 @@ import {resolve} from 'node:path';
 import {parseActivity,clusterActivities,diffSnapshots,fetchWithQuarantine,selectBatch,checkRobots,triage,regionalUrls} from './core.mjs';
 const args=process.argv.slice(2);
 const value=(flag,fallback)=>{const i=args.indexOf(flag);return i<0?fallback:args[i+1];};
-const allowed=new Set(['--out','--limit','--delay-ms','--refresh','--replay']);
+const allowed=new Set(['--out','--limit','--delay-ms','--refresh','--replay','--index']);
 for(let i=0;i<args.length;i++){if(!allowed.has(args[i]))throw Error(`Unknown option: ${args[i]}`);if(args[i]!=='--refresh')i++;}
 const out=resolve(value('--out','.harvest/happykamper'));
 // Candidate snapshots must never write into application data or checked-in source.
@@ -39,7 +39,10 @@ if(replay){urls=replay.map(p=>p.sourceUrl);}else{
  urls=[...found].sort();
 }
 if(!urls.length)throw Error('STOP: regional pages have no leaf activities');
-const batch=selectBatch(urls.filter(u=>!blocked.has(u)),before,limit,args.includes('--refresh'));
+// The durable index records pages already read in prior runs. It is NOT venue evidence.
+let historical=[];try{historical=JSON.parse(await readFile(resolve(value('--index','docs/research/capture-index.json')),'utf8')).records;}catch(e){if(e.code!=='ENOENT')throw e;}
+const historicalUrls=new Set(historical.map(r=>r.sourceUrl));
+const batch=selectBatch(urls.filter(u=>!blocked.has(u)&&(args.includes('--refresh')||replay||!historicalUrls.has(u))),before,limit,args.includes('--refresh'));
 let fetched=0;
 for(const url of batch){
  if(!replay)await sleep();
@@ -60,7 +63,7 @@ const inDiscovery=new Set(urls);
 const triaged=records.filter(r=>inDiscovery.has(r.sourceUrl)).map(r=>({...r,triage:triage(r)}));
 const groups=clusterActivities(triaged.filter(r=>r.triage.status==='needs-review'));
 const observed=new Set(urls);
-const summary={mode:replay?'offline-replay':'live-public',startedAt,finishedAt:new Date().toISOString(),discoveredRegionActivityUrls:urls.length,selected:batch.length,fetched,totalCachedActivities:records.length,regionActivityCandidates:triaged.filter(r=>r.regionCandidate).length,reviewLocationGroups:groups.length,excludedActivities:triaged.filter(r=>r.triage.status==='excluded').length,reviewGroupsWithPrices:groups.filter(g=>g.activities.some(u=>updated.get(u).price)).length,strongBranchesAdded:0,publishedBranchesAdded:0,remainingUnharvested:urls.filter(u=>!updated.has(u)&&!blocked.has(u)&&!quarantine.some(q=>q.sourceUrl===u)).length,quarantinedUrls:quarantine.length,errors};
+const summary={mode:replay?'offline-replay':'live-public',startedAt,finishedAt:new Date().toISOString(),discoveredRegionActivityUrls:urls.length,selected:batch.length,fetched,totalCachedActivities:records.length,regionActivityCandidates:triaged.filter(r=>r.regionCandidate).length,reviewLocationGroups:groups.length,excludedActivities:triaged.filter(r=>r.triage.status==='excluded').length,reviewGroupsWithPrices:groups.filter(g=>g.activities.some(u=>updated.get(u).price)).length,strongBranchesAdded:0,publishedBranchesAdded:0,remainingUnharvested:urls.filter(u=>!historicalUrls.has(u)&&!updated.has(u)&&!blocked.has(u)&&!quarantine.some(q=>q.sourceUrl===u)).length,quarantinedUrls:quarantine.length,errors};
 const diff=diffSnapshots(before,records);
 // A missing regional URL is NOT a closure or deletion. Keep it for manual review.
 const report={summary,diff,missingFromDiscovery:before.filter(r=>!observed.has(r.sourceUrl)).map(r=>r.sourceUrl),candidates:groups,triage:triaged.map(r=>({sourceUrl:r.sourceUrl,...r.triage}))};
