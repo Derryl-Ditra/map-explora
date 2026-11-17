@@ -1,5 +1,6 @@
 import type { Venue } from "@/types/venue";
 import enrich1115 from "./enrich1115";
+import enrich1118 from "./enrich1118";
 
 // Nov14 source snapshots. No coordinate, age-fit or review changes.
 export default function enrich1114(venues: Venue[]) {
@@ -23,4 +24,5 @@ export default function enrich1114(venues: Venue[]) {
   }
   // The existing data entry point applies the next dated source patch last.
   enrich1115(venues);
+  if (!venues.some(v => v.id === "kiddies88-maspen-cimuning")) enrich1118(venues);
 }
