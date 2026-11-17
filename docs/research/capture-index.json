@@ -1,0 +1,1749 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/blind-box-taba-squishy",
+      "provider": "CforClover",
+      "activity": "Blind Box Taba Squishy",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/halaman-tujuh",
+      "provider": "Free Activities",
+      "activity": "Halaman Tujuh",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/physiotherapy-local",
+      "provider": "Colibri Allied Care",
+      "activity": "PHYSIOTHERAPY LOCAL",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/daycare-fullday",
+      "provider": "Daycare RTK & Awwal Learning",
+      "activity": "Daycare Fullday",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/paket-kelinci",
+      "provider": "D'Kandang Amazing Farm",
+      "activity": "Paket Kelinci",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-renang-reguler-dasar-cabang-jagakarsa",
+      "provider": "Harahap Swimming School",
+      "activity": "Kelas Renang Reguler Dasar Cabang Jagakarsa",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/free-trial",
+      "provider": "Bintaro Inline Skate",
+      "activity": "Free Trial",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/fun-ride-foto-berkuda",
+      "provider": "Diponegoro Stable",
+      "activity": "Fun Ride & Foto berkuda",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/paket-body-massage",
+      "provider": "Sagita Mom Kids & Baby Spa",
+      "activity": "Paket body massage",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/taman-lansia-buni",
+      "provider": "Free Activities",
+      "activity": "Taman Lansia Buni",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/private-piano-class",
+      "provider": "Prelude Music School",
+      "activity": "Private Piano Class",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/trial-swimming-class",
+      "provider": "Damay Therapy Center",
+      "activity": "Trial Swimming class",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/matematika-bahasa-inggris",
+      "provider": "Bimbel Tiki Taka Jagakarsa",
+      "activity": "Matematika & Bahasa Inggris",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/asesmen-terpadu-homevisit",
+      "provider": "UniqKids Autisma",
+      "activity": "Asesmen terpadu - Homevisit",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/tye-dye-activity",
+      "provider": "Bydesign Cipta Graha Indah",
+      "activity": "Tye Dye Activity",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/tie-dye-class-for-kids",
+      "provider": "Seratan Studio",
+      "activity": "Tie-dye class for kids",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/level-sd-coding-bintaro",
+      "provider": "Codero",
+      "activity": "LEVEL SD - Coding - Bintaro",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/computer-class-for-14-16-years-old",
+      "provider": "DIGIKIDZ Gading Serpong",
+      "activity": "Computer Class For 14-16 Years Old",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/nest-beginner-2-4-yo",
+      "provider": "Morning Nest Preschool",
+      "activity": "Nest Beginner (2-4 y.o. 3x/week)",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/english-fun-learning",
+      "provider": "Clavora Education",
+      "activity": "Fun learning",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/mix-media-activity-frame",
+      "provider": "Art O\u2019 Clock Studio",
+      "activity": "Mix Media Activity Frame",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/orange-grove",
+      "provider": "Free Activities",
+      "activity": "Orange grove",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/scuba-diving",
+      "provider": "Mosart Kids Club",
+      "activity": "Scuba Diving",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/daycare-harian-2-6-tahun",
+      "provider": "Kindercenter",
+      "activity": "DAYCARE HARIAN 2-6 Tahun",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/ice-cream-runner",
+      "provider": "Mosart Kids Club",
+      "activity": "Ice Cream Runner",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/w-2-class-full-daycare",
+      "provider": "Kid Castle",
+      "activity": "W-2 Class & Full Daycare",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/aza-football-academy-u6-u12-u17",
+      "provider": "Aza Football Academy",
+      "activity": "Aza Football Academy U6 U12 U17",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/futsal-class-rinjani-futsal",
+      "provider": "Foxybright Indonesia",
+      "activity": "Futsal Class (Rinjani Futsal)",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/tahfidz-weekend",
+      "provider": "Bimba Tahfidz TemanBaik Jatibening 1",
+      "activity": "Tahfidz Weekend",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kids-stimulation-baby-spa",
+      "provider": "KidsPlay",
+      "activity": "Kids Stimulation & Baby spa",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/pottery-class",
+      "provider": "Citra Clay Workshop by Rumah Tanah Liat Citra. com",
+      "activity": "Pottery Class",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-membuat-wayang",
+      "provider": "Citra Clay Workshop by Rumah Tanah Liat Citra. com",
+      "activity": "Kelas Membuat Wayang",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/fan-deco-with-spidol-paint",
+      "provider": "CforClover",
+      "activity": "Fan Deco with Spidol & Paint",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/private-class-abk",
+      "provider": "KIDDIES 88 KIDS ACTIVITY",
+      "activity": "PRIVATE CLASS ABK",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/weekend-class-umur-3-5-tahun",
+      "provider": "Kinderra Play Early Learning Center",
+      "activity": "Weekend Class Umur 3-5 Tahun",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/mom-massage-full-body",
+      "provider": "Mindful.babymom",
+      "activity": "Mom Massage Full Body",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/toddler-class-practical-skills-for-little-ones-bahasa-indonesia",
+      "provider": "Sociable Inclusive Learning",
+      "activity": "Toddler Class: Practical Skills for Little Ones (Bahasa Indonesia)",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/mixed-media-activity-stick-pop",
+      "provider": "Art O\u2019 Clock Studio",
+      "activity": "Mixed Media Activity Stick Pop",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/paket-swimming",
+      "provider": "Mindful.babymom",
+      "activity": "Paket Swimming",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-freestyle",
+      "provider": "Bintaro Inline Skate",
+      "activity": "Kelas Freestyle",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/baca-tulis-hitung-english",
+      "provider": "BIMBA RAINSTAR",
+      "activity": "Baca Tulis Hitung & English",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/little-creator",
+      "provider": "ilokids studio",
+      "activity": "LITTLE CREATOR",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/24-sesi-sensory-class",
+      "provider": "Biruuu Playground",
+      "activity": "[24 SESI] SENSORY CLASS",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/first-kids",
+      "provider": "Dialogika",
+      "activity": "First Kids",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/konsultasi-dan-assessment-tumbuh-kembang-anak",
+      "provider": "Shesha Kids",
+      "activity": "Konsultasi dan Assessment Tumbuh Kembang Anak",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kc-kindercenter-2-5-tahun",
+      "provider": "Kindercenter",
+      "activity": "KC Kindercenter 2-5 tahun",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/paket-kuda-4-tiket-masuk",
+      "provider": "D'Kandang Amazing Farm",
+      "activity": "Paket Kuda - 4 Tiket Masuk",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/hybrid-aqua-robot",
+      "provider": "Bydesign Cipta Graha Indah",
+      "activity": "Hybrid Aqua Robot",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/pop-up-class-sensory-class",
+      "provider": "Kayy Kiddoz",
+      "activity": "Pop Up Class - Sensory Class",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/level-sma-robotik-bintaro",
+      "provider": "Codero",
+      "activity": "LEVEL SMA - Robotik - Bintaro",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/konsultasi-psikolog-anak-remaja",
+      "provider": "Mutiara Edu Sensory",
+      "activity": "Konsultasi Psikolog Anak & Remaja",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/level-tinny-tk-robotik-bintaro",
+      "provider": "Codero",
+      "activity": "LEVEL TINNY TK - Robotik - Bintaro",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/gohikids-daycare-kelas-stimulasi",
+      "provider": "GohiKids Daycare",
+      "activity": "Gohikids Daycare + Kelas Stimulasi",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/daycare-and-learning-center",
+      "provider": "Kindercenter",
+      "activity": "Daycare and learning center",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/private-swim-class",
+      "provider": "Swim Lessons with Ms Femi",
+      "activity": "Private Swim Class",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/coding-class",
+      "provider": "Radiance",
+      "activity": "coding class",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-renang-private-home-visit",
+      "provider": "Harahap Swimming School",
+      "activity": "Kelas Renang Private Home Visit",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/paket-cempe",
+      "provider": "D'Kandang Amazing Farm",
+      "activity": "Paket Cempe",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/modern-dance-kpop",
+      "provider": "D'Posture Dance & Fit",
+      "activity": "Modern dance Kpop",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-anak-sora",
+      "provider": "Bumi Bunyi",
+      "activity": "Kelas Anak Sora",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/pemula",
+      "provider": "Bintaro Inline Skate",
+      "activity": "Pemula",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/paket-kids-nebu",
+      "provider": "Sagita Mom Kids & Baby Spa",
+      "activity": "Paket kids nebu",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kids-haircut",
+      "provider": "Cuts & Kids - Barbershop & Playground",
+      "activity": "Kids Haircut",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/les-renang-private",
+      "provider": "Heroes Swimming Courses",
+      "activity": "Les Renang Private",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/private-drum-class",
+      "provider": "Prelude Music School",
+      "activity": "Private Drum Class",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/private-guitar-class",
+      "provider": "Prelude Music School",
+      "activity": "Private Guitar Class",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/mix-media-activity-diorama",
+      "provider": "Art O\u2019 Clock Studio",
+      "activity": "Mix Media Activity Diorama",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/excavation-kit",
+      "provider": "CforClover",
+      "activity": "Excavation Kit",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-renang-reguler-dasar-cabang-bulungan",
+      "provider": "Harahap Swimming School",
+      "activity": "Kelas Renang Reguler Dasar Cabang Bulungan",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/handbuilt-clay-workshop",
+      "provider": "Potland Indonesia",
+      "activity": "Handbuilt Clay Workshop",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-privat",
+      "provider": "Tirya Lumba Swimming School",
+      "activity": "Kelas privat",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/gymbabes-class-full-daycare",
+      "provider": "Kid Castle",
+      "activity": "Gymbabes Class & Full Daycare",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/sensory-class-3",
+      "provider": "Jiico Education Home",
+      "activity": "Sensory class",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/sekolah-berkuda",
+      "provider": "Diponegoro Stable",
+      "activity": "Sekolah berkuda",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/chic-a-boo-28-june",
+      "provider": "Pearls Sensory Class",
+      "activity": "Chic A Boo - 28 June",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/mip-mainstream-integration-program",
+      "provider": "Colibri Allied Care",
+      "activity": "MIP (MAINSTREAM INTEGRATION PROGRAM)",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/2-3-class-full-daycare",
+      "provider": "Kid Castle",
+      "activity": "2-3 Class & Full Daycare",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/bimba-calis-pendaftaran-baru",
+      "provider": "Bimbel Tiki Taka Bintaro",
+      "activity": "BIMBA CALIS (PENDAFTARAN BARU)",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/private-1-teenager-adults-class",
+      "provider": "KIDDIES 88 KIDS ACTIVITY",
+      "activity": "PRIVATE TEENAGER & ADULTS CLASS",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/belajar-inggris-offline-level-advanced",
+      "provider": "Bamboo Cyber School",
+      "activity": "Belajar Inggris OFFLINE Level Advanced",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/pemula-plus",
+      "provider": "Bintaro Inline Skate",
+      "activity": "Pemula Plus",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/private-class-sensory-motorik",
+      "provider": "SENSORIA KIDS ACADEMY",
+      "activity": "Private Class Sensory Motorik",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/swimming-class-home-visit",
+      "provider": "Sahabat Akuatik Club Cab Park Serpong",
+      "activity": "Swimming Class Home visit",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/paket-kids-3",
+      "provider": "Sagita Mom Kids & Baby Spa",
+      "activity": "Paket kids 3",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/stem-activity",
+      "provider": "Nikola Academy",
+      "activity": "STEM Activity",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/paket-sapi-4-tiket-masuk",
+      "provider": "D'Kandang Amazing Farm",
+      "activity": "Paket Sapi - 4 Tiket Masuk",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/painting-on-pottery",
+      "provider": "Yara Pottery Studio",
+      "activity": "Painting on Pottery",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-renang-reguler-dasar-cabang-condet",
+      "provider": "Harahap Swimming School",
+      "activity": "Kelas Renang Reguler Dasar Cabang Condet",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/mixed-media-activity",
+      "provider": "Art O\u2019 Clock Studio",
+      "activity": "Mixed Media Activity",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/3d-stickers",
+      "provider": "CforClover",
+      "activity": "3D Stickers",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/toddler-massage-2",
+      "provider": "Mindful.babymom",
+      "activity": "Toddler Massage",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/painting-on-bisque",
+      "provider": "Jay Ceramic Studio",
+      "activity": "Painting on Bisque",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/trial-kelas",
+      "provider": "English Study Center",
+      "activity": "Trial kelas",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/group-class-teenager-adults-class",
+      "provider": "KIDDIES 88 KIDS ACTIVITY",
+      "activity": "GROUP CLASS TEENAGER & ADULTS CLASS",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/matematika",
+      "provider": "Bimbel Tiki Taka Jagakarsa",
+      "activity": "Matematika",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/daycare-bulanan-6-24-bulan",
+      "provider": "Kindercenter",
+      "activity": "DAYCARE BULANAN 6-24 Bulan",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/mom-laktasi-oksitosi",
+      "provider": "Mindful.babymom",
+      "activity": "Mom Laktasi & Oksitosi",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/paket-kids-top-to-toe",
+      "provider": "Sagita Mom Kids & Baby Spa",
+      "activity": "Paket kids top to toe",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/belajar-inggris-offline-level-beginner",
+      "provider": "Bamboo Cyber School",
+      "activity": "Belajar Inggris OFFLINE Level Beginner",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/taba-squishy",
+      "provider": "CforClover",
+      "activity": "Taba Squishy",
+      "lastReadAt": "2026-11-16",
+      "provenance": "docs/research/2026-11-16-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/mixed-media-activity-box",
+      "provider": "Art O\u2019 Clock Studio",
+      "activity": "Mixed Media Activity Box",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/playground-kidztiara",
+      "provider": "Playground Kidztiara",
+      "activity": "Playground Kidztiara",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/asessment-dokter",
+      "provider": "Klinik Tumbuh Kembang Anak Superkidz BSD",
+      "activity": "Asessment Dokter",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/calistung-home-visit",
+      "provider": "Ben Belajar",
+      "activity": "Calistung (Home visit)",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/assessment-tumbuh-kembang",
+      "provider": "Giyathcdc",
+      "activity": "Assessment Tumbuh Kembang",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/daycare-bulanan-2-6-tahun",
+      "provider": "Kindercenter",
+      "activity": "DAYCARE BULANAN 2-6 Tahun",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/i-survive-the-explorers-club",
+      "provider": "SQP Park (Scientia Square Park)",
+      "activity": "I Survive - The Explorer\u2019s Club",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/early-stimulation-class-toddler-13-36-m",
+      "provider": "Babesntots",
+      "activity": "Early Stimulation Class - Toddler 13 - 36 m",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/drawing-level-junior",
+      "provider": "Fine Art",
+      "activity": "Drawing level Junior",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/tiny-tints-kelas-stimulasi-2-4-tahun",
+      "provider": "Majiku kids",
+      "activity": "Tiny Tints (Kelas Stimulasi 2-4 tahun)",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-renang-reguler-dasar-cabang-ciracas",
+      "provider": "Harahap Swimming School",
+      "activity": "Kelas Renang Reguler Dasar Cabang Ciracas",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kinderra-play-flexi-3x",
+      "provider": "Kinderra Play Early Learning Center",
+      "activity": "KINDERRA PLAY FLEXI 3X",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/layanan-assessment-dokter",
+      "provider": "Klinik Tumbuh Kembang Anak Superkidz Bekasi",
+      "activity": "Layanan Assessment Dokter",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/face-painting-dan-paket-ultah",
+      "provider": "Hiface Painting",
+      "activity": "Face Painting dan Paket Ultah",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/sensory-class-2",
+      "provider": "Kidzero Play",
+      "activity": "Sensory Class",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/private-violin-class",
+      "provider": "Prelude Music School",
+      "activity": "Private Violin Class",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/playdate-class-im-a-little-teapot",
+      "provider": "Precious Montessori School",
+      "activity": "Playdate class: I\u2019m a little teapot",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/level-tinny-sd-robotik-bintaro",
+      "provider": "Codero",
+      "activity": "LEVEL TINNY SD - Robotik - Bintaro",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/wheel-throwing-class",
+      "provider": "Buntari Ceramic Studio",
+      "activity": "Wheel Throwing Class",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-tahfidz",
+      "provider": "Bimba Tahfidz TemanBaik Jatibening 1",
+      "activity": "Kelas Tahfidz",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-mewarnai",
+      "provider": "Bimba Tahfidz TemanBaik Jatibening 1",
+      "activity": "Kelas Mewarnai",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/free-trial-class",
+      "provider": "Saturn Football Academy",
+      "activity": "Free Trial Class",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kick-and-run-soccer-class-cabang-revo7",
+      "provider": "Kick and Run Soccer Kids",
+      "activity": "Kick and Run Soccer Class (Cabang Revo7)",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-main-di-rumah-60-menit",
+      "provider": "Milkumil Play and Learn",
+      "activity": "Kelas Main di Rumah 60 Menit",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-renang-private-on-site",
+      "provider": "Harahap Swimming School",
+      "activity": "Kelas Renang Private On Site",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/privat-renang-2",
+      "provider": "Bluestar Aquatics",
+      "activity": "Privat Renang",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/baby-massage-0-11-bulan",
+      "provider": "Magnus mom n baby spa",
+      "activity": "Baby massage 0-11 bulan",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-renang-reguler-dasar-cabang-pamulang",
+      "provider": "Harahap Swimming School",
+      "activity": "Kelas Renang Reguler Dasar Cabang Pamulang",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/private-baby-toddler-class",
+      "provider": "KIDDIES 88 KIDS ACTIVITY",
+      "activity": "PRIVATE BABY & TODDLER CLASS",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/park-access",
+      "provider": "SQP Park (Scientia Square Park)",
+      "activity": "Park Access",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/preschool",
+      "provider": "Cadenza Anima Preschool GDC",
+      "activity": "Preschool",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kinderra-play-flexi-2x",
+      "provider": "Kinderra Play Early Learning Center",
+      "activity": "KINDERRA PLAY FLEXI 2X",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/terapi-wicara",
+      "provider": "Wonder Kids Therapy Cibubur",
+      "activity": "Terapi wicara",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-renang-reguler-dasar-cabang-beji",
+      "provider": "Harahap Swimming School",
+      "activity": "Kelas Renang Reguler Dasar Cabang Beji",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/junior-koders-12-16-python-website-js-etc-20-lesson20-jam",
+      "provider": "Koding Next Indonesia",
+      "activity": "Junior Koders 12-16 (Python, Website, JS, etc) : 20 Lesson/20 Jam",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/bimba-calis-siswa-aktif",
+      "provider": "Bimbel Tiki Taka Bintaro",
+      "activity": "BIMBA CALIS (SISWA AKTIF)",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/level-sma-coding-bintaro",
+      "provider": "Codero",
+      "activity": "LEVEL SMA - Coding - Bintaro",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-manga-kelas-menggambar-mewarnai",
+      "provider": "Arde Art & Design Course",
+      "activity": "Kelas Manga, Kelas Menggambar & Mewarnai",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/terapi-anak-berkebutuhan-khusus",
+      "provider": "Klinik Anakku BSD",
+      "activity": "Terapi Anak Berkebutuhan Khusus",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/fun-kingdom",
+      "provider": "Fun Kingdom",
+      "activity": "Fun Kingdom",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/sensory-class-the-ocean-explorer",
+      "provider": "ABC PLAYPALS",
+      "activity": "Sensory class - The Ocean Explorer",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/bimba-baca-menulis",
+      "provider": "Bimbel Tiki Taka Jagakarsa",
+      "activity": "Bimba ( Baca & Menulis )",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/tindik-dengan-anting-tanpa-anting",
+      "provider": "Klinik Anakku BSD",
+      "activity": "Tindik Dengan Anting & Tanpa Anting",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/sewa-playground-ulang-tahun",
+      "provider": "Biruuu Playground",
+      "activity": "Sewa Playground - Ulang Tahun",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/basic",
+      "provider": "Bintaro Inline Skate",
+      "activity": "Basic",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/maspen-privat-1-anak",
+      "provider": "KIDDIES 88 KIDS ACTIVITY",
+      "activity": "Maspen - PRIVAT 1 ANAK",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/membuat-figur-hewan-dengan-air-dry-clay",
+      "provider": "Doki Doki Craft",
+      "activity": "Membuat Figur Hewan dengan Air Dry Clay",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/private-music-class-untuk-piano-gitar-biola-drum-dan-vokal",
+      "provider": "Cultura Mandatum Music School",
+      "activity": "Private music class untuk piano, gitar, biola, drum, dan vokal",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/fun-math-cooking-class",
+      "provider": "About Math",
+      "activity": "Fun Math Cooking class",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/happy-garden-3-raksa",
+      "provider": "Happy Garden 3 Raksa",
+      "activity": "Happy Garden 3 Raksa",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/dance-hip-hop",
+      "provider": "D'Posture Dance & Fit",
+      "activity": "Dance Hip Hop",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/new-senior",
+      "provider": "Bintaro Inline Skate",
+      "activity": "New Senior",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/terrarium-workshop",
+      "provider": "Potland Indonesia",
+      "activity": "Terrarium Workshop",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/dancing-ball",
+      "provider": "Mosart Kids Club",
+      "activity": "Dancing Ball",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/privat-les-mengaji-anak-anak-remaja-dewasa",
+      "provider": "BTQ AL-WAFI PRIVATE",
+      "activity": "Privat Les Mengaji Anak-Anak, Remaja & Dewasa",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-pra-bimba",
+      "provider": "Bimba Rainbowkids Planes BPI",
+      "activity": "Kelas Pra Bimba",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/table-top-robot",
+      "provider": "Bydesign Cipta Graha Indah",
+      "activity": "Table Top Robot",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/handbuild-pottery",
+      "provider": "Yara Pottery Studio",
+      "activity": "Handbuild Pottery",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-privat-tahfidz",
+      "provider": "Bimba Tahfidz TemanBaik Jatibening 1",
+      "activity": "Kelas Privat Tahfidz",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/weekdays-sensory-class",
+      "provider": "Bright Cubs",
+      "activity": "Weekdays Sensory Class",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/private-abata-mengaji-surabaya-sidoarjo",
+      "provider": "Enon Learning Center",
+      "activity": "Private Abata (Mengaji) Surabaya & Sidoarjo",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/playground-5",
+      "provider": "Kiddo Playspace",
+      "activity": "Playground",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-bimba-tahfidz",
+      "provider": "Bimba Tahfidz TemanBaik Jatibening 1",
+      "activity": "Kelas Bimba Tahfidz",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/zumba",
+      "provider": "D'Posture Dance & Fit",
+      "activity": "Zumba",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/animal-actors-the-explorers-club",
+      "provider": "SQP Park (Scientia Square Park)",
+      "activity": "Animal Actors - The Explorer\u2019s Club",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/private-2-teenager-adults-class",
+      "provider": "KIDDIES 88 KIDS ACTIVITY",
+      "activity": "PRIVATE 2 TEENAGER & ADULTS CLASS",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/alun-alun-kota-bogor",
+      "provider": "Free Activities",
+      "activity": "Alun Alun Kota Bogor",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/paint-by-number",
+      "provider": "CforClover",
+      "activity": "Paint by Number",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/piano-course",
+      "provider": "The Accento Music Course",
+      "activity": "Piano Course",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/money-bank-robot",
+      "provider": "Bydesign Cipta Graha Indah",
+      "activity": "Money Bank Robot",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/slime-by-cforclover",
+      "provider": "CforClover",
+      "activity": "Slime by CforClover",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/bimbel-calistung",
+      "provider": "Little Learners Clubhouse",
+      "activity": "Bimbel Calistung",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/computer-class-for-8-9-years-old",
+      "provider": "DIGIKIDZ Gading Serpong",
+      "activity": "Computer Class For 8-9 Years Old",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/asesmen-psikologis",
+      "provider": "UniqKids Autisma",
+      "activity": "Asesmen psikologis",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/junior-koders-8-12-game-dev-apps-dev-etc-20-lesson20-jam",
+      "provider": "Koding Next Indonesia",
+      "activity": "Junior Koders 8-12 (Game Dev, Apps Dev, etc) : 20 Lesson/20 Jam",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/les-renang-swimplash",
+      "provider": "Swimplash",
+      "activity": "Les Renang Swimplash",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/private-class-2-anak-kakak-adik",
+      "provider": "KIDDIES 88 KIDS ACTIVITY",
+      "activity": "PRIVATE CLASS 2 ANAK (KAKAK ADIK)",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/level-tinny-tk-coding-bintaro",
+      "provider": "Codero",
+      "activity": "LEVEL TINNY TK - Coding - Bintaro",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/angpao",
+      "provider": "CforClover",
+      "activity": "Angpao",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-renang",
+      "provider": "Bluestar Aquatics",
+      "activity": "Kelas Renang",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/one-month-trial-package-nest-beginners",
+      "provider": "Morning Nest Preschool",
+      "activity": "One Month Trial Package - Nest Beginners",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/swimming-class-2",
+      "provider": "Sahabat Akuatik Club Cab Park Serpong",
+      "activity": "Swimming Class",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/flp-functional-life-skills-program",
+      "provider": "Colibri Allied Care",
+      "activity": "FLP (Functional Life Skills Program)",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/diamond-painting-2",
+      "provider": "CforClover",
+      "activity": "Diamond Painting",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-privat-bimba-tahfidz",
+      "provider": "Bimba Tahfidz TemanBaik Jatibening 1",
+      "activity": "Kelas Privat Bimba Tahfidz",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/group-class-5-14-tahun",
+      "provider": "KIDDIES 88 KIDS ACTIVITY",
+      "activity": "Group Class 5-14 tahun",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-melukis-gerabah",
+      "provider": "Citra Clay Workshop by Rumah Tanah Liat Citra. com",
+      "activity": "Kelas Melukis Gerabah",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/nest-beginners-nest-explorers-2-4-yo",
+      "provider": "Morning Nest Preschool",
+      "activity": "Nest Explorers (2-4 y.o. 5x/week)",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/group-class-baby-toddler",
+      "provider": "KIDDIES 88 KIDS ACTIVITY",
+      "activity": "GROUP CLASS BABY & TODDLER",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/taman-kencana",
+      "provider": "Free Activities",
+      "activity": "Taman Kencana",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/level-smp-robotik-bintaro",
+      "provider": "Codero",
+      "activity": "LEVEL SMP - Robotik - Bintaro",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/manga-for-teens",
+      "provider": "Kurva Digital Drawing Course",
+      "activity": "Manga For Teens",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/drawing-level-intermediate",
+      "provider": "Fine Art",
+      "activity": "Drawing Level Intermediate",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/occupational-therapy-expat",
+      "provider": "Colibri Allied Care",
+      "activity": "OCCUPATIONAL THERAPY EXPAT",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/computer-class-for-12-14-years-old",
+      "provider": "DIGIKIDZ Gading Serpong",
+      "activity": "Computer Class For 12-14 Years Old",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/pasta-slime-baking-kit",
+      "provider": "CforClover",
+      "activity": "Pasta Slime Baking Kit",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/savior-arts-printing-marble-bearbrick",
+      "provider": "Savior art activity",
+      "activity": "Savior arts Printing marble bearbrick",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/holiday-camp-20-lesson20-jam",
+      "provider": "Koding Next Indonesia",
+      "activity": "Holiday Camp (20 Lesson/20 Jam)",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/les-mengaji-untuk-anak-anak-remaja-dan-dewasa",
+      "provider": "BTQ AL-WAFI PRIVATE",
+      "activity": "Les Mengaji untuk Anak-Anak, Remaja, dan Dewasa",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/daycare-halfday",
+      "provider": "Daycare RTK & Awwal Learning",
+      "activity": "Daycare Halfday",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/assessment-dokter",
+      "provider": "Klinik Tumbuh Kembang Anak Superkidz Depok",
+      "activity": "Assessment Dokter",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/terapi-perilaku",
+      "provider": "My Way Children Center by Astrid Lusito",
+      "activity": "Terapi Perilaku",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/level-smp-coding-bintaro",
+      "provider": "Codero",
+      "activity": "LEVEL SMP - Coding - Bintaro",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/little-koders-6-8-untuk-20-lesson20-jam",
+      "provider": "Koding Next Indonesia",
+      "activity": "Little Koders 6-8 Untuk 20 Lesson/20 Jam",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/mix-media-activity-costume",
+      "provider": "Art O\u2019 Clock Studio",
+      "activity": "Mix Media Activity Costume",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/belajar-inggris-offline-level-intermediate",
+      "provider": "Bamboo Cyber School",
+      "activity": "Belajar Inggris OFFLINE Level Intermediate",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-batik-tulis",
+      "provider": "Citra Clay Workshop by Rumah Tanah Liat Citra. com",
+      "activity": "Kelas Batik Tulis",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/trial-kelas-main",
+      "provider": "Leader Lab Indonesia",
+      "activity": "Trial Kelas Main",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/trial-class-les-mengaji-anak-remaja-dewasa",
+      "provider": "BTQ AL-WAFI PRIVATE",
+      "activity": "Trial Class - Les Mengaji Anak, Remaja & Dewasa",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/futsal-class-tibi-futsal",
+      "provider": "Foxybright Indonesia",
+      "activity": "Futsal Class (Tibi Futsal)",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/free-trial-cabang-revo-7",
+      "provider": "Kick and Run Soccer Kids",
+      "activity": "Free trial Cabang Revo 7",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/pottery-class-2",
+      "provider": "Jay Ceramic Studio",
+      "activity": "Pottery Class",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/bimbel-sd",
+      "provider": "Bimbel Tiki Taka Jagakarsa",
+      "activity": "Bimbel SD",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/mix-media-activity-hat",
+      "provider": "Art O\u2019 Clock Studio",
+      "activity": "Mix Media Activity Hat",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/pasang-ngt",
+      "provider": "Klinik Anakku BSD",
+      "activity": "Pasang NGT",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/weekend-pop-up-class",
+      "provider": "Morning Nest Preschool",
+      "activity": "WEEKEND POP-UP CLASS",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/occupational-therapy-local",
+      "provider": "Colibri Allied Care",
+      "activity": "OCCUPATIONAL THERAPY LOCAL",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/privat-piano-class-offline",
+      "provider": "Les Musik KITA",
+      "activity": "Privat Piano class (Offline)",
+      "lastReadAt": "2026-11-17",
+      "provenance": "docs/research/2026-11-17-branch-depth.md",
+      "state": "discovered-not-verified"
+    }
+  ]
+}
