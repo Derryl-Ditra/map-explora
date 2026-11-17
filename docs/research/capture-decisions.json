@@ -1,4 +1,44 @@
 [
- {"sourceUrl":"https://happykamper.io/en/activities/weekdays-sensory-class","state":"hold","reason":"Bright Cubs historical review concerns; retained for manual resolution, not a clean new venue","source":"docs/research/2026-11-16-branch-depth.md","checkedAt":"2026-11-16"},
- {"sourceUrl":"https://happykamper.io/en/activities/early-stimulation-class-toddler-13-36-m","state":"hold","reason":"Duren Sawit activity is not the BnT House Galaxy Maps result; exact site binding unresolved","source":"docs/research/2026-11-17-branch-depth.md","checkedAt":"2026-11-17"}
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/weekdays-sensory-class",
+    "state": "hold",
+    "reason": "Bright Cubs historical review concerns; retained for manual resolution, not a clean new venue",
+    "source": "docs/research/2026-11-16-branch-depth.md",
+    "checkedAt": "2026-11-16"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/early-stimulation-class-toddler-13-36-m",
+    "state": "hold",
+    "reason": "Duren Sawit activity is not the BnT House Galaxy Maps result; exact site binding unresolved",
+    "source": "docs/research/2026-11-17-branch-depth.md",
+    "checkedAt": "2026-11-17"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/tiny-tints-kelas-stimulasi-2-4-tahun",
+    "state": "hold",
+    "reason": "Exact JemsGarden pin matched; fresh operation unresolved because Maps has no hours, phone or website.",
+    "source": "docs/research/capture-method.md",
+    "checkedAt": "2026-11-17"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/sensory-class-2",
+    "state": "hold",
+    "reason": "Exact branch Maps identity/current operation unresolved; class6months-7years conflicts with templateFAQ0-3years.",
+    "source": "docs/research/capture-method.md",
+    "checkedAt": "2026-11-17"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/sensory-class-the-ocean-explorer",
+    "state": "hold",
+    "reason": "Event says6September with no clear year/current session; do not treat as a current class.",
+    "source": "docs/research/capture-method.md",
+    "checkedAt": "2026-11-17"
+  },
+  {
+    "sourceUrl": "https://happykamper.io/en/activities/playdate-class-im-a-little-teapot",
+    "state": "hold",
+    "reason": "Exact current playdate/domain scope unresolved: partner1-5years/60minutes versus operator-style page8months-4.5years/90minutes.",
+    "source": "docs/research/capture-method.md",
+    "checkedAt": "2026-11-17"
+  }
 ]
