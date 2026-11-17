@@ -1,0 +1,1044 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/blind-box-taba-squishy",
+      "retrievedAt": "2026-11-17T00:52:21.172Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Blind Box Taba Squishy",
+      "provider": "CforClover",
+      "address": "Jl. Boulevard Raya No.1, RT.003/RW.017, Jaka Setia, Kec. Bekasi Sel., Kota Bks, Jawa Barat 17147, Indonesia",
+      "locality": "Bekasi",
+      "geo": {
+        "lat": -6.2706285,
+        "lng": 106.9722969
+      },
+      "regionCandidate": true,
+      "category": [
+        "Birthdays & Events"
+      ],
+      "terms": "1 pcs taba squishy",
+      "price": {
+        "low": 10000,
+        "high": 20000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "Blind Box Taba Squishy is designed for children aged 0 to 18 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/halaman-tujuh",
+      "retrievedAt": "2026-11-17T00:52:25.105Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Halaman Tujuh",
+      "provider": "Free Activities",
+      "address": "Jl. Pd. Cabe Raya, Pd. Cabe Udik, Kec. Pamulang, Kota Tangerang Selatan, Banten, Indonesia",
+      "locality": "Tangerang",
+      "geo": {
+        "lat": -6.3450069,
+        "lng": 106.7579224
+      },
+      "regionCandidate": true,
+      "category": [
+        "Free Activity"
+      ],
+      "terms": "Halaman Tujuh adalah kafe yang nyaman dengan taman luas yang indah. Ini adalah tempat yang bagus untuk mulai memperkenalkan anak-anak Anda pada alam. Mulai dari bermain permainan tradisional, bulutangkis, mengecat pot, memanen sayur dan buah, serta memberi makan kelinci dan ikan. Anda dan anak bisa berlarian dengan bebas, mencium bau tanah yang basah, serta menikmati keteduhan dan kehijauan pepohonan. Selain fasilitasnya yang ramah anak, tempat ini juga cocok untuk acara kumpul atau pertemuan dengan rekan kerja dan bertukar pikiran sambil menikmati alam yang hijau.",
+      "price": null,
+      "ageClaim": {
+        "text": "Halaman Tujuh is designed for children aged 1 to 16 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/physiotherapy-local",
+      "retrievedAt": "2026-11-17T00:52:29.153Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "PHYSIOTHERAPY LOCAL",
+      "provider": "Colibri Allied Care",
+      "address": "Jl. Kembang Harum Utama Blok C2 No.40 Blok C2, RT.5/RW.4, Kembangan Sel., Kec. Kembangan, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11610, Indonesia",
+      "locality": "Jakarta Barat",
+      "geo": {
+        "lat": -6.1841062,
+        "lng": 106.7466566
+      },
+      "regionCandidate": true,
+      "category": [
+        "Childcare"
+      ],
+      "terms": "Physiotherapy services provided by our certified local therapist to improve movement, strength, balance, coordination, and overall physical development.",
+      "price": {
+        "low": 990000,
+        "high": 19000000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "PHYSIOTHERAPY LOCAL is designed for children aged 2 to 12 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/daycare-fullday",
+      "retrievedAt": "2026-11-17T00:52:33.200Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Daycare Fullday",
+      "provider": "Daycare RTK & Awwal Learning",
+      "address": "VILLA BOGOR INDAH 5, Blok CD1 No.mor 39, RT.001/RW.007, Pasir Jambu, Sukaraja, Bogor City, West Java 16710, Indonesia",
+      "locality": "Bogor",
+      "geo": {
+        "lat": -6.5429093,
+        "lng": 106.809312
+      },
+      "regionCandidate": true,
+      "category": [
+        "Childcare"
+      ],
+      "terms": "Aktivitas daycare di Awwal Learning Hub dirancang untuk memberikan pengalaman belajar dan bermain yang aman, nyaman, serta menyenangkan bagi anak. Melalui berbagai kegiatan interaktif dan stimulatif, anak didukung untuk mengembangkan kemampuan sosial, emosional, motorik, bahasa, serta kemandirian sesuai dengan tahap tumbuh kembangnya. Dengan pendampingan pengajar yang penuh perhatian dan lingkungan yang hangat, setiap aktivitas membantu anak belajar mengeksplorasi, berinteraksi, dan membangun rasa percaya diri sejak dini. Awwal Learning Hub berkomitmen menciptakan suasana daycare yang mendukung tumbuh kembang anak secara optimal melalui pembelajaran yang positif dan bermakna setiap hari.",
+      "price": {
+        "low": 1650000,
+        "high": 2828200,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "Daycare Fullday is designed for children aged 0 to 5 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/paket-kelinci",
+      "retrievedAt": "2026-11-17T00:52:37.201Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Paket Kelinci",
+      "provider": "D'Kandang Amazing Farm",
+      "address": "Jl. Penarikan No.RT 01 / 02",
+      "locality": "Kota Depok",
+      "geo": {
+        "lat": -6.4158763,
+        "lng": 106.7819927
+      },
+      "regionCandidate": true,
+      "category": [
+        "Outdoor"
+      ],
+      "terms": "Harga untuk 1 kali masuk ke lokasi. Paket ini termasuk : - 1 tiket masuk - 1 Ice Cream - 1 Fun archery - 1 Memberi Pakan - 1 Memerah Sapi - 1 Voucher makan/minum senilai Rp20.000",
+      "price": {
+        "low": 100000,
+        "high": 100000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "Paket Kelinci is designed for children aged 1 to 18 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kelas-renang-reguler-dasar-cabang-jagakarsa",
+      "retrievedAt": "2026-11-17T00:52:41.090Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Kelas Renang Reguler Dasar Cabang Jagakarsa",
+      "provider": "Harahap Swimming School",
+      "address": "Kolam Renang Tirta Cakti, RW.3, Srengseng Sawah, South Jakarta City, Jakarta, Indonesia",
+      "locality": "Jagakarsa",
+      "geo": {
+        "lat": -6.3438485,
+        "lng": 106.8307499
+      },
+      "regionCandidate": true,
+      "category": [
+        "Sports"
+      ],
+      "terms": "Kelas Reguler Dasar dirancang khusus anak-anak yang baru mulai belajar berenang. Fokus utama kelas ini adalah mengenalkan anak-anak pada air, membantu anak-anak merasa nyaman dalam air dan mengajarkan dasar-dasar berenang seperti : Floating, watter safety, Gaya Bebas dan Gaya Dada Biaya untuk 1x pertemuan dan sudah termasuk tiket kolam renang siswa dan 1 pendamping",
+      "price": {
+        "low": 70000,
+        "high": 70000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "Kelas Renang Reguler Dasar Cabang Jagakarsa is designed for children aged 4 to 14 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/free-trial",
+      "retrievedAt": "2026-11-17T00:52:45.099Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Free Trial",
+      "provider": "Bintaro Inline Skate",
+      "address": "Ex Giant, Gedung Parkir, Pd. Aren, Kec. Pd. Aren, Kota Tangerang Selatan, Banten 15224, Indonesia",
+      "locality": "Tangerang Selatan",
+      "geo": {
+        "lat": -6.2755639,
+        "lng": 106.7190328
+      },
+      "regionCandidate": true,
+      "category": [
+        "Sports"
+      ],
+      "terms": "Kelas Free Trial di Bintaro Inline Skate memberikan kesempatan bagi calon peserta untuk mencoba pengalaman belajar inline skate secara langsung. Dalam sesi ini, peserta akan diperkenalkan pada dasar-dasar skating, termasuk teknik keseimbangan dan kontrol, dengan bimbingan pelatih profesional. Kelas ini cocok untuk pemula yang ingin merasakan suasana latihan sebelum bergabung secara penuh.",
+      "price": null,
+      "ageClaim": {
+        "text": "Free Trial is designed for children aged 0 to 18 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/fun-ride-foto-berkuda",
+      "retrievedAt": "2026-11-17T00:52:48.958Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Fun Ride & Foto berkuda",
+      "provider": "Diponegoro Stable",
+      "address": "Green View Residence, RT.03/RW.02, Situgede, Bogor City, West Java, Indonesia",
+      "locality": "Kota Bogor",
+      "geo": {
+        "lat": -6.5570511,
+        "lng": 106.7481127
+      },
+      "regionCandidate": true,
+      "category": [
+        "Sports"
+      ],
+      "terms": "Mencoba pengalaman berkuda satu kali putaran arena berkuda dan sudah termasuk foto",
+      "price": {
+        "low": 35000,
+        "high": 40000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "Fun Ride & Foto berkuda is designed for children aged 5 to 18 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/paket-body-massage",
+      "retrievedAt": "2026-11-17T00:52:52.948Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Paket body massage",
+      "provider": "Sagita Mom Kids & Baby Spa",
+      "address": "Sagita Mom Kids n Baby Spa, Jalan Puri Utama, RT.005, Petir, Tangerang City, Banten, Indonesia",
+      "locality": "Kecamatan Cipondoh",
+      "geo": {
+        "lat": -6.1887852,
+        "lng": 106.71235
+      },
+      "regionCandidate": true,
+      "category": [
+        "Childcare"
+      ],
+      "terms": "Paket massage mom ini yang berdurasi 60 menit.. Syarat dan Ketentuan Pemesanan \u2022\u2060 \u2060Penentuan sesi layanan bisa mengubungi Sagita Mom Kids and Baby Spa melalui fitur chat yang ada di aplikasi Happy Kamper. \u2022\u2060 \u2060Konfirmasi sesi layanan berlaku 7 hari setelah proses booking di aplikasi Happy Kamper",
+      "price": {
+        "low": 165000,
+        "high": 165000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "Paket body massage is designed for children aged 13 to 18 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/taman-lansia-buni",
+      "retrievedAt": "2026-11-17T00:52:56.951Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Taman Lansia Buni",
+      "provider": "Free Activities",
+      "address": "Jl. HOS. Cokroaminoto, RT.3/RW.5 Menteng, Jakarta Pusat",
+      "locality": "Jakarta Pusat",
+      "geo": {
+        "lat": -6.1980252,
+        "lng": 106.8258645
+      },
+      "regionCandidate": true,
+      "category": [
+        "Free Activity"
+      ],
+      "terms": "Taman Lansia Buni yang sebelumnya bernama Taman Buni berada di Jalan Mohammad Kahfi 1 RT 09 RW 02 Kelurahan Ciganjur, Kecamatan Jagakarsa. Taman tersebut sempat ditutup sementara untuk umum selama satu bulan lamanya lantaran perlu adanya pengembangan fasilitas umum di taman tersebut. Taman Lansia Buni juga diperuntukkan untuk sarana bermain anak-anak, terlihat dari banyaknya sejumlah wahana bermain mereka.",
+      "price": null,
+      "ageClaim": {
+        "text": "Taman Lansia Buni is designed for children aged 1 to 18 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/private-piano-class",
+      "retrievedAt": "2026-11-17T00:53:00.959Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Private Piano Class",
+      "provider": "Prelude Music School",
+      "address": "Prelude Music School, Semi, Jalan Palem Raja Raya, Bencongan Indah, Tangerang Regency, Banten, Indonesia",
+      "locality": "Kecamatan Karawaci",
+      "geo": {
+        "lat": -6.2205921,
+        "lng": 106.6118853
+      },
+      "regionCandidate": true,
+      "category": [
+        "Music & Dance"
+      ],
+      "terms": "1 on 1 piano class bersama Piano coach 30 menit / pertemuan, 1 bulan 4x pertemuan, anak-anak akan belajar teori musik dan praktek dengan kurikulum dan buku dari Prelude Music School.",
+      "price": {
+        "low": 500000,
+        "high": 1500000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "Private Piano Class is designed for children aged 4 to 18 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/trial-swimming-class",
+      "retrievedAt": "2026-11-17T00:53:04.799Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Trial Swimming class",
+      "provider": "Damay Therapy Center",
+      "address": "Jalan Cibubur IV No.212, RT.4/RW.2, Cibubur, East Jakarta City, Jakarta, Indonesia",
+      "locality": "Kecamatan Ciracas",
+      "geo": {
+        "lat": -6.3508382,
+        "lng": 106.8757925
+      },
+      "regionCandidate": true,
+      "category": [
+        "Childcare"
+      ],
+      "terms": "Les renang untuk anak-anak 3-12 tahun",
+      "price": {
+        "low": 50000,
+        "high": 50000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "Trial Swimming class is designed for children aged 3 to 12 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/group-class-baby-toddler",
+      "retrievedAt": "2026-11-17T00:53:08.800Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "GROUP CLASS BABY & TODDLER",
+      "provider": "KIDDIES 88 KIDS ACTIVITY",
+      "address": "Maspen Sport Center, RT.004/RW.003, Cimuning, Bekasi, West Java, Indonesia",
+      "locality": "Kecamatan Mustika Jaya",
+      "geo": {
+        "lat": -6.3241727,
+        "lng": 107.0250853
+      },
+      "regionCandidate": true,
+      "category": [
+        "Sports"
+      ],
+      "terms": "GROUP CLASS BABY & TODDLER merupakan kelas renang berkelompok untuk bayi dan balita yang dirancang dalam suasana belajar yang aman, seru, dan interaktif bersama teman sebaya. Dengan pendampingan coach profesional, anak akan diperkenalkan pada aktivitas air melalui permainan dan stimulasi yang membantu melatih keberanian, kemampuan motorik, koordinasi tubuh, serta membangun rasa percaya diri dan kemampuan sosialisasi sejak dini.",
+      "price": {
+        "low": 150000,
+        "high": 800000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "GROUP CLASS BABY & TODDLER is designed for children aged 0 to 3 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/kc-kindercenter-2-5-tahun",
+      "retrievedAt": "2026-11-17T00:53:12.650Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "KC Kindercenter 2-5 tahun",
+      "provider": "Kindercenter",
+      "address": "Jl. Serpong Garden, Cibogo, Kec. Cisauk, Kabupaten Tangerang, Banten 15344, Indonesia",
+      "locality": "Tangerang",
+      "geo": {
+        "lat": -6.3348798,
+        "lng": 106.6406858
+      },
+      "regionCandidate": true,
+      "category": [
+        "Childcare"
+      ],
+      "terms": "Daycare untuk Serpong Garden 1, sudah termasuk 3 kali makan dan 2 kali snack.",
+      "price": {
+        "low": 3600000,
+        "high": 3600000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "KC Kindercenter 2-5 tahun is designed for children aged 0 to 5 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/tiny-tints-kelas-stimulasi-2-4-tahun",
+      "retrievedAt": "2026-11-17T00:53:16.650Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Tiny Tints (Kelas Stimulasi 2-4 tahun)",
+      "provider": "Majiku kids",
+      "address": "jems garden residence, Jl. Raya Inpres, RT.003/RW.004, Gaga, Tangerang City, Banten, Indonesia",
+      "locality": "Larangan",
+      "geo": {
+        "lat": -6.2426044,
+        "lng": 106.721598
+      },
+      "regionCandidate": true,
+      "category": [
+        "Pop Up Class"
+      ],
+      "terms": "Kelas stimulasi untuk anak usia 2-4 tahun yang dirancang untuk: \u2728 Melatih kemandirian dan fokus \u2728 Meningkatkan kemampuan bersosialisasi \u2728 Mengenal konsep dasar membaca, menulis, dan berhitung (Calistung) Di kelas ini, anak-anak akan belajar bersama guru dan teman yang sama di setiap pertemuan, menciptakan suasana yang akrab dan nyaman. Semua kegiatan menggunakan pendekatan Montessori dan play-based learning yang seru dan menyenangkan! *Harga yang tertera termasuk biaya REGISTRASI dan Class Fee untuk sebulan",
+      "price": {
+        "low": 700000,
+        "high": 1050000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "Tiny Tints (Kelas Stimulasi 2-4 tahun) is designed for children aged 2 to 4 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [
+        {
+          "text": "Kelas stimulasi untuk anak usia 2-4 tahun yang dirancang untuk: \u2728 Melatih kemandirian dan fokus \u2728 Meningkatkan kemampuan bersosialisasi \u2728 Mengenal konsep dasar membaca, menulis, dan berhitung (Calistung) Di kelas ini, anak-anak akan belajar bersama guru dan teman yang sama di setiap pertemuan, menciptakan suasana yang akrab dan nyaman",
+          "scope": "activity-description",
+          "verification": "partner-listed-unconfirmed"
+        }
+      ],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/weekend-class-umur-3-5-tahun",
+      "retrievedAt": "2026-11-17T00:53:20.652Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Weekend Class Umur 3-5 Tahun",
+      "provider": "Kinderra Play Early Learning Center",
+      "address": "Jl. Lake Garden Boulevard Jl. Jkt Garden City Boulevard, RW.6, Cakung Tim., Kec. Cakung, Jakarta, Daerah Khusus Ibukota Jakarta 13910, Indonesia",
+      "locality": "Jakarta Timur",
+      "geo": {
+        "lat": -6.1673,
+        "lng": 106.9545074
+      },
+      "regionCandidate": true,
+      "category": [
+        "Childcare"
+      ],
+      "terms": "Weekend Class untuk anak usia 3\u20135 tahun memberikan pengalaman belajar yang lebih aktif dan menantang melalui kegiatan tematik yang kreatif dan menyenangkan. Anak akan diajak mengikuti aktivitas seni dan kerajinan, eksperimen sederhana, sensory play, pretend play, movement activities, serta berbagai permainan yang mengembangkan kemampuan berpikir, komunikasi, kerja sama, dan problem solving.",
+      "price": {
+        "low": 200000,
+        "high": 200000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "Weekend Class Umur 3-5 Tahun is designed for children aged 3 to 5 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [
+        {
+          "text": "Weekend Class untuk anak usia 3\u20135 tahun memberikan pengalaman belajar yang lebih aktif dan menantang melalui kegiatan tematik yang kreatif dan menyenangkan",
+          "scope": "activity-description",
+          "verification": "partner-listed-unconfirmed"
+        }
+      ],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/24-sesi-sensory-class",
+      "retrievedAt": "2026-11-17T00:53:24.654Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "[24 SESI] SENSORY CLASS",
+      "provider": "Biruuu Playground",
+      "address": "Biruuu Playground Jatisari, Jatisari, Bekasi, West Java, Indonesia",
+      "locality": "Kecamatan Jatiasih",
+      "geo": {
+        "lat": -6.3352891,
+        "lng": 106.9528692
+      },
+      "regionCandidate": true,
+      "category": [
+        "Childcare"
+      ],
+      "terms": "\u2022 Sensory & Motorik Play \u2022 Art & Craft \u2022 Bonding Activity \u2022 Story Telling 24 Sesi selama 3 Bulan Syarat dan Ketentuan Penukaran Kupon Member Pop Up Class Biruuu Playground \u2022\u2060 \u2060Untuk penukaran Kupon Member dapat dilakukan dengan konfirmasi kepada tim Biruuu Playground melalui fitur chat yang ada di aplikasi Happy Kamper \u2022\u2060 \u2060Penukaran Kupon Member berlaku 7 hari setelah proses booking di aplikasi Happy Kamper dilakukan (diharapkan bisa langsung konfirmasi kepada Biruuu Playground melalui fitur chat di aplikasi Happy Kamper) \u2022\u2060 \u2060Untuk pemilihan jadwal bisa dilakukan bersamaan dengan penukaran kupon member dengan konfirmasi melalui chat di aplikasi Happy Kamper.",
+      "price": {
+        "low": 1250000,
+        "high": 1250000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "[24 SESI] SENSORY CLASS is designed for children aged 1 to 3 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/playdate-class-im-a-little-teapot",
+      "retrievedAt": "2026-11-17T00:53:28.662Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Playdate class: I\u2019m a little teapot",
+      "provider": "Precious Montessori School",
+      "address": "Jl. Boulevard Raya - Grand Depok City, Cluster Alamanda Timur Blk. A4 No.10, Kalimulya, Kec. Cilodong, Kota Depok, Jawa Barat 16413, Indonesia",
+      "locality": "Depok",
+      "geo": {
+        "lat": -6.4268848,
+        "lng": 106.8279899
+      },
+      "regionCandidate": true,
+      "category": [
+        "Childcare"
+      ],
+      "terms": "Program kelas playdate bertema \"I'm a Little Teapot\" untuk anak usia 1-5 tahun berdurasi 1 jam dirancang untuk menggabungkan kegiatan menyenangkan dan edukatif yang berfokus pada pengembangan motorik, keterampilan sosial, dan pemahaman bahasa. Selama sesi, anak-anak akan mendengarkan dan menyanyikan lagu \"I'm a Little Teapot,\" serta melakukan gerakan tarian yang sesuai dengan lirik lagu. Kegiatan ini akan diikuti dengan berbagai permainan yang melibatkan benda-benda seperti teko dan cangkir untuk merangsang imajinasi mereka. Anak-anak juga akan diajak untuk membuat kerajinan tangan sederhana, seperti menghias gambar teko, guna mengembangkan kreativitas dan keterampilan motorik halus. Program ini bertujuan untuk menciptakan suasana belajar yang menyenangkan dan mendukung perkembangan anak secara holistik.",
+      "price": {
+        "low": 165000,
+        "high": 165000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "Playdate class: I\u2019m a little teapot is designed for children aged 1 to 5 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [
+        {
+          "text": "Program kelas playdate bertema \"I'm a Little Teapot\" untuk anak usia 1-5 tahun berdurasi 1 jam dirancang untuk menggabungkan kegiatan menyenangkan dan edukatif yang berfokus pada pengembangan motorik, keterampilan sosial, dan pemahaman bahasa",
+          "scope": "activity-description",
+          "verification": "partner-listed-unconfirmed"
+        }
+      ],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/pop-up-class-sensory-class",
+      "retrievedAt": "2026-11-17T00:53:32.508Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Pop Up Class - Sensory Class",
+      "provider": "Kayy Kiddoz",
+      "address": "Kayy Medica Clinic, Jalan Mutiara Gading City Kp. Pulo Kendal, RT.02/RW.03, Setia Asih, Bekasi Regency, West Java, Indonesia",
+      "locality": "Kecamatan Tarumajaya",
+      "geo": {
+        "lat": -6.1629678,
+        "lng": 107.0038892
+      },
+      "regionCandidate": true,
+      "category": [
+        "Pop Up Class"
+      ],
+      "terms": "Sensori class berbasis montessori",
+      "price": {
+        "low": 100000,
+        "high": 100000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "Pop Up Class - Sensory Class is designed for children aged 6 to 15 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/private-class-sensory-motorik",
+      "retrievedAt": "2026-11-17T00:53:36.356Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Private Class Sensory Motorik",
+      "provider": "SENSORIA KIDS ACADEMY",
+      "address": "Jalan H. Mean V No.105, RT.002/RW.010, East Karang, Tangerang City, Banten, Indonesia",
+      "locality": "Kecamatan Karang Tengah",
+      "geo": {
+        "lat": -6.2208924,
+        "lng": 106.7150253
+      },
+      "regionCandidate": true,
+      "category": [
+        "Childcare"
+      ],
+      "terms": "\ud83d\udc96 Anak kita hanya sekali melewati masa emasnya. Di Sensoria Kids Academy, kami percaya setiap anak berhak mendapatkan pendampingan terbaik melalui: \ud83c\udf1f Private Class Sensori Motorik (1-on-1) \ud83c\udf1f Konsultasi tumbuh kembang \ud83c\udf1f Assesmen anak secara berkala Mari tumbuhkan potensi anak sejak dini, dengan cara yang tepat dan penuh cinta.",
+      "price": {
+        "low": 100000,
+        "high": 100000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "Private Class Sensory Motorik is designed for children aged 2 to 6 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/sensory-class-2",
+      "retrievedAt": "2026-11-17T00:53:40.349Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Sensory Class",
+      "provider": "Kidzero Play",
+      "address": "Estate, Jl. Ratna - Jatibening No.48, RT.001/RW.001, Jatibening, Kec. Pd. Gede, Kota Bks, Jawa Barat 17412, Indonesia",
+      "locality": "Kecamatan Pondok Gede",
+      "geo": {
+        "lat": -6.2664136,
+        "lng": 106.949919
+      },
+      "regionCandidate": true,
+      "category": [
+        "Pop Up Class"
+      ],
+      "terms": "Sensory Class Kidzero Sensory Class Kidzero adalah kelas stimulasi tumbuh kembang anak yang dirancang khusus untuk mengoptimalkan perkembangan sejak usia dini melalui aktivitas bermain berbasis sensori. Di setiap sesi, anak akan diajak untuk belajar melalui pengalaman langsung (hands-on play) yang melibatkan berbagai indera seperti sentuhan, penglihatan, pendengaran, hingga keseimbangan tubuh. Kami menggabungkan pendekatan: \u2728 Integrasi Sensori \u2728 EYFS (Early Years Foundation Stage) \u2728 Reggio Emilia-inspired learning \u2e3b Manfaat untuk Anak Melalui sensory play, anak akan distimulasi untuk: \u2714 Mengembangkan motorik halus & kasar \u2714 Meningkatkan fokus dan kemampuan problem solving \u2714 Melatih regulasi emosi & kepercayaan diri \u2714 Mengasah kreativitas dan eksplorasi mandiri \u2714 Membangun koneksi otak di masa golden age \u2e3b Aktivitas di Kelas Setiap kelas memiliki tema berbeda dengan aktivitas seperti: \ud83c\udf0a Sensory bin (air, pasir, foam, slime) \ud83c\udfa8 Messy play & art exploration \ud83e\udde9 Fine motor & life skill activities \ud83c\udfb6 Music & movement \ud83c\udf3f Nature-based exploration Semua aktivitas dirancang aman, terstruktur, dan sesuai usia anak. \u2e3b \ud83d\udc76 Usia & Pendekatan Kelas tersedia untuk usia 6 bulan \u2013 7 tahun, dengan pembagian kategori sesuai tahap perkembangan anak, sehingga setiap aktivitas benar-benar sesuai kebutuhan mereka. \u2e3b Kenapa Kidzero? Di Kidzero, kami percaya bahwa play is not just play \u2014 bermain adalah fondasi utama dalam membangun kemampuan belajar anak di masa depan.",
+      "price": {
+        "low": 125000,
+        "high": 125000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "Sensory Class is designed for children aged 0 to 3 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [
+        {
+          "text": "\u2e3b \ud83d\udc76 Usia & Pendekatan Kelas tersedia untuk usia 6 bulan \u2013 7 tahun, dengan pembagian kategori sesuai tahap perkembangan anak, sehingga setiap aktivitas benar-benar sesuai kebutuhan mereka",
+          "scope": "activity-description",
+          "verification": "partner-listed-unconfirmed"
+        }
+      ],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/sensory-class-3",
+      "retrievedAt": "2026-11-17T00:53:44.352Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Sensory class",
+      "provider": "Jiico Education Home",
+      "address": "Jalan H.Tohir No.71, RT.4/RW.10, North Petukangan, South Jakarta City, Jakarta, Indonesia",
+      "locality": "Kecamatan Pesanggrahan",
+      "geo": {
+        "lat": -6.2315873,
+        "lng": 106.7487634
+      },
+      "regionCandidate": true,
+      "category": [
+        "Education"
+      ],
+      "terms": "Sensory Class Jiico Education adalah kegiatan bermain sambil belajar yang dirancang untuk menstimulasi pancaindra anak melalui pengalaman langsung dan aktivitas yang menyenangkan. Dalam sensory class, anak akan diajak menyentuh, meraba, melihat, mendengar, mencium, memindahkan, mencampur, dan mengeksplorasi berbagai material sesuai tema kegiatan. Aktivitas dapat berupa sensory bin, bermain dengan air, pasir, beras, foam, playdough, bahan alam, hingga kegiatan messy play dan art. Selain menyenangkan, setiap aktivitas dirancang untuk mendukung perkembangan motorik halus, koordinasi mata-tangan, konsentrasi, bahasa, kreativitas, kemampuan problem solving, serta kemandirian anak. Di Jiico, sensory play bukan sekadar bermain dengan bahan yang berantakan, tetapi menjadi pengalaman belajar yang bermakna melalui eksplorasi dan rasa ingin tahu anak.",
+      "price": {
+        "low": 700000,
+        "high": 1550000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "Sensory class is designed for children aged 0 to 2 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/sensory-class-the-ocean-explorer",
+      "retrievedAt": "2026-11-17T00:53:48.186Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Sensory class - The Ocean Explorer",
+      "provider": "ABC PLAYPALS",
+      "address": "Koffie Toean Jakapermai, Rumah Toean, Jalan Cemara Raya, Jakasampurna, Bekasi, West Java, Indonesia",
+      "locality": "Bekasi Barat",
+      "geo": {
+        "lat": -6.2479343,
+        "lng": 106.9684761
+      },
+      "regionCandidate": true,
+      "category": [
+        "Pop Up Class"
+      ],
+      "terms": "\u2728 Yang seru di kelas ini: \u2022Sensory play dengan media bertekstur (air, pasir, beads, dll). \u2022Aktivitas eksplorasi bertema laut yang fun & imajinatif. \u2022Gross motoric activity untuk melatih kekuatan dan koordinasi gerakan anak. \u2022Mengenal warna, bentuk, dan hewan laut dengan cara playful. \u2022Momen bonding seru antara orang tua & anak. \ud83d\udc76 Usia: 6 - 24 Bulan \ud83d\udccd Lokasi: Koffie Toean, Jakapermai \u2013 Bekasi \ud83d\udcc5 Tanggal: 6 September \ud83d\udd57 Waktu: 08.00 WIB \ud83c\udf73 Bonus: Free breakfast untuk 1 pendamping! \u26a0\ufe0f Limited slot only \u2013 secure your spot now!",
+      "price": {
+        "low": 250000,
+        "high": 250000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "Sensory class - The Ocean Explorer is designed for children aged 0 to 2 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [
+        {
+          "text": "\ud83d\udc76 Usia: 6 - 24 Bulan \ud83d\udccd Lokasi: Koffie Toean, Jakapermai \u2013 Bekasi \ud83d\udcc5 Tanggal: 6 September \ud83d\udd57 Waktu: 08",
+          "scope": "activity-description",
+          "verification": "partner-listed-unconfirmed"
+        }
+      ],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/3d-stickers",
+      "retrievedAt": "2026-11-17T00:53:52.178Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "3D Stickers",
+      "provider": "CforClover",
+      "address": "Jl. Boulevard Raya No.1, RT.003/RW.017, Jaka Setia, Kec. Bekasi Sel., Kota Bks, Jawa Barat 17147, Indonesia",
+      "locality": "Bekasi",
+      "geo": {
+        "lat": -6.2706285,
+        "lng": 106.9722969
+      },
+      "regionCandidate": true,
+      "category": [
+        "Birthdays & Events"
+      ],
+      "terms": "Stiker dekorasi 3D bertema rumah mini dan kafe imut dengan desain kartun karakter lucu. Setiap lembar berisi background berbentuk rumah/kamar/kafe dan berbagai stiker kecil berupa furnitur, tanaman, makanan, serta karakter yang bisa ditempel ulang. Cocok untuk: \u2022 Aktivitas kreatif anak maupun dewasa \u2022 Dekorasi diary, scrapbook, bullet journal, atau koleksi hobi \u2022 Hadiah unik untuk pecinta stationery dan ilustrasi kawaii \u2728 Fitur utama: \u2022 Desain warna-warni dengan detail interior miniatur \u2022 Stiker bisa ditempel ulang (repositionable) \u2022 Banyak variasi tema: kafe, dapur, kamar tidur, toko bunga, dll \u2022 Ukuran compact, mudah disimpan dan dibawa",
+      "price": {
+        "low": 10000,
+        "high": 25000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "3D Stickers is designed for children aged 0 to 18 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": [],
+      "providerUrl": null
+    },
+    {
+      "sourceUrl": "https://happykamper.io/en/activities/animal-actors-the-explorers-club",
+      "retrievedAt": "2026-11-17T00:57:32.999Z",
+      "sourceDate": null,
+      "evidenceTier": "partner-listed-unverified",
+      "publishable": false,
+      "activity": "Animal Actors - The Explorer\u2019s Club",
+      "provider": "SQP Park (Scientia Square Park)",
+      "address": "Jl. Scientia Boulevard, Curug Sangereng, Tangerang Regency, Banten, Indonesia",
+      "locality": "Kecamatan Kelapa Dua",
+      "geo": {
+        "lat": -6.2615565,
+        "lng": 106.6173411
+      },
+      "regionCandidate": true,
+      "category": [
+        "Outdoor"
+      ],
+      "terms": "THE EXPLORER\u2019s CLUB - Animal Actors Experience the world of Teepee Buddies, their lifestyle and how they are prepared to be a Star. Get Involve in the process of discipline while having fun. The underlying benefit of this experince is part of animal - assisted therapy in its informal form. Getting close to the animals is known to improve a kid\u2019s social, emotional, and cognitive function that are useful for educational and motivational effectiveness. Activities : - Special Guest Star - Animal Spa - Backstage Encounter with Animal Actors - Mask It - Horse Riding - Make Your Own Pizza Package Include : - One Day pass SQP Park - Tour Guide - Drivers fun-filled activities - DIY Creation from the activity a souvenir - Teacher\u2019s Park Access - Exclusive PIN - Lunch & Drinks",
+      "price": {
+        "low": 1250000,
+        "high": 2500000,
+        "currency": "IDR",
+        "scope": "partner-listed activity offer; inclusions need review"
+      },
+      "ageClaim": {
+        "text": "Animal Actors - The Explorer\u2019s Club is designed for children aged 4 to 15 years. The instructor adapts the program to suit different skill levels within this age range so every child is appropriately challenged.",
+        "verification": "unverified-template",
+        "scope": "activity template; not provider confirmation"
+      },
+      "requiredChecks": [
+        "branch identity and Maps pin",
+        "operating and closure evidence",
+        "non-formal category",
+        "age and offering scope",
+        "red flags",
+        "price inclusions and freshness"
+      ],
+      "activityAgeExcerpts": []
+    }
+  ]
+}
