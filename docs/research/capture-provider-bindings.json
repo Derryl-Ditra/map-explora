@@ -5,5 +5,12 @@
     "evidence": "Exact provider URL and Cakung Maps pin in existing venue kinderra-play-cakung",
     "sourceUrl": "https://happykamper.io/id/providers/kinderra-play-early-learning-center-921",
     "checkedAt": "2026-11-17"
+  },
+  {
+    "provider": "KIDDIES 88 KIDS ACTIVITY",
+    "chain": "Kiddies88",
+    "evidence": "Provider identity bridged by the GOR Wijaya Maps Instagram link, matching phone and official Linktree branch brochures. Same provider, not a branch deduplication.",
+    "sourceUrl": "https://linktr.ee/Kiddies88",
+    "checkedAt": "2026-11-18"
   }
 ]
