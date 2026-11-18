@@ -1,6 +1,7 @@
 // Only reviewed translations are published. Unmapped source prose stays at
 // its source link, never silently promoted to translated or verified evidence.
 const translations: Record<string,string> = {
+  "Only one Google Maps rating. No review text was available in the limited view. Not enough evidence to assess a trend or teaching quality.": "Hanya ada satu penilaian Google Maps. Isi ulasannya tidak tersedia pada tampilan terbatas. Belum cukup untuk menilai perubahan atau mutu mengajar.",
   "The provider calls this site Tangerang Selatan, while Google Maps places the same Alkahf Space address in Pesanggrahan, Jakarta Selatan. Confirm the entrance before visiting.": "Penyedia menyebut lokasi ini Tangerang Selatan, sedangkan Google Maps menempatkan alamat Alkahf Space yang sama di Pesanggrahan, Jakarta Selatan. Tanyakan pintu masuk sebelum datang.",
   "Islamic sensory class. The official page lists this age group at its single Alkahf Space site but gives no current term or session dates. Confirm age boundaries, the next class and availability with the provider.": "Kelas sensori dengan pengenalan nilai Islam. Halaman resmi mencantumkan kelompok usia ini di Alkahf Space, tetapi periode dan jadwal kelas terbaru belum disebut. Tanyakan batas usia, jadwal berikutnya dan ketersediaan ke penyedia.",
 
