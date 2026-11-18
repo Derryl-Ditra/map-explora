@@ -10,7 +10,7 @@ const visible=comparisonInventory(VENUES);
 test('comparison inventory is exactly the public non-government inventory, without mutation',()=>{
  const before=JSON.stringify(VENUES);
  assert.deepEqual(visible.map(v=>v.id).sort(),placePageInventory(VENUES).map(v=>v.id).sort());
- assert.equal(visible.length,148);assert.equal(JSON.stringify(VENUES),before);
+ assert.equal(visible.length,149);assert.equal(JSON.stringify(VENUES),before);
  const v=visible[0];
  for(const change of [{operatingStatus:{state:'maps-listed'}},{chain:'RPTRA'},{website:'https://example.go.id/'}])assert.equal(comparisonInventory([{...v,...change}]).length,0);
 });
@@ -26,7 +26,7 @@ test('comparison URL parameters never reveal hidden, invalid or duplicate branch
 });
 
 test('coverage uses actual sourced price and rating records, not candidates',()=>{
- assert.deepEqual(coverage(VENUES),{visible:148,priced:19,reviewed:144});
+ assert.deepEqual(coverage(VENUES),{visible:149,priced:19,reviewed:145});
  const noPrice=visible.find(v=>!v.priceListings);assert.ok(noPrice);
  assert.equal(coverage([noPrice]).priced,0);
 });
