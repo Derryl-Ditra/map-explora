@@ -1,4 +1,5 @@
 "use client";
+import Link from 'next/link';
 import LocationNotice from "./LocationNotice";
 
 import { useLayoutEffect, useRef, useCallback, useSyncExternalStore } from "react";
@@ -233,6 +234,7 @@ export default function MobileDrawer({
               <LocationNotice message={locationNotice} denied={locationDenied} />
               <button type="button" aria-label="Dismiss location notice" onClick={onDismissLocationNotice} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"><X className="h-4 w-4" /></button>
             </div>}
+            <div className="flex gap-2"><Link href="/compare/" className="flex-1 min-h-12 rounded-xl border border-[#1a7a4a] bg-white px-3 flex items-center justify-center text-[#1a7a4a] font-semibold text-sm">Compare · Bandingkan</Link><Link href="/for/class-costs-jakarta/" className="flex-1 min-h-12 rounded-xl border border-[#e7e0d4] bg-white px-3 flex items-center justify-center text-[#1a7a4a] font-semibold text-sm">Fees · Biaya</Link></div>
             {/* Search Input */}
             <div className="relative w-full shrink-0">
               <Search className="w-4.5 h-4.5 text-[#6d675f] absolute left-4 top-1/2 -translate-y-1/2" />
