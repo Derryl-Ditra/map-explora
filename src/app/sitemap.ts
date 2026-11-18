@@ -5,6 +5,6 @@ import { jobPages, languageLinks } from '@/utils/bilingual';
 import { placePageInventory, placePath } from '@/utils/placePages';
 export const dynamic = 'force-static';
 export default function sitemap(): MetadataRoute.Sitemap {
- const paths=['/contact/','/activities/',...buildAnswerGroups(VENUES).map(g=>`/activities/${g.slug}/`),...jobPages('en').map(j=>`/for/${j.slug}/`),'/vs/rookie-id/',...placePageInventory(VENUES).map(v=>placePath(v,'en'))];
+ const paths=['/compare/','/contact/','/activities/',...buildAnswerGroups(VENUES).map(g=>`/activities/${g.slug}/`),...jobPages('en').map(j=>`/for/${j.slug}/`),'/vs/rookie-id/',...placePageInventory(VENUES).map(v=>placePath(v,'en'))];
  return [{url:SITE_URL+'/'},...paths.flatMap(path=>['','/id'].map(p=>({url:SITE_URL+p+path,alternates:{languages:languageLinks(path)}})))];
 }
