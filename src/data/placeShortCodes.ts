@@ -151,5 +151,6 @@ export const PLACE_SHORT_CODES: Record<string,string> = {
  "kiddies88-maspen-cimuning": "rT3",
  "kiddies88-waterland-transyogi": "Z3j",
  "kiddies88-havana-setiamekar": "cZ5",
- "kiddies88-wijaya-wisma-jaya": "A5w"
+ "kiddies88-wijaya-wisma-jaya": "A5w",
+ "deen-haus-alkahf-bintaro": "6kX"
 };
