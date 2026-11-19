@@ -13,10 +13,10 @@ test('UI evidence rejects conflicts, ambiguity, missing bounds, missing sources 
 });
 test('dataset impact stays explicit without deleting public places',()=>{
  assert.equal(shown.length,149);
- assert.equal(shown.flatMap(verifiedPrograms).length,131);
- assert.equal(shown.filter(v=>!verifiedPrograms(v).length).length,102);
- assert.equal(shown.filter(v=>!hasVerifiedAgeEvidence(v)).length,101);
- assert.equal(shown.filter(v=>venueConfirmedForAge(v,59)).length,1);
+ assert.equal(shown.flatMap(verifiedPrograms).length,134);
+ assert.equal(shown.filter(v=>!verifiedPrograms(v).length).length,101);
+ assert.equal(shown.filter(v=>!hasVerifiedAgeEvidence(v)).length,100);
+ assert.equal(shown.filter(v=>venueConfirmedForAge(v,59)).length,2);
 });
 test('every confirmed place at all 60 stepper months has visible evidence covering that month',()=>{
  for(let m=0;m<60;m++)for(const v of shown){
@@ -51,7 +51,7 @@ test('Membumi and Genesis exact classes remain separate from conflicting and yea
 test('BLS exact sensory class ages stay bound to the published learning centers',()=>{
  const rows={'bright-little-stars-kemang':[['Baby Blossoms',6,12],['Giggles and Glows',12,18],['Cuddle Bugs',18,24]],'bright-little-stars-bintaro':[['Incredible Infant',3,6],['Brilliant Baby',6,12],['Thriving Toddler',12,18],['Talented Toddler',18,24]],'bright-little-stars-bsd-learning-center':[['Incredible Infant',3,6],['Brilliant Baby',6,12],['Thriving Toddler',12,18],['Talented Toddler',18,24]]};
  for(const [id,expected] of Object.entries(rows)){const v=VENUES.find(v=>v.id===id);assert.deepEqual(verifiedPrograms(v).map(p=>[p.name,p.age.minMonths,p.age.maxMonths]),expected);for(const p of verifiedPrograms(v)){assert.match(p.age.providerAgeUrl,/brightlittlestarsedu.com\/programs\//);assert.equal(p.age.sourceCheckedAt,'2026-11-05');}}
- assert.equal(verifiedPrograms(VENUES.find(v=>v.id==='bright-little-stars-bsd-preschool')).length,0);
+ assert.deepEqual(verifiedPrograms(VENUES.find(v=>v.id==='bright-little-stars-bsd-preschool')).map(p=>[p.name,p.age.minMonths,p.age.maxMonths]),[['Toddler',24,35],['Nursery',36,47],['Kindergarten 1 & 2',48,71]]);
  assert.equal(VENUES.find(v=>v.id==='rockstar-academy-gandaria-city').programs.find(p=>p.name==='Learn & Play 1').age.sourceConflict,true);
  assert.equal(VENUES.find(v=>v.id==='aquatic-baby-bintaro').programs.find(p=>p.name==='Baby Class').age.sourceConflict,true);
 });
