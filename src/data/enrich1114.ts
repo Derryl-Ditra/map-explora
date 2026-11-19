@@ -67,12 +67,12 @@ export default function enrich1114(venues: Venue[]) {
     blsBsd.notes = "Official contact page read 20 November 2026 confirms BSD Preschool at Daikanyama Blok A16, The Zora Commercial Business Living, Lengkong Kulon, Pagedangan. Official opening announcement (12 December 2025) lists Toddler (ages 2-3), Nursery (ages 3-4) and Kindergarten 1 & 2 (ages 4-6) with a Montessori + EYLF curriculum for this branch. Two distinct BSD listings remain on Maps; pin unchanged. Ages are program labels from the official announcement, not dated class schedules.";
   }
 
-  // Nov20 Rockstar Grand Metropolitan Bekasi: the locations page read
-  // 20 November 2026 omits this branch, but the official current-term schedule
-  // PDF updated 16 November 2026 keeps it operating. Not a closure claim.
+  // Nov20 Rockstar Grand Metropolitan Bekasi: official locations page lists
+  // the branch (Floor LG2 Unit #2C); operating evidence refreshed to the
+  // current-term schedule PDF updated 16 November 2026.
   const rockGb = venues.find(v => v.id === "rockstar-academy-grand-metropolitan-bekasi");
   if (rockGb) {
     rockGb.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/lib/upload/files/club/GB_Schedule_Winter_2026_W5.pdf", checkedAt: "2026-11-20" };
-    rockGb.notes = (rockGb.notes || "") + " Read 20 November 2026: the branch no longer appears on the official Schedules & Locations page, but the official Winter Term schedule PDF updated 16 November 2026 (term 19 Oct 2026 to 17 Jan 2027) still lists its classes. Treated as operating on the current-term document, not as a closure. Confirm before visiting.";
+    rockGb.notes = (rockGb.notes || "") + " Read 20 November 2026: the official Schedules & Locations page lists this branch as Grand Metropolitan Mall, Floor LG2 Unit #2C, and the official Winter Term schedule PDF updated 16 November 2026 (term 19 Oct 2026 to 17 Jan 2027) lists its classes. Operating evidence refreshed to the current-term document. Confirm session availability before visiting.";
   }
 }
