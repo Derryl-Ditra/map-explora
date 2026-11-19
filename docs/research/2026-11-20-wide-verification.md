@@ -9,7 +9,7 @@ Sparks Sports Academy Tangerang City: official Tangerang branch list read 20 Nov
 
 Bright Little Stars BSD Preschool: official contact page read 20 November 2026 confirms the branch at Daikanyama Blok A16, The Zora Commercial Business Living, Lengkong Kulon, Pagedangan. This resolves the 19 November gap where the homepage named a BSD Preschool contact without an address. The official opening announcement (12 December 2025) lists branch classes: Toddler (ages 2-3), Nursery (ages 3-4), Kindergarten 1 & 2 (ages 4-6), Montessori + EYLF curriculum. Programs recorded as branch-level provider-confirmed ages from that announcement. They are program labels, not dated class schedules. Two distinct BSD Maps listings remain unresolved; pin unchanged.
 
-Rockstar Academy Grand Metropolitan Bekasi: the official Schedules & Locations page read 20 November 2026 no longer lists this branch, but the official Winter Term schedule PDF (GB_Schedule_Winter_2026_W5.pdf, updated 16 November 2026, term 19 Oct 2026 to 17 Jan 2027) still lists its classes. Operating evidence refreshed to the current-term PDF. Treated as operating, not a closure. Existing Crawler/Walker/Jumper program evidence (Winter W1 PDF, checked 7 November 2026) unchanged.
+Rockstar Academy Grand Metropolitan Bekasi: the official Schedules & Locations page read 20 November 2026 lists this branch as Grand Metropolitan Mall, Floor LG2 Unit #2C. An earlier text-only extraction of that page dropped the card; a live browser read the same day confirmed it. The official Winter Term schedule PDF (GB_Schedule_Winter_2026_W5.pdf, updated 16 November 2026, term 19 Oct 2026 to 17 Jan 2027) lists its classes. Operating evidence refreshed to the current-term PDF. Existing Crawler/Walker/Jumper program evidence (Winter W1 PDF, checked 7 November 2026) unchanged.
 
 ## Wider review, unchanged records
 
@@ -17,7 +17,7 @@ English1 official Bekasi and Bogor pages read 20 November 2026. All seven Bekasi
 
 Sparks official Bekasi, Bogor and Depok pages read 20 November 2026: all nine stored branches match. Sparks Tangerang page: BSD, Teras Kota, Karawaci and Pamulang match; Bintaro Utown appears as PP4G+G9M Sawah Baru versus stored PP4G+MF5 Sawah Lama, a sub-kilometre plus-code difference on the same named venue. Recorded here as a coordinate uncertainty only; no caution, because the venue is a named building and both codes sit in Ciputat. Sparks Jakarta page lists a Ciputat Raya branch (Jl. Ciputat Raya No.8, Kebayoran Lama) that is not in the dataset. Not added in this batch: no pin evidence collected. Candidate for a future branch-addition pass.
 
-Rockstar locations page: all other 19 stored Jabodetabek branches appear, including The Park Pejaten marked Grand Opening. Page headline says 24 locations; the rendered list shows fewer, so the Grand Bekasi omission alone was not treated as closure evidence without the current-term PDF.
+Rockstar locations page: all 20 stored Jabodetabek branches appear, including The Park Pejaten marked Grand Opening and Grand Metropolitan Bekasi (Floor LG2 Unit #2C). Text-only extraction of this page drops at least one card, so absence from extracted text is not treated as absence from the page.
 
 I Can Read official location directory is paginated (about six centres per page across about 50 Indonesian centres) and the LocateUs page is script-driven. A full 27-branch crosscheck needs the per-city pages and is left for a later batch. No I Can Read record changed.
 
