@@ -2,6 +2,100 @@ import type { Venue } from "@/types/venue";
 
 // Source snapshots checked 2026-11-05, not live availability.
 export const BATCH3_VENUES: Venue[] = [
+{
+  "id": "deen-haus-alkahf-bintaro",
+  "chain": null,
+  "branchName": "Deen Haus - Alkahf Space",
+  "categories": [
+    "Sensory"
+  ],
+  "address": "Alkahf Space, Jl. Bintaro Utara No.14, Bintaro, Pesanggrahan, Jakarta Selatan 12330",
+  "area": "Bintaro, Pesanggrahan",
+  "city": "Jakarta Selatan",
+  "lat": -6.2715944,
+  "lng": 106.7512952,
+  "coordinateSource": "maps-pin",
+  "caution": "The provider calls this site Tangerang Selatan, while Google Maps places the same Alkahf Space address in Pesanggrahan, Jakarta Selatan. Confirm the entrance before visiting.",
+  "programs": [
+    {
+      "name": "Baby & Toddler Islamic Sensory Class",
+      "category": "Sensory",
+      "offering": "offered",
+      "age": {
+        "minMonths": 6,
+        "maxMonths": 12,
+        "level": "branch",
+        "verification": "provider-confirmed",
+        "providerAgeUrl": "https://deenhaus.com/baby-class/",
+        "sourceCheckedAt": "2026-11-19"
+      },
+      "note": "Islamic sensory class. The official page lists this age group at its single Alkahf Space site but gives no current term or session dates. Confirm age boundaries, the next class and availability with the provider."
+    },
+    {
+      "name": "Baby & Toddler Islamic Sensory Class",
+      "category": "Sensory",
+      "offering": "offered",
+      "age": {
+        "minMonths": 12,
+        "maxMonths": 18,
+        "level": "branch",
+        "verification": "provider-confirmed",
+        "providerAgeUrl": "https://deenhaus.com/baby-class/",
+        "sourceCheckedAt": "2026-11-19"
+      },
+      "note": "Islamic sensory class. The official page lists this age group at its single Alkahf Space site but gives no current term or session dates. Confirm age boundaries, the next class and availability with the provider."
+    },
+    {
+      "name": "Baby & Toddler Islamic Sensory Class",
+      "category": "Sensory",
+      "offering": "offered",
+      "age": {
+        "minMonths": 18,
+        "maxMonths": 24,
+        "level": "branch",
+        "verification": "provider-confirmed",
+        "providerAgeUrl": "https://deenhaus.com/baby-class/",
+        "sourceCheckedAt": "2026-11-19"
+      },
+      "note": "Islamic sensory class. The official page lists this age group at its single Alkahf Space site but gives no current term or session dates. Confirm age boundaries, the next class and availability with the provider."
+    },
+    {
+      "name": "Baby & Toddler Islamic Sensory Class",
+      "category": "Sensory",
+      "offering": "offered",
+      "age": {
+        "minMonths": 24,
+        "maxMonths": 36,
+        "level": "branch",
+        "verification": "provider-confirmed",
+        "providerAgeUrl": "https://deenhaus.com/baby-class/",
+        "sourceCheckedAt": "2026-11-19"
+      },
+      "note": "Islamic sensory class. The official page lists this age group at its single Alkahf Space site but gives no current term or session dates. Confirm age boundaries, the next class and availability with the provider."
+    }
+  ],
+  "website": "https://deenhaus.com/",
+  "phone": "+628139967560",
+  "sourceUrl": "https://deenhaus.com/baby-class/",
+  "lastCheckedAt": "2026-11-19",
+  "fitStatus": "branch-confirmed-live-undated",
+  "operatingStatus": {
+    "state": "official-listed",
+    "source": "https://deenhaus.com/",
+    "checkedAt": "2026-11-19"
+  },
+  "reviews": {
+    "rating": 5,
+    "reviewCount": 1,
+    "source": "Google Maps",
+    "sourceUrl": "https://www.google.com/maps/place/Deen+Haus/@-6.2715891,106.7487203,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f1d8fac98da1:0x832f4d6d562efa5b!8m2!3d-6.2715944!4d106.7512952!16s%2Fg%2F11z35pkz3r?entry=ttu&g_ep=EgoyMDI2MTExNi4wIKXMDSoASAFQAw%3D%3D",
+    "checkedAt": "2026-11-19",
+    "praiseThemes": [],
+    "complaintThemes": [],
+    "sampleNote": "Only one Google Maps rating. No review text was available in the limited view. Not enough evidence to assess a trend or teaching quality."
+  },
+  "notes": "Single-site official program and address bound to the Deen Haus Maps listing through the same website, phone and Alkahf Space street number. Maps shows normal hours, no closure label; not a guarantee of a session today. Operator uses Tangerang Selatan, Maps uses Jakarta Selatan. Retain the Maps admin address with a visible caution and search-only routing. Fees omitted: the form includes prices for several programs without a clear product-to-price binding. No social link copied from an unrelated namesake. Public risk search found no relevant complaint article in returned results; this is not a safety clearance."
+},
   {
     "id": "i-can-read-modernland",
     "chain": "I Can Read",
