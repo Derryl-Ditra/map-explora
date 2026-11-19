@@ -94,7 +94,44 @@ export const BATCH3_VENUES: Venue[] = [
     "complaintThemes": [],
     "sampleNote": "Only one Google Maps rating. No review text was available in the limited view. Not enough evidence to assess a trend or teaching quality."
   },
-  "notes": "Single-site official program and address bound to the Deen Haus Maps listing through the same website, phone and Alkahf Space street number. Maps shows normal hours, no closure label; not a guarantee of a session today. Operator uses Tangerang Selatan, Maps uses Jakarta Selatan. Retain the Maps admin address with a visible caution and search-only routing. Fees omitted: the form includes prices for several programs without a clear product-to-price binding. No social link copied from an unrelated namesake. Public risk search found no relevant complaint article in returned results; this is not a safety clearance."
+  "notes": "Single-site official program and address bound to the Deen Haus Maps listing through the same website, phone and Alkahf Space street number. Maps shows normal hours, no closure label; not a guarantee of a session today. Operator uses Tangerang Selatan, Maps uses Jakarta Selatan. Retain the Maps admin address with a visible caution and search-only routing. Conditional form inspected 19 November 2026: selecting Toddler 6-36 months and Islamic Sensory Class separately binds Single Visit, 4 Class / Month and 8 Class / Month to three fee blocks. No personal data entered or form submitted. Promotion end, actual class schedule, extras and cancellation terms not stated. No extra branch or exact entrance verified. No social link copied from an unrelated namesake. Public risk search found no relevant complaint article in returned results; this is not a safety clearance.",
+  "priceListings": [
+    {
+      "sourceKind": "official",
+      "label": "Islamic sensory class, single visit",
+      "amountIdr": 150000,
+      "listPriceIdr": 175000,
+      "unit": "per single visit",
+      "source": "Deen Haus official registration form",
+      "sourceUrl": "https://deenhaus.com/baby-class/#reg-form",
+      "checkedAt": "2026-11-19",
+      "note": "Official registration form: Toddler 6-36 months, Islamic Sensory Class selected. Promotional price shown on 19 November 2026; no promotion end date, session schedule or cancellation terms stated. Confirm the next class and any extra charges before paying."
+    },
+    {
+      "sourceKind": "official",
+      "label": "Islamic sensory class, 4 sessions",
+      "amountIdr": 590000,
+      "listPriceIdr": 660000,
+      "unit": "per package",
+      "source": "Deen Haus official registration form",
+      "sourceUrl": "https://deenhaus.com/baby-class/#reg-form",
+      "checkedAt": "2026-11-19",
+      "note": "Official registration form: Toddler 6-36 months, Islamic Sensory Class selected. Promotional price shown on 19 November 2026; no promotion end date, session schedule or cancellation terms stated. Confirm the next class and any extra charges before paying.",
+      "schedule": "Package valid for 2 months. The form calls this 4 Class / Month; this is not a dated timetable."
+    },
+    {
+      "sourceKind": "official",
+      "label": "Islamic sensory class, 8 sessions",
+      "amountIdr": 1000000,
+      "listPriceIdr": 1200000,
+      "unit": "per package",
+      "source": "Deen Haus official registration form",
+      "sourceUrl": "https://deenhaus.com/baby-class/#reg-form",
+      "checkedAt": "2026-11-19",
+      "note": "Official registration form: Toddler 6-36 months, Islamic Sensory Class selected. Promotional price shown on 19 November 2026; no promotion end date, session schedule or cancellation terms stated. Confirm the next class and any extra charges before paying.",
+      "schedule": "Package valid for 3 months. The form calls this 8 Class / Month; this is not a dated timetable."
+    }
+  ]
 },
   {
     "id": "i-can-read-modernland",
