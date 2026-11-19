@@ -41,7 +41,7 @@ test('Nov20 Rockstar Grand Bekasi stays official-listed with the current-term PD
  assert.equal(v.operatingStatus.state,'official-listed');
  assert.equal(v.operatingStatus.source,'https://www.rockstaracademy.com/lib/upload/files/club/GB_Schedule_Winter_2026_W5.pdf');
  assert.equal(v.operatingStatus.checkedAt,'2026-11-20');
- assert.match(v.notes,/Floor LG2 Unit #2C/);assert.match(v.notes,/updated 16 November 2026/);
+ assert.match(v.notes,/Floor LG2 Unit #2C/);assert.match(v.notes,/updated 15 November 2026/);
  assert.deepEqual(verifiedPrograms(v).map(p=>[p.name,p.age.minMonths,p.age.maxMonths]),[['Crawler',6,18],['Walker',12,23],['Jumper',24,35]]);
 });
 
