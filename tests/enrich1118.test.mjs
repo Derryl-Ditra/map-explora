@@ -14,7 +14,7 @@ test('Nov18 adds exactly four reviewed branches without changing the previous in
  assert.equal(VENUES.length,161);
  assert.equal(VENUES.filter(isShownToUsers).length,149);
  assert.equal(VENUES.filter(isShownToUsers).filter(hasVerifiedAgeEvidence).length,48);
- assert.equal(VENUES.filter(isShownToUsers).filter(v=>v.priceListings?.length).length,19);
+ assert.equal(VENUES.filter(isShownToUsers).filter(v=>v.priceListings?.length).length,20);
  const old=structuredClone(VENUES.filter(v=>!ids.includes(v.id))),before=structuredClone(old);
  enrich(old);assert.deepEqual(old.slice(0,before.length),before);
  assert.equal(old.length,before.length+4);
