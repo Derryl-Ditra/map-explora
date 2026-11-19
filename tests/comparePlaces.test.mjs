@@ -54,3 +54,30 @@ test('review presentation retains translated facility concerns and small-sample 
  assert.match(source, /Fewer than 10 ratings/);
  assert.match(source, /not a class-quality or safety score/);
 });
+
+test('lone second selection is promoted and duplicate options cannot form a pair',()=>{
+ const a=visible[0].id;
+ assert.deepEqual(comparisonSelection(VENUES,'invalid',a),[a,'']);
+ assert.deepEqual(comparisonSelection(VENUES,null,a),[a,'']);
+});
+
+test('v3 entry remains place-first, in-app and non-destructive',()=>{
+ const detail=readFileSync(new URL('../src/components/ui/VenueDetails.tsx',import.meta.url),'utf8');
+ const drawer=readFileSync(new URL('../src/components/ui/MobileDrawer.tsx',import.meta.url),'utf8');
+ const hud=readFileSync(new URL('../src/components/MapHUD.tsx',import.meta.url),'utf8');
+ const ui=readFileSync(new URL('../src/components/ComparePlaces.tsx',import.meta.url),'utf8');
+ assert.equal((detail.match(/map-explora-compare/g)||[]).length,1);
+ assert.doesNotMatch(drawer,/href="\/compare\//);
+ for(const s of ['inert={comparisonOpen}','comparisonOrigin','history.back()','recordCompareOpen'])assert.ok(hud.includes(s));
+ for(const s of ['Cancel replacement','Remove first place','Remove right place','Remove this place','previousScroll','v.id!==retained?.id','aria-expanded','Keeping','setExpanded({})','const [expanded,setExpanded]=useState<Record<string,boolean>>({})'])assert.ok(ui.includes(s),s);
+ assert.doesNotMatch(ui,/<select/);
+});
+
+test('counter remains disabled rather than leak query or location into the existing SDK',async()=>{
+ const {COMPARE_COUNTER_ENABLED,COMPARE_OPEN_EVENT,recordCompareOpen}=await importTs('../src/utils/compareCounter.ts');
+ assert.equal(COMPARE_COUNTER_ENABLED,false);
+ assert.deepEqual(COMPARE_OPEN_EVENT,{event:'compare-open',count:1});
+ assert.equal(recordCompareOpen().enabled,false);
+ const code=readFileSync(new URL('../src/utils/compareCounter.ts',import.meta.url),'utf8');
+ assert.doesNotMatch(code,/fetch\(|sendBeacon\(|localStorage\.|goatcounter\.count|XMLHttpRequest/);
+});
