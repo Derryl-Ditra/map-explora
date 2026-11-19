@@ -54,7 +54,8 @@ export default function MapHUD({initialCompare=false, compareLang="en"}:{initial
     window.addEventListener("map-explora-compare",open);window.addEventListener("popstate",pop);const tick=requestAnimationFrame(pop);
     return()=>{cancelAnimationFrame(tick);window.removeEventListener("map-explora-compare",open);window.removeEventListener("popstate",pop);};
   },[]);
-  const closeComparison=(ids:[string,string])=>{if(comparisonOrigin.current){history.back();requestAnimationFrame(()=>compareTrigger.current?.focus());}else{const base=process.env.NODE_ENV==="production"?"/map-explora":"";const u=new URL(base+"/",location.origin);u.searchParams.set("shareLang",new URLSearchParams(location.search).get("shareLang")||compareLang);if(ids[0]&&!ids[1])u.searchParams.set("venue",ids[0]);location.assign(u);}};
+  useEffect(()=>{if(!comparisonOpen&&comparisonOrigin.current&&compareTrigger.current){compareTrigger.current.focus({preventScroll:true});compareTrigger.current=null;}},[comparisonOpen]);
+  const closeComparison=(ids:[string,string])=>{if(comparisonOrigin.current){history.back();}else{const base=process.env.NODE_ENV==="production"?"/map-explora":"";const u=new URL(base+"/",location.origin);u.searchParams.set("shareLang",new URLSearchParams(location.search).get("shareLang")||compareLang);if(ids[0]&&!ids[1])u.searchParams.set("venue",ids[0]);location.assign(u);}};
   const {
     userPos,
     accuracy,
