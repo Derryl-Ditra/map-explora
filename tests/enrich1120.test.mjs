@@ -36,12 +36,12 @@ test('Nov20 BLS BSD Preschool gains official branch address binding and class ag
  assert.ok(hasVerifiedAgeEvidence(v));
 });
 
-test('Nov20 Rockstar Grand Bekasi stays listed on the current-term official PDF, not closed',()=>{
+test('Nov20 Rockstar Grand Bekasi stays official-listed with the current-term PDF evidence',()=>{
  const v=VENUES.find(v=>v.id==='rockstar-academy-grand-metropolitan-bekasi');assert.ok(v);
  assert.equal(v.operatingStatus.state,'official-listed');
  assert.equal(v.operatingStatus.source,'https://www.rockstaracademy.com/lib/upload/files/club/GB_Schedule_Winter_2026_W5.pdf');
  assert.equal(v.operatingStatus.checkedAt,'2026-11-20');
- assert.match(v.notes,/updated 16 November 2026/);assert.match(v.notes,/not as a closure/);
+ assert.match(v.notes,/Floor LG2 Unit #2C/);assert.match(v.notes,/updated 16 November 2026/);
  assert.deepEqual(verifiedPrograms(v).map(p=>[p.name,p.age.minMonths,p.age.maxMonths]),[['Crawler',6,18],['Walker',12,23],['Jumper',24,35]]);
 });
 
