@@ -26,7 +26,7 @@ test('comparison URL parameters never reveal hidden, invalid or duplicate branch
 });
 
 test('coverage uses actual sourced price and rating records, not candidates',()=>{
- assert.deepEqual(coverage(VENUES),{visible:149,priced:19,reviewed:145});
+ assert.deepEqual(coverage(VENUES),{visible:149,priced:20,reviewed:145});
  const noPrice=visible.find(v=>!v.priceListings);assert.ok(noPrice);
  assert.equal(coverage([noPrice]).priced,0);
 });
