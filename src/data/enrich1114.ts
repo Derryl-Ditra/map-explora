@@ -69,10 +69,10 @@ export default function enrich1114(venues: Venue[]) {
 
   // Nov20 Rockstar Grand Metropolitan Bekasi: official locations page lists
   // the branch (Floor LG2 Unit #2C); operating evidence refreshed to the
-  // current-term schedule PDF updated 16 November 2026.
+  // current-term schedule PDF updated 15 November 2026.
   const rockGb = venues.find(v => v.id === "rockstar-academy-grand-metropolitan-bekasi");
   if (rockGb) {
     rockGb.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/lib/upload/files/club/GB_Schedule_Winter_2026_W5.pdf", checkedAt: "2026-11-20" };
-    rockGb.notes = (rockGb.notes || "") + " Read 20 November 2026: the official Schedules & Locations page lists this branch as Grand Metropolitan Mall, Floor LG2 Unit #2C, and the official Winter Term schedule PDF updated 16 November 2026 (term 19 Oct 2026 to 17 Jan 2027) lists its classes. Operating evidence refreshed to the current-term document. Confirm session availability before visiting.";
+    rockGb.notes = (rockGb.notes || "") + " Read 20 November 2026: the official Schedules & Locations page lists this branch as Grand Metropolitan Mall, Floor LG2 Unit #2C, and the official Winter Term schedule PDF updated 15 November 2026 (term 19 Oct 2026 to 17 Jan 2027) lists its classes. Operating evidence refreshed to the current-term document. Confirm session availability before visiting.";
   }
 }
