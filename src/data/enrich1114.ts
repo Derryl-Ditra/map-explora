@@ -25,4 +25,21 @@ export default function enrich1114(venues: Venue[]) {
   // The existing data entry point applies the next dated source patch last.
   enrich1115(venues);
   if (!venues.some(v => v.id === "kiddies88-maspen-cimuning")) enrich1118(venues);
+
+  // Nov19 official-address discrepancies: keep pins, disable exact routing.
+  for (const patch of [
+  {
+    "id": "english-1-puri-indah",
+    "caution": "The current official Puri Indah listing gives Puri Niaga Blok J1 No.3 T-U, while the stored map address says M8-1. Confirm the current unit and entrance with the branch before visiting. This pin is not verified for the current official address.",
+    "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6. Official Jakarta branch list read 19 November 2026 gives Jalan Puri Kencana Ruko Puri Niaga Blok J1 No.3 T-U. Stored Maps address has M8-1. Do not relocate coordinates or infer closure. Search-only routing until current entrance is resolved."
+  },
+  {
+    "id": "english-1-cinere-depok",
+    "caution": "The official Cinere listing gives Blok A No.28-29, while the stored map address says No.28-30. Confirm the correct unit and entrance before visiting.",
+    "notes": "Official FAQ: ages 3 to 18; Small Stars program ages 3-6. Official Depok branch list read 19 November 2026: Cinere Blok A No.28-29 rather than the stored No.28-30. Unit range unresolved; no coordinate move."
+  }
+]) {
+    const venue = venues.find(v=>v.id===patch.id);
+    if (venue) { venue.caution=patch.caution; venue.notes=patch.notes; }
+  }
 }
