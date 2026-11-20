@@ -2212,7 +2212,7 @@ export const VENUES: Venue[] = [
  {
   "id": "rockstar-academy-central-park-2",
   "chain": "Rockstar Academy",
-  "branchName": "Central Park 2",
+  "branchName": "Central Park 2 (Neo Soho)",
   "categories": [
    "Gym & Movement",
    "Dance",
@@ -2272,9 +2272,9 @@ export const VENUES: Venue[] = [
   "instagram": "https://www.instagram.com/rockstaracademyindonesia/",
   "tiktok": "https://www.tiktok.com/@rockstaracademyofficial",
   "sourceUrl": "https://www.rockstaracademy.com/schedules-and-locations",
-  "lastCheckedAt": "2026-11-07",
+  "lastCheckedAt": "2026-11-20",
   "fitStatus": "branch-confirmed",
-  "notes": "Current branch Winter Term PDF (19 Oct 2026 to 17 Jan 2027) confirms Crawler 6-18 months, Walker 12-23 months, and Jumper 24-35 months. Other programs not exhaustively transcribed. Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
+  "notes": "Current branch Winter Term PDF (19 Oct 2026 to 17 Jan 2027) confirms Crawler 6-18 months, Walker 12-23 months, and Jumper 24-35 months. Other programs not exhaustively transcribed. Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch. Official branch listing: 'Central Park 2 (Neo Soho)', Floor 3rd, Unit #L3-101A. Central Park 2 is the renamed Neo Soho mall (renamed 22 November 2025, Kompas 13 Sep 2025), the second building of the Central Park Mall complex in Tanjung Duren; it is a different mall from Lippo Mall Puri in Puri Indah, Kembangan, which has its own separate Rockstar branch. Naming checked 2026-11-20.",
   "reviews": {
    "rating": 4.9,
    "reviewCount": 438,
@@ -3143,9 +3143,9 @@ export const VENUES: Venue[] = [
   "instagram": "https://www.instagram.com/rockstaracademyindonesia/",
   "tiktok": "https://www.tiktok.com/@rockstaracademyofficial",
   "sourceUrl": "https://www.rockstaracademy.com/schedules-and-locations",
-  "lastCheckedAt": "2026-11-07",
+  "lastCheckedAt": "2026-11-20",
   "fitStatus": "branch-confirmed",
-  "notes": "Current branch Winter Term PDF (19 Oct 2026 to 17 Jan 2027) confirms Crawler 6-18 months, Walker 12-23 months, and Jumper 24-35 months. Other programs not exhaustively transcribed. Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch.",
+  "notes": "Current branch Winter Term PDF (19 Oct 2026 to 17 Jan 2027) confirms Crawler 6-18 months, Walker 12-23 months, and Jumper 24-35 months. Other programs not exhaustively transcribed. Chain states programs from 6 months to 18 years; under-4 programs seen: Mom & Me Beginner 6-35 months, Baby Dance 1-3 yrs (club schedule PDF). Programs vary per branch. Lippo Mall Puri (Puri Indah, Kembangan) is a separate mall from Central Park and Central Park 2 in Tanjung Duren; Central Park 2 is the renamed Neo Soho mall (22 November 2025), not Lippo Mall. Official Lippo Malls site lists Lippo Mall Puri operating, and the official Rockstar locations page lists both branches separately. Naming checked 2026-11-20.",
   "reviews": {
    "rating": 4.5,
    "reviewCount": 139,
