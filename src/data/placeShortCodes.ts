@@ -154,5 +154,6 @@ export const PLACE_SHORT_CODES: Record<string,string> = {
  "kiddies88-wijaya-wisma-jaya": "A5w",
  "deen-haus-alkahf-bintaro": "6kX",
  "bumi-nusantara-montessori-bsd": "kZ7",
- "kimi-friends-montessori-gading-serpong": "Di6"
+ "kimi-friends-montessori-gading-serpong": "Di6",
+ "highfive-preschool-graha-raya": "5Wz"
 };
