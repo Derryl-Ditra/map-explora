@@ -43,8 +43,8 @@ test('Nov20 Rockstar Grand Bekasi stays official-listed with the current-term PD
 });
 
 test('Nov20 inventory counts move only on the BLS age upgrade',()=>{
- assert.equal(VENUES.length,161);
- assert.equal(VENUES.filter(isShownToUsers).length,149);
- assert.equal(VENUES.filter(isShownToUsers).filter(hasVerifiedAgeEvidence).length,49);
+ assert.equal(VENUES.length,164);
+ assert.equal(VENUES.filter(isShownToUsers).length,152);
+ assert.equal(VENUES.filter(isShownToUsers).filter(hasVerifiedAgeEvidence).length,52);
  assert.equal(VENUES.filter(isShownToUsers).filter(v=>v.priceListings?.length).length,20);
 });
