@@ -2,15 +2,17 @@
 import { readFile, readdir } from 'node:fs/promises';
 import assert from 'node:assert/strict';
 const root='out',ids=await readdir(root+'/places');
-assert.equal(ids.length,141);
+assert.ok(ids.length>=149);
 const sitemap=await readFile(root+'/sitemap.xml','utf8');
 for(const lang of ['en','id']){
  for(const id of ids){
   const path=`${lang==='id'?'/id':''}/places/${id}/`;
   const html=await readFile(root+path+'index.html','utf8');
   assert.ok(html.includes('<h1>'));
+  assert.ok(/https:\/\/www\.google\.com\/maps\/(dir|search)\//.test(html),'route action link present');
   const publicText=html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'').replace(/<[^>]*>/g,' ');
   assert.doesNotMatch(publicText,/exact[- ]age[- ]match|upper[- ]bound inclusivity|sourceConflict|not re-fetched|in-app routing/i);
+  assert.match(publicText,lang==='id'?/Rute|Cari di Maps/:/Directions|Search Maps/,'route action label present');
   if(lang==='id')assert.doesNotMatch(publicText,/Official page:|Page undated|per session|\b[0-9]+-[0-9]+mths\b|official rate card|Product title and description/i);assert.ok(html.includes('application/ld+json'));
   const schema=JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]);
   assert.deepEqual(Object.keys(schema).sort(),['@context','@type','address','name','url']);
@@ -23,4 +25,4 @@ for(const lang of ['en','id']){
   assert.ok(html.includes('rel="canonical"'));assert.ok(html.includes('hrefLang="en"')||html.includes('hrefLang="en"'.toLowerCase()));
  }
 }
-console.log('282 static place pages, canonical/language tags, minimal Place schema, sitemap entries and PNG dimensions passed.');
+console.log(`${ids.length*2} static place pages, canonical/language tags, minimal Place schema, sitemap entries and PNG dimensions passed.`);
