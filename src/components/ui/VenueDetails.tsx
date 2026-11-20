@@ -162,29 +162,12 @@ export default function VenueDetails({
             {venue.chain ? `${venue.chain} ` : ""}
             {venue.branchName}
           </h2>
-          <span className="text-[1rem] text-[#6d675f] mt-1 break-words">{publicLocation(venue).address}</span>{publicLocation(venue).notice&&<p className="text-[0.9375rem] mt-2">{publicLocation(venue).notice}</p>}
+          <span className="text-[1rem] text-[#6d675f] mt-1 break-words">{publicLocation(venue).address}</span>
         </div>
         <OfficialLinks venue={venue} />
       </div>
 
       <button type="button" onClick={()=>window.dispatchEvent(new CustomEvent("map-explora-compare",{detail:venue.id}))} className="min-h-12 flex items-center justify-center rounded-xl border border-[#1a7a4a] bg-white text-[#1a7a4a] font-semibold">Compare · Bandingkan</button>
-
-      {approximate && (
-        <p className="text-[0.9375rem] text-[#92400e] border border-[#fcd34d] bg-[#fef3c7] rounded-2xl px-3.5 py-3 flex items-start gap-2">
-          <MapPin className="w-4.5 h-4.5 mt-0.5 shrink-0" />
-          <span>
-            Approximate area location. Confirm the exact venue with the provider
-            before you travel; only a Google Maps search is available for this pin.
-          </span>
-        </p>
-      )}
-
-      {venue.caution && (
-        <p className="text-[0.9375rem] text-[#92400e] border border-[#fcd34d] bg-[#fef3c7] rounded-2xl px-3.5 py-3 flex items-start gap-2">
-          <TriangleAlert className="w-4.5 h-4.5 mt-0.5 shrink-0" />
-          <span>{venue.caution}</span>
-        </p>
-      )}
 
       {/* Classes by age: the first thing a parent scans */}
       <div className="p-4 rounded-2xl border border-[#e7e0d4] bg-white flex flex-col gap-2">
@@ -250,46 +233,6 @@ export default function VenueDetails({
               {program.noteUrl && <a href={program.noteUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">{program.noteLabel || "Other source"}</a>}
             </div>
           ))}
-        </div>
-      )}
-
-      {/* Prices: provenance belongs to each listing; legacy entries default to partner. */}
-      {venue.priceListings && venue.priceListings.length > 0 && (
-        <div className="p-4 rounded-2xl border border-[#e7e0d4] bg-white flex flex-col gap-2.5" data-testid="price-listings">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <Banknote aria-hidden="true" className="w-5 h-5 text-[#6d675f]" />
-              <span className="font-bold text-[1rem] text-[#221d18]">Price</span>
-            </div>
-            <span className="text-[0.8125rem] font-bold px-2 py-1 rounded-full shrink-0 bg-[#f1ece2] text-[#4a443c]">
-              Listed prices
-            </span>
-          </div>
-          {venue.priceListings.map((pl) => (
-            <div key={`${pl.label}-${pl.sourceUrl}`} className="flex flex-col gap-0.5">
-              <span className="text-[1rem] text-[#221d18]">
-                <span className="font-bold">{formatIdr(pl.amountIdr)}</span> {pl.unit}
-                {pl.listPriceIdr ? (
-                  <span className="text-[#6d675f]"> (list price <s>{formatIdr(pl.listPriceIdr)}</s>)</span>
-                ) : null}
-              </span>
-              <span className="text-[0.8125rem] font-bold text-[#4a443c]">{pl.sourceKind === "official" ? "Official-listed" : "Partner-listed"}</span>
-              <span className="text-[0.9375rem] text-[#4a443c]">{pl.label}</span>
-              {pl.note && <span className="text-[0.875rem] text-[#6d675f]">{pl.note}</span>}
-              {pl.schedule && <span className="text-[0.9375rem] text-[#4a443c]">{pl.schedule}</span>}
-              <span className="text-[0.875rem] text-[#6d675f]">
-                From{" "}
-                <a href={pl.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a] font-semibold">
-                  {pl.source}
-                </a>
-                , read {formatCheckedDate(pl.checkedAt)}
-              </span>
-            </div>
-          ))}
-          <p className="text-[0.875rem] text-[#6d675f]">
-            Prices change; confirm the current fee, eligibility and conditions with the provider before you book.
-            {venue.priceListings.some((pl) => pl.sourceKind !== "official") && " Partner-listed prices are listed by a booking site, not confirmed by the provider."}
-          </p>
         </div>
       )}
 
@@ -405,6 +348,69 @@ export default function VenueDetails({
               )}
             </span>
           )}
+        </div>
+      )}
+
+      {/* Keep location notes after reviews, before prices and travel details. */}
+      {publicLocation(venue).notice && (
+        <p className="text-[0.9375rem]">{publicLocation(venue).notice}</p>
+      )}
+
+      {approximate && (
+        <p className="text-[0.9375rem] text-[#92400e] border border-[#fcd34d] bg-[#fef3c7] rounded-2xl px-3.5 py-3 flex items-start gap-2">
+          <MapPin className="w-4.5 h-4.5 mt-0.5 shrink-0" />
+          <span>
+            Approximate area location. Confirm the exact venue with the provider
+            before you travel; only a Google Maps search is available for this pin.
+          </span>
+        </p>
+      )}
+
+      {venue.caution && (
+        <p className="text-[0.9375rem] text-[#92400e] border border-[#fcd34d] bg-[#fef3c7] rounded-2xl px-3.5 py-3 flex items-start gap-2">
+          <TriangleAlert className="w-4.5 h-4.5 mt-0.5 shrink-0" />
+          <span>{venue.caution}</span>
+        </p>
+      )}
+
+
+      {/* Prices: provenance belongs to each listing; legacy entries default to partner. */}
+      {venue.priceListings && venue.priceListings.length > 0 && (
+        <div className="p-4 rounded-2xl border border-[#e7e0d4] bg-white flex flex-col gap-2.5" data-testid="price-listings">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <Banknote aria-hidden="true" className="w-5 h-5 text-[#6d675f]" />
+              <span className="font-bold text-[1rem] text-[#221d18]">Price</span>
+            </div>
+            <span className="text-[0.8125rem] font-bold px-2 py-1 rounded-full shrink-0 bg-[#f1ece2] text-[#4a443c]">
+              Listed prices
+            </span>
+          </div>
+          {venue.priceListings.map((pl) => (
+            <div key={`${pl.label}-${pl.sourceUrl}`} className="flex flex-col gap-0.5">
+              <span className="text-[1rem] text-[#221d18]">
+                <span className="font-bold">{formatIdr(pl.amountIdr)}</span> {pl.unit}
+                {pl.listPriceIdr ? (
+                  <span className="text-[#6d675f]"> (list price <s>{formatIdr(pl.listPriceIdr)}</s>)</span>
+                ) : null}
+              </span>
+              <span className="text-[0.8125rem] font-bold text-[#4a443c]">{pl.sourceKind === "official" ? "Official-listed" : "Partner-listed"}</span>
+              <span className="text-[0.9375rem] text-[#4a443c]">{pl.label}</span>
+              {pl.note && <span className="text-[0.875rem] text-[#6d675f]">{pl.note}</span>}
+              {pl.schedule && <span className="text-[0.9375rem] text-[#4a443c]">{pl.schedule}</span>}
+              <span className="text-[0.875rem] text-[#6d675f]">
+                From{" "}
+                <a href={pl.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a] font-semibold">
+                  {pl.source}
+                </a>
+                , read {formatCheckedDate(pl.checkedAt)}
+              </span>
+            </div>
+          ))}
+          <p className="text-[0.875rem] text-[#6d675f]">
+            Prices change; confirm the current fee, eligibility and conditions with the provider before you book.
+            {venue.priceListings.some((pl) => pl.sourceKind !== "official") && " Partner-listed prices are listed by a booking site, not confirmed by the provider."}
+          </p>
         </div>
       )}
 
