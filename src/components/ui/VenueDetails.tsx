@@ -374,6 +374,10 @@ export default function VenueDetails({
       )}
 
 
+      {venue.cardNote && (
+        <p className="text-[0.9375rem] text-[#6d675f]" data-testid="card-note">{venue.cardNote}</p>
+      )}
+
       {/* Prices: provenance belongs to each listing; legacy entries default to partner. */}
       {venue.priceListings && venue.priceListings.length > 0 && (
         <div className="p-4 rounded-2xl border border-[#e7e0d4] bg-white flex flex-col gap-2.5" data-testid="price-listings">
