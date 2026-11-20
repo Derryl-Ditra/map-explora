@@ -1,6 +1,4 @@
 "use client";
-import Link from 'next/link';
-import {comparisonPath} from '@/utils/comparePlaces';
 import { publicLocation } from "@/utils/publicLocation";
 import { phoneHref } from "@/utils/venueSummary";
 import { estimatedPrograms } from "@/data/age-estimates";
@@ -169,7 +167,7 @@ export default function VenueDetails({
         <OfficialLinks venue={venue} />
       </div>
 
-      <Link href={comparisonPath('en',venue.id)} className="min-h-12 flex items-center justify-center rounded-xl border border-[#1a7a4a] bg-white text-[#1a7a4a] font-semibold">Compare this place · Bandingkan</Link>
+      <button type="button" onClick={()=>window.dispatchEvent(new CustomEvent("map-explora-compare",{detail:venue.id}))} className="min-h-12 flex items-center justify-center rounded-xl border border-[#1a7a4a] bg-white text-[#1a7a4a] font-semibold">Compare · Bandingkan</button>
 
       {approximate && (
         <p className="text-[0.9375rem] text-[#92400e] border border-[#fcd34d] bg-[#fef3c7] rounded-2xl px-3.5 py-3 flex items-start gap-2">

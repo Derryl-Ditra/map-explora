@@ -1,4 +1,8 @@
 "use client";
+import {recordCompareOpen} from "@/utils/compareCounter";
+import ComparePlaces from "./ComparePlaces";
+import { VENUES } from "@/data/venues";
+import { comparisonInventory, comparisonSelection } from "@/utils/comparePlaces";
 import LocationNotice from "./ui/LocationNotice";
 
 import { useState, useCallback, useEffect, useSyncExternalStore, useRef } from "react";
@@ -37,7 +41,21 @@ function useIsDesktop(): boolean {
   );
 }
 
-export default function MapHUD() {
+const compareVenues = comparisonInventory(VENUES);
+
+export default function MapHUD({initialCompare=false, compareLang="en"}:{initialCompare?:boolean;compareLang?:"en"|"id"}) {
+  const [comparisonOpen,setComparisonOpen]=useState(initialCompare);
+  const [comparisonLanguage,setComparisonLanguage]=useState(compareLang);
+  const comparisonOrigin=useRef(false);
+  const compareTrigger=useRef<HTMLElement|null>(null);
+  useEffect(()=>{
+    const pop=()=>{const q=new URLSearchParams(location.search);setComparisonOpen(q.get("compare")==="1" || /\/compare\//.test(location.pathname));};
+    const open=(event:Event)=>{const id=(event as CustomEvent<string>).detail;const ids=comparisonSelection(compareVenues,id,null);if(!ids[0])return;compareTrigger.current=document.activeElement as HTMLElement;comparisonOrigin.current=true;const u=new URL(location.href);u.searchParams.set("compare","1");u.searchParams.set("a",ids[0]);u.searchParams.delete("b");const language=u.searchParams.get("shareLang")==="id"?"id":"en";setComparisonLanguage(language);history.pushState(history.state,"",u);recordCompareOpen();setComparisonOpen(true);};
+    window.addEventListener("map-explora-compare",open);window.addEventListener("popstate",pop);const tick=requestAnimationFrame(pop);
+    return()=>{cancelAnimationFrame(tick);window.removeEventListener("map-explora-compare",open);window.removeEventListener("popstate",pop);};
+  },[]);
+  useEffect(()=>{if(!comparisonOpen&&comparisonOrigin.current&&compareTrigger.current){compareTrigger.current.focus({preventScroll:true});compareTrigger.current=null;}},[comparisonOpen]);
+  const closeComparison=(ids:[string,string])=>{if(comparisonOrigin.current){history.back();}else{const base=process.env.NODE_ENV==="production"?"/map-explora":"";const u=new URL(base+"/",location.origin);u.searchParams.set("shareLang",new URLSearchParams(location.search).get("shareLang")||compareLang);if(ids[0]&&!ids[1])u.searchParams.set("venue",ids[0]);location.assign(u);}};
   const {
     userPos,
     accuracy,
@@ -119,7 +137,7 @@ export default function MapHUD() {
   }, [resetFilters]);
 
   return (
-    <div className="relative h-dvh w-screen bg-[#f6f2ec] overflow-hidden flex flex-col font-sans select-none">
+    <><div inert={comparisonOpen} className="relative h-dvh w-screen bg-[#f6f2ec] overflow-hidden flex flex-col font-sans select-none">
       <h1 className="sr-only">Map Explora - Under-5 baby, toddler and preschool classes in Jakarta and Jabodetabek</h1>
 
       {/* Location permission notice: above the sheet on phones (never over
@@ -278,7 +296,7 @@ export default function MapHUD() {
           onClose={handleClearActiveVenue}
         />
       )}
-    </div>
+    </div>{comparisonOpen&&<ComparePlaces venues={compareVenues} lang={comparisonLanguage} onBack={closeComparison}/>}</>
   );
 }
 // Trailing sentinel: absorbs the web editor last-line indent artifact.

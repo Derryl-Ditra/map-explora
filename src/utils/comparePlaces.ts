@@ -9,7 +9,8 @@ export function comparisonInventory(venues: Venue[]) {
 export function comparisonSelection(venues: Venue[], a: string | null, b: string | null): [string,string] {
   const ids = new Set(comparisonInventory(venues).map(v=>v.id));
   const first = a && ids.has(a) ? a : '';
-  return [first, b && ids.has(b) && b !== first ? b : ''];
+  const second = b && ids.has(b) && b !== first ? b : '';
+  return first ? [first, second] : [second, ''];
 }
 export function comparisonPath(lang: 'en'|'id', a = '', b = '') {
   const q = new URLSearchParams();
