@@ -7,8 +7,8 @@ const {verifiedPrograms,hasVerifiedAgeEvidence}=await importTs('../src/utils/age
 const {isShownToUsers}=await importTs('../src/utils/visibility.ts');
 const {canRouteVenue}=await importTs('../src/utils/mapsLink.ts');
 const {placeCode}=await importTs('../src/utils/placeShortLink.ts');
-const ids=['bumi-nusantara-montessori-bsd','kimi-friends-montessori-gading-serpong'];
-test('Nov20 independents: two official-sourced under-5 places, shown, routable, coded',()=>{
+const ids=['bumi-nusantara-montessori-bsd','kimi-friends-montessori-gading-serpong','highfive-preschool-graha-raya'];
+test('Nov20 independents: three official-sourced under-5 places, shown, routable, coded',()=>{
  for(const id of ids){
   const v=VENUES.find(v=>v.id===id);assert.ok(v,id);assert.equal(v.chain,null);
   assert.ok(isShownToUsers(v));assert.ok(hasVerifiedAgeEvidence(v));assert.ok(canRouteVenue(v));assert.ok(placeCode(id));
@@ -20,8 +20,13 @@ test('Nov20 independents: two official-sourced under-5 places, shown, routable, 
 });
 test('Nov20 independents: exact official age bands',()=>{
  const b=VENUES.find(v=>v.id===ids[0]);
- assert.deepEqual(b.programs.map(p=>[p.age.minMonths,p.age.maxMonths]),[[10,24],[24,36],[36,48],[48,72]]);
+ assert.deepEqual(b.programs.map(p=>[p.age.minMonths,p.age.maxMonths]),[[10,24],[24,36],[36,48]]);
  const k=VENUES.find(v=>v.id===ids[1]);
  assert.deepEqual(k.programs.map(p=>[p.age.minMonths,p.age.maxMonths]),[[12,36]]);
- assert.equal(VENUES.filter(isShownToUsers).length,151);
+ const h=VENUES.find(v=>v.id===ids[2]);
+ assert.deepEqual(h.programs.map(p=>[p.age.minMonths,p.age.maxMonths]),[[9,24],[24,36],[36,48],[48,60]]);
+ assert.equal(h.lat,-6.2448765);assert.equal(h.lng,106.6739842);
+ for(const id of ids)assert.ok(VENUES.find(v=>v.id===id).programs.every(p=>p.age.maxMonths<=72&&p.age.minMonths<60));
+ assert.ok(!VENUES.find(v=>v.id===ids[0]).programs.some(p=>p.age.maxMonths>60));
+ assert.equal(VENUES.filter(isShownToUsers).length,152);
 });
