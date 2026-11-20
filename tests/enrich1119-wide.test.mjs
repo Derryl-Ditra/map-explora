@@ -3,11 +3,13 @@ import assert from 'node:assert/strict';
 import {importTs} from './loadTs.mjs';
 const {VENUES}=await importTs('../src/data/venues.ts');
 const {canRouteVenue}=await importTs('../src/utils/mapsLink.ts');
-const {publicCaution,placeText}=await importTs('../src/utils/placeLanguage.ts');
-test('current official English1 address discrepancies stay visible and cannot route to stale pins',()=>{
+const {placeText}=await importTs('../src/utils/placeLanguage.ts');
+test('English1 address discrepancies resolved 2026-11-20: pins match live Maps listings, losing units kept in notes',()=>{
  for(const id of ['english-1-puri-indah','english-1-cinere-depok']){
-  const v=VENUES.find(v=>v.id===id);assert.ok(v.caution);assert.ok(publicCaution(v.caution,'id'));assert.equal(canRouteVenue(v),false);
+  const v=VENUES.find(v=>v.id===id);assert.equal(v.caution,undefined);assert.equal(canRouteVenue(v),true);
  }
+ assert.match(VENUES.find(v=>v.id==='english-1-cinere-depok').notes,/No\.28-29/);
+ assert.match(VENUES.find(v=>v.id==='english-1-puri-indah').notes,/No\.3 T-U/);
 });
 test('Deen fee products keep their official form selection, units and all three promo conditions',()=>{
  const v=VENUES.find(v=>v.id==='deen-haus-alkahf-bintaro');
