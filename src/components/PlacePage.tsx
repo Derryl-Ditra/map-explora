@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import ReviewSnapshot from './ReviewSnapshot';
 import {comparisonPath} from '@/utils/comparePlaces';
+import {buildMapsLink, canRouteVenue} from '@/utils/mapsLink';
 import type { Venue } from '@/types/venue';
 import { venueName } from '@/utils/discovery';
 import { verifiedPrograms, isVerifiedAgeClaim } from '@/utils/ageMatch';
@@ -12,6 +13,7 @@ import { localizeTerm } from '@/utils/bilingual';
 const words=(lang:PlaceLang,en:string,id:string)=>lang==='id'?id:en;
 export default function PlacePage({venue:v,lang}:{venue:Venue;lang:PlaceLang}) {
  const t=(en:string,id:string)=>words(lang,en,id);
+ const routable=canRouteVenue(v),mapsAction=buildMapsLink(v),dirLabel=routable?t('Directions','Rute'):t('Search Maps','Cari di Maps'),dirAria=routable?t('Directions in Google Maps','Rute di Google Maps'):t('Search in Google Maps','Cari di Google Maps');
  const confirmed=verifiedPrograms(v);
  const location=publicLocation(v,lang);
  const uncertain=v.programs.filter(p=>p.offering!=='not-offered'&&!confirmed.includes(p));
@@ -23,7 +25,7 @@ export default function PlacePage({venue:v,lang}:{venue:Venue;lang:PlaceLang}) {
  return <div className="place-page" lang={lang}>
  <nav className="place-nav" aria-label={t('Page navigation','Navigasi halaman')}><Link href={`/?shareLang=${lang}`}>Map Explora</Link><Link href={placePath(v,lang==='id'?'en':'id')} hrefLang={lang==='id'?'en':'id'}>{lang==='id'?'English':'Bahasa Indonesia'}</Link><a href="#place-content">{t('Skip to content','Langsung ke isi')}</a></nav>
  <main id="place-content">
- <header className="place-header"><p className="place-eyebrow">{placeRegion(v.city,v.area)}</p><h1>{venueName(v)}</h1><p>{t('Class ages, recorded prices and sources for this branch. Confirm the schedule and conditions before visiting.','Lihat kelas, usia dan biaya dari sumber penyedia. Pastikan jadwal dan syarat terbaru sebelum datang.')}</p><div className="place-actions"><Link className="place-secondary" href={comparisonPath(lang,v.id)}>{t('Compare this place','Bandingkan tempat ini')}</Link><a className="place-primary" href={placeMapUrl(v,lang)}>{t('View on the map','Lihat di peta')}</a>{v.website&&<a className="place-secondary" href={v.website}>{t('Provider website','Situs penyedia')}</a>}</div></header>
+ <header className="place-header"><p className="place-eyebrow">{placeRegion(v.city,v.area)}</p><h1>{venueName(v)}</h1><p>{t('Class ages, recorded prices and sources for this branch. Confirm the schedule and conditions before visiting.','Lihat kelas, usia dan biaya dari sumber penyedia. Pastikan jadwal dan syarat terbaru sebelum datang.')}</p><div className="place-actions"><a className="place-primary" href={mapsAction} aria-label={dirAria}>{dirLabel}</a><Link className="place-secondary" href={comparisonPath(lang,v.id)}>{t('Compare this place','Bandingkan tempat ini')}</Link><a className="place-secondary" href={placeMapUrl(v,lang)}>{t('View on the map','Lihat di peta')}</a>{v.website&&<a className="place-secondary" href={v.website}>{t('Provider website','Situs penyedia')}</a>}</div></header>
  {v.caution&&<section className="place-warning"><h2>{t('Check before travelling','Sebelum berangkat')}</h2><p>{publicCaution(v.caution,lang)}</p></section>}
  <div className="place-columns"><div>
  <section className="place-section"><h2>{t('Classes and ages','Kelas dan usia')}</h2>
@@ -36,7 +38,7 @@ export default function PlacePage({venue:v,lang}:{venue:Venue;lang:PlaceLang}) {
  <section className="place-section"><h2>{t('Online reviews','Ulasan daring')}</h2><ReviewSnapshot venue={v} lang={lang}/></section>
  <section className="place-section"><h2>{t('Sources and dates','Sumber dan tanggal')}</h2><ul className="place-sources">{sources.map(s=><li key={s.url}><a href={s.url}>{s.label}</a><span className="place-caption">{s.date || t('Date not recorded','Tanggal belum tercatat')}</span></li>)}</ul><p className="place-caption">{t('Evidence dates are not a promise of current availability. Older source notes are not given a new date.','Tanggal bukti bukan jaminan buka atau tersedia. Catatan lama tidak diberi tanggal baru.')}</p></section>
  </aside></div>
- <footer className="place-footer"><a className="place-primary" href={placeMapUrl(v,lang)}>{t('View on the map','Lihat di peta')}</a><p>{t('Map Explora is a directory, not a booking service. Confirm directly with the provider.','Map Explora adalah direktori, bukan layanan pemesanan. Konfirmasi langsung ke penyedia.')}</p></footer>
+ <footer className="place-footer"><div className="place-actions"><a className="place-primary" href={mapsAction} aria-label={dirAria}>{dirLabel}</a><a className="place-secondary" href={placeMapUrl(v,lang)}>{t('View on the map','Lihat di peta')}</a></div><p>{t('Map Explora is a directory, not a booking service. Confirm directly with the provider.','Map Explora adalah direktori, bukan layanan pemesanan. Konfirmasi langsung ke penyedia.')}</p></footer>
  </main><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(placeSchema(v,lang)).replace(/</g,'\\u003c')}}/>
  </div>;
 }
