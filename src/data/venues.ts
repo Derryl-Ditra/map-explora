@@ -9002,6 +9002,8 @@ for (const venue of VENUES) {
 import E from "./enrich1113";E(VENUES);
 import enrich1114 from "./enrich1114";
 enrich1114(VENUES);
+import enrich1120pins from "./enrich1120pins";
+enrich1120pins(VENUES);
 
 import enrich1120Indie from "./enrich1120-indie";
 enrich1120Indie(VENUES);
