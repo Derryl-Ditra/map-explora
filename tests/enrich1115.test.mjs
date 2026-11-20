@@ -35,7 +35,7 @@ test('only the five intended records are patched',()=>{
  const input=structuredClone(VENUES),before=structuredClone(input);enrich(input);
  const allowed=new Set(['aquababies-bintaro','aquababies-menteng','aquatic-baby-bintaro','aquatic-baby-rumabona-cikini-bintaro','buumi-playscape-plaza-senayan']);
  for(let i=0;i<input.length;i++)if(!allowed.has(input[i].id))assert.deepEqual(input[i],before[i]);
- assert.equal(VENUES.filter(isShownToUsers).length,149);
+ assert.equal(VENUES.filter(isShownToUsers).length,151);
  assert.equal(VENUES.some(v=>v.id.startsWith('kid-castle')),false);
  assert.equal(isShownToUsers(VENUES.find(v=>v.id==='baby-jumper-gym-gading-serpong')),false);
 });
