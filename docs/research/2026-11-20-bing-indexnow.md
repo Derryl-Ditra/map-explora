@@ -29,10 +29,10 @@ outrun its deploy.
 
 ## Baseline and follow-up
 
-- GoatCounter already records a small number of Bing referrers (roughly 8-11
-  visits across the weeks of 10-19 Nov 2026), so Bing indexes at least some
-  pages. Public `site:` queries did not return a reliable count, so the exact
-  indexed-page baseline is unknown.
+- GoatCounter shows www.bing.com referred 14 visits in the Nov 10-19 range
+  (of 103 total visits), so Bing indexes at least some pages. Public `site:`
+  queries did not return a reliable count, so the exact indexed-page baseline
+  is unknown.
 - After the first ping, watch GoatCounter Bing referrers and, when available,
   Bing Webmaster Tools for crawl and index movement. Bing Webmaster Tools
   needs a Microsoft account and was not set up; that remains an option, not
