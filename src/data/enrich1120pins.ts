@@ -1,11 +1,12 @@
 import type { Venue } from "@/types/venue";
 
-// Nov20 pin recovery for the 12 search-only venues. Every stored pin was
+// Nov20 pin recovery for the visible search-only venues. 11 stored pins were
 // re-checked against the live public Google Maps listing for the exact branch
-// on 2026-11-20; in all 12 the stored coordinates equal the current Maps pin
-// for that branch listing. Per the data-conflict rule (trust a verified map
-// pin, keep the losing value), routing is restored and each losing source
-// value is kept in notes. No coordinate moved, no closure claim.
+// on 2026-11-20 and match it. Per the data-conflict rule (trust a verified map
+// pin, keep the losing value), routing is restored for those 11 and each losing
+// source value is kept in notes. The Funtastic Gym Pondok Indah pin does not
+// match the live listing, so it is untouched and keeps its caution.
+// No coordinate moved, no closure claim.
 export default function enrich1120(venues: Venue[]) {
   const resolve = (id: string, note: string) => {
     const v = venues.find((x) => x.id === id);
@@ -40,15 +41,6 @@ export default function enrich1120(venues: Venue[]) {
     "Resolved 2026-11-20: the stored pin matches the live Google Maps listing for Sparks Sports Academy - Tangerang City (Ruko Citypark, Jl. Perintis Kemerdekaan No.17 Blok G) exactly. The official lokasi page's 'Jl. Perintis Kemerdekaan 42' is kept as the losing unit value; Ruko Citypark sits on the same street and the verified Maps pin wins for routing."
   );
 
-  const funtastic = venues.find((v) => v.id === "the-funtastic-gym-pondok-indah");
-  if (funtastic) {
-    funtastic.address = "Pondok Indah Mall 1, Ground Floor, Outdoor Area, Jl. Metro Pondok Indah No.1, Pondok Pinang, Kebayoran Lama, South Jakarta City, Jakarta 12310";
-    resolve(
-      "the-funtastic-gym-pondok-indah",
-      "Resolved 2026-11-20: the live Google Maps listing for The Funtastic Gym of Pondok Indah now reads 'Outdoor Area, Pd. Indah Mall, Jl. Metro Pondok Indah No.1 Ground Floor', matching the official location page (Pondok Indah Mall 1, Ground Floor, Outdoor Area). Address updated to the current Maps/official value; the earlier 'PIM3' Maps evidence is superseded and kept as the losing value. Stored pin unchanged."
-    );
-  }
-
   const cibinong = venues.find((v) => v.id === "sparks-sports-academy-cibinong");
   if (cibinong) {
     cibinong.coordinateSource = "maps-pin";
@@ -63,12 +55,6 @@ export default function enrich1120(venues: Venue[]) {
     cibubur.lastCheckedAt = "2026-11-20";
   }
 
-  const gymboree = venues.find((v) => v.id === "gymboree-play-music-pondok-indah-mall-1");
-  if (gymboree) {
-    gymboree.address = "Pondok Indah Mall 1, Jl. Metro Pondok Indah, Pondok Pinang, Kebayoran Lama, South Jakarta City, Jakarta 12310";
-    gymboree.notes = ((gymboree.notes || "") + " Resolved 2026-11-20: the branch has its own live Google Maps listing ('Gymboree Pondok Indah Mall 1') at exactly the stored coordinates. Address set to the mall + street; no longer area-only.").trim();
-    gymboree.lastCheckedAt = "2026-11-20";
-  }
   const deltamas = venues.find((v) => v.id === "rockstar-academy-aeon-mall-deltamas");
   if (deltamas) {
     deltamas.address = "AEON Mall Deltamas, Jl. Ganesha Boulevard, Deltamas City, Central Cikarang District, Bekasi Regency, West Java 17530, 2nd Floor Unit #2-047";
