@@ -88,6 +88,9 @@ export interface Venue {
   //  official-chain-program, media-claimed, official-global-unverified-local,
   //  unvalidated-extraction, unknown)
   notes?: string;
+  // Short reviewed note shown on the card as plain muted text. Not a warning;
+  // unresolved location or identity warnings belong in caution instead.
+  cardNote?: string;
   // Is this branch still operating? Evidence-based, dated, with its source.
   // official-listed = on the brand's own published branch list or schedule page
   // partner-listed  = on a booking platform's provider page (Traveloka, Happy Kamper) AND an
