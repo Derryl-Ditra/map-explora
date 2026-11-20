@@ -35,7 +35,7 @@ test('price card distinguishes official listings and legacy partners per row',()
  assert.match(s,/pl.note/);assert.match(s,/pl.sourceKind !== "official"/);
 });
 test('conflict fixes do not invent an entrance or precise age eligibility',()=>{
- const f=VENUES.find(v=>v.id==='the-funtastic-gym-pondok-indah');assert.match(f.address,/Mall 1/);assert.ok(f.caution);assert.equal(f.lat,-6.2663218);assert.equal(f.lng,106.7850783);
+ const f=VENUES.find(v=>v.id==='the-funtastic-gym-pondok-indah');assert.match(f.address,/Mall 1/);assert.equal(f.caution,undefined);assert.equal(f.lat,-6.2663218);assert.equal(f.lng,106.7850783);
  for(const p of f.programs)assert.match(p.age.providerAgeUrl,/mall-1/);
  const b=VENUES.find(v=>v.id==='bloom-space-kota-wisata');assert.equal(b.phone,'+62 813-3339-7070');
  for(const name of ['Seedlings','Growing Explorer']){const p=b.programs.find(p=>p.name===name);assert.equal(p.age.sourceConflict,true);assert.equal(p.age.verification,'listed-unconfirmed');assert.ok(p.noteUrl);}

@@ -1,24 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
 import {importTs} from './loadTs.mjs';
 const {VENUES}=await importTs('../src/data/venues.ts');
 const {canRouteVenue}=await importTs('../src/utils/mapsLink.ts');
-const {publicCaution,placeText}=await importTs('../src/utils/placeLanguage.ts');
+const {placeText}=await importTs('../src/utils/placeLanguage.ts');
 const {hasVerifiedAgeEvidence,verifiedPrograms}=await importTs('../src/utils/ageMatch.ts');
 const {isShownToUsers}=await importTs('../src/utils/visibility.ts');
 
-test('Nov20 Sparks official-address discrepancies stay visible and cannot route to stale pins',()=>{
+test('Nov20 Sparks official-address discrepancies resolved: pins verified against live Maps listings, losing units kept in notes',()=>{
  for(const id of ['sparks-sports-academy-taman-palem','sparks-sports-academy-tangerang-city']){
-  const v=VENUES.find(v=>v.id===id);assert.ok(v,id);assert.ok(v.caution,id);assert.ok(publicCaution(v.caution,'id'),id);
-  assert.equal(canRouteVenue(v),false,id);assert.ok(isShownToUsers(v),id);
+  const v=VENUES.find(v=>v.id===id);assert.ok(v,id);assert.equal(v.caution,undefined,id);
+  assert.equal(canRouteVenue(v),true,id);assert.ok(isShownToUsers(v),id);
  }
  const palem=VENUES.find(v=>v.id==='sparks-sports-academy-taman-palem');
- assert.match(palem.caution,/Citra 3 No\.3A blok A13/);assert.match(palem.caution,/No\.10/);
+ assert.match(palem.notes,/Citra 3 No\.3A blok A13/);
  const city=VENUES.find(v=>v.id==='sparks-sports-academy-tangerang-city');
- assert.match(city.caution,/Perintis Kemerdekaan 42/);assert.match(city.caution,/No\.17 Blok G/);
- const translations=readFileSync('src/utils/placeLanguage.ts','utf8');
- assert.ok(translations.includes(palem.caution));assert.ok(translations.includes(city.caution));
+ assert.match(city.notes,/Perintis Kemerdekaan 42/);
 });
 
 test('Nov20 BLS BSD Preschool gains official branch address binding and class ages',()=>{

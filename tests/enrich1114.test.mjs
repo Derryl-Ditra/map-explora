@@ -27,7 +27,8 @@ test('Nov14 leaves pins, classes, reviews and listing dates untouched',()=>{
  const before=structuredClone(input);enrich(input);
  for(let i=0;i<input.length;i++){
   const actual={...input[i]},expected={...before[i]};
-  for(const k of ['phone','priceListings','notes']){delete actual[k];delete expected[k];}
+  // caution intentionally excluded: enrich1120pins resolves the Nov19/20 cautions downstream of this patch
+  for(const k of ['phone','priceListings','notes','caution']){delete actual[k];delete expected[k];}
   assert.deepEqual(actual,expected,input[i].id);
  }
 });
