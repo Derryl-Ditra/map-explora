@@ -49,6 +49,7 @@ export const INDIE_20261120: Venue[] = [
   },
   {
     id: "highfive-preschool-graha-raya", chain: null, branchName: "Highfive Preschool Graha Raya",
+    cardNote: "Inclusion-friendly, therapy center on site, fees via WhatsApp.",
     categories: ["Preschool"],
     address: "Jl. Cendana Loka Raya No. P1/11, Paku Jaya, Serpong Utara, Tangerang Selatan",
     area: "Graha Raya", city: "Tangerang Selatan", lat: -6.2448765, lng: 106.6739842,
