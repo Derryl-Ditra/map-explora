@@ -11,7 +11,7 @@ export function withoutMapCodes(address:string):string {
 }
 export function publicLocation(v:Pick<Venue,'id'|'address'>,lang:'en'|'id'='en') {
  const correction=corrections[v.id];
- const areaOnly=correction?.areaOnly ?? false;
+ const areaOnly=correction?.areaOnly ?? ['gymboree-play-music-pondok-indah-mall-1'].includes(v.id);
  const notices=[];
  if(areaOnly)notices.push(lang==='id'?'Area atau nama tempat saja. Tanyakan alamat lengkap ke cabang sebelum datang.':'Area or venue name only. Confirm the full address with the branch before visiting.');
  if(correction?.conflict)notices.push(lang==='id'?'Sumber resmi menyebut Sawah Baru, catatan Maps lama menyebut Sawah Lama. Pin peta belum dicek ulang.':'The official source says Sawah Baru; an older Maps record says Sawah Lama. The map pin has not been re-verified.');
