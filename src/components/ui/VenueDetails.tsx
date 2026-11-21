@@ -20,6 +20,9 @@ import {
 
 interface VenueDetailsProps {
   venue: Venue;
+  onCenterMap?: () => void;
+  mapPeek?: boolean;
+  onExpandDetails?: () => void;
 }
 
 const REPORTS_KEY = "map-explora-venue-reports";
@@ -54,41 +57,8 @@ const TT_PATH = "M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17
 type LinkKey = "website" | "instagram" | "tiktok";
 
 function BrandIcon({ kind }: { kind: LinkKey }) {
-  if (kind === "website") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true" className="w-11 h-11">
-        <rect width="24" height="24" rx="7" fill="#1a7a4a" />
-        <g fill="none" stroke="#fff" strokeWidth="1.7" strokeLinecap="round">
-          <circle cx="12" cy="12" r="6.5" />
-          <path d="M5.5 12h13M12 5.5c2.2 2.4 2.2 10.6 0 13M12 5.5c-2.2 2.4-2.2 10.6 0 13" />
-        </g>
-      </svg>
-    );
-  }
-  if (kind === "instagram") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true" className="w-11 h-11">
-        <defs>
-          <linearGradient id="ig-grad" x1="0" y1="1" x2="1" y2="0">
-            <stop offset="0" stopColor="#fdb84a" />
-            <stop offset=".35" stopColor="#f0452f" />
-            <stop offset=".65" stopColor="#d62976" />
-            <stop offset="1" stopColor="#6a3fd0" />
-          </linearGradient>
-        </defs>
-        <rect width="24" height="24" rx="7" fill="url(#ig-grad)" />
-        <path transform="translate(4.8 4.8) scale(.6)" fill="#fff" d={IG_PATH} />
-      </svg>
-    );
-  }
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="w-11 h-11">
-      <rect width="24" height="24" rx="7" fill="#111" />
-      <path transform="translate(5.4 5.2) scale(.6)" fill="#25f4ee" d={TT_PATH} />
-      <path transform="translate(6.6 6.4) scale(.6)" fill="#fe2c55" d={TT_PATH} />
-      <path transform="translate(6 5.8) scale(.6)" fill="#fff" d={TT_PATH} />
-    </svg>
-  );
+  if (kind === "website") return <svg viewBox="0 0 24 24" aria-hidden="true" className="w-[18px] h-[18px]" fill="none" stroke="currentColor" strokeWidth="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c5 5 5 13 0 18M12 3c-5 5-5 13 0 18"/></svg>;
+  return <svg viewBox="0 0 24 24" aria-hidden="true" className="w-[18px] h-[18px]" fill="currentColor"><path d={kind === "instagram" ? IG_PATH : TT_PATH}/></svg>;
 }
 
 const LINK_LABEL: Record<LinkKey, string> = {
@@ -102,11 +72,9 @@ function OfficialLinks({ venue }: { venue: Venue }) {
     .map((key) => ({ key, href: venue[key] }))
     .filter((l) => Boolean(l.href));
   if (links.length === 0) return null;
-  // Icon-only 44px tiles beside the title, 12px apart so a thumb cannot hit
-  // the neighbour. 1 to 3 links stack in one column (44px wide, so the title
-  // keeps its width); 4 or more use two columns.
+  // Small quiet glyphs share the existing Compare row; each link keeps a 44px target.
   return (
-    <nav aria-label="Official pages" className={`shrink-0 grid gap-3 ${links.length > 3 ? "grid-cols-2" : "grid-cols-1"}`} data-testid="official-links">
+    <nav aria-label="Official pages" className="shrink-0 flex items-center gap-0" data-testid="official-links">
       {links.map(({ key, href }) => (
         <a
           key={key}
@@ -115,7 +83,7 @@ function OfficialLinks({ venue }: { venue: Venue }) {
           rel="noopener noreferrer"
           aria-label={`${LINK_LABEL[key]} (opens in a new tab)`}
           title={LINK_LABEL[key]}
-          className="rounded-xl shrink-0 transition-transform active:scale-95 motion-reduce:transition-none hover:brightness-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a]"
+          className="w-11 h-11 inline-flex items-center justify-center rounded-md shrink-0 text-[#6d675f] hover:text-[#14532d] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a]"
         >
           <BrandIcon kind={key} />
         </a>
@@ -125,7 +93,7 @@ function OfficialLinks({ venue }: { venue: Venue }) {
 }
 
 export default function VenueDetails({
-  venue,
+  venue, onCenterMap, mapPeek, onExpandDetails,
 }: VenueDetailsProps) {
   const [reportOpen, setReportOpen] = useState(false);
   const [reportText, setReportText] = useState("");
@@ -148,68 +116,58 @@ export default function VenueDetails({
     }
   };
 
-  const offered = verifiedPrograms(venue);
+  const offered = verifiedPrograms(venue).sort((a,b) => a.age.minMonths! - b.age.minMonths! || (a.age.maxMonths ?? Infinity) - (b.age.maxMonths ?? Infinity));
+  const [allClasses, setAllClasses] = useState(false);
   const estimates = estimatedPrograms(venue);
   const branchAge = venue.branchAge && isVerifiedAgeClaim(venue.branchAge) ? venue.branchAge : null;
   const term = venue.programs.find((p) => p.term)?.term;
 
   return (
-    <div className="flex flex-col gap-3.5 text-[#221d18] text-[1rem]">
-      {/* Title, with official links as icon tiles on the right (none = full-width title) */}
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex flex-col min-w-0 flex-1">
-          <h2 className="text-[1.25rem] font-bold text-[#221d18] leading-snug break-words">
-            {venue.chain ? `${venue.chain} ` : ""}
-            {venue.branchName}
-          </h2>
-          <span className="text-[1rem] text-[#6d675f] mt-1 break-words">{publicLocation(venue).address}</span>
+    <div className={`${mapPeek ? "draft-card-peek" : ""} flex flex-col gap-3.5 text-[#221d18] text-[1rem]`}>
+      <div className="flex flex-col gap-1">
+        {venue.chain && venue.chain !== venue.branchName && <p className="text-sm font-medium text-[#6d675f]">{venue.chain}</p>}
+        <h2 className="text-[1.5rem] font-bold leading-tight break-words">{venue.branchName}</h2>
+        <div className="flex flex-wrap items-center justify-between gap-x-3 text-sm text-[#6d675f]">
+          <span>{venue.area}</span>
+          {onCenterMap && <button type="button" onClick={onCenterMap} aria-label="Show on map" className="flex min-h-11 items-center gap-1.5 text-[#14532d] font-semibold rounded-md focus-visible:outline-2"><MapPin className="w-4 h-4" aria-hidden="true"/>Show on map</button>}
         </div>
-        <OfficialLinks venue={venue} />
+        {mapPeek && <button type="button" onClick={onExpandDetails} className="md:hidden min-h-11 text-sm font-semibold text-[#14532d] text-left">See classes and reviews</button>}
       </div>
 
-      <button type="button" onClick={()=>window.dispatchEvent(new CustomEvent("map-explora-compare",{detail:venue.id}))} className="min-h-12 flex items-center justify-center rounded-xl border border-[#1a7a4a] bg-white text-[#1a7a4a] font-semibold">Compare · Bandingkan</button>
-
       {/* Classes by age: the first thing a parent scans */}
-      <div className="p-4 rounded-2xl border border-[#e7e0d4] bg-white flex flex-col gap-2">
+      <div className="pb-4 border-b border-[#e7e0d4] flex flex-col gap-3">
         <div className="flex items-center gap-2">
-          <ShieldCheck className="w-5 h-5 text-[#1a7a4a]" />
-          <span className="font-bold text-[1rem] text-[#221d18]">Classes here by age</span>
+          
+          <span className="font-bold text-[1rem] text-[#221d18]">Classes by age</span>
+          {(offered.length > 0 || branchAge) && <span className="ml-auto text-sm text-[#14532d] font-semibold flex items-center gap-1"><ShieldCheck className="w-3.5 h-3.5"/>Verified</span>}
         </div>
         {offered.length === 0 && !branchAge ? (
           <span className="text-[1rem] text-[#6d675f]">
             Class ages not verified yet
           </span>
         ) : (
-          <div className="flex flex-col gap-2.5 pt-1">
+          <div className="flex flex-col gap-2 pt-0">
             {branchAge && (
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="text-[1rem] font-medium text-[#221d18]">
                   Branch statement: {formatAgeRange(branchAge)}
                 </span>
-                <span className={`text-[0.8125rem] font-bold px-2 py-1 rounded-full shrink-0 bg-[#e3f2e8] text-[#14532d]`}>
-                  Verified
-                </span>
               </div>
             )}
-            {offered.map((p) => (
-              <div key={p.name} className="flex flex-wrap items-start justify-between gap-2">
-                <span className="text-[1rem] text-[#221d18]">
-                  <span className="font-medium">{p.name}</span>{" "}
-                  <span className="text-[#6d675f]">({formatAgeRange(p.age)})</span>
-
-                </span>
-                <span className={`text-[0.8125rem] font-bold px-2 py-1 rounded-full shrink-0 bg-[#e3f2e8] text-[#14532d]`}>
-                  Verified
-                </span>
+            {(allClasses ? offered : offered.slice(0,3)).map((p) => (
+              <div key={p.name} className="flex items-start justify-between gap-4 text-[1rem] leading-6">
+                <span className="min-w-0">{p.name}</span><span className="shrink-0 text-[#6d675f]">{formatAgeRange(p.age)}</span>
               </div>
             ))}
+            {offered.length > 3 && <button type="button" onClick={()=>setAllClasses(v=>!v)} aria-expanded={allClasses} className="min-h-11 self-start text-sm font-semibold text-[#14532d] rounded-md focus-visible:outline-2">{allClasses ? "Show fewer" : `Show all ${offered.length} classes`}</button>}
+
           </div>
         )}
 
       </div>
 
       {estimates.length > 0 && (
-        <div className="p-4 rounded-2xl border border-[#fcd34d] bg-[#fffbeb] flex flex-col gap-3">
+        <div className="py-3 border-b border-[#e7e0d4] flex flex-col gap-3">
           <span className="font-bold">Estimated ages</span>
           <p className="text-[0.9375rem] text-[#6d675f]">Planning only. Eligibility is not verified. These ages do not enter confirmed age matches and are not a safety assessment.</p>
           {estimates.map(estimate => {
@@ -223,22 +181,23 @@ export default function VenueDetails({
         </div>
       )}
 
-      {venue.programs.some((program) => program.age.sourceConflict) && (
-        <div className="p-4 rounded-2xl border border-amber-300 bg-amber-50 flex flex-col gap-2" data-testid="age-conflicts">
-          <span className="font-bold text-[#221d18]">Age details need confirmation</span>
-          {venue.programs.filter((program) => program.age.sourceConflict).map((program) => (
-            <div key={program.name} className="text-[0.875rem] text-[#6d675f]">
-              <p><strong>{program.name}:</strong> {program.note}</p>
-              {program.age.providerAgeUrl && <a href={program.age.providerAgeUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a] mr-3">Program source</a>}
-              {program.noteUrl && <a href={program.noteUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">{program.noteLabel || "Other source"}</a>}
-            </div>
-          ))}
-        </div>
-      )}
+      {(["age-conflict", "parent-review", "class-details"] as const).map(kind => {
+        const notes = venue.programs.filter(program => program.age.sourceConflict && (program.noteKind ?? "age-conflict") === kind);
+        if (!notes.length) return null;
+        const ageConflict = kind === "age-conflict";
+        return <section key={kind} className={ageConflict ? "rounded-xl bg-[#fff8e8] border border-[#ead9ae] p-3.5 flex flex-col gap-2" : "pl-3 py-2 border-l-2 border-[#d4cbbf] flex flex-col gap-2"} data-testid={ageConflict ? "age-conflicts" : "program-notes"}>
+          <span className="font-bold text-[#221d18]">{ageConflict ? "Age details to confirm" : kind === "parent-review" ? "Parent review note" : "Class details to check"}</span>
+          {notes.map(program => <div key={program.name} className={`text-[0.875rem] ${ageConflict ? "text-[#665026]" : "text-[#6d675f]"}`}>
+            <p><strong>{program.name}:</strong> {program.note}</p>
+            {program.age.providerAgeUrl && <a href={program.age.providerAgeUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a] mr-3">Program source</a>}
+            {program.noteUrl && <a href={program.noteUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">{program.noteLabel || "Other source"}</a>}
+          </div>)}
+        </section>;
+      })}
 
       {/* Branch reviews (only when collected for this branch) */}
       {venue.reviews && (
-        <div className="p-4 rounded-2xl border border-[#e7e0d4] bg-white flex flex-col gap-2">
+        <div className="pb-4 border-b border-[#e7e0d4] flex flex-col gap-3">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="font-bold text-[1rem] text-[#221d18] flex items-center gap-2">
               <Star className="w-4.5 h-4.5 text-[#f59e0b] fill-[#f59e0b]" />
@@ -261,13 +220,13 @@ export default function VenueDetails({
           ) : (
             <>
               {venue.reviews.praiseThemes.length > 0 && (
-                <div className="text-[1rem] text-[#4a443c]">
+                <div className="text-[0.9375rem] text-[#4a443c]">
                   <span className="font-semibold text-[#221d18]">Praised: </span>
                   {venue.reviews.praiseThemes.join("; ")}
                 </div>
               )}
               {venue.reviews.complaintThemes.length > 0 && (
-                <div className="text-[1rem] text-[#4a443c]">
+                <div className="text-[0.9375rem] text-[#4a443c]">
                   <span className="font-semibold text-[#221d18]">
                     {venue.reviews.lowRatedCount != null
                       ? `Concerns (from ${venue.reviews.lowRatedCount} ${venue.reviews.lowRatedCount === 1 ? "review" : "reviews"} rated 3 stars or lower): `
@@ -296,11 +255,7 @@ export default function VenueDetails({
               : "Not enough data";
             return (
               <div className="flex flex-col gap-1">
-                <span
-                  className={`self-start inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.8125rem] font-semibold ${badge}`}
-                >
-                  {label}
-                </span>
+                {verdict.trend && <span className={`self-start text-sm font-semibold ${badge}`}>{label}</span>}
                 {verdict.trend && verdict.comparisonText ? (
                   <span className="text-[0.9375rem] text-[#4a443c]">
                     {verdict.comparisonText}
@@ -351,27 +306,19 @@ export default function VenueDetails({
         </div>
       )}
 
-      {/* Keep location notes after reviews, before prices and travel details. */}
-      {publicLocation(venue).notice && (
-        <p className="text-[0.9375rem]">{publicLocation(venue).notice}</p>
-      )}
+      <div className="flex flex-nowrap items-center justify-between gap-1 py-1">
+        <OfficialLinks venue={venue}/>
+        <button type="button" onClick={()=>window.dispatchEvent(new CustomEvent("map-explora-compare",{detail:venue.id}))} className="min-h-11 text-sm font-semibold text-[#14532d] rounded-md focus-visible:outline-2">Compare this place</button>
+      </div>
+      <details className="border-b border-[#e7e0d4] pb-3"><summary className="min-h-11 cursor-pointer text-sm text-[#6d675f] flex items-center justify-between">Address and travel details<ChevronDown className="w-4 h-4"/></summary><p className="text-sm leading-6">{publicLocation(venue).address}</p><p className="mt-2 text-sm text-[#6d675f]">Check tolls and ganjil/genap settings in Google Maps before travelling.</p></details>
 
-      {approximate && (
-        <p className="text-[0.9375rem] text-[#92400e] border border-[#fcd34d] bg-[#fef3c7] rounded-2xl px-3.5 py-3 flex items-start gap-2">
-          <MapPin className="w-4.5 h-4.5 mt-0.5 shrink-0" />
-          <span>
-            Approximate area location. Confirm the exact venue with the provider
-            before you travel; only a Google Maps search is available for this pin.
-          </span>
-        </p>
-      )}
-
-      {venue.caution && (
-        <p className="text-[0.9375rem] text-[#92400e] border border-[#fcd34d] bg-[#fef3c7] rounded-2xl px-3.5 py-3 flex items-start gap-2">
-          <TriangleAlert className="w-4.5 h-4.5 mt-0.5 shrink-0" />
-          <span>{venue.caution}</span>
-        </p>
-      )}
+      {/* One travel-note panel retains every location disclaimer without repeated alerts. */}
+      {(publicLocation(venue).notice || approximate || venue.caution) && <section className="pl-3 py-2 border-l-2 border-[#d4cbbf] flex flex-col gap-2 text-[0.9375rem] text-[#6d675f]">
+        <h3 className="font-semibold text-[#4a443c]">Before you travel</h3>
+        {publicLocation(venue).notice && <p>{publicLocation(venue).notice}</p>}
+        {approximate && <p>Approximate area location. Confirm the exact venue with the provider before you travel; only a Google Maps search is available for this pin.</p>}
+        {venue.caution && <p>{venue.caution}</p>}
+      </section>}
 
 
       {venue.cardNote && (
@@ -380,7 +327,7 @@ export default function VenueDetails({
 
       {/* Prices: provenance belongs to each listing; legacy entries default to partner. */}
       {venue.priceListings && venue.priceListings.length > 0 && (
-        <div className="p-4 rounded-2xl border border-[#e7e0d4] bg-white flex flex-col gap-2.5" data-testid="price-listings">
+        <div className="py-3 border-b border-[#e7e0d4] flex flex-col gap-2.5" data-testid="price-listings">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <Banknote aria-hidden="true" className="w-5 h-5 text-[#6d675f]" />
@@ -418,26 +365,7 @@ export default function VenueDetails({
         </div>
       )}
 
-      {/* Distance / ETA: only real values. Straight-line distance is never
-          presented as a travel ETA. */}
-      <div className="flex flex-wrap gap-2 text-center">
-        {venue.distance ? (
-          <div className="bg-white p-3 rounded-2xl border border-[#e7e0d4] flex-1 min-w-[min(100%,13.75rem)]">
-            <span className="text-[0.875rem] text-[#6d675f] block">Straight-line</span>
-            <span className="font-bold text-[#221d18] text-[1rem]">
-              {venue.distance} km
-            </span>
-          </div>
-        ) : null}
-        <div className="bg-white p-3 rounded-2xl border border-[#e7e0d4] flex-1 min-w-[min(100%,13.75rem)]">
-          <span className="text-[0.875rem] text-[#6d675f] block">Area</span>
-          <span className="font-bold text-[#221d18] text-[1rem] block px-1 break-words">
-            {venue.area}
-          </span>
-        </div>
-      </div>
-
-      <p className="text-[0.875rem] text-[#6d675f]">Check tolls and ganjil/genap settings in Google Maps before travelling.</p>
+      {venue.distance ? <p className="text-sm text-[#6d675f]">Straight-line distance: {venue.distance} km</p> : null}
 
       {/* Phone */}
       {venue.phone && venue.phoneScope === "shared-enquiry" && <p className="text-[0.875rem] text-[#6d675f]">Shared enquiry number</p>}
@@ -457,7 +385,7 @@ export default function VenueDetails({
         <button
           type="button"
           onClick={() => setWhyOpen((v) => !v)}
-          className="flex items-center gap-1.5 text-[0.9375rem] font-semibold text-[#6d675f] hover:text-[#221d18] py-2 transition-colors"
+          className="flex items-center gap-1.5 text-[0.9375rem] font-semibold text-[#6d675f] hover:text-[#221d18] min-h-11 py-2 transition-colors"
         >
           <ChevronDown className={`w-4 h-4 transition-transform ${whyOpen ? "rotate-180" : ""}`} />
           <span>Why we list this place</span>
@@ -478,7 +406,7 @@ export default function VenueDetails({
         <button
           type="button"
           onClick={() => { setReportOpen((v) => !v); setReportSaved(false); }}
-          className="flex items-center gap-1.5 text-[0.9375rem] font-semibold text-[#6d675f] hover:text-[#221d18] py-2 transition-colors"
+          className="flex items-center gap-1.5 text-[0.9375rem] font-semibold text-[#6d675f] hover:text-[#221d18] min-h-11 py-2 transition-colors"
         >
           <Flag className="w-4 h-4" />
           <span>Report a problem with this place</span>
