@@ -1,4 +1,5 @@
 "use client";
+import "./venue-card.css";
 import Link from 'next/link';
 import LocationNotice from "./LocationNotice";
 
@@ -14,6 +15,9 @@ import { Search, MapPin, HelpCircle, ShieldCheck, Navigation, ArrowLeft, Share2,
 
 interface MobileDrawerProps {
   desktopCollapsed: boolean;
+  mapPeek: boolean;
+  onExpandDetails: () => void;
+  onCenterMap: () => void;
   onHideSidebar: () => void;
   confirmed: Venue[];
   unconfirmed: Venue[];
@@ -119,7 +123,7 @@ function VenueCard({
 
 // Mobile has two explicit modes. The detail action returns directly to the map.
 export default function MobileDrawer({
-  desktopCollapsed, onHideSidebar,
+  desktopCollapsed, onHideSidebar, mapPeek, onExpandDetails, onCenterMap,
   confirmed,
   unconfirmed,
   activeVenue,
@@ -203,7 +207,7 @@ export default function MobileDrawer({
       id="places-sidebar"
       ref={sheet}
       aria-label="Under-5 class places and filters"
-      style={isDesktop ? undefined : { height: "97dvh" }}
+      style={isDesktop ? undefined : (mapPeek ? { height: "min(302px, 50dvh)" } : { height: "97dvh" })}
       className={`
         fixed z-[1000] flex-col transition-transform duration-200 motion-reduce:transition-none
         bottom-0 left-0 right-0 rounded-t-3xl
@@ -216,16 +220,20 @@ export default function MobileDrawer({
       `}
     >
       {<button ref={handle} type="button" aria-label={showDetails ? "Close place and return to map" : "Close list and return to map"} onClick={onDismissToMap} className="md:hidden h-8 shrink-0 flex items-center justify-center touch-none cursor-grab active:cursor-grabbing"><span className="w-10 h-1 rounded-full bg-[#aaa297]" /></button>}
-      <div className="hidden md:flex justify-end px-4 pt-2 shrink-0"><button type="button" aria-controls="places-sidebar" aria-expanded={true} onClick={onHideSidebar} className="min-h-10 px-3 rounded-full text-[#14532d] font-semibold hover:bg-white">Hide sidebar</button></div>
-      {header}
+      {!activeVenue && <div className="hidden md:flex justify-end px-4 pt-2"><button type="button" onClick={onHideSidebar} className="min-h-11 px-3 text-[#14532d] text-sm">Hide sidebar</button></div>}
+      {!activeVenue && header}
 
 
 
       {/* Content */}
-      <div ref={detailsScrollRef} className="flex-1 min-h-0 overflow-y-auto overscroll-contain px-4 pt-1 pb-3 flex flex-col gap-3">
+      <div id="place-list-content" ref={detailsScrollRef} className="flex-1 min-h-0 overflow-y-auto overscroll-contain px-5 pt-5 pb-5 flex flex-col gap-3">
         {activeVenue && showDetails ? (
           <VenueDetails
+            key={activeVenue.id}
             venue={activeVenue}
+            onCenterMap={onCenterMap}
+            mapPeek={mapPeek}
+            onExpandDetails={onExpandDetails}
           />
         ) : (
           <>
