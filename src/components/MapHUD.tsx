@@ -106,12 +106,22 @@ export default function MapHUD({initialCompare=false, compareLang="en"}:{initial
     return () => window.removeEventListener("keydown", onEscape);
   }, [activeVenue, showShareCard, handleClearActiveVenue]);
   // Bumped when the area or activity filter changes so the map frames all matches.
+  const [centerPlaceTick, setCenterPlaceTick] = useState(0);
+  const [peekKey, setPeekKey] = useState<string | null>(null);
+  const mapPeek = peekKey === (activeVenue?.id ?? "results");
+  const handleCenterMap = () => {
+    if (!activeVenue && confirmed.length + unconfirmed.length === 0) return;
+    setPeekKey(activeVenue?.id ?? "results");
+    if (activeVenue) setCenterPlaceTick(t => t + 1);
+    else setFitTick(t => t + 1);
+  };
   const [fitTick, setFitTick] = useState(0);
   // Bumped by the map Age pill: opens the list with the age panel ready.
   const [ageOpenTick, setAgeOpenTick] = useState(0);
   const listTouch = useRef<{ x: number; y: number } | null>(null);
   // Pin and list selections open the same detail page, without a preview state.
   const handleSelectFromList = (venue: Parameters<typeof handleSelectVenue>[0]) => {
+    setPeekKey(null);
     setDesktopCollapsed(false);
     handleSelectVenue(venue);
   };
@@ -170,6 +180,7 @@ export default function MapHUD({initialCompare=false, compareLang="en"}:{initial
           userAccuracy={accuracy}
           recenterTick={recenterTick}
           fitTick={fitTick}
+          centerPlaceTick={centerPlaceTick}
         />
       </div>
 
@@ -248,6 +259,9 @@ export default function MapHUD({initialCompare=false, compareLang="en"}:{initial
       {/* Mobile-Native Bottom Sheet / Desktop Floating HUD */}
       <MobileDrawer
         desktopCollapsed={desktopCollapsed}
+        mapPeek={mapPeek}
+        onExpandDetails={() => setPeekKey(null)}
+        onCenterMap={handleCenterMap}
         onHideSidebar={() => { setDesktopCollapsed(true); requestAnimationFrame(() => showSidebarButton.current?.focus()); }}
         confirmed={confirmed}
         unconfirmed={unconfirmed}
