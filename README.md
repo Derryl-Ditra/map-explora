@@ -48,4 +48,4 @@ The app icon uses the "horse-toy" outline from [Tabler Icons](https://github.com
 
 ## Public discovery
 
-`/activities/` links to area and activity guides generated from the same provider-listed records as the map. `/venues.json` exports those records with evidence and uncertainty preserved. `/sitemap.xml` lists public page URLs. No separate agent-only pages, inferred class availability or citation guarantees. See `docs/discovery-qa.md` for checks and the GitHub Pages root-robots limitation.
+`/activities/` links to area and activity guides generated from the same provider-listed records as the map. `/venues.json` exports those records with evidence and uncertainty preserved. Its top-level `dataNotice` holds provenance and data-limit metadata; `venues` holds the records. `/sitemap.xml` lists public page URLs. No separate agent-only pages, inferred class availability or citation guarantees. See `docs/discovery-qa.md` for checks and the GitHub Pages root-robots limitation.
