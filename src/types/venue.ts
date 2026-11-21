@@ -57,6 +57,7 @@ export interface VenueProgram {
   term?: string; // dated term when the source schedule carries one
   note?: string; // source wording / boundary ambiguity, preserved verbatim
   noteUrl?: string; // provenance link for the note (e.g. official age-key page)
+  noteKind?: "age-conflict" | "parent-review" | "class-details"; // explicit presentation kind; legacy sourceConflict defaults to age-conflict
   noteLabel?: string; // short human label for noteUrl, e.g. "Age key"
 }
 

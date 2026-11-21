@@ -9,11 +9,11 @@ const placePage = readFileSync(new URL('../src/components/PlacePage.tsx', import
 // Location notices move directly after the Branch reviews
 // block on every card variant; on priced cards reviews sit above the Price card.
 test('classes and reviews come first; location notes follow reviews; price after reviews', () => {
-  const iClasses = details.indexOf('Classes here by age');
+  const iClasses = details.indexOf('Classes by age');
   const iReviews = details.indexOf('Branch reviews');
   const iNotice = details.indexOf('publicLocation(venue).notice &&');
-  const iApprox = details.indexOf('{approximate && (');
-  const iCaution = details.indexOf('{venue.caution && (');
+  const iApprox = details.indexOf('{approximate && <p>');
+  const iCaution = details.indexOf('{venue.caution && <p>');
   const iPrice = details.indexOf('data-testid="price-listings"');
   for (const [name, i] of Object.entries({ iClasses, iReviews, iNotice, iApprox, iCaution, iPrice })) assert.ok(i > -1, `${name} missing`);
   assert.ok(iReviews > iClasses, 'reviews render after classes');
@@ -24,8 +24,9 @@ test('classes and reviews come first; location notes follow reviews; price after
 
 test('area/venue name note renders once, never inside the title block', () => {
   const occurrences = details.match(/publicLocation\(venue\)\.notice/g) || [];
-  assert.equal(occurrences.length, 2, 'one conditional plus one render');
-  const beforeClasses = details.split('Classes here by age')[0];
+  assert.equal(occurrences.length, 3, 'one panel guard, one paragraph guard, one paragraph render');
+  assert.equal((details.match(/<p>\{publicLocation\(venue\)\.notice\}<\/p>/g) || []).length, 1, 'notice text renders in one paragraph only');
+  const beforeClasses = details.split('Classes by age')[0];
   assert.ok(!beforeClasses.includes('.notice'), 'title block no longer carries the notice');
 });
 

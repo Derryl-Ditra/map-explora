@@ -763,6 +763,7 @@ export const BATCH3_VENUES: Venue[] = [
       },
       "note": "Gym and sensory classes share the school building. A June 2025 parent review questioned the school's Montessori materials and cleanliness; this is one parent's account, not a safety finding. Visit and ask about the class before enrolling.",
       "noteUrl": "https://viaverborum.wordpress.com/2025/06/27/review-walker-kiddieland-kiddiegym-montessori-bogor/",
+      "noteKind": "parent-review",
       "noteLabel": "Parent review, June 2025"
     }
   ],

@@ -21,9 +21,27 @@ interface VectorMapProps {
   userPos: [number, number] | null; // [lat, lng]
   showUserMarker?: boolean; // only with a real location fix, never the default center
   userAccuracy: number | null;      // meters
+  centerPlaceTick?: number;
   recenterTick?: number;
   fitTick?: number; // bump to frame all currently matching venues (area/activity filter)
 }
+
+// Read after layout so a collapsed mobile sheet and hidden desktop sidebar
+// are measured as they are now. Leave space for marker labels and controls.
+function visibleMapPadding(map: MapLibre.Map) {
+  const rect = document.getElementById("places-sidebar")?.getBoundingClientRect();
+  const container = map.getContainer().getBoundingClientRect();
+  const visible = rect && rect.width > 0 && rect.height > 0;
+  const desktop = window.innerWidth >= 768;
+  return {
+    top: 64,
+    right: 72,
+    bottom: !desktop && visible ? Math.max(32, container.bottom - rect.top + 24) : 32,
+    left: desktop && visible ? Math.max(32, rect.right - container.left + 24) : 32,
+  };
+}
+
+const cameraDuration = (duration: number) => window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : duration;
 
 const JAKARTA: [number, number] = [106.8456, -6.2088]; // maplibre is lng,lat
 
@@ -58,6 +76,7 @@ export default function VectorMap({
   showUserMarker = true,
   userAccuracy,
   recenterTick,
+  centerPlaceTick,
   fitTick,
 }: VectorMapProps) {
   const [mapStatus, setMapStatus] = useState<"loading" | "ready" | "error">("loading");
@@ -114,7 +133,7 @@ export default function VectorMap({
         readyRef.current = true;
         const requested = recenterRef.current;
         if (requested.recenterTick && requested.userPos) {
-          map.easeTo({ center: [requested.userPos[1], requested.userPos[0]], zoom: 15, duration: 800 });
+          map.easeTo({ center: [requested.userPos[1], requested.userPos[0]], zoom: 15, duration: cameraDuration(800) });
         }
         map.addSource("user-accuracy", {
           type: "geojson",
@@ -352,7 +371,7 @@ export default function VectorMap({
             (b, v) => b.extend([v.lng, v.lat]),
             new maplibregl.LngLatBounds([g.members[0].lng, g.members[0].lat], [g.members[0].lng, g.members[0].lat])
           );
-          map.fitBounds(bounds, { padding: 90, maxZoom: 15, duration: 500 });
+          map.fitBounds(bounds, { padding: 90, maxZoom: 15, duration: cameraDuration(500) });
         });
         addMarker(map, el, lng, lat, `cluster-${i}`);
       }
@@ -398,7 +417,7 @@ export default function VectorMap({
       // Back: return to the overview the user left, not the street.
       const saved = savedViewRef.current;
       savedViewRef.current = null;
-      map.easeTo({ padding: { top: 0, bottom: 0, left: 0, right: 0 }, ...(saved ? { center: saved.center, zoom: saved.zoom } : {}), duration: 400 });
+      map.easeTo({ padding: { top: 0, bottom: 0, left: 0, right: 0 }, ...(saved ? { center: saved.center, zoom: saved.zoom } : {}), duration: cameraDuration(400) });
       return;
     }
     if (!savedViewRef.current) {
@@ -414,7 +433,7 @@ export default function VectorMap({
       // Center within the visible map area: clear of the bottom card on
       // phones, clear of the 440px side panel on desktop.
       padding: phone ? { top: 0, bottom: 200, left: 0, right: 0 } : { top: 0, bottom: 0, left: 440, right: 0 },
-      duration: 500,
+      duration: cameraDuration(500),
     });
   }, [activeVenueId]);
 
@@ -426,17 +445,15 @@ export default function VectorMap({
     if (vs.length === 0) return;
     const bounds = new maplibregl.LngLatBounds([vs[0].lng, vs[0].lat], [vs[0].lng, vs[0].lat]);
     vs.forEach((v) => bounds.extend([v.lng, v.lat]));
-    const desktop = window.innerWidth >= 768;
-    map.fitBounds(bounds, {
-      // Labels clamp inside the viewport on their own, so padding only
-      // clears real chrome: the desktop panel and the mobile peek sheet.
-      padding: desktop
-        ? { top: 60, right: 60, bottom: 60, left: 464 }
-        : { top: 76, bottom: 176, left: 28, right: 28 },
-      maxZoom: 15,
-      duration: 800,
+    // Two frames allow the sheet to collapse and its new size to settle.
+    let second = 0;
+    const first = requestAnimationFrame(() => {
+      second = requestAnimationFrame(() => map.fitBounds(bounds, {
+        padding: visibleMapPadding(map), maxZoom: 15, duration: cameraDuration(500),
+      }));
     });
-  }, [fitTick]);
+    return () => { cancelAnimationFrame(first); cancelAnimationFrame(second); };
+  }, [fitTick, mapStatus]);
 
   // User position marker + accuracy
   useEffect(() => {
@@ -482,11 +499,29 @@ export default function VectorMap({
     return () => { map.off("load", applyUser); };
   }, [userPos, showUserMarker, userAccuracy, mapStatus]);
 
+  // Explicit selected-place camera action, separate from device location.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || mapStatus !== "ready" || !centerPlaceTick) return;
+    const venue = venuesRef.current.find(v => v.id === activeRef.current);
+    if (!venue) return;
+    let second = 0;
+    const first = requestAnimationFrame(() => {
+      second = requestAnimationFrame(() => map.easeTo({
+        center: [venue.lng, venue.lat],
+        zoom: Math.max(14, map.getZoom()),
+        padding: visibleMapPadding(map),
+        duration: cameraDuration(500),
+      }));
+    });
+    return () => { cancelAnimationFrame(first); cancelAnimationFrame(second); };
+  }, [centerPlaceTick, mapStatus]);
+
   // Manual recenter
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !readyRef.current || !userPos || !recenterTick) return;
-    map.easeTo({ center: [userPos[1], userPos[0]], zoom: 15, duration: 800 });
+    map.easeTo({ center: [userPos[1], userPos[0]], zoom: 15, duration: cameraDuration(800) });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recenterTick]);
 
