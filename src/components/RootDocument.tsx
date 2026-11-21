@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
+import Analytics from "./Analytics";
 import "@/app/globals.css";
 
 // Static export is served under /map-explora in production, so root-relative
@@ -69,12 +69,9 @@ export default function RootDocument({
       </head>
       <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
         {children}
-        {/* Privacy-friendly, cookie-free visit + referrer stats (GoatCounter free tier) */}
-        <Script
-          data-goatcounter="https://map-explora.goatcounter.com/count"
-          src="https://gc.zgo.at/count.js"
-          strategy="afterInteractive"
-        />
+        {/* Privacy-friendly, cookie-free visit + referrer stats (GoatCounter free tier).
+            Gated: skips owner browsers (GoatCounter opt-out) and QA runs (?qa=1). */}
+        <Analytics />
       </body>
     </html>
   );
