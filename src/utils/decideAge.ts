@@ -42,9 +42,7 @@ export function decidedAgeRange(v: Venue): DecidedAgeRange {
   }
 
   // Tier 2: brand-level ages confirmed on the provider's official pages.
-  const brand = offered.filter(
-    (p) => p.age.level === "brand" && p.age.verification === "provider-confirmed" && !p.age.sourceConflict && finite(p.age.minMonths) && finite(p.age.maxMonths)
-  );
+  const brand = offered.filter(isTrueBrandProgram);
   if (brand.length) {
     return {
       ...span(brand.map((p) => [p.age.minMonths!, p.age.maxMonths!] as const)),
@@ -74,10 +72,46 @@ export function decidedAgeRange(v: Venue): DecidedAgeRange {
   };
 }
 
+// Parents of under-4s read months; switch to years only past 36.
+export function formatDecidedMonths(m: number): string {
+  if (m <= 36) return `${m} mo`;
+  const yrs = m / 12;
+  return `${Number.isInteger(yrs) ? yrs : yrs.toFixed(1)} yr`;
+}
+
+export function formatDecidedRange(minMonths: number, maxMonths: number): string {
+  return `${formatDecidedMonths(minMonths)} to ${formatDecidedMonths(maxMonths)}`;
+}
+
+// Canonical low-confidence note (QC on PR #106): one wording across list,
+// card and place page, sentences joined by a period, never a spaced hyphen.
+export const CONFIRM_BY_PHONE = "Confirm by phone first.";
+
 // Card-safe one-line summary of the decided range for non-verified venues.
 export function decidedAgeSummary(v: Venue): string {
   const d = decidedAgeRange(v);
-  if (d.confidence === "general") return "Ages not published - confirm by phone first";
+  if (d.confidence === "general") return `Ages not published. ${CONFIRM_BY_PHONE}`;
   const label = d.confidence === "brand" ? "Brand ages" : "Listed ages";
-  return `${label}: ${d.minMonths} to ${d.maxMonths} months - confirm by phone first`;
+  return `${label}: ${formatDecidedRange(d.minMonths, d.maxMonths)}. ${CONFIRM_BY_PHONE}`;
+}
+
+// QC on PR #106: the "Brand program ages" card section is reserved for true
+// brand-level claims confirmed on the provider's official pages. Branch
+// classes from the provider that fail exact verification (e.g. Rockstar
+// boundary-ambiguous notes) and partner-listed classes are NOT brand data.
+export function isTrueBrandProgram(p: Venue["programs"][number]): boolean {
+  return p.offering === "offered" && p.age.level === "brand" &&
+    p.age.verification === "provider-confirmed" && !p.age.sourceConflict &&
+    p.age.minMonths !== null && p.age.maxMonths !== null;
+}
+
+// Source label for one recorded class age, from the page it was read on.
+export function ageSourceLabel(p: Venue["programs"][number]): string | null {
+  const url = p.age.providerAgeUrl;
+  if (!url) return null;
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return null;
+  }
 }
