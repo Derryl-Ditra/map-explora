@@ -7,6 +7,7 @@ import enrich1122f from "./enrich1122f";
 import enrich1122g from "./enrich1122g";
 import enrich1122h from "./enrich1122h";
 import enrich1122i from "./enrich1122i";
+import enrich1122j from "./enrich1122j";
 
 // 2026-11-22 owner rules (WhatsApp 07:04 and 07:05):
 // "capture more data and i see minor data conflict like 6-11 months vs 6-12
@@ -384,6 +385,10 @@ export default function enrich1122(venues: Venue[]) {
 
   // Round I (2026-11-22): official KiddieGym Bogor from-price.
   enrich1122i(venues);
+
+  // Round J (2026-11-22): newest-review pulse for 25 venues (latest-review
+  // month for all, 3m-vs-3m trend evidence where the minimum is met).
+  enrich1122j(venues);
 
 }
 
