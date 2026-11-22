@@ -146,3 +146,45 @@ test('all I Can Read branches carry the shared enquiry line from the official FA
   assert.equal(VENUES.find((x) => x.id === 'i-can-read-bintaro').phone, '+62 21 22214122');
   assert.equal(VENUES.find((x) => x.id === 'i-can-read-bintaro').phoneScope, undefined);
 });
+
+// 2026-11-22 round E pins: Buumi Playscape and Baby Jumper Gym phones.
+// Source: each branch's live Google Maps listing (checked 2026-11-22).
+test('Buumi Playscape and Baby Jumper Gym branches carry their Maps-listed phones', () => {
+  // Filled by round E:
+  assert.equal(v('buumi-playscape-plaza-senayan').phone, '0811-1540-678');
+  assert.equal(v('buumi-playscape-plaza-senayan').phoneScope, undefined);
+  // Urban Forest's Maps listing shows the same landline as Pacific Place: shared, not branch-dedicated.
+  assert.equal(v('buumi-playscape-urban-forest-cipete').phone, '(021) 5140 0557');
+  assert.equal(v('buumi-playscape-urban-forest-cipete').phoneScope, 'shared-enquiry');
+  assert.equal(v('baby-jumper-gym-gading-serpong').phone, '(021) 2901 4746');
+  assert.equal(v('baby-jumper-gym-gading-serpong').phoneScope, undefined);
+  // Already in the data; Maps still shows the same numbers today, locked here.
+  assert.equal(v('buumi-playscape-pacific-place').phone, '+62 21 51400557');
+  assert.equal(v('baby-jumper-gym-pluit').phone, '+62 21 66606297');
+});
+
+
+// 2026-11-22 round F pins: dated tiket.com partner prices for Buumi branches.
+// Source: tiket.com product pages read 2026-11-22; additions only, Happy Kamper rows stay.
+test('Buumi branches carry dated tiket.com partner prices alongside existing listings', () => {
+  const pp = v('buumi-playscape-pacific-place').priceListings;
+  assert.equal(pp.length, 3);
+  assert.equal(pp[0].source, 'Happy Kamper');
+  const ppT = pp.filter((p) => p.source === 'tiket.com' && p.checkedAt === '2026-11-22');
+  assert.deepEqual(ppT.map((p) => p.amountIdr), [196950, 199980]);
+  assert.ok(ppT.every((p) => p.sourceKind === 'partner'));
+
+  const ps = v('buumi-playscape-plaza-senayan').priceListings;
+  assert.equal(ps.length, 2);
+  assert.equal(ps[0].source, 'Happy Kamper');
+  assert.equal(ps[1].source, 'tiket.com');
+  assert.equal(ps[1].amountIdr, 196950);
+  assert.match(ps[1].note, /From-price only/);
+
+  const uf = v('buumi-playscape-urban-forest-cipete').priceListings;
+  assert.equal(uf.length, 3);
+  assert.ok(uf.every((p) => p.source === 'tiket.com' && p.checkedAt === '2026-11-22'));
+  assert.deepEqual(uf.map((p) => p.amountIdr), [237350, 227250, 196950]);
+  assert.equal(uf[1].listPriceIdr, 250000);
+  assert.match(uf[2].label, /Pool/);
+});

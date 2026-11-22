@@ -16,7 +16,7 @@ test('Nov15 exposes four shared official enquiry numbers, not inferred branch li
  }
 });
 test('Plaza Senayan partner ticket is a priced range, not class tuition',()=>{
- const v=VENUES.find(v=>v.id==='buumi-playscape-plaza-senayan');assert.equal(v.priceListings.length,1);
+ const v=VENUES.find(v=>v.id==='buumi-playscape-plaza-senayan');assert.equal(v.priceListings.length,2); // 2026-11-22 round F: dated tiket.com from-price appended
  const p=v.priceListings[0];assert.equal(p.amountIdr,195000);assert.equal(p.amountIdrMax,225000);assert.equal(p.sourceKind,'partner');
  assert.equal(p.checkedAt,'2026-11-15');assert.equal(p.sourceUrl,'https://happykamper.io/id/activities/buumi-playscape-plaza-senayan');
  // 2026-11-22 QC price-note cut: range lives in amountIdr/Max, note is keeper rows only.
