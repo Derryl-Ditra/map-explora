@@ -15,7 +15,7 @@ test('every price listing carries source, exact URL and check date',()=>{
 });
 test('price card shows partner-listed label, source link and read date',()=>{
  const s=readFileSync(new URL('../src/components/ui/VenueDetails.tsx',import.meta.url),'utf8');
- assert.match(s,/Partner-listed/);assert.match(s,/pl\.sourceUrl/);assert.match(s,/formatCheckedDate\(pl\.checkedAt\)/);assert.match(s,/not confirmed by the provider/);
+ assert.match(s,/Partner-listed/);assert.match(s,/pl\.sourceUrl/);assert.match(s,/formatCheckedDate\(pl\.checkedAt\)/); // 2026-11-22: disclaimer paragraph cut per owner; per-row provenance stays
 });
 
 test('Nov13 official prices preserve source kind, branch and exclusions',()=>{
@@ -32,7 +32,7 @@ test('Nov13 official prices preserve source kind, branch and exclusions',()=>{
 test('price card distinguishes official listings and legacy partners per row',()=>{
  const s=readFileSync(new URL('../src/components/ui/VenueDetails.tsx',import.meta.url),'utf8');
  assert.match(s,/pl.sourceKind === "official" \? "Official-listed" : "Partner-listed"/);
- assert.match(s,/pl.note/);assert.match(s,/pl.sourceKind !== "official"/);
+ assert.match(s,/pl.note/);
 });
 test('conflict fixes do not invent an entrance or precise age eligibility',()=>{
  const f=VENUES.find(v=>v.id==='the-funtastic-gym-pondok-indah');assert.match(f.address,/Mall 1/);assert.ok(f.caution);assert.equal(f.lat,-6.2663218);assert.equal(f.lng,106.7850783);
