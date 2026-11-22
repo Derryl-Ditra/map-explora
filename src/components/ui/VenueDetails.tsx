@@ -6,6 +6,7 @@ import { estimatedPrograms } from "@/data/age-estimates";
 import { useState } from "react";
 import { Venue, AgeClaim } from "@/types/venue";
 import { bestAvailableGroups, isVerifiedAgeClaim, verifiedPrograms } from "@/utils/ageMatch";
+import { decidedAgeRange } from "@/utils/decideAge";
 import { trendVerdict, formatIsoMonth, REVIEW_TREND_FALLBACK } from "@/utils/reviewPulse";
 import {
   Phone,
@@ -127,6 +128,8 @@ export default function VenueDetails({
   // Identical notes dedupe to one line per venue (QC on PR #105: a shared
   // brand-level note repeated per class made Sparks cards unusable on mobile).
   const bestAvailable = bestAvailableGroups(venue);
+  // Owner rule 2026-11-22 (follow-up): always a decided range, never a shrug.
+  const decided = decidedAgeRange(venue);
   const [allClasses, setAllClasses] = useState(false);
   const estimates = estimatedPrograms(venue);
   const branchAge = venue.branchAge && isVerifiedAgeClaim(venue.branchAge) ? venue.branchAge : null;
@@ -153,7 +156,9 @@ export default function VenueDetails({
         </div>
         {offered.length === 0 && !branchAge ? (
           <span className="text-[1rem] text-[#6d675f]">
-            Class ages not verified yet
+            {decided.confidence === "general"
+              ? "Class ages not published yet - confirm by phone first"
+              : `${decided.confidence === "brand" ? "Brand" : "Listed"} ages: ${formatAgeRange({ minMonths: decided.minMonths, maxMonths: decided.maxMonths } as AgeClaim)} - confirm by phone first`}
           </span>
         ) : (
           <div className="flex flex-col gap-2 pt-0">
