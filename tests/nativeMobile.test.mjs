@@ -19,5 +19,5 @@ test('share has native dispatch, explicit clipboard errors, focus and cancellati
 });
 test('zoom and verified-first list are supported without changing confirmed age rules',()=>{
  assert.match(read('components/RootDocument.tsx'),/userScalable: true/);assert.match(read('components/RootDocument.tsx'),/maximumScale: 5/);
- assert.match(read('hooks/useVenueFilters.ts'),/Number\(hasVerifiedAgeEvidence\(b\)\) - Number\(hasVerifiedAgeEvidence\(a\)\)/);
+ assert.match(read('utils/venueOrder.ts'),/Number\(isVerified\(b\)\) - Number\(isVerified\(a\)\)/);
 });

@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { VENUES } from "@/data/venues";
 import { Venue, VenueFilterState } from "@/types/venue";
 import { calculateDistance, calculateETA } from "@/utils/geo";
+import { compareVenueOrder } from "@/utils/venueOrder";
 import { hasVerifiedAgeEvidence } from "@/utils/ageMatch";
 import { venueOverlapsBand } from '@/utils/ageBands';
 import { venueMatchesSearch } from "@/utils/searchMatch";
@@ -58,11 +59,7 @@ export function useVenueFilters(userPos: [number, number] | null) {
     });
 
     // With a real location fix, nearest first. Without one, group by area then name so the list can be scanned.
-    base.sort((a, b) =>
-      Number(hasVerifiedAgeEvidence(b)) - Number(hasVerifiedAgeEvidence(a)) || (userPos
-        ? (a.distance || 0) - (b.distance || 0)
-        : a.area.localeCompare(b.area) || a.branchName.localeCompare(b.branchName))
-    );
+    base.sort((a, b) => compareVenueOrder(a, b, Boolean(userPos), hasVerifiedAgeEvidence));
 
     if (filters.ageBand === null) return { confirmed: base, unconfirmed: [] as Venue[] };
     const band = filters.ageBand;
