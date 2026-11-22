@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { importTs } from './loadTs.mjs';
 const { VENUES } = await importTs('../src/data/venues.ts');
-const { verifiedPrograms, hasVerifiedAgeEvidence } = await importTs('../src/utils/ageMatch.ts');
+const { verifiedPrograms, hasVerifiedAgeEvidence, bestAvailableGroups } = await importTs('../src/utils/ageMatch.ts');
 const { estimatedPrograms } = await importTs('../src/data/age-estimates.ts');
 const { placeText } = await importTs('../src/utils/placeLanguage.ts');
 const v = (id) => VENUES.find((x) => x.id === id);
@@ -114,4 +114,20 @@ test('every bestAvailable marker carries its basis note', () => {
         assert.ok(p.age.bestAvailableNote, `${x.id}/${p.name} missing bestAvailableNote`);
         assert.equal(p.age.sourceCheckedAt, '2026-11-22');
       }
+});
+
+test('best-available notes dedupe per venue: shared note renders once with grouped names', () => {
+  const sparks = VENUES.find((x) => (x.programs || []).some((p) => p.name === 'Baby Swim' && p.age?.bestAvailableUrl?.includes('sparks-swim.com')));
+  assert.ok(sparks, 'a Sparks Swim venue with best-available brand claims exists');
+  const groups = bestAvailableGroups(sparks);
+  assert.equal(groups.length, 1, 'identical shared note must collapse to one group');
+  assert.deepEqual(groups[0].names, ['Baby Swim', 'Tiny Swim', 'Little Swim']);
+  assert.match(groups[0].note, /Sparks Swim/);
+});
+
+test('best-available notes stay per-class when they differ (Bloom)', () => {
+  const groups = bestAvailableGroups(v('bloom-space-kota-wisata'));
+  assert.equal(groups.length, 2, 'Seedlings and Growing Explorer carry different notes');
+  assert.ok(groups.every((g) => g.names.length === 1));
+  assert.notEqual(groups[0].note, groups[1].note);
 });
