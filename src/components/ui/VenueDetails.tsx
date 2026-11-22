@@ -83,7 +83,7 @@ const LINK_LABEL: Record<LinkKey, string> = {
 function OfficialLinks({ venue }: { venue: Venue }) {
   const links = (["website", "instagram", "tiktok"] as const)
     .map((key) => ({ key, href: venue[key] }))
-    .filter((l) => Boolean(l.href));
+    .filter((l) => Boolean(l.href) && !isDeadSourceUrl(l.href)); // 2026-11-22 QC fix: dead site icons hidden
   if (links.length === 0) return null;
   // Small quiet glyphs share the existing Compare row; each link keeps a 44px target.
   return (
@@ -409,10 +409,12 @@ export default function VenueDetails({
         {whyOpen && (
           <div className="flex flex-col gap-1.5 pb-2 text-[1rem] text-[#4a443c]">
             {term && <span>Term: {term}</span>}
-            <span className="text-[#6d675f]">
-              Source: {venue.sourceUrl} -{" "}
-              {venue.lastCheckedAt ? `checked ${venue.lastCheckedAt}` : "not yet verified"}
-            </span>
+            {!isDeadSourceUrl(venue.sourceUrl) && (
+              <span className="text-[#6d675f]">
+                Source: {venue.sourceUrl} -{" "}
+                {venue.lastCheckedAt ? `checked ${venue.lastCheckedAt}` : "not yet verified"}
+              </span>
+            )}
           </div>
         )}
       </div>
