@@ -48,5 +48,6 @@ test('Nov20 inventory counts move only on the BLS age upgrade',()=>{
  assert.equal(VENUES.filter(isShownToUsers).filter(hasVerifiedAgeEvidence).length,52);
  // 2026-11-22 round F: Buumi Urban Forest priced via dated tiket.com listings.
  // 2026-11-22 round H: aquababies-bintaro and aquababies-menteng priced via the official shop page.
- assert.equal(VENUES.filter(isShownToUsers).filter(v=>v.priceListings?.length).length,23);
+ // 2026-11-22 round I: kiddiegym-bogor-siliwangi priced via the official school-fees page.
+ assert.equal(VENUES.filter(isShownToUsers).filter(v=>v.priceListings?.length).length,24);
 });
