@@ -12,14 +12,14 @@ test('classes and reviews come first; location notes follow reviews; price after
   const iClasses = details.indexOf('Classes by age');
   const iReviews = details.indexOf('Branch reviews');
   const iNotice = details.indexOf('publicLocation(venue).notice &&');
-  const iApprox = details.indexOf('{approximate && <p>');
   const iCaution = details.indexOf('{venue.caution && <p>');
   const iPrice = details.indexOf('data-testid="price-listings"');
-  for (const [name, i] of Object.entries({ iClasses, iReviews, iNotice, iApprox, iCaution, iPrice })) assert.ok(i > -1, `${name} missing`);
+  for (const [name, i] of Object.entries({ iClasses, iReviews, iNotice, iCaution, iPrice })) assert.ok(i > -1, `${name} missing`);
   assert.ok(iReviews > iClasses, 'reviews render after classes');
   assert.ok(iPrice > iReviews, 'reviews render above the Price card');
-  assert.ok(iNotice > iReviews && iApprox > iReviews && iCaution > iReviews, 'all location notes render after the reviews block');
-  assert.ok(iNotice < iPrice && iApprox < iPrice && iCaution < iPrice, 'location notes sit directly after reviews, before price');
+  // 2026-11-22: the approximate-pin disclaimer sentence was cut per owner; notice and caution remain.
+  assert.ok(iNotice > iReviews && iCaution > iReviews, 'all location notes render after the reviews block');
+  assert.ok(iNotice < iPrice && iCaution < iPrice, 'location notes sit directly after reviews, before price');
 });
 
 test('area/venue name note renders once, never inside the title block', () => {
