@@ -46,7 +46,7 @@ test('Nov18 pool concerns remain visible in English and Bahasa, with bounded att
  for(const [id,pattern] of [['kiddies88-waterland-transyogi',/cleanliness/],['kiddies88-havana-setiamekar',/privacy/]]){
   const v=VENUES.find(v=>v.id===id);for(const p of v.programs){assert.match(p.note,pattern);assert.match(p.note,/customer/);assert.match(p.note,/not .*safety finding/);assert.match(placeText(p.note,'id'),/pengunjung/);assert.match(placeText(p.note,'id'),/bukan kesimpulan soal keamanan/);assert.equal(p.noteUrl,v.reviews.sourceUrl);}
  }
- const ui=readFileSync(new URL('../src/components/PlacePage.tsx',import.meta.url),'utf8');assert.match(ui,/publicProgramNote\(p.note,lang\)/);
+ const ui=readFileSync(new URL('../src/components/PlacePage.tsx',import.meta.url),'utf8');assert.match(ui,/noteOnce\(p.note\)/); // 2026-11-22 cuts PR: note paragraphs dedupe via noteOnce (publicProgramNote inside)
 });
 
 test('Nov18 closure, pin conflicts, historical events and home-visit leads are not promoted',()=>{

@@ -252,7 +252,7 @@ const UPDATES: Record<string, Partial<Venue>> = {
         "age": {
           "minMonths": 4,
           "maxMonths": 10,
-          "providerAgeUrl": "https://thefuntasticgym.com/schedule/schedules-pondok-indah-mall-1/",
+          "providerAgeUrl": "https://thefuntasticgym.com/schedule/schedules-pondok-indah-mall-2/",
           "sourceCheckedAt": "2026-11-13",
           "level": "branch",
           "verification": "provider-confirmed"
@@ -265,7 +265,7 @@ const UPDATES: Record<string, Partial<Venue>> = {
         "age": {
           "minMonths": 10,
           "maxMonths": 19,
-          "providerAgeUrl": "https://thefuntasticgym.com/schedule/schedules-pondok-indah-mall-1/",
+          "providerAgeUrl": "https://thefuntasticgym.com/schedule/schedules-pondok-indah-mall-2/",
           "sourceCheckedAt": "2026-11-13",
           "level": "branch",
           "verification": "provider-confirmed"
@@ -278,7 +278,7 @@ const UPDATES: Record<string, Partial<Venue>> = {
         "age": {
           "minMonths": 19,
           "maxMonths": 36,
-          "providerAgeUrl": "https://thefuntasticgym.com/schedule/schedules-pondok-indah-mall-1/",
+          "providerAgeUrl": "https://thefuntasticgym.com/schedule/schedules-pondok-indah-mall-2/",
           "sourceCheckedAt": "2026-11-13",
           "level": "branch",
           "verification": "provider-confirmed"
@@ -291,7 +291,7 @@ const UPDATES: Record<string, Partial<Venue>> = {
         "age": {
           "minMonths": 36,
           "maxMonths": null,
-          "providerAgeUrl": "https://thefuntasticgym.com/schedule/schedules-pondok-indah-mall-1/",
+          "providerAgeUrl": "https://thefuntasticgym.com/schedule/schedules-pondok-indah-mall-2/",
           "sourceCheckedAt": "2026-11-13",
           "level": "branch",
           "verification": "provider-confirmed"
@@ -304,7 +304,7 @@ const UPDATES: Record<string, Partial<Venue>> = {
         "age": {
           "minMonths": 4,
           "maxMonths": 36,
-          "providerAgeUrl": "https://thefuntasticgym.com/schedule/schedules-pondok-indah-mall-1/",
+          "providerAgeUrl": "https://thefuntasticgym.com/schedule/schedules-pondok-indah-mall-2/",
           "sourceCheckedAt": "2026-11-13",
           "level": "branch",
           "verification": "provider-confirmed"

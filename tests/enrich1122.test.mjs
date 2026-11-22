@@ -62,8 +62,8 @@ test('Kiddiegym Bogor replaces the vague 6-48 lump with named official classes',
   assert.equal(babes.age.minMonths, 6);
   assert.equal(babes.age.maxMonths, 12);
   assert.match(babes.age.bestAvailableUrl, /who\.int/);
-  assert.equal(babes.noteKind, 'parent-review');
-  for (const p of kg.programs) assert.ok(placeText(p.note, 'id'), `${p.name} note needs translation`);
+  assert.equal(babes.noteKind, undefined); // 2026-11-22 cuts PR: parent-review prose removed from cards
+  for (const p of kg.programs) if (p.note) assert.ok(placeText(p.note, 'id'), `${p.name} note needs translation`); // 2026-11-22 cuts PR: Kiddiebabes note removed, skip note-less programs
 });
 
 test('brand-level general data fills no-age branches and never confirms a match', () => {

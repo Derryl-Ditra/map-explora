@@ -1,4 +1,5 @@
 import type { AnswerGroup } from './discovery';
+import { isDeadSourceUrl } from "../data/deadLinks";
 import { SITE_URL } from './discovery';
 export type Lang = 'en' | 'id';
 export const prefix = (lang: Lang) => lang === 'id' ? '/id' : '';
@@ -21,5 +22,5 @@ export function localizeTerm(term:string,lang:Lang) {
 }
 export function venueLinks(v:{sourceUrl:string;operatingStatus?:{source?:string};website?:string;instagram?:string;tiktok?:string}) {
  const seen=new Set<string>();
- return [{kind:'provider',url:v.operatingStatus?.source??v.sourceUrl},{kind:'website',url:v.website},{kind:'instagram',url:v.instagram},{kind:'tiktok',url:v.tiktok}].filter((link):link is {kind:string;url:string}=>{if(!link.url||seen.has(link.url))return false;seen.add(link.url);return true;});
+ return [{kind:'provider',url:v.operatingStatus?.source??v.sourceUrl},{kind:'website',url:v.website},{kind:'instagram',url:v.instagram},{kind:'tiktok',url:v.tiktok}].filter((link):link is {kind:string;url:string}=>{if(!link.url||seen.has(link.url)||isDeadSourceUrl(link.url))return false;seen.add(link.url);return true;});
 }
