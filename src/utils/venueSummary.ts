@@ -1,5 +1,6 @@
 import type { Venue } from '../types/venue';
 import { isVerifiedAgeClaim, verifiedPrograms, mergeAgeRanges } from './ageMatch';
+import { decidedAgeSummary } from './decideAge';
 
 export function cardAgeSummary(venue: Venue): string {
   const claims = [
@@ -8,7 +9,10 @@ export function cardAgeSummary(venue: Venue): string {
   ];
   const sorted = claims.slice().sort((a, b) => a.minMonths! - b.minMonths! || a.maxMonths! - b.maxMonths!);
   const ranges = [...new Map(sorted.map(age => [`${age.minMonths}:${age.maxMonths}`, age])).values()];
-  if (!ranges.length) return 'Class ages not verified yet';
+  // Owner rule 2026-11-22 (follow-up): never undecided. When nothing is
+  // verified, show the decided best-available range with a confirm-by-phone
+  // note instead of shrugging.
+  if (!ranges.length) return decidedAgeSummary(venue);
   if (ranges.length === 1) return `Verified ages: ${ranges[0].minMonths} to ${ranges[0].maxMonths} months`;
   const merged = mergeAgeRanges(ranges.map(age => [age.minMonths!, age.maxMonths!]));
   const visible = merged.slice(0, 2).map(([lo, hi]) => `${lo}-${hi} mo`).join(', ');
