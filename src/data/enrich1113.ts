@@ -12,7 +12,7 @@ const UPDATES: Record<string, Partial<Venue>> = {
         "label": "One child, 4 lessons x 30 minutes",
         "source": "Anak Air official rate card",
         "sourceUrl": "https://www.anakair.co.id/wp-content/uploads/2026/08/Harga-Cibubur-1024x793.png",
-        "note": "Registration is separate below. No validity period or baby-class allocation is stated; confirm the applicable program and current fee."
+        "note": "Registration is separate below; No validity period or baby-class allocation stated"
       },
       {
         "sourceKind": "official",
@@ -22,7 +22,7 @@ const UPDATES: Record<string, Partial<Venue>> = {
         "label": "Separate registration charge",
         "source": "Anak Air official branch page",
         "sourceUrl": "https://www.anakair.co.id/cabang-cibubur/",
-        "note": "Confirm whether this charge applies to your enrolment. Not included in the package price above."
+        "note": "Not included in the package price above"
       }
     ]
   },
@@ -36,7 +36,7 @@ const UPDATES: Record<string, Partial<Venue>> = {
         "label": "One child, 4 lessons x 30 minutes",
         "source": "Anak Air official rate card",
         "sourceUrl": "https://www.anakair.co.id/wp-content/uploads/2026/08/Harga-TB-Simatupang-1024x793.png",
-        "note": "Registration is separate below. No validity period or baby-class allocation is stated; confirm the applicable program and current fee."
+        "note": "Registration is separate below; No validity period or baby-class allocation stated"
       },
       {
         "sourceKind": "official",
@@ -46,7 +46,7 @@ const UPDATES: Record<string, Partial<Venue>> = {
         "label": "Separate registration charge",
         "source": "Anak Air official branch page",
         "sourceUrl": "https://www.anakair.co.id/cabang-tb-simatupang/",
-        "note": "Confirm whether this charge applies to your enrolment. Not included in the package price above."
+        "note": "Not included in the package price above"
       }
     ]
   },
@@ -60,7 +60,7 @@ const UPDATES: Record<string, Partial<Venue>> = {
         "label": "One child, 4 lessons x 30 minutes",
         "source": "Anak Air official rate card",
         "sourceUrl": "https://www.anakair.co.id/wp-content/uploads/2026/08/Harga-Kemang-1024x793.png",
-        "note": "Registration is separate below. No validity period or baby-class allocation is stated; confirm the applicable program and current fee."
+        "note": "Registration is separate below; No validity period or baby-class allocation stated"
       },
       {
         "sourceKind": "official",
@@ -70,7 +70,7 @@ const UPDATES: Record<string, Partial<Venue>> = {
         "label": "Separate registration charge",
         "source": "Anak Air official branch page",
         "sourceUrl": "https://www.anakair.co.id/cabang-kemang/",
-        "note": "Confirm whether this charge applies to your enrolment. Not included in the package price above."
+        "note": "Not included in the package price above"
       }
     ]
   },
@@ -84,7 +84,7 @@ const UPDATES: Record<string, Partial<Venue>> = {
         "label": "One child, 4 lessons x 30 minutes",
         "source": "Anak Air official rate card",
         "sourceUrl": "https://www.anakair.co.id/wp-content/uploads/2026/08/Harga-Limo-1024x793.png",
-        "note": "Registration is separate below. No validity period or baby-class allocation is stated; confirm the applicable program and current fee."
+        "note": "Registration is separate below; No validity period or baby-class allocation stated"
       },
       {
         "sourceKind": "official",
@@ -94,7 +94,7 @@ const UPDATES: Record<string, Partial<Venue>> = {
         "label": "Separate registration charge",
         "source": "Anak Air official branch page",
         "sourceUrl": "https://www.anakair.co.id/cabang-limo/",
-        "note": "Confirm whether this charge applies to your enrolment. Not included in the package price above."
+        "note": "Not included in the package price above"
       }
     ]
   },
@@ -108,7 +108,7 @@ const UPDATES: Record<string, Partial<Venue>> = {
         "label": "One child, 4 lessons x 30 minutes",
         "source": "Anak Air official rate card",
         "sourceUrl": "https://www.anakair.co.id/wp-content/uploads/2026/08/Harga-Pondok-Indah-1024x793.png",
-        "note": "Registration is separate below. No validity period or baby-class allocation is stated; confirm the applicable program and current fee."
+        "note": "Registration is separate below; No validity period or baby-class allocation stated"
       },
       {
         "sourceKind": "official",
@@ -118,7 +118,7 @@ const UPDATES: Record<string, Partial<Venue>> = {
         "label": "Separate registration charge",
         "source": "Anak Air official branch page",
         "sourceUrl": "https://www.anakair.co.id/cabang-pondok-indah/",
-        "note": "Confirm whether this charge applies to your enrolment. Not included in the package price above."
+        "note": "Not included in the package price above"
       }
     ]
   },
@@ -199,7 +199,7 @@ const UPDATES: Record<string, Partial<Venue>> = {
         "label": "Baby Crawler class (5-13 months)",
         "source": "Golden Baby School",
         "sourceUrl": "https://goldenschool.id/the-baby-crawler-class-at-golden-baby-school/",
-        "note": "No end date is stated. This is Baby Crawler, not preschool or daycare tuition. Confirm the next class and any registration fee.",
+        "note": "No end date stated; Baby Crawler, not preschool or daycare tuition",
         "schedule": "Saturday 09:00-10:00 WIB"
       }
     ]
@@ -214,7 +214,7 @@ const UPDATES: Record<string, Partial<Venue>> = {
         "label": "5 trial sessions, not regular tuition",
         "source": "GymnAdemics Gading Serpong",
         "sourceUrl": "https://gymnademics.id/id/admission/gading-serpong/",
-        "note": "All 5 sessions must be used within 2 weeks; unused sessions are non-refundable. No end date or separate registration fee is stated.",
+        "note": "All 5 sessions must be used within 2 weeks; Unused sessions are non-refundable; No end date or separate registration fee stated",
         "schedule": "Tuesday-Saturday, subject to the available schedule"
       }
     ]
@@ -229,7 +229,7 @@ const UPDATES: Record<string, Partial<Venue>> = {
         "label": "Basic membership, November 2026 (listing marked estimated)",
         "source": "Membumi official storefront",
         "sourceUrl": "https://take.app/membumiplayspace/p/cmubbm6oo001k0agmftt3piki",
-        "note": "Rp185,000 registration is separate. Advance booking and admin confirmation required; no walk-ins; subject to class availability. Full T&C are supplied after registration. Confirm eligibility, dates and refund terms before paying."
+        "note": "Rp185,000 registration is separate; Advance booking and admin confirmation required, no walk-ins; Subject to class availability; Full T&C are supplied after registration"
       },
       {
         "sourceKind": "official",
@@ -239,7 +239,7 @@ const UPDATES: Record<string, Partial<Venue>> = {
         "label": "Basic membership, November 2026 (listing marked estimated)",
         "source": "Membumi official storefront",
         "sourceUrl": "https://take.app/membumiplayspace/p/cmubbm6oo001k0agmftt3piki",
-        "note": "Rp185,000 registration is separate. Not a class-specific price. Advance booking/admin confirmation required; no walk-ins. Full T&C, dates, eligibility and refund terms need confirmation."
+        "note": "Rp185,000 registration is separate; Not a class-specific price; Advance booking/admin confirmation required, no walk-ins"
       }
     ]
   },
