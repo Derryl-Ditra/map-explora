@@ -43,13 +43,24 @@ test('fee UI preserves products, units, separate registration, sources, dates an
 
 test('comparison has explicit uncertainty, review attribution and no winner ranking',()=>{
  const ui=readFileSync(new URL('../src/components/ComparePlaces.tsx',import.meta.url),'utf8');assert.match(ui,/No best-place or cheapest ranking/);assert.match(ui,/verifiedPrograms/);assert.match(ui,/publicProgramNote/);assert.match(ui,/publicCaution/);assert.match(ui,/useState<\[string,string\]>\(\['',''\]\)/);
- const reviews=readFileSync(new URL('../src/components/ReviewSnapshot.tsx',import.meta.url),'utf8');// Owner ask 2026-11-22: cards carry data only, no disclaimer paragraphs.
- assert.match(reviews,/r\.sourceUrl/);assert.match(reviews,/complaintThemes/);assert.doesNotMatch(reviews,/r\.checkedAt/); // read dates live in the Sources and dates section nowassert.doesNotMatch(reviews,/not verified findings/);assert.doesNotMatch(reviews,/whole venue/);assert.doesNotMatch(reviews,/Fewer than 10/);
+ // Owner ask 2026-11-22: the snapshot is data-only; these pins guard that
+ // the cut disclaimers stay out and the surviving data rows stay in.
+ const reviews=readFileSync(new URL('../src/components/ReviewSnapshot.tsx',import.meta.url),'utf8');
+ assert.match(reviews,/r\.sourceUrl/);
+ assert.match(reviews,/complaintThemes/);
+ assert.doesNotMatch(reviews,/r\.checkedAt/);
+ assert.doesNotMatch(reviews,/not verified findings/);
+ assert.doesNotMatch(reviews,/whole venue/);
+ assert.doesNotMatch(reviews,/Fewer than 10/);
 });
 
-// 2026-11-22 owner ask: the sample paragraphs, their translations and the
-// disclaimer lines were cut from ReviewSnapshot; concerns themes (with
-// translations) remain and are covered above.
+test('concern themes keep their Indonesian translations',()=>{
+ const source=readFileSync(new URL('../src/components/ReviewSnapshot.tsx',import.meta.url),'utf8');
+ assert.match(source,/kebersihan/);
+ assert.match(source,/kepadatan dan ruang/);
+ assert.match(source,/biaya dan manfaat/);
+ assert.match(source,/topics\[s\]/);
+});
 
 test('lone second selection is promoted and duplicate options cannot form a pair',()=>{
  const a=visible[0].id;
