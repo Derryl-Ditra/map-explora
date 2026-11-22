@@ -126,6 +126,7 @@ export const PLACE_SHORT_CODES: Record<string,string> = {
  "sparks-sports-academy-pajajaran-bogor": "s7N",
  "sparks-sports-academy-pamulang": "Rx9",
  "sparks-sports-academy-pejaten": "u2L",
+ "sparks-sports-academy-pondok-pinang": "hL2",
  "sparks-sports-academy-sawangan": "y4Q",
  "sparks-sports-academy-siliwangi": "T4q",
  "sparks-sports-academy-sunter": "R6r",

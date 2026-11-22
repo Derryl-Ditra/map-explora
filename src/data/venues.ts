@@ -5555,6 +5555,99 @@ export const VENUES: Venue[] = [
   }
  },
  {
+  "id": "sparks-sports-academy-pondok-pinang",
+  "chain": "Sparks Sports Academy",
+  "branchName": "Pondok Pinang",
+  "categories": [
+   "Gym & Movement",
+   "Sensory",
+   "Dance",
+   "Multi-Sport"
+  ],
+  "address": "Jl. Ciputat Raya No.8, RT.2/RW.6, Pd. Pinang, Kec. Kebayoran Lama, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12310, Indonesia",
+  "area": "Kebayoran Lama",
+  "city": "Jakarta Selatan",
+  "lat": -6.2727743,
+  "lng": 106.7751006,
+  "coordinateSource": "maps-pin",
+  "programs": [
+   {
+    "name": "Baby Sensory (Sensory & Phonics)",
+    "offering": "offered",
+    "age": {
+     "minMonths": 6,
+     "maxMonths": 35,
+     "providerAgeUrl": "https://academy.sparks-edu.com/kelas-sensori-bayi/jakarta/",
+     "sourceCheckedAt": "2026-11-23",
+     "level": "brand",
+     "verification": "provider-confirmed"
+    },
+    "note": "DO NOT exact-age-match: branch evidence confirms only the class CATEGORY. Sub-levels (Crawler 6-11mo 'Limited Locations', Baby 12-23mo, Tiny 24-35mo) not published per branch."
+   },
+   {
+    "name": "Gymnastics",
+    "offering": "unknown",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 84,
+     "providerAgeUrl": "https://academy.sparks-edu.com/jakarta/",
+     "sourceCheckedAt": "2026-11-23",
+     "level": "brand",
+     "verification": "listed-unconfirmed"
+    },
+    "note": "12 Bulan - 7 Tahun"
+   },
+   {
+    "name": "Multi Sports",
+    "offering": "unknown",
+    "age": {
+     "minMonths": 24,
+     "maxMonths": 48,
+     "providerAgeUrl": "https://academy.sparks-edu.com/jakarta/",
+     "sourceCheckedAt": "2026-11-23",
+     "level": "brand",
+     "verification": "listed-unconfirmed"
+    },
+    "note": "upper-bound inclusivity at 48 months ambiguous"
+   },
+   {
+    "name": "Dance",
+    "offering": "unknown",
+    "age": {
+     "minMonths": 12,
+     "maxMonths": 84,
+     "providerAgeUrl": "https://academy.sparks-edu.com/jakarta/",
+     "sourceCheckedAt": "2026-11-23",
+     "level": "brand",
+     "verification": "listed-unconfirmed"
+    },
+    "note": "12 Bulan - 7 Tahun"
+   }
+  ],
+  "phone": "+62 813-9000-6606",
+  "website": "https://academy.sparks-edu.com/jakarta/",
+  "instagram": "https://www.instagram.com/sparks_sportsacademy/",
+  "tiktok": "https://www.tiktok.com/@sparkssportsacademy",
+  "sourceUrl": "https://academy.sparks-edu.com/jakarta/",
+  "lastCheckedAt": "2026-11-23",
+  "fitStatus": "branch-category-confirmed-live-undated",
+  "notes": "Official Jakarta page lists branch 'Pondok Pinang' at Jl. Ciputat Raya No.8 (checked 2026-11-23); this is the Ciputat Raya branch, in Kebayoran Lama, Jakarta Selatan, not in Ciputat. Brand age range 6 months-7 years. Booking via shared Sparks WhatsApp +62 813-9000-6606. No per-branch time schedule published online. Maps pin captured from resolved /place/ URL 2026-11-23.",
+  "reviews": {
+   "rating": 5.0,
+   "reviewCount": 10,
+   "source": "Google Maps",
+   "checkedAt": "2026-11-23",
+   "praiseThemes": [],
+   "complaintThemes": [],
+   "sourceUrl": "https://www.google.com/maps/place/Sparks+Sports+Academy+-+Pondok+Pinang/@-6.2727743,106.7751006,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69f18f921696f1:0xbe902b2852fdbddd!8m2!3d-6.2727743!4d106.7751006!16s%2Fg%2F11z_xwtlt0"
+  },
+  "operatingStatus": {
+   "state": "official-listed",
+   "source": "https://academy.sparks-edu.com/jakarta/",
+   "checkedAt": "2026-11-23"
+  }
+ },
+ {
   "id": "sparks-sports-academy-sawangan",
   "chain": "Sparks Sports Academy",
   "branchName": "Sawangan",
@@ -6500,9 +6593,9 @@ export const VENUES: Venue[] = [
    "Enrichment",
    "Preschool"
   ],
-  "address": "Piazza the Mozia Blok E9 No.23, Jl. Bumi Botanika BSD City, Tangerang Selatan",
-  "area": "Tangerang Selatan",
-  "city": "Tangerang Selatan",
+  "address": "Piazza the Mozia Blok E9 No.23, Jl. Bumi Botanika BSD City, Lengkong Kulon, Pagedangan, Kabupaten Tangerang, Banten 15331",
+  "area": "Kabupaten Tangerang",
+  "city": "Kabupaten Tangerang",
   "lat": -6.2912389,
   "lng": 106.6271964,
   "coordinateSource": "maps-pin",
@@ -6593,9 +6686,9 @@ export const VENUES: Venue[] = [
    "Enrichment",
    "Preschool"
   ],
-  "address": "Daikanyama at The Zora, BSD, Tangerang Selatan",
-  "area": "Tangerang Selatan",
-  "city": "Tangerang Selatan",
+  "address": "Daikanyama Blok A16, The Zora, BSD, Lengkong Kulon, Pagedangan, Kabupaten Tangerang, Banten",
+  "area": "Kabupaten Tangerang",
+  "city": "Kabupaten Tangerang",
   "lat": -6.284093,
   "lng": 106.6315161,
   "coordinateSource": "maps-pin",

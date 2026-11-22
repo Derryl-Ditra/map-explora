@@ -53,7 +53,8 @@ export default function enrich1122b(venues: Venue[]) {
   // ---- 1. Sparks: gymnastics 12-84 months upgraded to provider-confirmed
   // Every Sparks Sports Academy branch carries the same brand-level
   // gymnastics row (12-84 months) that pointed at a regional page. The
-  // official class page states the same range, so upgrade all 24 rows.
+  // official class page states the same range, so upgrade all rows.
+  // 2026-11-23: 24 -> 25 with the Pondok Pinang branch added.
   const sparksGymnastics = venues.filter(
     (v) =>
       v.id.startsWith("sparks-sports-academy-") &&
@@ -78,9 +79,9 @@ export default function enrich1122b(venues: Venue[]) {
     gym.note =
       "Official class page (checked 2026-11-22): gymnastics for ages 1-7 years (12-84 months), brand level. Multi Sports and Dance stay listed-unconfirmed; the site has no dedicated age page for them.";
   }
-  if (sparksGymnastics.length !== 24) {
+  if (sparksGymnastics.length !== 25) {
     throw new Error(
-      `enrich1122b: expected 24 Sparks gymnastics rows, found ${sparksGymnastics.length}`
+      `enrich1122b: expected 25 Sparks gymnastics rows, found ${sparksGymnastics.length}`
     );
   }
 
