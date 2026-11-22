@@ -1,6 +1,7 @@
 import type { Venue, VenueProgram } from "@/types/venue";
 import enrich1122b from "./enrich1122b";
 import enrich1122c from "./enrich1122c";
+import enrich1122d from "./enrich1122d";
 
 // 2026-11-22 owner rules (WhatsApp 07:04 and 07:05):
 // "capture more data and i see minor data conflict like 6-11 months vs 6-12
@@ -191,12 +192,10 @@ export default function enrich1122(venues: Venue[]) {
       bestAvailable: true,
       bestAvailableUrl: WHO,
       bestAvailableNote:
-        "Official classes page says 6 months - walking age. Walking age is read as about 12 months using the WHO window of achievement for walking alone (about 8-17 months) as the expert second opinion. Best available data, checked 22 Nov 2026.",
+        "Official classes page says 6 months - walking age; walking age read as about 12 months. Best available data, checked 22 Nov 2026.",
     },
-    note: "Gym and sensory classes share the school building. A June 2025 parent review questioned the school's Montessori materials and cleanliness; this is one parent's account, not a safety finding. Visit and ask about the class before enrolling.",
-    noteUrl: "https://viaverborum.wordpress.com/2025/06/27/review-walker-kiddieland-kiddiegym-montessori-bogor/",
-    noteKind: "parent-review",
-    noteLabel: "Parent review, June 2025",
+    // 2026-11-22 cuts PR: long parent-review prose removed from the card
+    // (one parent's unverified account, not decision data).
   };
   const kiddiewalker: VenueProgram = {
     name: "Kiddiegym: Kiddiewalker",
@@ -212,7 +211,7 @@ export default function enrich1122(venues: Venue[]) {
       bestAvailable: true,
       bestAvailableUrl: WHO,
       bestAvailableNote:
-        "Official classes page says walking - 2 years old; walking age read as about 12 months per the WHO window of achievement for walking alone (about 8-17 months). Best available data, checked 22 Nov 2026.",
+        "Official classes page says walking - 2 years old; walking age read as about 12 months. Best available data, checked 22 Nov 2026.",
     },
     note: "Official classes page: walking - 2 years old.",
   };
@@ -362,5 +361,8 @@ export default function enrich1122(venues: Venue[]) {
 
   // Round C (2026-11-22): shared enquiry phones for Sparks and English 1.
   enrich1122c(venues);
+
+  // Round D (2026-11-22): shared enquiry phone for I Can Read branches.
+  enrich1122d(venues);
 
 }
