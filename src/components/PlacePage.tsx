@@ -40,6 +40,7 @@ export default function PlacePage({venue:v,lang}:{venue:Venue;lang:PlaceLang}) {
  <section className="place-section"><h2>{t('Online reviews','Ulasan daring')}</h2><ReviewSnapshot venue={v} lang={lang}/></section>
  <section className="place-section"><h2>{t('Sources and dates','Sumber dan tanggal')}</h2><ul className="place-sources">{sources.map(s=><li key={s.url}><a href={s.url}>{s.label}</a><span className="place-caption">{s.date || t('Date not recorded','Tanggal belum tercatat')}</span></li>)}</ul></section>
  </aside></div>
+ {!routable&&<p className="place-caption">{t('Approximate location. Confirm the venue before travelling.','Lokasi perkiraan. Pastikan tempatnya sebelum berangkat.')}</p>}
  <footer className="place-footer"><div className="place-actions"><a className="place-primary" href={mapsAction} aria-label={dirAria}>{dirLabel}</a><a className="place-secondary" href={placeMapUrl(v,lang)}>{t('View on the map','Lihat di peta')}</a></div></footer>
  </main><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(placeSchema(v,lang)).replace(/</g,'\\u003c')}}/>
  </div>;
