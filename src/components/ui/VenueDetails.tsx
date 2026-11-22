@@ -5,15 +5,16 @@ import { estimatedPrograms } from "@/data/age-estimates";
 
 import { useState } from "react";
 import { Venue, AgeClaim } from "@/types/venue";
-import { bestAvailableGroups, isVerifiedAgeClaim, verifiedPrograms } from "@/utils/ageMatch";
-import { trendVerdict, formatIsoMonth, REVIEW_TREND_FALLBACK } from "@/utils/reviewPulse";
+import { isVerifiedAgeClaim, verifiedPrograms } from "@/utils/ageMatch";
+import { canRouteVenue } from "@/utils/mapsLink";
+import { decidedAgeRange, formatDecidedRange, CONFIRM_BY_PHONE, isTrueBrandProgram, ageSourceLabel } from "@/utils/decideAge";
+import { formatIsoMonth, trendVerdict } from "@/utils/reviewPulse";
 import {
   Phone,
   ShieldCheck,
   Flag,
   Star,
   MapPin,
-  TriangleAlert,
   ChevronDown,
   Banknote,
 } from "lucide-react";
@@ -49,6 +50,17 @@ function formatAgeRange(age: AgeClaim): string {
   const lo = age.minMonths === null ? "0 mo" : formatMonths(age.minMonths);
   if (age.maxMonths === null) return `from ${lo}`;
   return `${lo} - ${formatMonths(age.maxMonths)}`;
+}
+
+// QC on PR #106: settled claims get a tiny inline tag on their own class row,
+// not a separate box with paragraphs.
+function BestAvailableTag({ age }: { age: AgeClaim }) {
+  if (!age.bestAvailable) return null;
+  return (
+    <span className="ml-1.5 text-sm text-[#3d5546]">
+      Best available{age.bestAvailableUrl && <> · <a href={age.bestAvailableUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">Reference</a></>}
+    </span>
+  );
 }
 
 const IG_PATH = "M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077";
@@ -99,9 +111,6 @@ export default function VenueDetails({
   const [reportText, setReportText] = useState("");
   const [reportSaved, setReportSaved] = useState(false);
   const [whyOpen, setWhyOpen] = useState(false);
-  const [reviewSourceOpen, setReviewSourceOpen] = useState(false);
-
-  const approximate = venue.coordinateSource === "area-approximate" || publicLocation(venue).areaOnly;
 
   const saveReport = () => {
     if (!reportText.trim()) return;
@@ -121,12 +130,16 @@ export default function VenueDetails({
   // general data): official brand pages state these ages, but the branch has
   // not confirmed its own. Shown separately, never as verified, and never
   // part of exact age matching (verifiedPrograms above stays branch-only).
-  const brandPrograms = venue.programs.filter(
-    (p) => p.offering === "offered" && !offered.includes(p) && p.age.minMonths != null && p.age.maxMonths != null
+  // QC on PR #106: only true brand-level provider-confirmed claims belong
+  // here; branch classes with boundary-ambiguous notes (Rockstar, Outgrow)
+  // and partner-listed classes (Happy Kamper, Teman Autis) render under a
+  // neutral label with their source named per item, below.
+  const brandPrograms = venue.programs.filter((p) => !offered.includes(p) && isTrueBrandProgram(p));
+  const otherPrograms = venue.programs.filter(
+    (p) => p.offering === "offered" && !offered.includes(p) && !isTrueBrandProgram(p) && p.age.minMonths != null && p.age.maxMonths != null
   );
-  // Identical notes dedupe to one line per venue (QC on PR #105: a shared
-  // brand-level note repeated per class made Sparks cards unusable on mobile).
-  const bestAvailable = bestAvailableGroups(venue);
+  // Owner rule 2026-11-22 (follow-up): always a decided range, never a shrug.
+  const decided = decidedAgeRange(venue);
   const [allClasses, setAllClasses] = useState(false);
   const estimates = estimatedPrograms(venue);
   const branchAge = venue.branchAge && isVerifiedAgeClaim(venue.branchAge) ? venue.branchAge : null;
@@ -153,7 +166,13 @@ export default function VenueDetails({
         </div>
         {offered.length === 0 && !branchAge ? (
           <span className="text-[1rem] text-[#6d675f]">
-            Class ages not verified yet
+            {decided.confidence === "general"
+              ? `Ages not published. ${CONFIRM_BY_PHONE}`
+              : brandPrograms.length > 0 || otherPrograms.length > 0
+                // QC on PR #106: the section below already lists the ranges;
+                // repeating the merged range here read as the same fact 3x.
+                ? `${decided.confidence === "brand" ? "Brand" : "Listed"} ages below. ${CONFIRM_BY_PHONE}`
+                : `${decided.confidence === "brand" ? "Brand" : "Listed"} ages: ${formatDecidedRange(decided.minMonths, decided.maxMonths)}. ${CONFIRM_BY_PHONE}`}
           </span>
         ) : (
           <div className="flex flex-col gap-2 pt-0">
@@ -166,7 +185,7 @@ export default function VenueDetails({
             )}
             {(allClasses ? offered : offered.slice(0,3)).map((p) => (
               <div key={p.name} className="flex items-start justify-between gap-4 text-[1rem] leading-6">
-                <span className="min-w-0">{p.name}</span><span className="shrink-0 text-[#6d675f]">{formatAgeRange(p.age)}</span>
+                <span className="min-w-0">{p.name}<BestAvailableTag age={p.age} /></span><span className="shrink-0 text-[#6d675f]">{formatAgeRange(p.age)}</span>
               </div>
             ))}
             {offered.length > 3 && <button type="button" onClick={()=>setAllClasses(v=>!v)} aria-expanded={allClasses} className="min-h-11 self-start text-sm font-semibold text-[#14532d] rounded-md focus-visible:outline-2">{allClasses ? "Show fewer" : `Show all ${offered.length} classes`}</button>}
@@ -179,34 +198,31 @@ export default function VenueDetails({
       {brandPrograms.length > 0 && (
         <div className="py-3 border-b border-[#e7e0d4] flex flex-col gap-2">
           <span className="font-bold">Brand program ages</span>
-          <p className="text-[0.9375rem] text-[#6d675f]">General data from the provider&apos;s official pages. This branch has not confirmed its own class ages, so these do not count as verified for this branch.</p>
           {brandPrograms.map((p) => (
             <div key={p.name} className="flex items-start justify-between gap-4 text-[1rem] leading-6">
-              <span className="min-w-0">{p.name}</span><span className="shrink-0 text-[#6d675f]">{formatAgeRange(p.age)}</span>
+              <span className="min-w-0">{p.name}<BestAvailableTag age={p.age} /></span><span className="shrink-0 text-[#6d675f]">{formatAgeRange(p.age)}</span>
             </div>
           ))}
         </div>
       )}
 
-      {bestAvailable.length > 0 && (
-        <section className="rounded-xl bg-[#eef7f0] border border-[#cbe4d2] p-3.5 flex flex-col gap-2" data-testid="best-available">
-          <span className="font-bold text-[#221d18]">Best available data</span>
-          {bestAvailable.map((group) => <div key={group.names.join("|")} className="text-[0.875rem] text-[#3d5546]">
-            <p><strong>{group.names.join(", ")}:</strong> {group.note}</p>
-            {group.url && <a href={group.url} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">Reference</a>}
-          </div>)}
-        </section>
+      {otherPrograms.length > 0 && (
+        <div className="py-3 border-b border-[#e7e0d4] flex flex-col gap-2">
+          <span className="font-bold">Other recorded class ages</span>
+          {otherPrograms.map((p) => (
+            <div key={p.name} className="flex items-start justify-between gap-4 text-[1rem] leading-6">
+              <span className="min-w-0">{p.name}<BestAvailableTag age={p.age} /></span><span className="shrink-0 text-[#6d675f]">{formatAgeRange(p.age)}{p.age.providerAgeUrl && ageSourceLabel(p) && <> · <a href={p.age.providerAgeUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">{ageSourceLabel(p)}</a></>}</span>
+            </div>
+          ))}
+        </div>
       )}
 
       {estimates.length > 0 && (
         <div className="py-3 border-b border-[#e7e0d4] flex flex-col gap-3">
           <span className="font-bold">Estimated ages</span>
-          <p className="text-[0.9375rem] text-[#6d675f]">Planning only. Eligibility is not verified. These ages do not enter confirmed age matches and are not a safety assessment.</p>
           {estimates.map(estimate => {
             return <div key={estimate.name} className="flex flex-col gap-1 text-[0.9375rem]">
               <span className="font-semibold">{estimate.name}: {estimate.minMonths} to {estimate.maxMonths} months</span>
-              <span>{estimate.rule === "latest-dated-official" ? "Dated official source" : "Conservative overlap"}{estimate.sourceDate ? ` (${estimate.sourceDate})` : " (sources undated)"}</span>
-              <span className="text-[#6d675f]">{estimate.reason}</span>
               <div className="flex flex-wrap gap-3">{estimate.sources.map((url, i) => <a key={url} href={url} target="_blank" rel="noopener noreferrer" className="text-[#1a7a4a] underline">Source {i + 1}</a>)}</div>
             </div>;
           })}
@@ -241,17 +257,35 @@ export default function VenueDetails({
               <span className="text-[1rem] font-bold text-[#221d18]">
                 {venue.reviews.rating.toFixed(1)}
                 {venue.reviews.reviewCount !== null && (
-                  <span className="text-[#6d675f] font-medium">{` (${venue.reviews.reviewCount})`}</span>
+                  <span className="text-[#6d675f] font-medium">{` (${venue.reviews.reviewCount})`}{venue.reviews.reviewCount < 10 && " · few ratings"}</span>
                 )}
               </span>
             )}
           </div>
-          {venue.reviews.praiseThemes.length === 0 &&
-          venue.reviews.complaintThemes.length === 0 ? (
-            <span className="text-[0.9375rem] text-[#6d675f]">
-              Review themes not yet collected for this branch.
-            </span>
-          ) : (
+          {(() => {
+            // Review trend restored 2026-11-22 at Derryl's request: one compact
+            // data row, shown only when the trend is evidence-backed (no fallback prose).
+            const verdict = trendVerdict(venue.reviews);
+            if (!verdict.trend) return null;
+            const badge = {
+              improving: "bg-[#dcfce7] text-[#166534]",
+              steady: "bg-[#f1ede6] text-[#4a443c]",
+              worsening: "bg-[#fee2e2] text-[#b91c1c]",
+              mixed: "bg-[#fef3c7] text-[#92400e]",
+            }[verdict.trend];
+            const label = verdict.trend.charAt(0).toUpperCase() + verdict.trend.slice(1);
+            return (
+              <div className="flex flex-wrap items-center gap-2 text-[0.9375rem]">
+                <span className="font-semibold text-[#221d18]">Trend:</span>
+                <span className={`text-sm font-semibold px-1.5 py-0.5 rounded-md ${badge}`}>{label}</span>
+                {verdict.comparisonText && (
+                  <span className="text-[#4a443c]">{verdict.comparisonText}</span>
+                )}
+              </div>
+            );
+          })()}
+          {(venue.reviews.praiseThemes.length > 0 ||
+          venue.reviews.complaintThemes.length > 0) && (
             <>
               {venue.reviews.praiseThemes.length > 0 && (
                 <div className="text-[0.9375rem] text-[#4a443c]">
@@ -271,71 +305,15 @@ export default function VenueDetails({
               )}
             </>
           )}
-          {venue.reviews.sampleNote && (
-            <span className="text-[0.9375rem] text-[#6d675f]">{venue.reviews.sampleNote}</span>
-          )}
-          {(() => {
-            const verdict = trendVerdict(venue.reviews);
-            const badge = verdict.trend
-              ? {
-                  improving: "bg-[#dcfce7] text-[#166534]",
-                  steady: "bg-[#f1ede6] text-[#4a443c]",
-                  worsening: "bg-[#fee2e2] text-[#b91c1c]",
-                  mixed: "bg-[#fef3c7] text-[#92400e]",
-                }[verdict.trend]
-              : "bg-[#f1ede6] text-[#6d675f]";
-            const label = verdict.trend
-              ? verdict.trend.charAt(0).toUpperCase() + verdict.trend.slice(1)
-              : "Not enough data";
-            return (
-              <div className="flex flex-col gap-1">
-                {verdict.trend && <span className={`self-start text-sm font-semibold ${badge}`}>{label}</span>}
-                {verdict.trend && verdict.comparisonText ? (
-                  <span className="text-[0.9375rem] text-[#4a443c]">
-                    {verdict.comparisonText}
-                  </span>
-                ) : (
-                  <span className="text-[0.9375rem] text-[#6d675f]">
-                    {REVIEW_TREND_FALLBACK}
-                  </span>
-                )}
-                {venue.reviews.latestReview?.date && (
-                  <span className="text-[0.9375rem] text-[#6d675f]">
-                    Latest review: {venue.reviews.latestReview.approximate ? formatIsoMonth(venue.reviews.latestReview.date) : venue.reviews.latestReview.date}.
-                  </span>
-                )}
-                {verdict.evidenceText && (
-                  <span className="text-[0.8125rem] text-[#6d675f]">
-                    {verdict.evidenceText}
-                  </span>
-                )}
-              </div>
-            );
-          })()}
-          <button
-            type="button"
-            onClick={() => setReviewSourceOpen((v) => !v)}
-            className="self-start flex items-center gap-1.5 min-h-[44px] text-[0.9375rem] font-semibold text-[#6d675f] hover:text-[#221d18] transition-colors"
-          >
-            <ChevronDown className={`w-3.5 h-3.5 transition-transform ${reviewSourceOpen ? "rotate-180" : ""}`} />
-            <span>Review source and dates</span>
-          </button>
-          {reviewSourceOpen && (
+          {venue.reviews.latestReview?.date && (
             <span className="text-[0.9375rem] text-[#6d675f]">
-              Reviews via {venue.reviews.source}, checked{" "}
-              {venue.reviews.checkedAt} (date we looked, not review dates). Individual
-              experiences vary.{" "}
-              {venue.reviews.sourceUrl && (
-                <a
-                  href={venue.reviews.sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline text-[#1a7a4a] font-medium"
-                >
-                  Source
-                </a>
-              )}
+              Latest review: {venue.reviews.latestReview.approximate ? formatIsoMonth(venue.reviews.latestReview.date) : venue.reviews.latestReview.date}{venue.reviews.checkedAt && ` · checked ${venue.reviews.checkedAt}`}.
             </span>
+          )}
+          {venue.reviews.sourceUrl && (
+            <a href={venue.reviews.sourceUrl} target="_blank" rel="noopener noreferrer" className="self-start underline text-[#1a7a4a] font-medium min-h-11 inline-flex items-center">
+              {venue.reviews.source}
+            </a>
           )}
         </div>
       )}
@@ -344,16 +322,21 @@ export default function VenueDetails({
         <OfficialLinks venue={venue}/>
         <button type="button" onClick={()=>window.dispatchEvent(new CustomEvent("map-explora-compare",{detail:venue.id}))} className="min-h-11 text-sm font-semibold text-[#14532d] rounded-md focus-visible:outline-2">Compare this place</button>
       </div>
-      <details className="border-b border-[#e7e0d4] pb-3"><summary className="min-h-11 cursor-pointer text-sm text-[#6d675f] flex items-center justify-between">Address and travel details<ChevronDown className="w-4 h-4"/></summary><p className="text-sm leading-6">{publicLocation(venue).address}</p><p className="mt-2 text-sm text-[#6d675f]">Check tolls and ganjil/genap settings in Google Maps before travelling.</p></details>
+      <details className="border-b border-[#e7e0d4] pb-3"><summary className="min-h-11 cursor-pointer text-sm text-[#6d675f] flex items-center justify-between">Address and travel details<ChevronDown className="w-4 h-4"/></summary><p className="text-sm leading-6">{publicLocation(venue).address}</p></details>
 
       {/* One travel-note panel retains every location disclaimer without repeated alerts. */}
-      {(publicLocation(venue).notice || approximate || venue.caution) && <section className="pl-3 py-2 border-l-2 border-[#d4cbbf] flex flex-col gap-2 text-[0.9375rem] text-[#6d675f]">
+      {(publicLocation(venue).notice || venue.caution) && <section className="pl-3 py-2 border-l-2 border-[#d4cbbf] flex flex-col gap-2 text-[0.9375rem] text-[#6d675f]">
         <h3 className="font-semibold text-[#4a443c]">Before you travel</h3>
         {publicLocation(venue).notice && <p>{publicLocation(venue).notice}</p>}
-        {approximate && <p>Approximate area location. Confirm the exact venue with the provider before you travel; only a Google Maps search is available for this pin.</p>}
         {venue.caution && <p>{venue.caution}</p>}
       </section>}
 
+
+      {/* Standing rule 2026-11-20: the approximate-location warning stays,
+          one short line below the content, never on top. */}
+      {!canRouteVenue(venue) && (
+        <p className="text-[0.9375rem] text-[#6d675f]">Approximate location. Confirm the venue before travelling.</p>
+      )}
 
       {venue.cardNote && (
         <p className="text-[0.9375rem] text-[#6d675f]" data-testid="card-note">{venue.cardNote}</p>
@@ -374,14 +357,16 @@ export default function VenueDetails({
           {venue.priceListings.map((pl) => (
             <div key={`${pl.label}-${pl.sourceUrl}`} className="flex flex-col gap-0.5">
               <span className="text-[1rem] text-[#221d18]">
-                <span className="font-bold">{formatIdr(pl.amountIdr)}</span> {pl.unit}
+                <span className="font-bold">{formatIdr(pl.amountIdr)}{pl.amountIdrMax ? `\u2013${formatIdr(pl.amountIdrMax).replace(/^Rp\s*/, "")}` : ""}</span> {pl.unit}
                 {pl.listPriceIdr ? (
                   <span className="text-[#6d675f]"> (list price <s>{formatIdr(pl.listPriceIdr)}</s>)</span>
                 ) : null}
               </span>
               <span className="text-[0.8125rem] font-bold text-[#4a443c]">{pl.sourceKind === "official" ? "Official-listed" : "Partner-listed"}</span>
               <span className="text-[0.9375rem] text-[#4a443c]">{pl.label}</span>
-              {pl.note && <span className="text-[0.875rem] text-[#6d675f]">{pl.note}</span>}
+              {pl.note && pl.note.split("; ").map((row, ri) => (
+                <span key={ri} className="text-[0.875rem] text-[#6d675f]">{row}</span>
+              ))}
               {pl.schedule && <span className="text-[0.9375rem] text-[#4a443c]">{pl.schedule}</span>}
               <span className="text-[0.875rem] text-[#6d675f]">
                 From{" "}
@@ -392,10 +377,6 @@ export default function VenueDetails({
               </span>
             </div>
           ))}
-          <p className="text-[0.875rem] text-[#6d675f]">
-            Prices change; confirm the current fee, eligibility and conditions with the provider before you book.
-            {venue.priceListings.some((pl) => pl.sourceKind !== "official") && " Partner-listed prices are listed by a booking site, not confirmed by the provider."}
-          </p>
         </div>
       )}
 

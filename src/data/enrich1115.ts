@@ -25,12 +25,15 @@ export default function enrich1115(venues: Venue[]) {
     plaza.priceListings = [{
       sourceKind: "partner",
       amountIdr: 195000,
-      unit: "starting price per 2-hour public-play ticket",
+      amountIdrMax: 225000,
+      unit: "per 2-hour public-play ticket",
       label: "Public play: 1 child + 1 adult, not class tuition",
       source: "Happy Kamper",
       sourceUrl: "https://happykamper.io/id/activities/buumi-playscape-plaza-senayan",
       checkedAt: "2026-11-15",
-      note: "The listing shows Rp195,000-Rp225,000. The provider title also names Urban Forest; confirm this ticket and price apply to Plaza Senayan before booking. Selected date only; confirm the final price and public-play slots. No refund or rescheduling. Playground closes for cleaning 13:00-14:00; remaining playtime can continue afterward. Anti-slip socks required. Equipment is listed for ages 12 months to 12 years with an adult aged at least 18. Not baby-class tuition or confirmed class eligibility."
+      // 2026-11-22 QC price-note cut: keeper facts only, one "; "-separated row each; the
+      // renderer splits on "; " and shows each row on its own line. Range lives in amountIdr/Max.
+      note: "Provider title also names Urban Forest, confirm ticket and price apply to Plaza Senayan; Selected date only; No refund or rescheduling; Closes for cleaning 13:00-14:00; Anti-slip socks required; Equipment ages 12 mo-12 yr"
     }];
   }
 }

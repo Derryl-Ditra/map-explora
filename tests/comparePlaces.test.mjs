@@ -33,9 +33,10 @@ test('coverage uses actual sourced price and rating records, not candidates',()=
 
 test('fee UI preserves products, units, separate registration, sources, dates and uncertainty in both languages',async()=>{
  const {placeText}=await importTs('../src/utils/placeLanguage.ts');
- for(const v of visible)for(const p of v.priceListings||[])for(const key of ['unit','label','note','schedule'])if(p[key])assert.ok(placeText(p[key],'id'),`${v.id} ${key}`);
+ // 2026-11-22 QC price-note cut: notes render and translate per "; "-separated row.
+ for(const v of visible)for(const p of v.priceListings||[])for(const key of ['unit','label','note','schedule'])if(p[key])for(const row of key==='note'?p[key].split('; '):[p[key]])assert.ok(placeText(row,'id'),`${v.id} ${key}: ${row}`);
  const ui=readFileSync(new URL('../src/components/RecordedFees.tsx',import.meta.url),'utf8');
- for(const field of ['amountIdr','sourceKind','sourceUrl','checkedAt','p.label','p.unit','p.note','p.schedule'])assert.ok(ui.includes(field));
+ for(const field of ['amountIdr','amountIdrMax','sourceKind','sourceUrl','checkedAt','p.label','p.unit','p.note','p.schedule'])assert.ok(ui.includes(field));
  assert.match(ui,/does not mean free/);assert.match(ui,/bukan berarti gratis/);
  assert.doesNotMatch(ui,/Math\.min|\.sort\(|\/\s*[48]\b/);
  const guide=readFileSync(new URL('../src/components/FeeGuide.tsx',import.meta.url),'utf8');assert.match(guide,/undated/);assert.match(guide,/tidak bertanggal/);assert.match(guide,/not fresh quotes/);
@@ -43,16 +44,23 @@ test('fee UI preserves products, units, separate registration, sources, dates an
 
 test('comparison has explicit uncertainty, review attribution and no winner ranking',()=>{
  const ui=readFileSync(new URL('../src/components/ComparePlaces.tsx',import.meta.url),'utf8');assert.match(ui,/No best-place or cheapest ranking/);assert.match(ui,/verifiedPrograms/);assert.match(ui,/publicProgramNote/);assert.match(ui,/publicCaution/);assert.match(ui,/useState<\[string,string\]>\(\['',''\]\)/);
- const reviews=readFileSync(new URL('../src/components/ReviewSnapshot.tsx',import.meta.url),'utf8');assert.match(reviews,/not verified findings/);assert.match(reviews,/whole venue/);assert.match(reviews,/Fewer than 10/);assert.match(reviews,/r\.checkedAt/);assert.match(reviews,/r\.sourceUrl/);
+ // Owner ask 2026-11-22: the snapshot is data-only; these pins guard that
+ // the cut disclaimers stay out and the surviving data rows stay in.
+ const reviews=readFileSync(new URL('../src/components/ReviewSnapshot.tsx',import.meta.url),'utf8');
+ assert.match(reviews,/r\.sourceUrl/);
+ assert.match(reviews,/complaintThemes/);
+ assert.doesNotMatch(reviews,/r\.checkedAt/);
+ assert.doesNotMatch(reviews,/not verified findings/);
+ assert.doesNotMatch(reviews,/whole venue/);
+ assert.doesNotMatch(reviews,/Fewer than 10/);
 });
 
-test('review presentation retains translated facility concerns and small-sample limits', () => {
- const source = readFileSync(new URL('../src/components/ReviewSnapshot.tsx', import.meta.url), 'utf8');
- assert.match(source, /privasi kamar mandi/);
- assert.match(source, /kebersihan perosotan, toilet dan kamar mandi/);
- assert.match(source, /komunikasi setelah pembelian/);
- assert.match(source, /Fewer than 10 ratings/);
- assert.match(source, /not a class-quality or safety score/);
+test('concern themes keep their Indonesian translations',()=>{
+ const source=readFileSync(new URL('../src/components/ReviewSnapshot.tsx',import.meta.url),'utf8');
+ assert.match(source,/kebersihan/);
+ assert.match(source,/kepadatan dan ruang/);
+ assert.match(source,/biaya dan manfaat/);
+ assert.match(source,/topics\[s\]/);
 });
 
 test('lone second selection is promoted and duplicate options cannot form a pair',()=>{

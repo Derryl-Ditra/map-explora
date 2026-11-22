@@ -13,7 +13,8 @@ test('Deen Haus is one bound official site with four exact provider age bands',(
 });
 test('Deen Haus retains location caution, sparse reviews and explicitly bound official fees',()=>{
  assert.match(v.caution,/Tangerang Selatan/);assert.match(v.caution,/Jakarta Selatan/);
- assert.deepEqual(v.priceListings.map(p=>p.amountIdr),[150000,590000,1000000]);assert.deepEqual(v.priceListings.map(p=>p.listPriceIdr),[175000,660000,1200000]);for(const p of v.priceListings){assert.equal(p.sourceKind,"official");assert.match(p.note,/Toddler 6-36 months/);assert.match(p.note,/no promotion end date/);assert.equal(p.checkedAt,"2026-11-19");}assert.equal(v.reviews.reviewCount,1);
+ assert.deepEqual(v.priceListings.map(p=>p.amountIdr),[150000,590000,1000000]);assert.deepEqual(v.priceListings.map(p=>p.listPriceIdr),[175000,660000,1200000]);for(const p of v.priceListings){assert.equal(p.sourceKind,"official");assert.match(p.note,/Toddler 6-36 months/);assert.match(p.note,/No promotion end date/);assert.equal(p.checkedAt,"2026-11-19");} // casing follows the 2026-11-22 QC keeper-row cut
+ assert.equal(v.reviews.reviewCount,1);
  assert.equal(v.reviews.complaintThemes.length,0);assert.match(v.reviews.sampleNote,/Only one/);
  const translations=readFileSync('src/utils/placeLanguage.ts','utf8');assert.ok(translations.includes(v.caution));
 });

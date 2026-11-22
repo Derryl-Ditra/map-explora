@@ -13,7 +13,8 @@ test('planning estimates preserve conflicts and never enter verified classes',()
 });
 test('estimates are visibly separate from confirmed ages and retain sources',()=>{
  const s=readFileSync(new URL('../src/components/ui/VenueDetails.tsx',import.meta.url),'utf8');
- assert.match(s,/Estimated ages/);assert.match(s,/Eligibility is not verified/);assert.match(s,/not a safety assessment/);assert.match(s,/estimate.sources.map/);
+ assert.match(s,/Estimated ages/);assert.match(s,/estimate.sources.map/);// Owner ask 2026-11-22: planning disclaimer cut from the card.
+assert.doesNotMatch(s,/Eligibility is not verified/);assert.doesNotMatch(s,/not a safety assessment/);
  // 2026-11-22: Aquababies branches now carry one brand-level program each (0-35 months).
  for(const id of ['aquababies-bintaro','aquababies-menteng'])assert.equal(VENUES.find(v=>v.id===id).programs.length,1);
  assert.equal(estimatedPrograms(VENUES.find(v=>v.id==='sparks-sports-academy-teras-kota-bsd')).length,0);

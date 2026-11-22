@@ -105,7 +105,7 @@ export const BATCH3_VENUES: Venue[] = [
       "source": "Deen Haus official registration form",
       "sourceUrl": "https://deenhaus.com/baby-class/#reg-form",
       "checkedAt": "2026-11-19",
-      "note": "Official registration form: Toddler 6-36 months, Islamic Sensory Class selected. Promotional price shown on 19 November 2026; no promotion end date, session schedule or cancellation terms stated. Confirm the next class and any extra charges before paying."
+      "note": "Official registration form: Toddler 6-36 months, Islamic Sensory Class selected; Promotional price shown on 19 November 2026; No promotion end date, session schedule or cancellation terms stated"
     },
     {
       "sourceKind": "official",
@@ -116,7 +116,7 @@ export const BATCH3_VENUES: Venue[] = [
       "source": "Deen Haus official registration form",
       "sourceUrl": "https://deenhaus.com/baby-class/#reg-form",
       "checkedAt": "2026-11-19",
-      "note": "Official registration form: Toddler 6-36 months, Islamic Sensory Class selected. Promotional price shown on 19 November 2026; no promotion end date, session schedule or cancellation terms stated. Confirm the next class and any extra charges before paying.",
+      "note": "Official registration form: Toddler 6-36 months, Islamic Sensory Class selected; Promotional price shown on 19 November 2026; No promotion end date, session schedule or cancellation terms stated",
       "schedule": "Package valid for 2 months. The form calls this 4 Class / Month; this is not a dated timetable."
     },
     {
@@ -128,7 +128,7 @@ export const BATCH3_VENUES: Venue[] = [
       "source": "Deen Haus official registration form",
       "sourceUrl": "https://deenhaus.com/baby-class/#reg-form",
       "checkedAt": "2026-11-19",
-      "note": "Official registration form: Toddler 6-36 months, Islamic Sensory Class selected. Promotional price shown on 19 November 2026; no promotion end date, session schedule or cancellation terms stated. Confirm the next class and any extra charges before paying.",
+      "note": "Official registration form: Toddler 6-36 months, Islamic Sensory Class selected; Promotional price shown on 19 November 2026; No promotion end date, session schedule or cancellation terms stated",
       "schedule": "Package valid for 3 months. The form calls this 8 Class / Month; this is not a dated timetable."
     }
   ]
@@ -647,7 +647,7 @@ export const BATCH3_VENUES: Venue[] = [
         "source": "Happy Kamper",
         "sourceUrl": "https://happykamper.io/id/activities/toddler-class-practical-skills-for-little-ones-bahasa-indonesia",
         "checkedAt": "2026-11-16",
-        "note": "Partner listing only. Confirm the next session and current fee; no price validity date is stated."
+        "note": "No price validity date stated"
       }
     ],
     "notes": "Official website uses Sociable Group Learning; the Maps listing links that website at the same Meruya address and phone. The partner class description starts 8 September 2025; this is not a current-term confirmation. Maps shows opening hours, no closure label, and no public reviews. No review trend or safety conclusion is available."
@@ -699,7 +699,7 @@ export const BATCH3_VENUES: Venue[] = [
         "source": "Happy Kamper",
         "sourceUrl": "https://happykamper.io/id/activities/nest-beginner-2-4-yo",
         "checkedAt": "2026-11-16",
-        "note": "Partner listing only. Confirm the current fee, class dates and any registration charge; no price validity date is stated."
+        "note": "No price validity date stated"
       }
     ],
     "notes": "Happy Kamper lists bookable play-based Nest Beginners classes, not only daycare. Maps lists the same provider on Jl. Raya Curug with opening hours and links Happy Kamper. The partner coordinate is about 440 m south-east of the Maps pin; Maps pin takes precedence and the street number is omitted. Maps has no public reviews. Not a safety guarantee or confirmed age match.",

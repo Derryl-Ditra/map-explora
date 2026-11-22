@@ -15,14 +15,16 @@ test('Nov15 exposes four shared official enquiry numbers, not inferred branch li
   assert.equal(v.operatingStatus.checkedAt,'2026-11-15');assert.match(v.notes,/shared|Shared/);assert.match(v.notes,/branch.*desk/);
  }
 });
-test('Plaza Senayan partner ticket is a starting range, not class tuition',()=>{
+test('Plaza Senayan partner ticket is a priced range, not class tuition',()=>{
  const v=VENUES.find(v=>v.id==='buumi-playscape-plaza-senayan');assert.equal(v.priceListings.length,1);
- const p=v.priceListings[0];assert.equal(p.amountIdr,195000);assert.equal(p.sourceKind,'partner');
+ const p=v.priceListings[0];assert.equal(p.amountIdr,195000);assert.equal(p.amountIdrMax,225000);assert.equal(p.sourceKind,'partner');
  assert.equal(p.checkedAt,'2026-11-15');assert.equal(p.sourceUrl,'https://happykamper.io/id/activities/buumi-playscape-plaza-senayan');
- assert.match(p.unit,/starting price/);assert.match(p.note,/195,000-Rp225,000/);assert.match(p.label,/not class tuition/);
- assert.match(p.note,/confirm this ticket and price apply to Plaza Senayan/);assert.match(p.note,/No refund or rescheduling/);assert.match(p.note,/13:00-14:00/);assert.match(p.note,/12 months to 12 years/);
- for(const field of [p.unit,p.label,p.note])assert.ok(placeText(field,'id'));
- assert.match(placeText(p.note,'id'),/bukan biaya kelas bayi/);
+ // 2026-11-22 QC price-note cut: range lives in amountIdr/Max, note is keeper rows only.
+ assert.doesNotMatch(p.unit,/starting price/);assert.doesNotMatch(p.note,/Rp195|remaining playtime|at least 18|baby-class tuition/);
+ assert.match(p.label,/not class tuition/);
+ assert.match(p.note,/confirm ticket and price apply to Plaza Senayan/);assert.match(p.note,/No refund or rescheduling/);assert.match(p.note,/13:00-14:00/);assert.match(p.note,/Equipment ages 12 mo-12 yr/);
+ for(const field of [p.unit,p.label])assert.ok(placeText(field,'id'));
+ for(const row of p.note.split('; '))assert.ok(placeText(row,'id'),`untranslated note row: ${row}`);
 });
 test('Nov15 patch does not alter ages, pins, review snapshots, fit or broad check dates',()=>{
  const input=structuredClone(VENUES),before=structuredClone(input);enrich(input);

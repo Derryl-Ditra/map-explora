@@ -17,9 +17,10 @@ test('Nov14 adds an official contact and a narrowly labelled partner play ticket
  assert.equal(p.checkedAt,'2026-11-14');
  assert.match(p.sourceUrl,/pacific-place-playground$/);
  assert.match(p.label,/not class tuition/);assert.match(p.note,/No refund or rescheduling/);
- assert.match(p.note,/12 months to 12 years/);assert.match(p.note,/Other channels/);
- for(const text of [p.unit,p.label,p.note])assert.ok(placeText(text,'id').length>0);
- assert.match(placeText(p.note,'id'),/bukan biaya kelas bayi/);
+ // 2026-11-22 QC price-note cut: keeper rows only, translated per row.
+ assert.match(p.note,/Equipment ages 12 mo-12 yr/);assert.doesNotMatch(p.note,/Other channels|at least 18|baby-class/);
+ for(const text of [p.unit,p.label])assert.ok(placeText(text,'id').length>0);
+ for(const row of p.note.split('; '))assert.ok(placeText(row,'id').length>0,`untranslated note row: ${row}`);
 });
 
 test('Nov14 leaves pins, classes, reviews and listing dates untouched',()=>{
