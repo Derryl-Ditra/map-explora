@@ -191,7 +191,7 @@ export default function enrich1122(venues: Venue[]) {
       bestAvailable: true,
       bestAvailableUrl: WHO,
       bestAvailableNote:
-        "Official classes page says 6 months - walking age. Walking age is read as about 12 months using the WHO window of achievement for walking alone (about 8-17 months) as the expert second opinion. Best available data, checked 22 Nov 2026.",
+        "Official classes page says 6 months - walking age; walking age read as about 12 months. Best available data, checked 22 Nov 2026.",
     },
     // 2026-11-22 cuts PR: long parent-review prose removed from the card
     // (one parent's unverified account, not decision data).
@@ -210,7 +210,7 @@ export default function enrich1122(venues: Venue[]) {
       bestAvailable: true,
       bestAvailableUrl: WHO,
       bestAvailableNote:
-        "Official classes page says walking - 2 years old; walking age read as about 12 months per the WHO window of achievement for walking alone (about 8-17 months). Best available data, checked 22 Nov 2026.",
+        "Official classes page says walking - 2 years old; walking age read as about 12 months. Best available data, checked 22 Nov 2026.",
     },
     note: "Official classes page: walking - 2 years old.",
   };
