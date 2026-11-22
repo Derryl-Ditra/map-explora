@@ -19,7 +19,8 @@ export default function enrich1114(venues: Venue[]) {
       source: "Happy Kamper",
       sourceUrl: "https://happykamper.io/en/activities/buumi-playscape-pacific-place-playground",
       checkedAt: "2026-11-14",
-      note: "Selected date only; confirm public-play slots before visiting. No refund or rescheduling. Anti-slip socks required. The listing says playground equipment is for ages 12 months to 12 years, with an adult aged at least 18. This is not a baby-class price or confirmed class eligibility. Other channels may quote different prices; confirm the final fee and any extras."
+      // 2026-11-22 QC price-note cut: keeper facts only, one "; "-separated row each.
+      note: "Selected date only; No refund or rescheduling; Anti-slip socks required; Equipment ages 12 mo-12 yr"
     }];
   }
   // The existing data entry point applies the next dated source patch last.
