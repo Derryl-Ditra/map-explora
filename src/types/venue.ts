@@ -50,6 +50,7 @@ export interface PriceListing {
   note?: string; // conditions, exclusions, validity and uncertainty
   label: string; // what the price buys, e.g. "Gymnastics class, 60 min"
   amountIdr: number; // price in IDR as shown on the page
+  amountIdrMax?: number; // upper bound when the page shows a price range
   unit: string; // e.g. "per session"
   listPriceIdr?: number; // struck-through list price on the page, if any
   source: string; // site name, e.g. "Traveloka"
