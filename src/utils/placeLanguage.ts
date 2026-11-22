@@ -150,6 +150,14 @@ const translations: Record<string,string> = {
   "per course package (new student)": "per paket kursus (murid baru)",
   "Aquababies course package, new student (Jakarta & Surabaya)": "Paket kursus Aquababies, murid baru (Jakarta & Surabaya)",
   "Official shop page, read 22 Nov 2026. The page does not state the session count. Existing-student packages Rp 3,350,000 - 13,400,000. Confirm package contents before paying.": "Halaman toko resmi, dibaca 22 Nov 2026. Jumlah sesi tidak disebut di halaman. Paket murid lama Rp 3.350.000 - 13.400.000. Tanyakan isi paket sebelum membayar.",
+  // 2026-11-22 round I: KiddieGym Bogor official from-price.
+  "per session (from-price)": "per sesi (harga mulai dari)",
+  "KiddieGym tuition from-price, babies and toddlers 6 months - 3.5 years": "Harga mulai KiddieGym, bayi dan balita 6 bulan - 3,5 tahun",
+  // price notes translate per "; "-separated row:
+  "Undated official school-fees page, read 22 Nov 2026: KiddieGym starts from Rp 45,000 per session": "Halaman biaya resmi tanpa tanggal, dibaca 22 Nov 2026: KiddieGym mulai dari Rp 45.000 per sesi",
+  "packages 4x, 8x, 12x or unlimited monthly": "paket 4x, 8x, 12x atau tanpa batas per bulan",
+  "one-time enrollment fee is extra": "biaya pendaftaran sekali bayar terpisah",
+  "full fee details come from the admissions team. Confirm the current price before paying.": "rincian biaya lengkap dari tim admisi. Tanyakan harga terbaru sebelum membayar.",
 };
 export function placeText(text: string | undefined,lang: 'en'|'id',fallback=''): string {
  if(!text)return '';return lang==='en'?text:(translations[text] ?? fallback);
