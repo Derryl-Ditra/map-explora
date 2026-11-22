@@ -1,5 +1,6 @@
 import type { Venue, VenueProgram } from "@/types/venue";
 import enrich1122b from "./enrich1122b";
+import enrich1122c from "./enrich1122c";
 
 // 2026-11-22 owner rules (WhatsApp 07:04 and 07:05):
 // "capture more data and i see minor data conflict like 6-11 months vs 6-12
@@ -358,5 +359,8 @@ export default function enrich1122(venues: Venue[]) {
   // Anak Air, Gavrila, Sociable and Morning Nest. Kept in its own file and
   // wired here so the large venues.ts registry stays untouched.
   enrich1122b(venues);
+
+  // Round C (2026-11-22): shared enquiry phones for Sparks and English 1.
+  enrich1122c(venues);
 
 }
