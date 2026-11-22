@@ -47,7 +47,6 @@ const translations: Record<string,string> = {
   "per 2-hour public-play ticket": "per tiket bermain 2 jam",
   "Public play: 1 child + 1 adult, not class tuition": "Bermain untuk 1 anak + 1 pendamping, bukan biaya kelas",
   // 2026-11-22 QC price-note cut: notes are "; "-separated keeper rows, translated per row
-  // 2026-11-22 QC price-note cut: keeper rows, translated per row
   "Registration is separate below": "Pendaftaran terpisah, lihat di bawah",
   "No validity period or baby-class allocation stated": "Masa berlaku dan jatah kelas bayi belum disebut",
   "Not included in the package price above": "Belum termasuk harga paket di atas",
@@ -57,7 +56,7 @@ const translations: Record<string,string> = {
   "Unused sessions are non-refundable": "Sesi yang tidak dipakai tidak bisa diuangkan kembali",
   "No end date or separate registration fee stated": "Tanggal akhir dan biaya pendaftaran terpisah belum disebut",
   "Rp185,000 registration is separate": "Pendaftaran Rp185.000 terpisah",
-  "Advance booking and admin confirmation required, no walk-ins": "Wajib memesan kelas dan konfirmasi admin, tidak bisa langsung datang",
+  "Advance booking and admin confirmation required, no walk-ins": "Wajib memesan dan konfirmasi admin, tidak bisa langsung datang",
   "Advance booking/admin confirmation required, no walk-ins": "Wajib memesan dan konfirmasi admin, tidak bisa langsung datang",
   "Subject to class availability": "Tergantung ketersediaan kelas",
   "Full T&C are supplied after registration": "Ketentuan lengkap diberikan setelah mendaftar",
