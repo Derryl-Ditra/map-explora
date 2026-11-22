@@ -162,3 +162,29 @@ test('Buumi Playscape and Baby Jumper Gym branches carry their Maps-listed phone
   assert.equal(v('buumi-playscape-pacific-place').phone, '+62 21 51400557');
   assert.equal(v('baby-jumper-gym-pluit').phone, '+62 21 66606297');
 });
+
+
+// 2026-11-22 round F pins: dated tiket.com partner prices for Buumi branches.
+// Source: tiket.com product pages read 2026-11-22; additions only, Happy Kamper rows stay.
+test('Buumi branches carry dated tiket.com partner prices alongside existing listings', () => {
+  const pp = v('buumi-playscape-pacific-place').priceListings;
+  assert.equal(pp.length, 3);
+  assert.equal(pp[0].source, 'Happy Kamper');
+  const ppT = pp.filter((p) => p.source === 'tiket.com' && p.checkedAt === '2026-11-22');
+  assert.deepEqual(ppT.map((p) => p.amountIdr), [196950, 199980]);
+  assert.ok(ppT.every((p) => p.sourceKind === 'partner'));
+
+  const ps = v('buumi-playscape-plaza-senayan').priceListings;
+  assert.equal(ps.length, 2);
+  assert.equal(ps[0].source, 'Happy Kamper');
+  assert.equal(ps[1].source, 'tiket.com');
+  assert.equal(ps[1].amountIdr, 196950);
+  assert.match(ps[1].note, /From-price only/);
+
+  const uf = v('buumi-playscape-urban-forest-cipete').priceListings;
+  assert.equal(uf.length, 3);
+  assert.ok(uf.every((p) => p.source === 'tiket.com' && p.checkedAt === '2026-11-22'));
+  assert.deepEqual(uf.map((p) => p.amountIdr), [237350, 227250, 196950]);
+  assert.equal(uf[1].listPriceIdr, 250000);
+  assert.match(uf[2].label, /Pool/);
+});
