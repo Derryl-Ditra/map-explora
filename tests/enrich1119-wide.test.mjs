@@ -14,6 +14,7 @@ test('English1 address discrepancies resolved 2026-11-20: pins match live Maps l
 test('Deen fee products keep their official form selection, units and all three promo conditions',()=>{
  const v=VENUES.find(v=>v.id==='deen-haus-alkahf-bintaro');
  assert.equal(v.priceListings.length,3);assert.deepEqual(v.priceListings.map(p=>p.amountIdr),[150000,590000,1000000]);
- for(const p of v.priceListings){assert.equal(p.sourceKind,'official');assert.equal(p.sourceUrl,'https://deenhaus.com/baby-class/#reg-form');assert.match(p.note,/Toddler 6-36 months/);for(const k of ['label','unit','note','schedule'])if(p[k])assert.ok(placeText(p[k],'id'));}
+ // 2026-11-22 QC price-note cut: notes translate per "; "-separated row.
+ for(const p of v.priceListings){assert.equal(p.sourceKind,'official');assert.equal(p.sourceUrl,'https://deenhaus.com/baby-class/#reg-form');assert.match(p.note,/Toddler 6-36 months/);for(const k of ['label','unit','note','schedule'])if(p[k])for(const row of k==='note'?p[k].split('; '):[p[k]])assert.ok(placeText(row,'id'),`untranslated ${k}: ${row}`);}
  assert.match(v.priceListings[1].schedule,/valid for 2 months/);assert.match(v.priceListings[2].schedule,/valid for 3 months/);
 });
