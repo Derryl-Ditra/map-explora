@@ -5,7 +5,8 @@ export default function ReviewSnapshot({venue:v,lang}:{venue:Venue;lang:'en'|'id
  const r=v.reviews;
  if(!r)return <p>{t('Reviews not recorded.','Ulasan belum tercatat.')}</p>;
  return <div className="review-snapshot">
-  <strong>{r.rating!==null?`${r.rating.toFixed(1)}/5`:t('No rating','Belum ada nilai')}{r.reviewCount!==null?` (${r.reviewCount} ${t('ratings','penilaian')})`:''}</strong>
+  <strong>{r.rating!==null?`${r.rating.toFixed(1)}/5`:t('No rating','Belum ada nilai')}{r.reviewCount!==null?` (${r.reviewCount} ${t('ratings','penilaian')})`:''}</strong>{r.reviewCount!==null&&r.reviewCount<10&&' ' + t('· few ratings','· sedikit penilaian')}
+  {' '}
   {r.complaintThemes.length>0&&<p className="compare-concern">{t('Concerns','Keluhan')}: {r.complaintThemes.map(s=>lang==='id'?(topics[s]||'lihat sumber'):s).join('; ')}</p>}
   {r.sourceUrl&&<a href={r.sourceUrl}>{t('Read original reviews','Baca ulasan asli')}</a>}
  </div>;
