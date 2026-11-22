@@ -357,14 +357,16 @@ export default function VenueDetails({
           {venue.priceListings.map((pl) => (
             <div key={`${pl.label}-${pl.sourceUrl}`} className="flex flex-col gap-0.5">
               <span className="text-[1rem] text-[#221d18]">
-                <span className="font-bold">{formatIdr(pl.amountIdr)}</span> {pl.unit}
+                <span className="font-bold">{formatIdr(pl.amountIdr)}{pl.amountIdrMax ? `\u2013${formatIdr(pl.amountIdrMax).replace(/^Rp\s*/, "")}` : ""}</span> {pl.unit}
                 {pl.listPriceIdr ? (
                   <span className="text-[#6d675f]"> (list price <s>{formatIdr(pl.listPriceIdr)}</s>)</span>
                 ) : null}
               </span>
               <span className="text-[0.8125rem] font-bold text-[#4a443c]">{pl.sourceKind === "official" ? "Official-listed" : "Partner-listed"}</span>
               <span className="text-[0.9375rem] text-[#4a443c]">{pl.label}</span>
-              {pl.note && <span className="text-[0.875rem] text-[#6d675f]">{pl.note}</span>}
+              {pl.note && pl.note.split("; ").map((row, ri) => (
+                <span key={ri} className="text-[0.875rem] text-[#6d675f]">{row}</span>
+              ))}
               {pl.schedule && <span className="text-[0.9375rem] text-[#4a443c]">{pl.schedule}</span>}
               <span className="text-[0.875rem] text-[#6d675f]">
                 From{" "}
