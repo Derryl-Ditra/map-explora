@@ -43,8 +43,8 @@ test('Nov20 Rockstar Grand Bekasi stays official-listed with the current-term PD
 });
 
 test('Nov20 inventory counts move only on the BLS age upgrade',()=>{
- assert.equal(VENUES.length,164);
- assert.equal(VENUES.filter(isShownToUsers).length,152);
+ assert.equal(VENUES.length,165);
+ assert.equal(VENUES.filter(isShownToUsers).length,153);
  assert.equal(VENUES.filter(isShownToUsers).filter(hasVerifiedAgeEvidence).length,52);
  // 2026-11-22 round F: Buumi Urban Forest priced via dated tiket.com listings.
  // 2026-11-22 round H: aquababies-bintaro and aquababies-menteng priced via the official shop page.

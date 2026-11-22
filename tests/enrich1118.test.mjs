@@ -11,8 +11,8 @@ const ids=['kiddies88-maspen-cimuning','kiddies88-waterland-transyogi','kiddies8
 
 test('Nov18 adds exactly four reviewed branches without changing the previous inventory',()=>{
  assert.deepEqual(KIDDIES88_20261118.map(v=>v.id),ids);
- assert.equal(VENUES.length,164);
- assert.equal(VENUES.filter(isShownToUsers).length,152);
+ assert.equal(VENUES.length,165);
+ assert.equal(VENUES.filter(isShownToUsers).length,153);
  assert.equal(VENUES.filter(isShownToUsers).filter(hasVerifiedAgeEvidence).length,52);
  // 2026-11-22 round F: Buumi Urban Forest priced via dated tiket.com listings.
  // 2026-11-22 round H: aquababies-bintaro and aquababies-menteng priced via the official shop page.
