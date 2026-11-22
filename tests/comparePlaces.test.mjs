@@ -33,9 +33,10 @@ test('coverage uses actual sourced price and rating records, not candidates',()=
 
 test('fee UI preserves products, units, separate registration, sources, dates and uncertainty in both languages',async()=>{
  const {placeText}=await importTs('../src/utils/placeLanguage.ts');
- for(const v of visible)for(const p of v.priceListings||[])for(const key of ['unit','label','note','schedule'])if(p[key])assert.ok(placeText(p[key],'id'),`${v.id} ${key}`);
+ // 2026-11-22 QC price-note cut: notes render and translate per "; "-separated row.
+ for(const v of visible)for(const p of v.priceListings||[])for(const key of ['unit','label','note','schedule'])if(p[key])for(const row of key==='note'?p[key].split('; '):[p[key]])assert.ok(placeText(row,'id'),`${v.id} ${key}: ${row}`);
  const ui=readFileSync(new URL('../src/components/RecordedFees.tsx',import.meta.url),'utf8');
- for(const field of ['amountIdr','sourceKind','sourceUrl','checkedAt','p.label','p.unit','p.note','p.schedule'])assert.ok(ui.includes(field));
+ for(const field of ['amountIdr','amountIdrMax','sourceKind','sourceUrl','checkedAt','p.label','p.unit','p.note','p.schedule'])assert.ok(ui.includes(field));
  assert.match(ui,/does not mean free/);assert.match(ui,/bukan berarti gratis/);
  assert.doesNotMatch(ui,/Math\.min|\.sort\(|\/\s*[48]\b/);
  const guide=readFileSync(new URL('../src/components/FeeGuide.tsx',import.meta.url),'utf8');assert.match(guide,/undated/);assert.match(guide,/tidak bertanggal/);assert.match(guide,/not fresh quotes/);
