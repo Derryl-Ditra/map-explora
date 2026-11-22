@@ -1,5 +1,6 @@
 "use client";
 import { publicLocation } from "@/utils/publicLocation";
+import { isDeadSourceUrl } from "@/data/deadLinks";
 import { phoneHref } from "@/utils/venueSummary";
 import { estimatedPrograms } from "@/data/age-estimates";
 
@@ -211,7 +212,7 @@ export default function VenueDetails({
           <span className="font-bold">Other recorded class ages</span>
           {otherPrograms.map((p) => (
             <div key={p.name} className="flex items-start justify-between gap-4 text-[1rem] leading-6">
-              <span className="min-w-0">{p.name}<BestAvailableTag age={p.age} /></span><span className="shrink-0 text-[#6d675f]">{formatAgeRange(p.age)}{p.age.providerAgeUrl && ageSourceLabel(p) && <> · <a href={p.age.providerAgeUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">{ageSourceLabel(p)}</a></>}</span>
+              <span className="min-w-0">{p.name}<BestAvailableTag age={p.age} /></span><span className="shrink-0 text-[#6d675f]">{formatAgeRange(p.age)}{p.age.providerAgeUrl && !isDeadSourceUrl(p.age.providerAgeUrl) && ageSourceLabel(p) && <> · <a href={p.age.providerAgeUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">{ageSourceLabel(p)}</a></>}</span>
             </div>
           ))}
         </div>
@@ -239,8 +240,8 @@ export default function VenueDetails({
           <span className="font-bold text-[#221d18]">{ageConflict ? "Age details to confirm" : kind === "parent-review" ? "Parent review note" : "Class details to check"}</span>
           {notes.map(program => <div key={program.name} className={`text-[0.875rem] ${ageConflict ? "text-[#665026]" : "text-[#6d675f]"}`}>
             <p><strong>{program.name}:</strong> {program.note}</p>
-            {program.age.providerAgeUrl && <a href={program.age.providerAgeUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a] mr-3">Program source</a>}
-            {program.noteUrl && <a href={program.noteUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">{program.noteLabel || "Other source"}</a>}
+            {program.age.providerAgeUrl && !isDeadSourceUrl(program.age.providerAgeUrl) && <a href={program.age.providerAgeUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a] mr-3">Program source</a>}
+            {program.noteUrl && !isDeadSourceUrl(program.noteUrl) && <a href={program.noteUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">{program.noteLabel || "Other source"}</a>}
           </div>)}
         </section>;
       })}
