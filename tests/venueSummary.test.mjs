@@ -21,10 +21,10 @@ test('card ages decide from the best available tier, always with confirm-by-phon
  // Owner rule 2026-11-22 (follow-up): no undecided cases. Brand, listed and
  // conflicted claims still yield a decided range; only the confidence label
  // and the confirm-by-phone note change.
- assert.equal(cardAgeSummary({programs:[{...venue.programs[0],age:{...claim,level:'brand'}}]}),'Brand ages: 6 to 18 months - confirm by phone first');
- assert.equal(cardAgeSummary({programs:[{...venue.programs[0],age:{...claim,sourceConflict:true}}]}),'Listed ages: 6 to 18 months - confirm by phone first');
- assert.equal(cardAgeSummary({programs:[{...venue.programs[0],note:'ambiguous age boundary'}]}),'Listed ages: 6 to 18 months - confirm by phone first');
- assert.equal(cardAgeSummary({programs:[{...venue.programs[0],offering:'unknown'}]}),'Ages not published - confirm by phone first');
+ assert.equal(cardAgeSummary({programs:[{...venue.programs[0],age:{...claim,level:'brand'}}]}),'Brand ages: 6 mo to 18 mo. Confirm by phone first.');
+ assert.equal(cardAgeSummary({programs:[{...venue.programs[0],age:{...claim,sourceConflict:true}}]}),'Listed ages: 6 mo to 18 mo. Confirm by phone first.');
+ assert.equal(cardAgeSummary({programs:[{...venue.programs[0],note:'ambiguous age boundary'}]}),'Listed ages: 6 mo to 18 mo. Confirm by phone first.');
+ assert.equal(cardAgeSummary({programs:[{...venue.programs[0],offering:'unknown'}]}),'Ages not published. Confirm by phone first.');
 });
 test('card rating includes source and sample count, not fabricated missing values',()=>{
  assert.equal(cardRatingSummary(venue),'Google Maps: 4.8/5 (123 reviews)');
