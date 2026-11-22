@@ -5,7 +5,7 @@ import { estimatedPrograms } from "@/data/age-estimates";
 
 import { useState } from "react";
 import { Venue, AgeClaim } from "@/types/venue";
-import { isVerifiedAgeClaim, verifiedPrograms } from "@/utils/ageMatch";
+import { bestAvailableGroups, isVerifiedAgeClaim, verifiedPrograms } from "@/utils/ageMatch";
 import { trendVerdict, formatIsoMonth, REVIEW_TREND_FALLBACK } from "@/utils/reviewPulse";
 import {
   Phone,
@@ -124,7 +124,9 @@ export default function VenueDetails({
   const brandPrograms = venue.programs.filter(
     (p) => p.offering === "offered" && !offered.includes(p) && p.age.minMonths != null && p.age.maxMonths != null
   );
-  const bestAvailable = venue.programs.filter((p) => p.offering !== "not-offered" && p.age.bestAvailable);
+  // Identical notes dedupe to one line per venue (QC on PR #105: a shared
+  // brand-level note repeated per class made Sparks cards unusable on mobile).
+  const bestAvailable = bestAvailableGroups(venue);
   const [allClasses, setAllClasses] = useState(false);
   const estimates = estimatedPrograms(venue);
   const branchAge = venue.branchAge && isVerifiedAgeClaim(venue.branchAge) ? venue.branchAge : null;
@@ -189,9 +191,9 @@ export default function VenueDetails({
       {bestAvailable.length > 0 && (
         <section className="rounded-xl bg-[#eef7f0] border border-[#cbe4d2] p-3.5 flex flex-col gap-2" data-testid="best-available">
           <span className="font-bold text-[#221d18]">Best available data</span>
-          {bestAvailable.map((program) => <div key={program.name} className="text-[0.875rem] text-[#3d5546]">
-            <p><strong>{program.name}:</strong> {program.age.bestAvailableNote}</p>
-            {program.age.bestAvailableUrl && <a href={program.age.bestAvailableUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">Reference</a>}
+          {bestAvailable.map((group) => <div key={group.names.join("|")} className="text-[0.875rem] text-[#3d5546]">
+            <p><strong>{group.names.join(", ")}:</strong> {group.note}</p>
+            {group.url && <a href={group.url} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">Reference</a>}
           </div>)}
         </section>
       )}
