@@ -5,6 +5,8 @@ import enrich1122d from "./enrich1122d";
 import enrich1122e from "./enrich1122e";
 import enrich1122f from "./enrich1122f";
 import enrich1122g from "./enrich1122g";
+import enrich1122h from "./enrich1122h";
+import enrich1122i from "./enrich1122i";
 
 // 2026-11-22 owner rules (WhatsApp 07:04 and 07:05):
 // "capture more data and i see minor data conflict like 6-11 months vs 6-12
@@ -376,6 +378,12 @@ export default function enrich1122(venues: Venue[]) {
 
   // Round G (2026-11-22): dated Winter Term evidence for 15 Rockstar branches.
   enrich1122g(venues);
+
+  // Round H (2026-11-22): official Aquababies course-package prices.
+  enrich1122h(venues);
+
+  // Round I (2026-11-22): official KiddieGym Bogor from-price.
+  enrich1122i(venues);
 
 }
 

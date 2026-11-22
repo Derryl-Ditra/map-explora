@@ -27,7 +27,9 @@ test('comparison URL parameters never reveal hidden, invalid or duplicate branch
 
 test('coverage uses actual sourced price and rating records, not candidates',()=>{
  // 2026-11-22 round F: Buumi Urban Forest priced via dated tiket.com listings.
- assert.deepEqual(coverage(VENUES),{visible:152,priced:21,reviewed:146});
+ // 2026-11-22 round H: aquababies-bintaro and aquababies-menteng priced via the official shop page (priced 21 -> 23).
+ // 2026-11-22 round I: kiddiegym-bogor-siliwangi priced via the official school-fees page (priced 23 -> 24).
+ assert.deepEqual(coverage(VENUES),{visible:152,priced:24,reviewed:146});
  const noPrice=visible.find(v=>!v.priceListings);assert.ok(noPrice);
  assert.equal(coverage([noPrice]).priced,0);
 });
