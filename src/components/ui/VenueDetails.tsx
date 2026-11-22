@@ -117,6 +117,14 @@ export default function VenueDetails({
   };
 
   const offered = verifiedPrograms(venue).sort((a,b) => a.age.minMonths! - b.age.minMonths! || (a.age.maxMonths ?? Infinity) - (b.age.maxMonths ?? Infinity));
+  // Brand-level offered programs (owner ask 2026-11-22: capture and show
+  // general data): official brand pages state these ages, but the branch has
+  // not confirmed its own. Shown separately, never as verified, and never
+  // part of exact age matching (verifiedPrograms above stays branch-only).
+  const brandPrograms = venue.programs.filter(
+    (p) => p.offering === "offered" && !offered.includes(p) && p.age.minMonths != null && p.age.maxMonths != null
+  );
+  const bestAvailable = venue.programs.filter((p) => p.offering !== "not-offered" && p.age.bestAvailable);
   const [allClasses, setAllClasses] = useState(false);
   const estimates = estimatedPrograms(venue);
   const branchAge = venue.branchAge && isVerifiedAgeClaim(venue.branchAge) ? venue.branchAge : null;
@@ -166,6 +174,28 @@ export default function VenueDetails({
 
       </div>
 
+      {brandPrograms.length > 0 && (
+        <div className="py-3 border-b border-[#e7e0d4] flex flex-col gap-2">
+          <span className="font-bold">Brand program ages</span>
+          <p className="text-[0.9375rem] text-[#6d675f]">General data from the provider&apos;s official pages. This branch has not confirmed its own class ages, so these do not count as verified for this branch.</p>
+          {brandPrograms.map((p) => (
+            <div key={p.name} className="flex items-start justify-between gap-4 text-[1rem] leading-6">
+              <span className="min-w-0">{p.name}</span><span className="shrink-0 text-[#6d675f]">{formatAgeRange(p.age)}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {bestAvailable.length > 0 && (
+        <section className="rounded-xl bg-[#eef7f0] border border-[#cbe4d2] p-3.5 flex flex-col gap-2" data-testid="best-available">
+          <span className="font-bold text-[#221d18]">Best available data</span>
+          {bestAvailable.map((program) => <div key={program.name} className="text-[0.875rem] text-[#3d5546]">
+            <p><strong>{program.name}:</strong> {program.age.bestAvailableNote}</p>
+            {program.age.bestAvailableUrl && <a href={program.age.bestAvailableUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">Reference</a>}
+          </div>)}
+        </section>
+      )}
+
       {estimates.length > 0 && (
         <div className="py-3 border-b border-[#e7e0d4] flex flex-col gap-3">
           <span className="font-bold">Estimated ages</span>
@@ -182,7 +212,9 @@ export default function VenueDetails({
       )}
 
       {(["age-conflict", "parent-review", "class-details"] as const).map(kind => {
-        const notes = venue.programs.filter(program => program.age.sourceConflict && (program.noteKind ?? "age-conflict") === kind);
+        // Explicit note kinds render whenever set; legacy conflict notes still
+        // key off sourceConflict when no kind is recorded.
+        const notes = venue.programs.filter(program => (program.noteKind ?? (program.age.sourceConflict ? "age-conflict" : undefined)) === kind);
         if (!notes.length) return null;
         const ageConflict = kind === "age-conflict";
         return <section key={kind} className={ageConflict ? "rounded-xl bg-[#fff8e8] border border-[#ead9ae] p-3.5 flex flex-col gap-2" : "pl-3 py-2 border-l-2 border-[#d4cbbf] flex flex-col gap-2"} data-testid={ageConflict ? "age-conflicts" : "program-notes"}>
