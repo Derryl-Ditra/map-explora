@@ -17,10 +17,14 @@ test('age overview sorts by lower bound before choosing two ranges',()=>{
  const programs = [30,6,18].map(minMonths=>({name:'Class',offering:'offered',age:{...claim,minMonths,maxMonths:minMonths+5}}));
  assert.equal(cardAgeSummary({programs}),'By class: 6-11 mo, 18-23 mo +1 more');
 });
-test('card ages exclude brand, ambiguous, conflicted and unoffered claims',()=>{
- for(const p of [{age:{...claim,level:'brand'}},{age:{...claim,sourceConflict:true}},{age:claim,note:'ambiguous age boundary'},{age:claim,offering:'unknown'}]){
-  assert.equal(cardAgeSummary({programs:[{...venue.programs[0],...p}]}),'Class ages not verified yet');
- }
+test('card ages decide from the best available tier, always with confirm-by-phone below verified',()=>{
+ // Owner rule 2026-11-22 (follow-up): no undecided cases. Brand, listed and
+ // conflicted claims still yield a decided range; only the confidence label
+ // and the confirm-by-phone note change.
+ assert.equal(cardAgeSummary({programs:[{...venue.programs[0],age:{...claim,level:'brand'}}]}),'Brand ages: 6 to 18 months - confirm by phone first');
+ assert.equal(cardAgeSummary({programs:[{...venue.programs[0],age:{...claim,sourceConflict:true}}]}),'Listed ages: 6 to 18 months - confirm by phone first');
+ assert.equal(cardAgeSummary({programs:[{...venue.programs[0],note:'ambiguous age boundary'}]}),'Listed ages: 6 to 18 months - confirm by phone first');
+ assert.equal(cardAgeSummary({programs:[{...venue.programs[0],offering:'unknown'}]}),'Ages not published - confirm by phone first');
 });
 test('card rating includes source and sample count, not fabricated missing values',()=>{
  assert.equal(cardRatingSummary(venue),'Google Maps: 4.8/5 (123 reviews)');
