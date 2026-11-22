@@ -3,6 +3,7 @@ import enrich1122b from "./enrich1122b";
 import enrich1122c from "./enrich1122c";
 import enrich1122d from "./enrich1122d";
 import enrich1122e from "./enrich1122e";
+import enrich1122f from "./enrich1122f";
 
 // 2026-11-22 owner rules (WhatsApp 07:04 and 07:05):
 // "capture more data and i see minor data conflict like 6-11 months vs 6-12
@@ -369,4 +370,8 @@ export default function enrich1122(venues: Venue[]) {
   // Round E (2026-11-22): phones for Buumi Playscape and Baby Jumper Gym.
   enrich1122e(venues);
 
+  // Round F (2026-11-22): dated tiket.com partner prices for Buumi branches.
+  enrich1122f(venues);
+
 }
+
