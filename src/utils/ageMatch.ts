@@ -49,3 +49,25 @@ export function mergeAgeRanges(ranges: ReadonlyArray<readonly [number, number]>)
   }
   return merged;
 }
+
+export interface BestAvailableGroup {
+  names: string[];
+  note: string;
+  url?: string;
+}
+
+// QC fix (PR #105): identical best-available notes render once per venue with
+// the class names grouped, so a brand-level note shared by several classes
+// (e.g. Sparks Swim) does not repeat on the card. Classes whose notes differ
+// (e.g. Bloom) keep their own line.
+export function bestAvailableGroups(v: Venue): BestAvailableGroup[] {
+  const groups: BestAvailableGroup[] = [];
+  for (const p of v.programs) {
+    if (p.offering === "not-offered" || !p.age.bestAvailable) continue;
+    const note = p.age.bestAvailableNote || "";
+    const existing = groups.find((g) => g.note === note && g.url === p.age.bestAvailableUrl);
+    if (existing) existing.names.push(p.name);
+    else groups.push({ names: [p.name], note, url: p.age.bestAvailableUrl });
+  }
+  return groups;
+}

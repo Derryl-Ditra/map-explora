@@ -8,7 +8,8 @@ const {placeText}=await importTs('../src/utils/placeLanguage.ts');
 test('Nov14 adds an official contact and a narrowly labelled partner play ticket',()=>{
  const music=VENUES.find(v=>v.id==='music-wonderworld-bsd');
  assert.equal(music.phone,'+62 851-9592-7078');
- assert.equal(music.programs.length,0);
+ // 2026-11-22: one brand-level program added (Music class 6-47 months).
+ assert.equal(music.programs.length,1);
  const b=VENUES.find(v=>v.id==='buumi-playscape-pacific-place');
  assert.equal(b.priceListings.length,1);
  const p=b.priceListings[0];
