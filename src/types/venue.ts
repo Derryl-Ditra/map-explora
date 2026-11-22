@@ -27,6 +27,15 @@ export interface AgeClaim {
   providerAgeUrl?: string; // provider page stating the age range
   sourceCheckedAt: string | null; // ISO date the source was actually checked
   sourceConflict?: boolean; // two sources state different ranges; both claims shown, never matched
+  // "Best available data" marker (owner rule 2026-11-22): shown on the card with
+  // its basis. Set when a small source gap is settled with expert child-
+  // development data (CDC/WHO/AAP) as the second opinion, or when general
+  // brand-level data fills a branch-level gap. The claim keeps its own level
+  // and verification; the marker only records that this is the best quality
+  // data we could get, with its reason and check date.
+  bestAvailable?: boolean;
+  bestAvailableNote?: string; // plain-language basis: what conflicted or was missing and how it was settled
+  bestAvailableUrl?: string; // expert reference or general source behind the settlement
 }
 
 export type OfferingStatus =
