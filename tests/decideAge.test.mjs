@@ -57,11 +57,17 @@ test('brand card section admits only true brand-level provider-confirmed claims'
   assert.equal(rockstar.programs.filter((p) => p.offering === 'offered').some(isTrueBrandProgram), false);
   const outgrow = VENUES.find((x) => x.id === 'outgrow-alam-sutera');
   assert.equal(outgrow.programs.filter((p) => p.offering === 'offered').some(isTrueBrandProgram), false);
-  for (const id of ['kinderra-play-cakung', 'morning-nest-preschool-bojongsari', 'sociable-inclusive-learning-meruya', 'buumi-playscape-pacific-place']) {
+  for (const id of ['kinderra-play-cakung', 'morning-nest-preschool-bojongsari', 'buumi-playscape-pacific-place']) {
     const v = VENUES.find((x) => x.id === id);
     assert.ok(v, `${id} in dataset`);
     assert.equal(v.programs.filter((p) => p.offering === 'offered').some(isTrueBrandProgram), false, `${id} has no true brand programs`);
   }
+  // 2026-11-22: sociable-inclusive-learning-meruya leaves the no-true-brand
+  // list. Its official FAQ (sociablegrouplearning.com/faq, checked
+  // 2026-11-22) states the school accepts ages 3-16, a provider-confirmed
+  // brand-level claim, so it now belongs in the brand section.
+  const sociable = VENUES.find((x) => x.id === 'sociable-inclusive-learning-meruya');
+  assert.ok(sociable.programs.some(isTrueBrandProgram), 'Sociable provider FAQ 3-16 is a true brand program');
   const icr = VENUES.find((x) => x.id === 'i-can-read-modernland');
   assert.ok(icr.programs.some(isTrueBrandProgram), 'I Can Read brand programs stay in the brand section');
   const sparks = VENUES.find((x) => x.id === 'sparks-swim-bintaro-utown');
