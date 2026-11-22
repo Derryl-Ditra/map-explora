@@ -8,7 +8,7 @@ import { Venue, AgeClaim } from "@/types/venue";
 import { isVerifiedAgeClaim, verifiedPrograms } from "@/utils/ageMatch";
 import { canRouteVenue } from "@/utils/mapsLink";
 import { decidedAgeRange, formatDecidedRange, CONFIRM_BY_PHONE, isTrueBrandProgram, ageSourceLabel } from "@/utils/decideAge";
-import { formatIsoMonth } from "@/utils/reviewPulse";
+import { formatIsoMonth, trendVerdict } from "@/utils/reviewPulse";
 import {
   Phone,
   ShieldCheck,
@@ -262,6 +262,28 @@ export default function VenueDetails({
               </span>
             )}
           </div>
+          {(() => {
+            // Review trend restored 2026-11-22 at Derryl's request: one compact
+            // data row, shown only when the trend is evidence-backed (no fallback prose).
+            const verdict = trendVerdict(venue.reviews);
+            if (!verdict.trend) return null;
+            const badge = {
+              improving: "bg-[#dcfce7] text-[#166534]",
+              steady: "bg-[#f1ede6] text-[#4a443c]",
+              worsening: "bg-[#fee2e2] text-[#b91c1c]",
+              mixed: "bg-[#fef3c7] text-[#92400e]",
+            }[verdict.trend];
+            const label = verdict.trend.charAt(0).toUpperCase() + verdict.trend.slice(1);
+            return (
+              <div className="flex flex-wrap items-center gap-2 text-[0.9375rem]">
+                <span className="font-semibold text-[#221d18]">Trend:</span>
+                <span className={`text-sm font-semibold px-1.5 py-0.5 rounded-md ${badge}`}>{label}</span>
+                {verdict.comparisonText && (
+                  <span className="text-[#4a443c]">{verdict.comparisonText}</span>
+                )}
+              </div>
+            );
+          })()}
           {(venue.reviews.praiseThemes.length > 0 ||
           venue.reviews.complaintThemes.length > 0) && (
             <>
