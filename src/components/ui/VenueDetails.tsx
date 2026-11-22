@@ -6,7 +6,7 @@ import { estimatedPrograms } from "@/data/age-estimates";
 import { useState } from "react";
 import { Venue, AgeClaim } from "@/types/venue";
 import { bestAvailableGroups, isVerifiedAgeClaim, verifiedPrograms } from "@/utils/ageMatch";
-import { decidedAgeRange } from "@/utils/decideAge";
+import { decidedAgeRange, formatDecidedRange, CONFIRM_BY_PHONE, isTrueBrandProgram, ageSourceLabel } from "@/utils/decideAge";
 import { trendVerdict, formatIsoMonth, REVIEW_TREND_FALLBACK } from "@/utils/reviewPulse";
 import {
   Phone,
@@ -122,8 +122,13 @@ export default function VenueDetails({
   // general data): official brand pages state these ages, but the branch has
   // not confirmed its own. Shown separately, never as verified, and never
   // part of exact age matching (verifiedPrograms above stays branch-only).
-  const brandPrograms = venue.programs.filter(
-    (p) => p.offering === "offered" && !offered.includes(p) && p.age.minMonths != null && p.age.maxMonths != null
+  // QC on PR #106: only true brand-level provider-confirmed claims belong
+  // here; branch classes with boundary-ambiguous notes (Rockstar, Outgrow)
+  // and partner-listed classes (Happy Kamper, Teman Autis) render under a
+  // neutral label with their source named per item, below.
+  const brandPrograms = venue.programs.filter((p) => !offered.includes(p) && isTrueBrandProgram(p));
+  const otherPrograms = venue.programs.filter(
+    (p) => p.offering === "offered" && !offered.includes(p) && !isTrueBrandProgram(p) && p.age.minMonths != null && p.age.maxMonths != null
   );
   // Identical notes dedupe to one line per venue (QC on PR #105: a shared
   // brand-level note repeated per class made Sparks cards unusable on mobile).
@@ -157,8 +162,12 @@ export default function VenueDetails({
         {offered.length === 0 && !branchAge ? (
           <span className="text-[1rem] text-[#6d675f]">
             {decided.confidence === "general"
-              ? "Class ages not published yet - confirm by phone first"
-              : `${decided.confidence === "brand" ? "Brand" : "Listed"} ages: ${formatAgeRange({ minMonths: decided.minMonths, maxMonths: decided.maxMonths } as AgeClaim)} - confirm by phone first`}
+              ? `Ages not published. ${CONFIRM_BY_PHONE}`
+              : brandPrograms.length > 0 || otherPrograms.length > 0
+                // QC on PR #106: the section below already lists the ranges;
+                // repeating the merged range here read as the same fact 3x.
+                ? `${decided.confidence === "brand" ? "Brand" : "Listed"} ages below. ${CONFIRM_BY_PHONE}`
+                : `${decided.confidence === "brand" ? "Brand" : "Listed"} ages: ${formatDecidedRange(decided.minMonths, decided.maxMonths)}. ${CONFIRM_BY_PHONE}`}
           </span>
         ) : (
           <div className="flex flex-col gap-2 pt-0">
@@ -188,6 +197,18 @@ export default function VenueDetails({
           {brandPrograms.map((p) => (
             <div key={p.name} className="flex items-start justify-between gap-4 text-[1rem] leading-6">
               <span className="min-w-0">{p.name}</span><span className="shrink-0 text-[#6d675f]">{formatAgeRange(p.age)}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {otherPrograms.length > 0 && (
+        <div className="py-3 border-b border-[#e7e0d4] flex flex-col gap-2">
+          <span className="font-bold">Other recorded class ages</span>
+          <p className="text-[0.9375rem] text-[#6d675f]">Recorded from the source named on each row. Not confirmed for this branch, so these do not count as verified.</p>
+          {otherPrograms.map((p) => (
+            <div key={p.name} className="flex items-start justify-between gap-4 text-[1rem] leading-6">
+              <span className="min-w-0">{p.name}{ageSourceLabel(p) && <span className="block text-sm text-[#6d675f]">Source: {ageSourceLabel(p)}</span>}</span><span className="shrink-0 text-[#6d675f]">{formatAgeRange(p.age)}</span>
             </div>
           ))}
         </div>
