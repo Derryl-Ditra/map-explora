@@ -9007,3 +9007,6 @@ enrich1120pins(VENUES);
 
 import enrich1120Indie from "./enrich1120-indie";
 enrich1120Indie(VENUES);
+
+import enrich1122 from "./enrich1122";
+enrich1122(VENUES);
