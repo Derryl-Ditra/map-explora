@@ -11,7 +11,8 @@ test('Nov14 adds an official contact and a narrowly labelled partner play ticket
  // 2026-11-22: one brand-level program added (Music class 6-47 months).
  assert.equal(music.programs.length,1);
  const b=VENUES.find(v=>v.id==='buumi-playscape-pacific-place');
- assert.equal(b.priceListings.length,1);
+ // 2026-11-22 round F: two dated tiket.com partner tickets appended after this row.
+ assert.equal(b.priceListings.length,3);
  const p=b.priceListings[0];
  assert.equal(p.amountIdr,225000);assert.equal(p.sourceKind,'partner');
  assert.equal(p.checkedAt,'2026-11-14');
