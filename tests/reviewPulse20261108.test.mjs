@@ -4,6 +4,7 @@ import { importTs } from './loadTs.mjs';
 
 const { VENUES } = await importTs('../src/data/venues.ts');
 const { REVIEW_PULSE_2026_11_08 } = await importTs('../src/data/review-pulse-2026-11-08.ts');
+const { REVIEW_PULSE_2026_11_22_J } = await importTs('../src/data/enrich1122j.ts');
 const { trendVerdict, deriveTrend, reviewPulseLine, REVIEW_TREND_FALLBACK } = await importTs('../src/utils/reviewPulse.ts');
 
 test('every pulse key is a venue in this repo (no orphaned data)', () => {
@@ -16,6 +17,7 @@ test('every pulse key is a venue in this repo (no orphaned data)', () => {
 test('every stored 2026-11-08 trend is derived from stored evidence after merge', () => {
   let labeled = 0;
   let unlabeled = 0;
+  let repulsedByJ = 0;
   for (const venue of VENUES) {
     const pulse = REVIEW_PULSE_2026_11_08[venue.id];
     if (!pulse) continue;
@@ -23,6 +25,9 @@ test('every stored 2026-11-08 trend is derived from stored evidence after merge'
     assert.ok(reviews, `${venue.id} keeps its review summary`);
     const verdict = trendVerdict(reviews);
     if (!pulse.trendEvidence) {
+      // 2026-11-22 round J re-pulsed 15 of these venues; where J met the
+      // trend minimum its newer evidence now drives the label instead.
+      if (REVIEW_PULSE_2026_11_22_J[venue.id]?.trendEvidence) { repulsedByJ++; continue; }
       unlabeled++;
       assert.equal(verdict.trend, null, `${venue.id} without evidence shows no label`);
       assert.equal(reviewPulseLine(reviews).includes(REVIEW_TREND_FALLBACK), true, `${venue.id} falls back`);
@@ -34,7 +39,7 @@ test('every stored 2026-11-08 trend is derived from stored evidence after merge'
     assert.ok(verdict.comparisonText.includes(`(${pulse.trendEvidence.newerHalf} reviews)`), `${venue.id} shows newer-half count`);
     assert.ok(verdict.comparisonText.includes(`(${pulse.trendEvidence.olderHalf} reviews)`), `${venue.id} shows older-half count`);
   }
-  assert.equal(labeled + unlabeled, Object.keys(REVIEW_PULSE_2026_11_08).length);
+  assert.equal(labeled + unlabeled + repulsedByJ, Object.keys(REVIEW_PULSE_2026_11_08).length);
   assert.ok(labeled > 0);
 });
 

@@ -38,7 +38,9 @@ test('Nov18 ages and prices come from exact branch brochures, not a partner FAQ 
   assert.equal(v.priceListings.some(p=>p.amountIdr===250000),false);
   for(const p of v.priceListings){assert.equal(p.sourceKind,'official');assert.equal(p.sourceUrl,v.sourceUrl);assert.equal(p.checkedAt,'2026-11-18');for(const key of ['label','unit','note'])assert.ok(placeText(p[key],'id'),id+' '+key);}
   for(const p of v.priceListings.slice(0,3)){assert.match(p.note,/150,000 registration is extra/);assert.match(p.note,/two companions/);assert.match(p.note,/expiry/);}
-  assert.equal(v.reviews.trend,undefined);assert.equal(v.reviews.latestReview,undefined);
+  assert.equal(v.reviews.trend,undefined);
+  // 2026-11-22 round J: newest-review pulse adds the latest-review month to all four.
+  assert.deepEqual(v.reviews.latestReview,{date:id.includes('wijaya')?'2026-10':'2026-11',approximate:true});
   assert.match(v.reviews.sampleNote,id.includes('wijaya')?/only two reviews/:/pool-wide Maps ratings, not ratings of the baby class/);
  }
  assert.equal(sourceUrls.size,4);
