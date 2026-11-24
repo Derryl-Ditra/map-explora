@@ -81,7 +81,7 @@ test('v3 entry remains place-first, in-app and non-destructive',()=>{
  assert.doesNotMatch(drawer,/href="\/compare\//);
  for(const s of ['inert={comparisonOpen}','comparisonOrigin','history.back()','recordCompareOpen'])assert.ok(hud.includes(s));
  for(const s of ['Cancel replacement','Remove first place','Remove right place','Remove this place','previousScroll','v.id!==retained?.id','aria-expanded','Keeping','setExpanded({})','const [expanded,setExpanded]=useState<Record<string,boolean>>({})'])assert.ok(ui.includes(s),s);
- assert.doesNotMatch(ui,/<select/);
+ assert.match(ui,/<select aria-label/); // Area fallback, not a venue picker.
 });
 
 test('counter remains disabled rather than leak query or location into the existing SDK',async()=>{
