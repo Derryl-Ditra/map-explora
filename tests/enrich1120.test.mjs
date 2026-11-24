@@ -36,10 +36,14 @@ test('Nov20 BLS BSD Preschool gains official branch address binding and class ag
 test('Nov20 Rockstar Grand Bekasi stays official-listed with the current-term PDF evidence',()=>{
  const v=VENUES.find(v=>v.id==='rockstar-academy-grand-metropolitan-bekasi');assert.ok(v);
  assert.equal(v.operatingStatus.state,'official-listed');
- assert.equal(v.operatingStatus.source,'https://www.rockstaracademy.com/lib/upload/files/club/GB_Schedule_Winter_2026_W5.pdf');
- assert.equal(v.operatingStatus.checkedAt,'2026-11-20');
+ // 2026-11-24: enrich1124 depth batch moves the operating source to the branch page and re-checks against the Winter W5 PDF.
+ assert.equal(v.operatingStatus.source,'https://www.rockstaracademy.com/schedules-and-locations/grand-metropolitan-mall');
+ assert.equal(v.operatingStatus.checkedAt,'2026-11-24');
  assert.match(v.notes,/Floor LG2 Unit #2C/);assert.match(v.notes,/updated 15 November 2026/);
- assert.deepEqual(verifiedPrograms(v).map(p=>[p.name,p.age.minMonths,p.age.maxMonths]),[['Crawler',6,18],['Walker',12,23],['Jumper',24,35]]);
+ // 2026-11-24: enrich1124 adds the branch's under-5 program set. Year-labelled classes (Baby Ballet,
+ // Baby Dance, Move & Groove, Pre-Ballet 3-5, Smartology 3, Sports U4/5) keep their cards but stay
+ // outside the verified layer because the rounded year labels leave boundary inclusivity ambiguous.
+ assert.deepEqual(verifiedPrograms(v).map(p=>[p.name,p.age.minMonths,p.age.maxMonths]),[['Crawler',6,18],['Walker',12,23],['Jumper',24,35],['Learn & Play 1',6,18],['Learn & Play 2',19,35],['Smartology 4',48,59],['Sports U3',24,36],['Tots Gym U4',36,48]]);
 });
 
 test('Nov20 inventory counts move only on the BLS age upgrade',()=>{
