@@ -155,5 +155,26 @@ export const PLACE_SHORT_CODES: Record<string,string> = {
  "deen-haus-alkahf-bintaro": "6kX",
  "bumi-nusantara-montessori-bsd": "kZ7",
  "kimi-friends-montessori-gading-serpong": "Di6",
- "highfive-preschool-graha-raya": "5Wz"
+ "highfive-preschool-graha-raya": "5Wz",
+
+ // 2026-11-24 batch 4 (HK_VENUES): 19 partner-listed venues.
+ "majiku-larangan": "C7w",
+ "dposture-jatisampurna": "2Up",
+ "smartkidz-kelapa-gading": "Ee8",
+ "kidztiara-bantar-gebang": "Sq4",
+ "bintaro-inline-skate": "iW2",
+ "star-station-penjaringan": "Zb9",
+ "foxybright-bendella-bekasi": "Xk5",
+ "kodingyuk-depok-town-center": "7bG",
+ "bimba-rainbow-budi-agung": "4Nk",
+ "bimba-tahfidz-temanbaik-jatibening-1": "n5Y",
+ "doki-doki-craft-pluit": "5Qn",
+ "intro-education-pamulang": "xU9",
+ "bimba-rainstar-ciomas": "7aX",
+ "harahap-jagakarsa": "5Zs",
+ "swim-starter-kalideres": "7fQ",
+ "skola-bsd": "4vP",
+ "cadenza-anima-kebon-jeruk": "3Am",
+ "prelude-karawaci": "2Qb",
+ "cultura-mandatum-bsd": "B8c",
 };
