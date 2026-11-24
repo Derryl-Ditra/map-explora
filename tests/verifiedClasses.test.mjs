@@ -13,10 +13,11 @@ test('UI evidence rejects conflicts, ambiguity, missing bounds, missing sources 
 });
 test('dataset impact stays explicit without deleting public places',()=>{
  assert.equal(shown.length,152);
- assert.equal(shown.flatMap(verifiedPrograms).length,150);
+ // 2026-11-24: enrich1124 Rockstar depth batch lifts verified programs 150 -> 249 and month-59 coverage 3 -> 23 venues.
+ assert.equal(shown.flatMap(verifiedPrograms).length,249);
  assert.equal(shown.filter(v=>!verifiedPrograms(v).length).length,101);
  assert.equal(shown.filter(v=>!hasVerifiedAgeEvidence(v)).length,100);
- assert.equal(shown.filter(v=>venueConfirmedForAge(v,59)).length,3);
+ assert.equal(shown.filter(v=>venueConfirmedForAge(v,59)).length,23);
 });
 test('every confirmed place at all 60 stepper months has visible evidence covering that month',()=>{
  for(let m=0;m<60;m++)for(const v of shown){

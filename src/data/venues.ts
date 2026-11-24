@@ -9010,3 +9010,6 @@ enrich1120Indie(VENUES);
 
 import enrich1122 from "./enrich1122";
 enrich1122(VENUES);
+
+import enrich1124 from "./enrich1124";
+enrich1124(VENUES);

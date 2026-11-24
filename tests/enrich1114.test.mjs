@@ -32,6 +32,9 @@ test('Nov14 leaves pins, classes, reviews and listing dates untouched',()=>{
   const actual={...input[i]},expected={...before[i]};
   // caution intentionally excluded: enrich1120pins resolves the Nov19/20 cautions downstream of this patch
   for(const k of ['phone','priceListings','notes','caution']){delete actual[k];delete expected[k];}
+  // 2026-11-24: enrich1124 (Rockstar depth batch) supersedes this patch's operatingStatus
+  // for every rockstar-academy-* branch with branch-page + Winter W5 PDF evidence.
+  if(input[i].id.startsWith('rockstar-academy-')){delete actual.operatingStatus;delete expected.operatingStatus;}
   assert.deepEqual(actual,expected,input[i].id);
  }
 });

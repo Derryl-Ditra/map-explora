@@ -112,7 +112,9 @@ test('every bestAvailable marker carries its basis note', () => {
     for (const p of x.programs || [])
       if (p.age?.bestAvailable) {
         assert.ok(p.age.bestAvailableNote, `${x.id}/${p.name} missing bestAvailableNote`);
-        assert.equal(p.age.sourceCheckedAt, '2026-11-22');
+        // 2026-11-24: enrich1124 Rockstar programs carry exact PDF month bands checked 2026-11-24;
+        // the Nov22 CDC/WHO/AAP bestAvailable rows keep their 2026-11-22 date.
+        assert.ok(['2026-11-22', '2026-11-24'].includes(p.age.sourceCheckedAt), `${x.id}/${p.name} unexpected sourceCheckedAt ${p.age.sourceCheckedAt}`);
       }
 });
 

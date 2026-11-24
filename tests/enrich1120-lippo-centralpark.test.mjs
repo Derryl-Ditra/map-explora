@@ -8,10 +8,10 @@ test('Nov20 Lippo Mall Puri vs Central Park 2 naming is clear and sourced',()=>{
  assert.match(cp.branchName,/Neo Soho/);
  assert.match(cp.notes,/renamed Neo Soho mall/);assert.match(cp.notes,/different mall from Lippo Mall Puri/);
  assert.equal(cp.operatingStatus.state,'official-listed');
- // 2026-11-22: lastCheckedAt bumped to the Winter Term W5 schedule re-check (term evidence added); the Nov20 naming check above is unchanged.
- assert.equal(cp.lastCheckedAt,'2026-11-22');
+ // 2026-11-24: lastCheckedAt bumped to the enrich1124 Rockstar depth batch (branch page + Winter W5 PDF re-check); the Nov20 naming check above is unchanged.
+ assert.equal(cp.lastCheckedAt,'2026-11-24');
  const lp=VENUES.find(v=>v.id==='rockstar-academy-lippo-mall-puri');assert.ok(lp);
  assert.match(lp.notes,/separate mall from Central Park/);
- // 2026-11-22: lastCheckedAt bumped to the Winter Term W5 schedule re-check (term evidence added); the Nov20 naming check above is unchanged.
- assert.equal(lp.lastCheckedAt,'2026-11-22');
+ // 2026-11-24: lastCheckedAt bumped to the enrich1124 Rockstar depth batch (branch page + Winter W5 PDF re-check); the Nov20 naming check above is unchanged.
+ assert.equal(lp.lastCheckedAt,'2026-11-24');
 });
