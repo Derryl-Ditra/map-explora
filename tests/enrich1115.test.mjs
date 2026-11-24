@@ -12,7 +12,8 @@ test('Nov15 exposes four shared official enquiry numbers, not inferred branch li
   [['aquatic-baby-bintaro','aquatic-baby-rumabona-cikini-bintaro'],'+62 811-1698-740','https://aquatic-baby.com/lokasi']
  ]) for(const id of ids){
   const v=VENUES.find(v=>v.id===id);assert.equal(v.phoneScope,'shared-enquiry');assert.equal(v.phone,phone);assert.equal(v.operatingStatus.source,source);
-  assert.equal(v.operatingStatus.checkedAt,'2026-11-15');assert.match(v.notes,/shared|Shared/);assert.match(v.notes,/branch.*desk/);
+  // 2026-11-24: enrich1125 re-read the official aquatic-baby.com/lokasi page (both Bintaro locations still listed); aquababies keeps its 2026-11-15 check.
+  assert.equal(v.operatingStatus.checkedAt,id.startsWith('aquatic-baby-')?'2026-11-24':'2026-11-15');assert.match(v.notes,/shared|Shared/);assert.match(v.notes,/branch.*desk/);
  }
 });
 test('Plaza Senayan partner ticket is a priced range, not class tuition',()=>{
