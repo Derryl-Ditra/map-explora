@@ -14,10 +14,11 @@ test('UI evidence rejects conflicts, ambiguity, missing bounds, missing sources 
 test('dataset impact stays explicit without deleting public places',()=>{
  assert.equal(shown.length,152);
  // 2026-11-24: enrich1124 Rockstar depth batch lifts verified programs 150 -> 249 and month-59 coverage 3 -> 23 venues.
- assert.equal(shown.flatMap(verifiedPrograms).length,249);
+ // 2026-11-24: enrich1126 adds Kemang's Toddler/Nursery/K1-K2 classes (249 -> 252), and K1&K2 (48-71 mo) makes Kemang confirmed at 59 months (23 -> 24).
+ assert.equal(shown.flatMap(verifiedPrograms).length,252);
  assert.equal(shown.filter(v=>!verifiedPrograms(v).length).length,101);
  assert.equal(shown.filter(v=>!hasVerifiedAgeEvidence(v)).length,100);
- assert.equal(shown.filter(v=>venueConfirmedForAge(v,59)).length,23);
+ assert.equal(shown.filter(v=>venueConfirmedForAge(v,59)).length,24);
 });
 test('every confirmed place at all 60 stepper months has visible evidence covering that month',()=>{
  for(let m=0;m<60;m++)for(const v of shown){
@@ -50,9 +51,15 @@ test('Membumi and Genesis exact classes remain separate from conflicting and yea
 });
 
 test('BLS exact sensory class ages stay bound to the published learning centers',()=>{
- const rows={'bright-little-stars-kemang':[['Baby Blossoms',6,12],['Giggles and Glows',12,18],['Cuddle Bugs',18,24]],'bright-little-stars-bintaro':[['Incredible Infant',3,6],['Brilliant Baby',6,12],['Thriving Toddler',12,18],['Talented Toddler',18,24]],'bright-little-stars-bsd-learning-center':[['Incredible Infant',3,6],['Brilliant Baby',6,12],['Thriving Toddler',12,18],['Talented Toddler',18,24]]};
+ // 2026-11-24: enrich1126 adds Kemang's preschool classes from /preschool, so
+ // Kemang carries two source pages and two check dates; assert it separately.
+ const rows={'bright-little-stars-bintaro':[['Incredible Infant',3,6],['Brilliant Baby',6,12],['Thriving Toddler',12,18],['Talented Toddler',18,24]],'bright-little-stars-bsd-learning-center':[['Incredible Infant',3,6],['Brilliant Baby',6,12],['Thriving Toddler',12,18],['Talented Toddler',18,24]]};
  for(const [id,expected] of Object.entries(rows)){const v=VENUES.find(v=>v.id===id);assert.deepEqual(verifiedPrograms(v).map(p=>[p.name,p.age.minMonths,p.age.maxMonths]),expected);for(const p of verifiedPrograms(v)){assert.match(p.age.providerAgeUrl,/brightlittlestarsedu.com\/programs\//);assert.equal(p.age.sourceCheckedAt,'2026-11-05');}}
  assert.deepEqual(verifiedPrograms(VENUES.find(v=>v.id==='bright-little-stars-bsd-preschool')).map(p=>[p.name,p.age.minMonths,p.age.maxMonths]),[['Toddler',24,35],['Nursery',36,47],['Kindergarten 1 & 2',48,71]]);
+ {const k=verifiedPrograms(VENUES.find(v=>v.id==='bright-little-stars-kemang'));
+  assert.deepEqual(k.map(p=>[p.name,p.age.minMonths,p.age.maxMonths]),[['Baby Blossoms',6,12],['Giggles and Glows',12,18],['Cuddle Bugs',18,24],['Toddler Class',24,35],['Nursery Class',36,47],['Kindergarten 1 & 2',48,71]]);
+  for(const p of k.slice(0,3)){assert.match(p.age.providerAgeUrl,/brightlittlestarsedu.com\/programs\//);assert.equal(p.age.sourceCheckedAt,'2026-11-05');}
+  for(const p of k.slice(3)){assert.equal(p.age.providerAgeUrl,'https://www.brightlittlestarsedu.com/preschool');assert.equal(p.age.sourceCheckedAt,'2026-11-24');assert.equal(p.age.level,'branch');}}
  // 2026-11-22: both conflicts settled (dated term PDF; conservative summary bound with AAP second opinion).
  const lp1=VENUES.find(v=>v.id==='rockstar-academy-gandaria-city').programs.find(p=>p.name==='Learn & Play 1').age;
  assert.equal(lp1.sourceConflict,undefined);assert.equal(lp1.minMonths,6);assert.equal(lp1.maxMonths,18);assert.equal(lp1.verification,'provider-confirmed');
