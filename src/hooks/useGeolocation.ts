@@ -8,6 +8,7 @@ const JAKARTA_CENTER: [number, number] = [-6.2088, 106.8456];
 // Do not use a previous visit's saved coordinates as a current location.
 export function useGeolocation() {
   const [userPos, setUserPos] = useState<[number, number] | null>(JAKARTA_CENTER);
+  const [locatedAt,setLocatedAt]=useState<number|null>(null);
   const [accuracy, setAccuracy] = useState<number | null>(null);
   const [hasActualLocation, setHasActualLocation] = useState(false);
   const [isLocating, setIsLocating] = useState(false);
@@ -38,6 +39,7 @@ export function useGeolocation() {
         setUserPos([pos.coords.latitude, pos.coords.longitude]);
         setAccuracy(typeof pos.coords.accuracy === "number" ? pos.coords.accuracy : null);
         setHasActualLocation(true);
+        setLocatedAt(Date.now());
         setIsLocating(false);
         setError(null);
     setErrorCode(null);
@@ -60,5 +62,5 @@ export function useGeolocation() {
     );
   }, []);
 
-  return { userPos, accuracy, hasActualLocation, isLocating, error, errorCode, recenterTick, refresh };
+  return { locatedAt, userPos, accuracy, hasActualLocation, isLocating, error, errorCode, recenterTick, refresh };
 }

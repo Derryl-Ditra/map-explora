@@ -49,8 +49,8 @@ export default function MapHUD({initialCompare=false, compareLang="en"}:{initial
   const comparisonOrigin=useRef(false);
   const compareTrigger=useRef<HTMLElement|null>(null);
   useEffect(()=>{
-    const pop=()=>{const q=new URLSearchParams(location.search);setComparisonOpen(q.get("compare")==="1" || /\/compare\//.test(location.pathname));};
-    const open=(event:Event)=>{const id=(event as CustomEvent<string>).detail;const ids=comparisonSelection(compareVenues,id,null);if(!ids[0])return;compareTrigger.current=document.activeElement as HTMLElement;comparisonOrigin.current=true;const u=new URL(location.href);u.searchParams.set("compare","1");u.searchParams.set("a",ids[0]);u.searchParams.delete("b");const language=u.searchParams.get("shareLang")==="id"?"id":"en";setComparisonLanguage(language);history.pushState(history.state,"",u);recordCompareOpen();setComparisonOpen(true);};
+    const pop=()=>{const q=new URLSearchParams(location.search);setComparisonOpen(q.has("c") || q.get("compare")==="1" || /\/compare\//.test(location.pathname));};
+    const open=(event:Event)=>{const id=(event as CustomEvent<string>).detail;const ids=comparisonSelection(compareVenues,id,null);if(!ids[0])return;compareTrigger.current=document.activeElement as HTMLElement;comparisonOrigin.current=true;const u=new URL(location.href);u.searchParams.delete("c");u.searchParams.set("compare","1");u.searchParams.set("a",ids[0]);u.searchParams.delete("b");const language=u.searchParams.get("shareLang")==="id"?"id":"en";setComparisonLanguage(language);history.pushState(history.state,"",u);recordCompareOpen();setComparisonOpen(true);};
     window.addEventListener("map-explora-compare",open);window.addEventListener("popstate",pop);const tick=requestAnimationFrame(pop);
     return()=>{cancelAnimationFrame(tick);window.removeEventListener("map-explora-compare",open);window.removeEventListener("popstate",pop);};
   },[]);
@@ -64,6 +64,7 @@ export default function MapHUD({initialCompare=false, compareLang="en"}:{initial
     error: locationError,
     errorCode: locationErrorCode,
     recenterTick,
+    locatedAt,
     refresh,
   } = useGeolocation();
   // Distances are only computed from a real fix. Without location
@@ -310,7 +311,7 @@ export default function MapHUD({initialCompare=false, compareLang="en"}:{initial
           onClose={handleClearActiveVenue}
         />
       )}
-    </div>{comparisonOpen&&<ComparePlaces venues={compareVenues} lang={comparisonLanguage} onBack={closeComparison}/>}</>
+    </div>{comparisonOpen&&<ComparePlaces venues={compareVenues} lang={comparisonLanguage} initialFix={hasActualLocation&&userPos&&locatedAt?{lat:userPos[0],lng:userPos[1],at:locatedAt,accuracy:accuracy||0}:null} onBack={closeComparison}/>}</>
   );
 }
 // Trailing sentinel: absorbs the web editor last-line indent artifact.
