@@ -23,12 +23,15 @@ test('Nov20 BLS BSD Preschool gains official branch address binding and class ag
  assert.deepEqual(verifiedPrograms(v).map(p=>[p.name,p.age.minMonths,p.age.maxMonths]),[['Toddler',24,35],['Nursery',36,47],['Kindergarten 1 & 2',48,71]]);
  for(const p of v.programs){
   assert.equal(p.offering,'offered');assert.equal(p.age.level,'branch');assert.equal(p.age.verification,'provider-confirmed');
-  assert.equal(p.age.providerAgeUrl,'https://www.brightlittlestarsedu.com/blog/bright-little-stars-preschool-now-open-in-bsd');
-  assert.equal(p.age.sourceCheckedAt,'2026-11-20');assert.ok(placeText(p.note,'id'));
+  // 2026-11-24: enrich1126 upgrades the class source from the opening blog post
+  // to the canonical /preschool page (same classes, listed per branch there).
+  assert.equal(p.age.providerAgeUrl,'https://www.brightlittlestarsedu.com/preschool');
+  assert.equal(p.age.sourceCheckedAt,'2026-11-24');assert.ok(placeText(p.note,'id'));
  }
  assert.equal(v.operatingStatus.state,'official-listed');
  assert.equal(v.operatingStatus.source,'https://www.brightlittlestarsedu.com/contact-us');
- assert.equal(v.operatingStatus.checkedAt,'2026-11-20');assert.equal(v.lastCheckedAt,'2026-11-20');
+ // 2026-11-24: enrich1126 re-read the official site and re-stamps both dates.
+ assert.equal(v.operatingStatus.checkedAt,'2026-11-24');assert.equal(v.lastCheckedAt,'2026-11-24');
  assert.match(v.notes,/Daikanyama Blok A16/);assert.ok(!v.caution);
  assert.ok(hasVerifiedAgeEvidence(v));
 });
