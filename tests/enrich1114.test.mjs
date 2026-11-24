@@ -38,6 +38,10 @@ test('Nov14 leaves pins, classes, reviews and listing dates untouched',()=>{
   // 2026-11-24: enrich1125 (depth batch 2) adds cardNote + lastCheckedAt and re-verifies
   // sources for these chains; this patch must not overwrite them when re-applied.
   if(/^(sparks-sports-academy-|sparks-swim-|studiorenang-|aquatic-baby-)/.test(input[i].id))for(const k of ['cardNote','lastCheckedAt','operatingStatus']){delete actual[k];delete expected[k];}
+  // 2026-11-24: enrich1126 (depth batch 3) adds trial cardNotes, official website
+  // links, new branch-confirmed classes and re-verification stamps for these
+  // chains; this patch must not overwrite them when re-applied.
+  if(/^(english-1-|i-can-read-|bright-little-stars-)/.test(input[i].id))for(const k of ['cardNote','lastCheckedAt','operatingStatus','website','programs']){delete actual[k];delete expected[k];}
   assert.deepEqual(actual,expected,input[i].id);
  }
 });
