@@ -35,6 +35,9 @@ test('Nov14 leaves pins, classes, reviews and listing dates untouched',()=>{
   // 2026-11-24: enrich1124 (Rockstar depth batch) supersedes this patch's operatingStatus
   // for every rockstar-academy-* branch with branch-page + Winter W5 PDF evidence.
   if(input[i].id.startsWith('rockstar-academy-')){delete actual.operatingStatus;delete expected.operatingStatus;}
+  // 2026-11-24: enrich1125 (depth batch 2) adds cardNote + lastCheckedAt and re-verifies
+  // sources for these chains; this patch must not overwrite them when re-applied.
+  if(/^(sparks-sports-academy-|sparks-swim-|studiorenang-|aquatic-baby-)/.test(input[i].id))for(const k of ['cardNote','lastCheckedAt','operatingStatus']){delete actual[k];delete expected[k];}
   assert.deepEqual(actual,expected,input[i].id);
  }
 });
