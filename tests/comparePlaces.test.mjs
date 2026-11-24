@@ -46,7 +46,7 @@ test('fee UI preserves products, units, separate registration, sources, dates an
 });
 
 test('comparison has explicit uncertainty, review attribution and no winner ranking',()=>{
- const ui=readFileSync(new URL('../src/components/ComparePlaces.tsx',import.meta.url),'utf8');assert.match(ui,/No best-place or cheapest ranking/);assert.match(ui,/verifiedPrograms/);assert.match(ui,/publicProgramNote/);assert.match(ui,/publicCaution/);assert.match(ui,/useState<\[string,string\]>\(\['',''\]\)/);
+ const ui=readFileSync(new URL('../src/components/ComparePlaces.tsx',import.meta.url),'utf8');assert.match(ui,/No best-place or cheapest ranking/);assert.match(ui,/verifiedPrograms/);assert.match(ui,/publicProgramNote/);assert.match(ui,/publicCaution/);assert.match(ui,/!isDeadSourceUrl\(v!\.operatingStatus\?\.source\|\|v!\.sourceUrl\)&&<a href=/);assert.match(ui,/useState<\[string,string\]>\(\['',''\]\)/);
  // Owner ask 2026-11-22: the snapshot is data-only; these pins guard that
  // the cut disclaimers stay out and the surviving data rows stay in.
  const reviews=readFileSync(new URL('../src/components/ReviewSnapshot.tsx',import.meta.url),'utf8');
