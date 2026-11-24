@@ -12,12 +12,12 @@ test('UI evidence rejects conflicts, ambiguity, missing bounds, missing sources 
  assert.equal(isVerifiedAgeClaim(claim,'upper-bound inclusivity ambiguous'),false);
 });
 test('dataset impact stays explicit without deleting public places',()=>{
- assert.equal(shown.length,152);
+ assert.equal(shown.length,171); // 2026-11-24 batch 4 (HK_VENUES): +19 partner-listed venues; shown 152 -> 171, total 164 -> 183.
  // 2026-11-24: enrich1124 Rockstar depth batch lifts verified programs 150 -> 249 and month-59 coverage 3 -> 23 venues.
  // 2026-11-24: enrich1126 adds Kemang's Toddler/Nursery/K1-K2 classes (249 -> 252), and K1&K2 (48-71 mo) makes Kemang confirmed at 59 months (23 -> 24).
  assert.equal(shown.flatMap(verifiedPrograms).length,252);
- assert.equal(shown.filter(v=>!verifiedPrograms(v).length).length,101);
- assert.equal(shown.filter(v=>!hasVerifiedAgeEvidence(v)).length,100);
+ assert.equal(shown.filter(v=>!verifiedPrograms(v).length).length,120); // 2026-11-24 batch 4 (HK_VENUES): 101 -> 120; all 19 partner-listed venues keep listed-unconfirmed ages, so no verified programs yet.
+ assert.equal(shown.filter(v=>!hasVerifiedAgeEvidence(v)).length,119); // 2026-11-24 batch 4: 100 -> 119; all 19 keep listed-unconfirmed ages (kodingyuk's provider-confirmed range is brand-level, not branch-level, so it is not verified branch evidence).
  assert.equal(shown.filter(v=>venueConfirmedForAge(v,59)).length,24);
 });
 test('every confirmed place at all 60 stepper months has visible evidence covering that month',()=>{
