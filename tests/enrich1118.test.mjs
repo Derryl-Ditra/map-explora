@@ -11,13 +11,13 @@ const ids=['kiddies88-maspen-cimuning','kiddies88-waterland-transyogi','kiddies8
 
 test('Nov18 adds exactly four reviewed branches without changing the previous inventory',()=>{
  assert.deepEqual(KIDDIES88_20261118.map(v=>v.id),ids);
- assert.equal(VENUES.length,164);
- assert.equal(VENUES.filter(isShownToUsers).length,152);
+ assert.equal(VENUES.length,183); // 2026-11-24 batch 4 (HK_VENUES): +19 partner-listed venues; total 164 -> 183.
+ assert.equal(VENUES.filter(isShownToUsers).length,171); // 2026-11-24 batch 4 (HK_VENUES): +19 partner-listed venues; shown 152 -> 171, total 164 -> 183.
  assert.equal(VENUES.filter(isShownToUsers).filter(hasVerifiedAgeEvidence).length,52);
  // 2026-11-22 round F: Buumi Urban Forest priced via dated tiket.com listings.
  // 2026-11-22 round H: aquababies-bintaro and aquababies-menteng priced via the official shop page.
  // 2026-11-22 round I: kiddiegym-bogor-siliwangi priced via the official school-fees page.
- assert.equal(VENUES.filter(isShownToUsers).filter(v=>v.priceListings?.length).length,24);
+ assert.equal(VENUES.filter(isShownToUsers).filter(v=>v.priceListings?.length).length,43); // 2026-11-24 batch 4 (HK_VENUES): 24 -> 43 (19 venues with Happy Kamper price listings).
  const old=structuredClone(VENUES.filter(v=>!ids.includes(v.id))),before=structuredClone(old);
  enrich(old);assert.deepEqual(old.slice(0,before.length),before);
  assert.equal(old.length,before.length+4);
@@ -55,7 +55,8 @@ test('Nov18 pool concerns remain visible in English and Bahasa, with bounded att
 });
 
 test('Nov18 closure, pin conflicts, historical events and home-visit leads are not promoted',()=>{
- for(const fragment of ['kidzero','biruuu','jiico','majiku','pearls','mosart','ben-belajar','clavora'])assert.equal(VENUES.some(v=>v.id.includes(fragment)),false,fragment);
+ // 2026-11-24: 'majiku' leaves this hold list - majiku-larangan joins as a partner-listed venue with a Maps-verified address (HK batch 4).
+ for(const fragment of ['kidzero','biruuu','jiico','pearls','mosart','ben-belajar','clavora'])assert.equal(VENUES.some(v=>v.id.includes(fragment)),false,fragment);
  const decisions=JSON.parse(readFileSync(new URL('../docs/research/capture-decisions.json',import.meta.url),'utf8'));
  const closed=decisions.find(d=>d.sourceUrl.endsWith('/24-sesi-sensory-class'));assert.equal(closed.state,'hold');assert.match(closed.reason,/temporarily closed/);
  const pin=decisions.find(d=>d.sourceUrl.endsWith('/sensory-class-2'));assert.equal(pin.state,'hold');assert.match(pin.reason,/640 m/);
