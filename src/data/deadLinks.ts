@@ -5,6 +5,8 @@
 // - Rockstar winter schedule PDFs (AEON BSD, The Park Pejaten): 404.
 // - studiorenang.com: whole site 502, root included (was also 502 in QC's
 //   earlier run the same day), so every studiorenang.com link is hidden.
+//   2026-11-24: the site is back up but outlet pages (e.g. /outlet/003/)
+//   serve injected gambling spam; keep hidden until the site is clean again.
 // - gymnademics.id: NXDOMAIN, the domain no longer resolves.
 // thefuntasticgym.com/schedule/schedules-pondok-indah-mall-2/ returned 200
 // with live schedule content on re-check, so it is NOT hidden.
