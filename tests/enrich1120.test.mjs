@@ -50,11 +50,11 @@ test('Nov20 Rockstar Grand Bekasi stays official-listed with the current-term PD
 });
 
 test('Nov20 inventory counts move only on the BLS age upgrade',()=>{
- assert.equal(VENUES.length,164);
- assert.equal(VENUES.filter(isShownToUsers).length,152);
+ assert.equal(VENUES.length,183); // 2026-11-24 batch 4 (HK_VENUES): +19 partner-listed venues; total 164 -> 183.
+ assert.equal(VENUES.filter(isShownToUsers).length,171); // 2026-11-24 batch 4 (HK_VENUES): +19 partner-listed venues; shown 152 -> 171, total 164 -> 183.
  assert.equal(VENUES.filter(isShownToUsers).filter(hasVerifiedAgeEvidence).length,52);
  // 2026-11-22 round F: Buumi Urban Forest priced via dated tiket.com listings.
  // 2026-11-22 round H: aquababies-bintaro and aquababies-menteng priced via the official shop page.
  // 2026-11-22 round I: kiddiegym-bogor-siliwangi priced via the official school-fees page.
- assert.equal(VENUES.filter(isShownToUsers).filter(v=>v.priceListings?.length).length,24);
+ assert.equal(VENUES.filter(isShownToUsers).filter(v=>v.priceListings?.length).length,43); // 2026-11-24 batch 4 (HK_VENUES): 24 -> 43 (19 venues with Happy Kamper price listings).
 });
