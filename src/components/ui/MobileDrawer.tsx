@@ -243,7 +243,7 @@ export default function MobileDrawer({
               <LocationNotice message={locationNotice} denied={locationDenied} />
               <button type="button" aria-label="Dismiss location notice" onClick={onDismissLocationNotice} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"><X className="h-4 w-4" /></button>
             </div>}
-            <Link href="/for/class-costs-jakarta/" className="-mb-1 self-start text-sm font-semibold text-[#1a7a4a] underline underline-offset-2 py-1">What classes cost</Link>
+            <Link href="/for/class-costs-jakarta/" className="-mb-1 self-start min-h-11 flex items-center text-sm font-semibold text-[#1a7a4a] underline underline-offset-2">What classes cost</Link>
             {/* Search Input */}
             <div className="relative w-full shrink-0">
               <Search className="w-4.5 h-4.5 text-[#6d675f] absolute left-4 top-1/2 -translate-y-1/2" />
