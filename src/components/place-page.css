@@ -2,3 +2,4 @@
 
 .place-page .compare-concern{background:#fff3dc;border-left:3px solid #aa6e18;padding:10px}.place-page .review-snapshot a{display:inline-flex;align-items:center;min-height:44px}
 .place-class-list{list-style:none;margin:0;padding:0}.place-class-list li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid #e7e0d4}.place-class-list li:first-child{border-top:0}.place-age{font-weight:600;white-space:nowrap}.place-notes{margin:8px 0;font-size:.9rem}.place-notes summary{cursor:pointer;color:#176b42;font-weight:600;min-height:44px;display:flex;align-items:center}.place-actions a{min-height:44px;display:inline-flex;align-items:center}
+.place-nav a{display:inline-flex;align-items:center;min-height:44px}.place-page main p a,.place-page dd a,.place-sources a{display:inline-block;padding:12px 2px;margin:-12px 0}.place-page .place-actions a{padding:0 16px;margin:0}
