@@ -30,7 +30,7 @@ export default function enrich1122h(venues: Venue[]) {
         source: "aquababiesindonesia.id",
         sourceUrl: shopUrl,
         checkedAt,
-        note: "Official shop page, read 22 Nov 2026. The page does not state the session count. Existing-student packages Rp 3,350,000 - 13,400,000. Confirm package contents before paying.",
+        note: "Confirm package contents before paying.",
       },
     ];
     v.lastCheckedAt = checkedAt;
