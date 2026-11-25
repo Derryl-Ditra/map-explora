@@ -149,6 +149,7 @@ const translations: Record<string,string> = {
   // 2026-11-22 round H: Aquababies official course-package price.
   "per course package (new student)": "per paket kursus (murid baru)",
   "Aquababies course package, new student (Jakarta & Surabaya)": "Paket kursus Aquababies, murid baru (Jakarta & Surabaya)",
+  "Confirm package contents before paying.": "Konfirmasi isi paket sebelum membayar.",
   "Official shop page, read 22 Nov 2026. The page does not state the session count. Existing-student packages Rp 3,350,000 - 13,400,000. Confirm package contents before paying.": "Halaman toko resmi, dibaca 22 Nov 2026. Jumlah sesi tidak disebut di halaman. Paket murid lama Rp 3.350.000 - 13.400.000. Tanyakan isi paket sebelum membayar.",
   // 2026-11-22 round I: KiddieGym Bogor official from-price.
   "per session (from-price)": "per sesi (harga mulai dari)",

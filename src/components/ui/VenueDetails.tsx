@@ -8,7 +8,7 @@ import { useState } from "react";
 import { Venue, AgeClaim } from "@/types/venue";
 import { isVerifiedAgeClaim, verifiedPrograms } from "@/utils/ageMatch";
 import { canRouteVenue } from "@/utils/mapsLink";
-import { decidedAgeRange, formatDecidedRange, CONFIRM_BY_PHONE, isTrueBrandProgram, ageSourceLabel } from "@/utils/decideAge";
+import { decidedAgeRange, formatDecidedRange, formatDecidedMonths, formatUnder5Range, CONFIRM_BY_PHONE, isTrueBrandProgram, AGES_BEING_RECHECKED } from "@/utils/decideAge";
 import { formatIsoMonth, trendVerdict } from "@/utils/reviewPulse";
 import {
   Phone,
@@ -29,13 +29,6 @@ interface VenueDetailsProps {
 
 const REPORTS_KEY = "map-explora-venue-reports";
 
-function formatMonths(m: number): string {
-  // Parents of under-4s read months; switch to years only past 36.
-  if (m <= 36) return `${m} mo`;
-  const yrs = m / 12;
-  return `${Number.isInteger(yrs) ? yrs : yrs.toFixed(1)} yr`;
-}
-
 function formatIdr(n: number): string {
   return `Rp ${n.toLocaleString("id-ID")}`;
 }
@@ -48,20 +41,13 @@ function formatCheckedDate(iso: string): string {
 
 function formatAgeRange(age: AgeClaim): string {
   if (age.minMonths === null && age.maxMonths === null) return "ages not stated";
-  const lo = age.minMonths === null ? "0 mo" : formatMonths(age.minMonths);
-  if (age.maxMonths === null) return `from ${lo}`;
-  return `${lo} - ${formatMonths(age.maxMonths)}`;
+  const lo = age.minMonths ?? 0;
+  if (age.maxMonths === null) return `from ${formatDecidedMonths(lo)}`;
+  return formatUnder5Range(lo, age.maxMonths);
 }
 
-// QC on PR #106: settled claims get a tiny inline tag on their own class row,
-// not a separate box with paragraphs.
-function BestAvailableTag({ age }: { age: AgeClaim }) {
-  if (!age.bestAvailable) return null;
-  return (
-    <span className="ml-1.5 text-sm text-[#3d5546]">
-      Best available{age.bestAvailableUrl && <> · <a href={age.bestAvailableUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">Reference</a></>}
-    </span>
-  );
+function hostOf(url: string): string {
+  try { return new URL(url).hostname.replace(/^www\./, ""); } catch { return url; }
 }
 
 const IG_PATH = "M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077";
@@ -139,8 +125,20 @@ export default function VenueDetails({
   const otherPrograms = venue.programs.filter(
     (p) => p.offering === "offered" && !offered.includes(p) && !isTrueBrandProgram(p) && p.age.minMonths != null && p.age.maxMonths != null
   );
+  // One list: verified classes first, then brand and provider-listed ones.
+  const classRows = [
+    ...offered.map((p) => ({ p, verified: true })),
+    ...[...brandPrograms, ...otherPrograms].map((p) => ({ p, verified: false })),
+  ].filter((row, i, all) => all.findIndex((r) => r.p.name === row.p.name) === i);
+  const noneVerified = classRows.length > 0 && !classRows.some((r) => r.verified);
+  const mixedVerification = classRows.some((r) => r.verified) && classRows.some((r) => !r.verified);
+  const sourceUrls = classRows.map((r) => r.p.age.providerAgeUrl).filter((u): u is string => !!u && !isDeadSourceUrl(u));
+  const classSources = [...new Map(sourceUrls.map((u) => [hostOf(u), { host: hostOf(u), url: u }])).values()];
+  const classCheckedAt = classRows.map((r) => r.p.age.sourceCheckedAt).filter((d): d is string => !!d).sort().at(-1);
   // Owner rule 2026-11-22 (follow-up): always a decided range, never a shrug.
   const decided = decidedAgeRange(venue);
+  // Stored ages and fees failed a verification pass: hide the numbers, show one line.
+  const pending = !!venue.pendingReverification;
   const [allClasses, setAllClasses] = useState(false);
   const estimates = estimatedPrograms(venue);
   const branchAge = venue.branchAge && isVerifiedAgeClaim(venue.branchAge) ? venue.branchAge : null;
@@ -158,73 +156,50 @@ export default function VenueDetails({
         {mapPeek && <button type="button" onClick={onExpandDetails} className="md:hidden min-h-11 text-sm font-semibold text-[#14532d] text-left">See classes and reviews</button>}
       </div>
 
-      {/* Classes by age: the first thing a parent scans */}
-      <div className="pb-4 border-b border-[#e7e0d4] flex flex-col gap-3">
-        <div className="flex items-center gap-2">
-          
-          <span className="font-bold text-[1rem] text-[#221d18]">Classes by age</span>
-          {(offered.length > 0 || branchAge) && <span className="ml-auto text-sm text-[#14532d] font-semibold flex items-center gap-1"><ShieldCheck className="w-3.5 h-3.5"/>Verified</span>}
-        </div>
-        {offered.length === 0 && !branchAge ? (
+      {/* Classes: one list, one source line. The first thing a parent scans. */}
+      <section className="pb-4 border-b border-[#e7e0d4] flex flex-col gap-2" aria-label="Classes by age">
+        <h3 className="font-bold text-[1rem] text-[#221d18]">Classes by age</h3>
+        {pending ? (
+          <span className="text-[1rem] text-[#6d675f]">{AGES_BEING_RECHECKED}</span>
+        ) : classRows.length === 0 && !branchAge ? (
           <span className="text-[1rem] text-[#6d675f]">
             {decided.confidence === "general"
               ? `Ages not published. ${CONFIRM_BY_PHONE}`
-              : brandPrograms.length > 0 || otherPrograms.length > 0
-                // QC on PR #106: the section below already lists the ranges;
-                // repeating the merged range here read as the same fact 3x.
-                ? `${decided.confidence === "brand" ? "Brand" : "Listed"} ages below. ${CONFIRM_BY_PHONE}`
-                : `${decided.confidence === "brand" ? "Brand" : "Listed"} ages: ${formatDecidedRange(decided.minMonths, decided.maxMonths)}. ${CONFIRM_BY_PHONE}`}
+              : `${decided.confidence === "brand" ? "Brand" : "Listed"} ages: ${formatDecidedRange(decided.minMonths, decided.maxMonths)}. ${CONFIRM_BY_PHONE}`}
           </span>
         ) : (
-          <div className="flex flex-col gap-2 pt-0">
-            {branchAge && (
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="text-[1rem] font-medium text-[#221d18]">
-                  Branch statement: {formatAgeRange(branchAge)}
-                </span>
-              </div>
+          <>
+            {branchAge && <p className="text-[1rem] font-medium text-[#221d18]">Branch statement: {formatAgeRange(branchAge)}</p>}
+            <ul className="flex flex-col divide-y divide-[#efe9de]">
+              {(allClasses ? classRows : classRows.slice(0, 4)).map(({ p, verified }) => (
+                <li key={p.name} className="flex items-baseline justify-between gap-4 py-1.5 text-[1rem] leading-6">
+                  <span className="min-w-0">{p.name}</span>
+                  <span className="shrink-0 text-[#4a443c] tabular-nums flex items-center gap-1">
+                    {verified && <ShieldCheck aria-label="Confirmed for this branch" className="w-3.5 h-3.5 text-[#14532d]" />}
+                    {formatAgeRange(p.age)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            {classRows.length > 4 && <button type="button" onClick={() => setAllClasses((v) => !v)} aria-expanded={allClasses} className="min-h-11 self-start text-sm font-semibold text-[#14532d] rounded-md focus-visible:outline-2">{allClasses ? "Show fewer" : `Show all ${classRows.length} classes`}</button>}
+            {(classSources.length > 0 || mixedVerification) && (
+              <p className="text-[0.875rem] text-[#6d675f]">
+                {noneVerified && <>Not confirmed for this branch. {CONFIRM_BY_PHONE} </>}
+                {mixedVerification && <>Check mark: confirmed for this branch. Other ages are provider-listed; {CONFIRM_BY_PHONE.toLowerCase()} </>}
+                {classSources.length > 0 && <>Ages from {classSources.map((s, i) => <span key={s.url}>{i > 0 && ", "}<a href={s.url} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a] inline-block py-3 -my-3">{s.host}</a></span>)}{classCheckedAt && `, read ${formatCheckedDate(classCheckedAt)}`}.</>}
+              </p>
             )}
-            {(allClasses ? offered : offered.slice(0,3)).map((p) => (
-              <div key={p.name} className="flex items-start justify-between gap-4 text-[1rem] leading-6">
-                <span className="min-w-0">{p.name}<BestAvailableTag age={p.age} /></span><span className="shrink-0 text-[#6d675f]">{formatAgeRange(p.age)}</span>
-              </div>
-            ))}
-            {offered.length > 3 && <button type="button" onClick={()=>setAllClasses(v=>!v)} aria-expanded={allClasses} className="min-h-11 self-start text-sm font-semibold text-[#14532d] rounded-md focus-visible:outline-2">{allClasses ? "Show fewer" : `Show all ${offered.length} classes`}</button>}
-
-          </div>
+          </>
         )}
+      </section>
 
-      </div>
-
-      {brandPrograms.length > 0 && (
-        <div className="py-3 border-b border-[#e7e0d4] flex flex-col gap-2">
-          <span className="font-bold">Brand program ages</span>
-          {brandPrograms.map((p) => (
-            <div key={p.name} className="flex items-start justify-between gap-4 text-[1rem] leading-6">
-              <span className="min-w-0">{p.name}<BestAvailableTag age={p.age} /></span><span className="shrink-0 text-[#6d675f]">{formatAgeRange(p.age)}</span>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {otherPrograms.length > 0 && (
-        <div className="py-3 border-b border-[#e7e0d4] flex flex-col gap-2">
-          <span className="font-bold">Other recorded class ages</span>
-          {otherPrograms.map((p) => (
-            <div key={p.name} className="flex items-start justify-between gap-4 text-[1rem] leading-6">
-              <span className="min-w-0">{p.name}<BestAvailableTag age={p.age} /></span><span className="shrink-0 text-[#6d675f]">{formatAgeRange(p.age)}{p.age.providerAgeUrl && !isDeadSourceUrl(p.age.providerAgeUrl) && ageSourceLabel(p) && <> · <a href={p.age.providerAgeUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">{ageSourceLabel(p)}</a></>}</span>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {estimates.length > 0 && (
+      {estimates.length > 0 && !pending && (
         <div className="py-3 border-b border-[#e7e0d4] flex flex-col gap-3">
           <span className="font-bold">Estimated ages</span>
           {estimates.map(estimate => {
             return <div key={estimate.name} className="flex flex-col gap-1 text-[0.9375rem]">
               <span className="font-semibold">{estimate.name}: {estimate.minMonths} to {estimate.maxMonths} months</span>
-              <div className="flex flex-wrap gap-3">{estimate.sources.map((url, i) => <a key={url} href={url} target="_blank" rel="noopener noreferrer" className="text-[#1a7a4a] underline">Source {i + 1}</a>)}</div>
+              <div className="flex flex-wrap gap-3">{estimate.sources.map((url, i) => <a key={url} href={url} target="_blank" rel="noopener noreferrer" className="text-[#1a7a4a] underline inline-block py-3 -my-3">Source {i + 1}</a>)}</div>
             </div>;
           })}
         </div>
@@ -236,12 +211,12 @@ export default function VenueDetails({
         const notes = venue.programs.filter(program => (program.noteKind ?? (program.age.sourceConflict ? "age-conflict" : undefined)) === kind);
         if (!notes.length) return null;
         const ageConflict = kind === "age-conflict";
-        return <section key={kind} className={ageConflict ? "rounded-xl bg-[#fff8e8] border border-[#ead9ae] p-3.5 flex flex-col gap-2" : "pl-3 py-2 border-l-2 border-[#d4cbbf] flex flex-col gap-2"} data-testid={ageConflict ? "age-conflicts" : "program-notes"}>
+        return <section key={kind} className={ageConflict ? "rounded-xl bg-[#fff8e8] border border-[#ead9ae] p-3.5 flex flex-col gap-2" : "py-2 flex flex-col gap-2"} data-testid={ageConflict ? "age-conflicts" : "program-notes"}>
           <span className="font-bold text-[#221d18]">{ageConflict ? "Age details to confirm" : kind === "parent-review" ? "Parent review note" : "Class details to check"}</span>
           {notes.map(program => <div key={program.name} className={`text-[0.875rem] ${ageConflict ? "text-[#665026]" : "text-[#6d675f]"}`}>
             <p><strong>{program.name}:</strong> {program.note}</p>
-            {program.age.providerAgeUrl && !isDeadSourceUrl(program.age.providerAgeUrl) && <a href={program.age.providerAgeUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a] mr-3">Program source</a>}
-            {program.noteUrl && !isDeadSourceUrl(program.noteUrl) && <a href={program.noteUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">{program.noteLabel || "Other source"}</a>}
+            {program.age.providerAgeUrl && !isDeadSourceUrl(program.age.providerAgeUrl) && <a href={program.age.providerAgeUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a] mr-3 inline-block py-3 -my-3">Program source</a>}
+            {program.noteUrl && !isDeadSourceUrl(program.noteUrl) && <a href={program.noteUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a] inline-block py-3 -my-3">{program.noteLabel || "Other source"}</a>}
           </div>)}
         </section>;
       })}
@@ -308,7 +283,7 @@ export default function VenueDetails({
           )}
           {venue.reviews.latestReview?.date && (
             <span className="text-[0.9375rem] text-[#6d675f]">
-              Latest review: {venue.reviews.latestReview.approximate ? formatIsoMonth(venue.reviews.latestReview.date) : venue.reviews.latestReview.date}{venue.reviews.checkedAt && ` · checked ${venue.reviews.checkedAt}`}.
+              Latest review: {venue.reviews.latestReview.approximate ? formatIsoMonth(venue.reviews.latestReview.date) : formatCheckedDate(venue.reviews.latestReview.date)}{venue.reviews.checkedAt && `, checked ${formatCheckedDate(venue.reviews.checkedAt)}`}.
             </span>
           )}
           {venue.reviews.sourceUrl && (
@@ -326,7 +301,7 @@ export default function VenueDetails({
       <details className="border-b border-[#e7e0d4] pb-3"><summary className="min-h-11 cursor-pointer text-sm text-[#6d675f] flex items-center justify-between">Address and travel details<ChevronDown className="w-4 h-4"/></summary><p className="text-sm leading-6">{publicLocation(venue).address}</p></details>
 
       {/* One travel-note panel retains every location disclaimer without repeated alerts. */}
-      {(publicLocation(venue).notice || venue.caution) && <section className="pl-3 py-2 border-l-2 border-[#d4cbbf] flex flex-col gap-2 text-[0.9375rem] text-[#6d675f]">
+      {(publicLocation(venue).notice || venue.caution) && <section className="py-2 flex flex-col gap-2 text-[0.9375rem] text-[#6d675f]">
         <h3 className="font-semibold text-[#4a443c]">Before you travel</h3>
         {publicLocation(venue).notice && <p>{publicLocation(venue).notice}</p>}
         {venue.caution && <p>{venue.caution}</p>}
@@ -344,7 +319,7 @@ export default function VenueDetails({
       )}
 
       {/* Prices: provenance belongs to each listing; legacy entries default to partner. */}
-      {venue.priceListings && venue.priceListings.length > 0 && (
+      {!pending && venue.priceListings && venue.priceListings.length > 0 && (
         <div className="py-3 border-b border-[#e7e0d4] flex flex-col gap-2.5" data-testid="price-listings">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-2">

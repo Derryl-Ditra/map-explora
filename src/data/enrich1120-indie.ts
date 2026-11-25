@@ -37,7 +37,7 @@ export const INDIE_20261120: Venue[] = [
     id: "kimi-friends-montessori-gading-serpong", chain: null, branchName: "Kimi & Friends Montessori Studio",
     categories: ["Montessori"],
     address: "Ruko Hampton Avenue, Jl. Gading Serpong Boulevard No. A16, Medang, Pagedangan, Kabupaten Tangerang",
-    area: "Gading Serpong", city: "Tangerang", lat: -6.2669192, lng: 106.619364,
+    area: "Gading Serpong", city: "Kabupaten Tangerang", lat: -6.2669192, lng: 106.619364,
     coordinateSource: "maps-pin",
     programs: [prog("Montessori Enrichment Class", 12, 36, kimiAge, kimiNote)],
     website: "https://www.kimiandfriends.id/",

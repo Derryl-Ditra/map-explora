@@ -27,7 +27,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-aeon-mall-bsd-city");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/aeon-mall-bsd-city", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));
@@ -188,7 +188,7 @@ export default function enrich1124(venues: Venue[]) {
       sourceCheckedAt: "2026-11-24",
     },
     term: "19 Oct 2026 until 17 Jan 2027",
-    note: "'3-4 yrs' from the branch Winter term PDF class key; upper-bound inclusivity ambiguous; additional fee per the PDF footer. Grid: Mon 11:00, 11:00; Tue 11:00, 11:00; Wed 11:00; Thu 11:00; Fri 11:00, 11:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
+    note: "'3-4 yrs' from the branch Winter term PDF class key; upper-bound inclusivity ambiguous; additional fee per the PDF footer. Grid: Mon 11:00; Tue 11:00; Wed 11:00; Thu 11:00; Fri 11:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
   });
   add({
     name: "Smartology 4",
@@ -295,7 +295,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-aeon-mall-sentul-city");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/aeon-mall-sentul-city", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));
@@ -546,7 +546,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-aeon-mall-deltamas");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/aeon-mall-deltamas", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));
@@ -814,7 +814,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-central-park-2");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/central-park-2", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));
@@ -1067,7 +1067,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-gajah-mada-plaza");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/lippo-icon-gajah-mada-gajah-mada-plaza", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));
@@ -1320,7 +1320,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-gandaria-city");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/gandaria-city", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));
@@ -1571,7 +1571,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-grand-metropolitan-bekasi");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/grand-metropolitan-mall", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));
@@ -1807,7 +1807,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-hampton-square");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/hampton-square", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));
@@ -2075,7 +2075,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-kota-kasablanka");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/kota-kasablanka", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));
@@ -2343,7 +2343,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-lippo-mall-kemang");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/lippo-mall-kemang-village", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));
@@ -2611,7 +2611,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-lippo-mall-puri");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/lippo-mall-puri", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));
@@ -2648,7 +2648,7 @@ export default function enrich1124(venues: Venue[]) {
       sourceCheckedAt: "2026-11-24",
     },
     term: "19 Oct 2026 until 17 Jan 2027",
-    note: "'1-3 yrs' from the branch Winter term PDF class key; year-boundary inclusivity ambiguous. Grid: Mon 13:00; Tue 11:00, 11:00; Wed 11:00, 11:00; Thu 11:00, 11:00; Fri 11:00; Sat 11:00, 12:00; Sun 12:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
+    note: "'1-3 yrs' from the branch Winter term PDF class key; year-boundary inclusivity ambiguous. Grid: Mon 13:00; Tue 11:00; Wed 11:00; Thu 11:00; Fri 11:00; Sat 11:00, 12:00; Sun 12:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
   });
   add({
     name: "Crawler",
@@ -2847,7 +2847,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-lippo-plaza-ekalokasari");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/lippo-plaza-ekalokasari", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));
@@ -3115,7 +3115,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-living-world-alam-sutera");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/living-world", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));
@@ -3152,7 +3152,7 @@ export default function enrich1124(venues: Venue[]) {
       sourceCheckedAt: "2026-11-24",
     },
     term: "19 Oct 2026 until 17 Jan 2027",
-    note: "'1-3 yrs' from the branch Winter term PDF class key; year-boundary inclusivity ambiguous. Grid: Mon 13:00; Tue 12:00, 12:00; Wed 10:00, 11:00; Thu 10:00; Fri 12:00; Sat 12:00; Sun 11:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
+    note: "'1-3 yrs' from the branch Winter term PDF class key; year-boundary inclusivity ambiguous. Grid: Mon 13:00; Tue 12:00; Wed 10:00, 11:00; Thu 10:00; Fri 12:00; Sat 12:00; Sun 11:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
   });
   add({
     name: "Baby Jam",
@@ -3325,7 +3325,7 @@ export default function enrich1124(venues: Venue[]) {
     term: "19 Oct 2026 until 17 Jan 2027",
     noteUrl: "https://www.rockstaracademy.com/schedules-and-locations/living-world",
     noteLabel: "Age key",
-    note: "'3 - 5 Years' via the official web schedule key; upper boundary ambiguous. Grid: Mon 13:00; Tue 14:00, 14:00; Wed 10:00, 11:00; Thu 14:00; Sat 14:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
+    note: "'3 - 5 Years' via the official web schedule key; upper boundary ambiguous. Grid: Mon 13:00; Tue 14:00; Wed 10:00, 11:00; Thu 14:00; Sat 14:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
   });
   add({
     name: "Tots Gym U4",
@@ -3366,7 +3366,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-lotte-mart-bintaro");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/lotte-mart-bintaro", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));
@@ -3403,7 +3403,7 @@ export default function enrich1124(venues: Venue[]) {
       sourceCheckedAt: "2026-11-24",
     },
     term: "19 Oct 2026 until 17 Jan 2027",
-    note: "'1-3 yrs' from the branch Winter term PDF class key; year-boundary inclusivity ambiguous. Grid: Mon 13:00; Tue 11:00, 12:00; Wed 10:00, 11:00; Thu 11:00, 12:00; Fri 11:00; Sat 11:00, 11:00; Sun 12:00, 16:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
+    note: "'1-3 yrs' from the branch Winter term PDF class key; year-boundary inclusivity ambiguous. Grid: Mon 13:00; Tue 11:00, 12:00; Wed 10:00, 11:00; Thu 11:00, 12:00; Fri 11:00; Sat 11:00; Sun 12:00, 16:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
   });
   add({
     name: "Baby Jam",
@@ -3634,7 +3634,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-mall-of-indonesia");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/mall-of-indonesia", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));
@@ -3671,7 +3671,7 @@ export default function enrich1124(venues: Venue[]) {
       sourceCheckedAt: "2026-11-24",
     },
     term: "19 Oct 2026 until 17 Jan 2027",
-    note: "'1-3 yrs' from the branch Winter term PDF class key; year-boundary inclusivity ambiguous. Grid: Mon 13:00, 14:00; Tue 11:00, 11:00; Wed 11:00, 12:00; Thu 10:00, 11:00, 12:00; Fri 11:00, 12:00; Sat 11:00, 12:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
+    note: "'1-3 yrs' from the branch Winter term PDF class key; year-boundary inclusivity ambiguous. Grid: Mon 13:00, 14:00; Tue 11:00; Wed 11:00, 12:00; Thu 10:00, 11:00, 12:00; Fri 11:00, 12:00; Sat 11:00, 12:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
   });
   add({
     name: "Baby Jam",
@@ -3763,7 +3763,7 @@ export default function enrich1124(venues: Venue[]) {
     term: "19 Oct 2026 until 17 Jan 2027",
     noteUrl: "https://www.rockstaracademy.com/schedules-and-locations/mall-of-indonesia",
     noteLabel: "Age key",
-    note: "'3 - 5 Years' via the official web schedule key; upper boundary ambiguous. Grid: Mon 16:00; Tue 13:00, 13:00; Wed 14:00; Thu 14:00; Fri 14:00; Sat 12:00; Sun 13:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
+    note: "'3 - 5 Years' via the official web schedule key; upper boundary ambiguous. Grid: Mon 16:00; Tue 13:00; Wed 14:00; Thu 14:00; Fri 14:00; Sat 12:00; Sun 13:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
   });
   add({
     name: "Pre-Ballet 3-5",
@@ -3885,7 +3885,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-pik-avenue");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/pik-avenue", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));
@@ -3952,7 +3952,7 @@ export default function enrich1124(venues: Venue[]) {
       sourceCheckedAt: "2026-11-24",
     },
     term: "19 Oct 2026 until 17 Jan 2027",
-    note: "24-35 mo from the branch Winter term PDF class key. Grid: Mon 14:00; Tue 11:00, 11:00; Wed 11:00, 11:00; Thu 13:00; Fri 11:00, 11:00; Sat 12:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
+    note: "24-35 mo from the branch Winter term PDF class key. Grid: Mon 14:00; Tue 11:00; Wed 11:00; Thu 13:00; Fri 11:00; Sat 12:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
   });
   add({
     name: "Learn & Play 1",
@@ -4112,7 +4112,7 @@ export default function enrich1124(venues: Venue[]) {
       sourceCheckedAt: "2026-11-24",
     },
     term: "19 Oct 2026 until 17 Jan 2027",
-    note: "12-23 mo from the branch Winter term PDF class key. Grid: Mon 13:00; Tue 12:00; Wed 10:00, 10:00; Thu 11:00, 12:00; Fri 10:00; Sat 10:00; Sun 13:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
+    note: "12-23 mo from the branch Winter term PDF class key. Grid: Mon 13:00; Tue 12:00; Wed 10:00; Thu 11:00, 12:00; Fri 10:00; Sat 10:00; Sun 13:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
   });
   }
 
@@ -4121,7 +4121,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-pesona-square");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/pesona-square", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));
@@ -4389,7 +4389,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-pluit-village");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/pluit-village", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));
@@ -4625,7 +4625,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-tsm-cibubur");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/trans-studio-cibubur", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));
@@ -4662,7 +4662,7 @@ export default function enrich1124(venues: Venue[]) {
       sourceCheckedAt: "2026-11-24",
     },
     term: "19 Oct 2026 until 17 Jan 2027",
-    note: "'1-3 yrs' from the branch Winter term PDF class key; year-boundary inclusivity ambiguous. Grid: Mon 12:00; Tue 11:00, 13:00; Wed 10:00, 11:00; Thu 11:00, 11:00; Fri 10:00; Sat 10:00; Sun 11:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
+    note: "'1-3 yrs' from the branch Winter term PDF class key; year-boundary inclusivity ambiguous. Grid: Mon 12:00; Tue 11:00, 13:00; Wed 10:00, 11:00; Thu 11:00; Fri 10:00; Sat 10:00; Sun 11:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
   });
   add({
     name: "Baby Jam",
@@ -4786,7 +4786,7 @@ export default function enrich1124(venues: Venue[]) {
       sourceCheckedAt: "2026-11-24",
     },
     term: "19 Oct 2026 until 17 Jan 2027",
-    note: "'3-4 yrs' from the branch Winter term PDF class key; upper-bound inclusivity ambiguous; additional fee per the PDF footer. Grid: Mon 11:00, 11:00; Tue 11:00; Wed 11:00, 11:00; Thu 11:00; Fri 11:00, 11:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
+    note: "'3-4 yrs' from the branch Winter term PDF class key; upper-bound inclusivity ambiguous; additional fee per the PDF footer. Grid: Mon 11:00; Tue 11:00; Wed 11:00; Thu 11:00; Fri 11:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
   });
   add({
     name: "Smartology 4",
@@ -4876,7 +4876,7 @@ export default function enrich1124(venues: Venue[]) {
   const v = venue(venues, "rockstar-academy-the-park-pejaten");
   v.lastCheckedAt = "2026-11-24";
   v.operatingStatus = { state: "official-listed", source: "https://www.rockstaracademy.com/schedules-and-locations/the-park-pejaten", checkedAt: "2026-11-24" };
-  v.cardNote = "Term enrollment: 11-week terms (Winter: 19 Oct 2026 to 17 Jan 2027); registration required before class, no same-day signup; baby gymnastics up to 3 classes/week. Free trial class bookable on the official site (rockstaracademy.com/freetrial). Read 24 Nov 2026. / Kelas per term: 11 minggu per term (Winter: 19 Okt 2026 - 17 Jan 2027); wajib daftar sebelum kelas, tidak bisa daftar di hari yang sama; baby gym maksimal 3 kelas per minggu. Kelas trial gratis bisa dipesan di situs resmi. Dibaca 24 Nov 2026.";
+  v.cardNote = "11-week terms; register before class, no same-day signup. Free trial bookable on the official site.";
   v.categories = ["Dance", "Gym & Movement", "Multi-Sport", "Preschool", "Swim"];
   const add = (p: VenueProgram) => {
     const i = v.programs.findIndex((x) => x.name === p.name || (p.name === "Baby Ballet" && x.name === "Baby (Ballet)"));

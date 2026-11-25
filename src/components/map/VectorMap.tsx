@@ -50,6 +50,9 @@ const labelSpriteCache = new Map<string, ImageData>();
 
 const LABEL_SOURCE = "venue-labels";
 const LABEL_LAYER = "venue-labels";
+const DOT_LAYER = "venue-dots";
+// Names need room: below this zoom a lone place is a dot, so labels never pile on clusters.
+const LABEL_MIN_ZOOM = 14.5;
 
 function accuracyPolygon(lat: number, lng: number, meters: number): GeoJSON.Feature {
   const points: [number, number][] = [];
@@ -66,6 +69,18 @@ function accuracyPolygon(lat: number, lng: number, meters: number): GeoJSON.Feat
     properties: {},
     geometry: { type: "Polygon", coordinates: [points] },
   };
+}
+
+// Granted location: show the nearest few places with the user, not one street.
+function fitNearest(map: MapLibre.Map, venues: Venue[], userPos: [number, number]) {
+  const near = venues
+    .map((v) => ({ v, d: Math.hypot(v.lat - userPos[0], (v.lng - userPos[1]) * Math.cos((userPos[0] * Math.PI) / 180)) }))
+    .sort((a, b) => a.d - b.d)
+    .slice(0, 4);
+  if (near.length === 0) { map.easeTo({ center: [userPos[1], userPos[0]], zoom: 13, duration: cameraDuration(800) }); return; }
+  const lngs = [userPos[1], ...near.map(({ v }) => v.lng)], lats = [userPos[0], ...near.map(({ v }) => v.lat)];
+  const b: [[number, number], [number, number]] = [[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]];
+  map.fitBounds(b, { padding: 70, maxZoom: 14, duration: cameraDuration(800) });
 }
 
 export default function VectorMap({
@@ -133,7 +148,7 @@ export default function VectorMap({
         readyRef.current = true;
         const requested = recenterRef.current;
         if (requested.recenterTick && requested.userPos) {
-          map.easeTo({ center: [requested.userPos[1], requested.userPos[0]], zoom: 15, duration: cameraDuration(800) });
+          fitNearest(map, venuesRef.current, requested.userPos);
         }
         map.addSource("user-accuracy", {
           type: "geojson",
@@ -152,17 +167,19 @@ export default function VectorMap({
           paint: { "line-color": "#2563eb", "line-width": 1, "line-opacity": 0.3 },
         });
         ensureLabelAssets(map);
-        map.on("click", LABEL_LAYER, (e) => {
-          const id = e.features?.[0]?.properties?.venueId;
-          const v = id ? venuesRef.current.find((x) => x.id === id) : undefined;
-          if (v) onSelectRef.current(v);
-        });
-        map.on("mouseenter", LABEL_LAYER, () => {
-          map.getCanvas().style.cursor = "pointer";
-        });
-        map.on("mouseleave", LABEL_LAYER, () => {
-          map.getCanvas().style.cursor = "";
-        });
+        for (const layer of [LABEL_LAYER, DOT_LAYER]) {
+          map.on("click", layer, (e) => {
+            const id = e.features?.[0]?.properties?.venueId;
+            const v = id ? venuesRef.current.find((x) => x.id === id) : undefined;
+            if (v) onSelectRef.current(v);
+          });
+          map.on("mouseenter", layer, () => {
+            map.getCanvas().style.cursor = "pointer";
+          });
+          map.on("mouseleave", layer, () => {
+            map.getCanvas().style.cursor = "";
+          });
+        }
         renderMarkers(map);
       });
 
@@ -251,11 +268,26 @@ export default function VectorMap({
         data: { type: "FeatureCollection", features: [] },
       });
     }
+    if (!map.getLayer(DOT_LAYER)) {
+      map.addLayer({
+        id: DOT_LAYER,
+        type: "circle",
+        source: LABEL_SOURCE,
+        maxzoom: LABEL_MIN_ZOOM,
+        paint: {
+          "circle-radius": 8,
+          "circle-color": "#1a7a4a",
+          "circle-stroke-color": "#ffffff",
+          "circle-stroke-width": 2.5,
+        },
+      });
+    }
     if (!map.getLayer(LABEL_LAYER)) {
       map.addLayer({
         id: LABEL_LAYER,
         type: "symbol",
         source: LABEL_SOURCE,
+        minzoom: LABEL_MIN_ZOOM,
         layout: {
           "icon-image": ["get", "icon"],
           // Per-label pixel offset clamps every nameplate inside the
@@ -382,6 +414,7 @@ export default function VectorMap({
     if (map.getLayer(LABEL_LAYER)) {
       // Selection focus: other names fade so the chosen branch stands out.
       map.setPaintProperty(LABEL_LAYER, "icon-opacity", dimmed ? 0.3 : 1);
+      if (map.getLayer(DOT_LAYER)) map.setPaintProperty(DOT_LAYER, "circle-opacity", dimmed ? 0.3 : 1);
     }
 
     const active = venuesRef.current.find((v) => v.id === activeId);
@@ -521,7 +554,7 @@ export default function VectorMap({
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !readyRef.current || !userPos || !recenterTick) return;
-    map.easeTo({ center: [userPos[1], userPos[0]], zoom: 15, duration: cameraDuration(800) });
+    fitNearest(map, venuesRef.current, userPos);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recenterTick]);
 

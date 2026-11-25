@@ -1,5 +1,6 @@
 import type {Venue} from '../types/venue';
-import {isVerifiedAgeClaim,verifiedPrograms} from './ageMatch';
+import {isVerifiedAgeClaim,verifiedPrograms,mergeAgeRanges} from './ageMatch';
+import {formatUnder5Range} from './decideAge';
 export const AGE_BANDS=[
  {id:'0-5',min:0,max:5,label:'0-5 mo',stage:'Early exploration'},
  {id:'6-11',min:6,max:11,label:'6-11 mo',stage:'Sitting and moving'},
@@ -16,4 +17,5 @@ function overlappingClaims(v:Venue,id:AgeBandId) {
  return claims.filter(a=>a.minMonths!<=band.max&&a.maxMonths!>=band.min);
 }
 export function venueOverlapsBand(v:Venue,id:AgeBandId) {return overlappingClaims(v,id).length>0;}
-export function matchingAgeRanges(v:Venue,id:AgeBandId) {return [...new Set(overlappingClaims(v,id).map(a=>`${a.minMonths} to ${a.maxMonths} months`))];}
+// Same age format as every other surface; overlapping classes merge into one span.
+export function matchingAgeRanges(v:Venue,id:AgeBandId) {return mergeAgeRanges(overlappingClaims(v,id).map(a=>[a.minMonths!,a.maxMonths!] as const)).map(([lo,hi])=>formatUnder5Range(lo,hi));}

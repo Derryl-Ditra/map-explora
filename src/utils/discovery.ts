@@ -1,4 +1,5 @@
 import { publicLocation } from './publicLocation';
+import { venueCategories } from './categories';
 import type { Venue } from '@/types/venue';
 
 export const SITE_URL = 'https://derryl-ditra.github.io/map-explora';
@@ -27,8 +28,8 @@ export function buildAnswerGroups(venues: Venue[]): AnswerGroup[] {
   };
   for (const area of regions) add({ slug: area.toLowerCase(), title: `Classes for under 5s in ${area}`, area, venues: visible.filter(v => `${v.city} ${v.area}`.includes(area)) });
   for (const a of activities) {
-    add({ slug: a.slug, title: `${a.label} for under 5s in Jabodetabek`, area: 'Jabodetabek', activity: a.category, venues: visible.filter(v => v.categories.includes(a.category)) });
-    for (const area of regions) add({ slug: `${a.slug}-${area.toLowerCase()}`, title: `${a.label} for under 5s in ${area}`, area, activity: a.category, venues: visible.filter(v => `${v.city} ${v.area}`.includes(area) && v.categories.includes(a.category)) });
+    add({ slug: a.slug, title: `${a.label} for under 5s in Jabodetabek`, area: 'Jabodetabek', activity: a.category, venues: visible.filter(v => venueCategories(v).includes(a.category)) });
+    for (const area of regions) add({ slug: `${a.slug}-${area.toLowerCase()}`, title: `${a.label} for under 5s in ${area}`, area, activity: a.category, venues: visible.filter(v => `${v.city} ${v.area}`.includes(area) && venueCategories(v).includes(a.category)) });
   }
   return groups;
 }

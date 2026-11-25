@@ -42,10 +42,15 @@ test('summaries below verified confidence always ask to confirm by phone first',
   for (const v of VENUES) {
     const d = decidedAgeRange(v);
     if (d.confidence === 'verified') continue;
+    // PR #125 audit fix: pending re-verification venues show one re-check line instead.
+    if (v.pendingReverification) {
+      assert.equal(decidedAgeSummary(v), 'Ages and fees are being re-checked.', `${v.id} summary`);
+      continue;
+    }
     assert.match(decidedAgeSummary(v), /Confirm by phone first\./, `${v.id} summary`);
     assert.doesNotMatch(decidedAgeSummary(v), / - /, `${v.id} summary has no spaced hyphen`);
   }
-  assert.equal(decidedAgeSummary(VENUES.find((x) => x.id === 'sparks-swim-bintaro-utown')), 'Brand ages: 6 mo to 5 yr. Confirm by phone first.');
+  assert.equal(decidedAgeSummary(VENUES.find((x) => x.id === 'sparks-swim-bintaro-utown')), 'Brand ages: 6 mo to under 5 yr. Confirm by phone first.');
   assert.equal(decidedAgeSummary(VENUES.find((x) => x.id === 'gymnademics-bintaro')), 'Ages not published. Confirm by phone first.');
 });
 

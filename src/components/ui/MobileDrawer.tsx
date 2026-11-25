@@ -8,6 +8,7 @@ import { Venue, VenueFilterState } from "@/types/venue";
 import { buildMapsLink, canRouteVenue } from "@/utils/mapsLink";
 import {matchingAgeRanges, type AgeBandId} from '@/utils/ageBands';
 import { cardAgeSummary, cardRatingSummary } from "@/utils/venueSummary";
+import { venueCategories } from "@/utils/categories";
 import { useSheetGesture } from "@/hooks/useSheetGesture";
 import FilterBar from "./FilterBar";
 import VenueDetails from "./VenueDetails";
@@ -110,8 +111,8 @@ function VenueCard({
       )}
       <span className="text-[0.875rem] text-[#4a443c]">{cardRatingSummary(venue)}</span>
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[1rem] text-[#6d675f] truncate">
-          {venue.categories.join(", ")}
+        <span className="text-[0.9375rem] text-[#6d675f] line-clamp-2 min-w-0">
+          {venueCategories(venue).join(", ")}
         </span>
         <span className="text-[1rem] font-bold text-[#1a7a4a] shrink-0">
           {venue.distance ? `${venue.distance} km` : ""}
@@ -219,7 +220,7 @@ export default function MobileDrawer({
         ${mobileHidden ? "hidden" : "flex"} ${desktopCollapsed ? "md:hidden" : "md:flex"}
       `}
     >
-      {<button ref={handle} type="button" aria-label={showDetails ? "Close place and return to map" : "Close list and return to map"} onClick={onDismissToMap} className="md:hidden h-8 shrink-0 flex items-center justify-center touch-none cursor-grab active:cursor-grabbing"><span className="w-10 h-1 rounded-full bg-[#aaa297]" /></button>}
+      {<button ref={handle} type="button" aria-label={showDetails ? "Close place and return to map" : "Close list and return to map"} onClick={onDismissToMap} className="md:hidden h-11 shrink-0 flex items-center justify-center touch-none cursor-grab active:cursor-grabbing"><span className="w-10 h-1 rounded-full bg-[#aaa297]" /></button>}
       {!activeVenue && <div className="hidden md:flex justify-end px-4 pt-2"><button type="button" onClick={onHideSidebar} className="min-h-11 px-3 text-[#14532d] text-sm">Hide sidebar</button></div>}
       {!activeVenue && header}
 
@@ -237,12 +238,12 @@ export default function MobileDrawer({
           />
         ) : (
           <>
-            <button type="button" onClick={onLocate} disabled={isLocating} className="md:hidden shrink-0 min-h-12 rounded-xl bg-[#1a7a4a] text-white font-semibold py-2 px-3 disabled:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a]"><span className="block">{isLocating ? "Finding your location..." : hasActualLocation ? "Center on my location" : "Use my location"}</span><span className="block text-xs font-normal">{hasActualLocation ? "Location available" : "Find classes near you"}</span></button>
-            {locationNotice && <div role="status" className="flex items-center gap-2 rounded-2xl border border-[#e7e0d4] bg-white p-3 text-sm text-[#4a443c]">
+            {!locationDenied && <button type="button" onClick={onLocate} disabled={isLocating} className="md:hidden shrink-0 min-h-12 rounded-xl bg-[#1a7a4a] text-white font-semibold py-2 px-3 disabled:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a]"><span className="block">{isLocating ? "Finding your location..." : hasActualLocation ? "Center on my location" : "Use my location"}</span><span className="block text-xs font-normal">{hasActualLocation ? "Location available" : "Find classes near you"}</span></button>}
+            {locationNotice && <div role="status" className="flex items-center gap-1 rounded-xl border border-[#e7e0d4] bg-white py-1.5 pl-3 pr-1 text-sm text-[#4a443c]">
               <LocationNotice message={locationNotice} denied={locationDenied} />
               <button type="button" aria-label="Dismiss location notice" onClick={onDismissLocationNotice} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"><X className="h-4 w-4" /></button>
             </div>}
-            <div className="flex gap-2"><Link href="/for/class-costs-jakarta/" className="flex-1 min-h-12 rounded-xl border border-[#e7e0d4] bg-white px-3 flex items-center justify-center text-[#1a7a4a] font-semibold text-sm">Fees · Biaya</Link></div>
+            <Link href="/for/class-costs-jakarta/" className="-mb-1 self-start min-h-11 flex items-center text-sm font-semibold text-[#1a7a4a] underline underline-offset-2">What classes cost</Link>
             {/* Search Input */}
             <div className="relative w-full shrink-0">
               <Search className="w-4.5 h-4.5 text-[#6d675f] absolute left-4 top-1/2 -translate-y-1/2" />
@@ -325,7 +326,7 @@ export default function MobileDrawer({
               {/* Coverage honesty + attribution live in the scroll flow. */}
               <div className="pb-2 pt-1 text-center flex flex-col gap-1">
                 <span className="text-[0.75rem] text-[#6d675f]">
-                  Baby and toddler classes in Jabodetabek. Strongest coverage for ages 0-3; classes for 4-year-olds are being added.
+                  Baby and toddler classes in Jabodetabek, for ages 0 to 4.
                 </span>
                 <span className="text-[0.6875rem] text-[#6d675f] md:hidden">
                   Map: OpenFreeMap, © OpenMapTiles, data © OpenStreetMap contributors

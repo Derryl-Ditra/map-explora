@@ -1,9 +1,18 @@
 import type { Venue } from "@/types/venue";
 
-// Happy Kamper indie venues (batch 4, 2026-11-24). All 19 records are partner-listed:
+// Happy Kamper indie venues (batch 4, 2026-11-24; audited 2026-11-25). Partner-listed:
 // class ages and prices come from happykamper.io activity pages (checked 2026-11-24),
 // addresses and ratings from active Google Maps listings (checked 2026-11-24).
 // Ages stay "listed-unconfirmed" until a provider page confirms them.
+// 2026-11-25 audit: the stored price units were wrong on multiple records (monthly
+// packages stored as "per session") and several age ranges were platform defaults
+// (0-18 yr), so every record now carries pendingReverification and its ages and
+// prices stay hidden until re-checked against the provider. Four records were
+// dropped as out of scope for an under-5 map or unsupported by their source:
+// kodingyuk-depok-town-center (source says Tangerang Selatan home-visit, pin
+// unsupported; coding for school ages), intro-education-pamulang (robotics/coding
+// centre with booking-site default ages), prelude-karawaci and
+// cultura-mandatum-bsd (private instrument schools, 4 yr and up).
 export const HK_VENUES: Venue[] = [
   {
     "id": "majiku-larangan",
@@ -37,6 +46,7 @@ export const HK_VENUES: Venue[] = [
     "sourceUrl": "https://happykamper.io/id/activities/majiku-pop-up-class",
     "lastCheckedAt": "2026-11-24",
     "fitStatus": "media-claimed",
+    "pendingReverification": "PR #125 audit 2026-11-25: partner-listed ages and prices failed verification (wrong units, placeholder ranges). Hidden until re-checked against the provider.",
     "notes": "Single site: Happy Kamper lists only the Larangan location and Maps has only Majiku Learning Center in Gaga, Larangan (both 2026-11-24). All class ages and prices are partner-listed (Happy Kamper), not provider-confirmed.",
     "priceListings": [
       {
@@ -125,6 +135,7 @@ export const HK_VENUES: Venue[] = [
     "sourceUrl": "https://happykamper.io/id/activities/baby-dancing-ballet-for-kiddies",
     "lastCheckedAt": "2026-11-24",
     "fitStatus": "media-claimed",
+    "pendingReverification": "PR #125 audit 2026-11-25: partner-listed ages and prices failed verification (wrong units, placeholder ranges). Hidden until re-checked against the provider.",
     "notes": "Single studio on Maps and one studio area (Jatisampurna) on Happy Kamper, both 2026-11-24. All class ages and prices are partner-listed (Happy Kamper), not provider-confirmed.",
     "priceListings": [
       {
@@ -203,6 +214,7 @@ export const HK_VENUES: Venue[] = [
     "sourceUrl": "https://happykamper.io/id/activities/biaya-pendaftaran",
     "lastCheckedAt": "2026-11-24",
     "fitStatus": "media-claimed",
+    "pendingReverification": "PR #125 audit 2026-11-25: partner-listed ages and prices failed verification (wrong units, placeholder ranges). Hidden until re-checked against the provider.",
     "notes": "Happy Kamper listing is a registration fee, not a single class; class mix not detailed there. Maps listing \"SMARTKIDZ Cabang Kelapa Gading\" matches the provider name and Kelapa Gading area (2026-11-24). All class ages and prices are partner-listed (Happy Kamper), not provider-confirmed.",
     "priceListings": [
       {
@@ -263,6 +275,7 @@ export const HK_VENUES: Venue[] = [
     "sourceUrl": "https://happykamper.io/id/activities/playground-kidztiara",
     "lastCheckedAt": "2026-11-24",
     "fitStatus": "media-claimed",
+    "pendingReverification": "PR #125 audit 2026-11-25: partner-listed ages and prices failed verification (wrong units, placeholder ranges). Hidden until re-checked against the provider.",
     "notes": "Indoor playground. Strong Maps presence (548 ratings, 2026-11-24). All class ages and prices are partner-listed (Happy Kamper), not provider-confirmed.",
     "priceListings": [
       {
@@ -365,6 +378,7 @@ export const HK_VENUES: Venue[] = [
     "sourceUrl": "https://happykamper.io/id/activities/pemula-plus-hockey",
     "lastCheckedAt": "2026-11-24",
     "fitStatus": "media-claimed",
+    "pendingReverification": "PR #125 audit 2026-11-25: partner-listed ages and prices failed verification (wrong units, placeholder ranges). Hidden until re-checked against the provider.",
     "notes": "Maps pin is the Bintaro Jaya Xchange parking building rink (2026-11-24). All class ages and prices are partner-listed (Happy Kamper), not provider-confirmed.",
     "priceListings": [
       {
@@ -452,6 +466,7 @@ export const HK_VENUES: Venue[] = [
     "sourceUrl": "https://happykamper.io/id/activities/kids-dance-class",
     "lastCheckedAt": "2026-11-24",
     "fitStatus": "media-claimed",
+    "pendingReverification": "PR #125 audit 2026-11-25: partner-listed ages and prices failed verification (wrong units, placeholder ranges). Hidden until re-checked against the provider.",
     "notes": "Maps listing \"Star Station Dance Studio\" in Pejagalan, Penjaringan matches the Jakarta Utara area on Happy Kamper (2026-11-24). All class ages and prices are partner-listed (Happy Kamper), not provider-confirmed.",
     "priceListings": [
       {
@@ -512,6 +527,7 @@ export const HK_VENUES: Venue[] = [
     "sourceUrl": "https://happykamper.io/id/activities/basketball-class-bendella-bekasi",
     "lastCheckedAt": "2026-11-24",
     "fitStatus": "media-claimed",
+    "pendingReverification": "PR #125 audit 2026-11-25: partner-listed ages and prices failed verification (wrong units, placeholder ranges). Hidden until re-checked against the provider.",
     "notes": "Class venue is the Bendella Basket court (Maps, 2026-11-24); the provider Foxybright Indonesia has no own Maps listing. Foxybright also lists futsal classes at Tibi Futsal (Pasar Minggu) and Rinjani Futsal (Makasar) for 2-7 on Happy Kamper - not added in this batch. All class ages and prices are partner-listed (Happy Kamper), not provider-confirmed.",
     "priceListings": [
       {
@@ -538,97 +554,6 @@ export const HK_VENUES: Venue[] = [
       "sampleNote": "Rating and count only; individual reviews not read (2026-11-24).",
       "praiseThemes": [],
       "complaintThemes": []
-    }
-  },
-  {
-    "id": "kodingyuk-depok-town-center",
-    "chain": null,
-    "branchName": "KodingYuk Academy (Depok Town Center)",
-    "categories": [
-      "Enrichment"
-    ],
-    "address": "Jl. Raya Sawangan No.1, Rangkapan Jaya, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16435, Indonesia",
-    "area": "Pancoran Mas",
-    "city": "Depok",
-    "lat": -6.39541,
-    "lng": 106.7926736,
-    "coordinateSource": "maps-pin",
-    "programs": [
-      {
-        "name": "Kelas Merakit Robot",
-        "category": "Enrichment",
-        "offering": "offered",
-        "age": {
-          "minMonths": 36,
-          "maxMonths": 84,
-          "level": "branch",
-          "verification": "listed-unconfirmed",
-          "providerAgeUrl": "https://happykamper.io/id/activities/kelas-merakit-robot",
-          "sourceCheckedAt": "2026-11-24"
-        },
-        "note": "Happy Kamper lists this class for 3-7; the official site states courses for 5-17, so treat 3-4 as partner-listed only. Partner-listed (Happy Kamper, checked 2026-11-24); ages are partner-listed, not provider-confirmed. Confirm with the provider."
-      },
-      {
-        "name": "Kelas Coding Scratch",
-        "category": "Enrichment",
-        "offering": "offered",
-        "age": {
-          "minMonths": 60,
-          "maxMonths": 132,
-          "level": "branch",
-          "verification": "listed-unconfirmed",
-          "providerAgeUrl": "https://happykamper.io/id/activities/kelas-coding-scratch",
-          "sourceCheckedAt": "2026-11-24"
-        },
-        "note": "Partner-listed (Happy Kamper, checked 2026-11-24); ages are partner-listed, not provider-confirmed. Confirm with the provider."
-      }
-    ],
-    "sourceUrl": "https://happykamper.io/id/activities/kelas-merakit-robot",
-    "lastCheckedAt": "2026-11-24",
-    "fitStatus": "media-claimed",
-    "notes": "Official site kodingyuk.id gives the face-to-face location as Depok Town Center, Jl. Raya Sawangan No. 1 (2026-11-24), which matches the Maps pin \"KODING YUK ACADEMY\". Happy Kamper labels its classes Tangerang Selatan; the provider serves that area but the physical centre is Depok. All class ages and prices are partner-listed (Happy Kamper), not provider-confirmed.",
-    "priceListings": [
-      {
-        "sourceKind": "partner",
-        "label": "Kelas Merakit Robot",
-        "amountIdr": 400000,
-        "unit": "per session",
-        "source": "Happy Kamper",
-        "sourceUrl": "https://happykamper.io/id/activities/kelas-merakit-robot",
-        "checkedAt": "2026-11-24"
-      },
-      {
-        "sourceKind": "partner",
-        "label": "Kelas Coding Scratch",
-        "amountIdr": 300000,
-        "unit": "per session",
-        "source": "Happy Kamper",
-        "sourceUrl": "https://happykamper.io/id/activities/kelas-coding-scratch",
-        "checkedAt": "2026-11-24"
-      }
-    ],
-    "operatingStatus": {
-      "state": "partner-listed",
-      "source": "https://www.google.com/maps/search/?api=1&query=KODING+YUK+ACADEMY&query_place_id=ChIJXdhcKr7paS4R3vQ_zJgENl0",
-      "checkedAt": "2026-11-24"
-    },
-    "reviews": {
-      "rating": null,
-      "reviewCount": 0,
-      "source": "Google Maps",
-      "sourceUrl": "https://www.google.com/maps/search/?api=1&query=KODING+YUK+ACADEMY&query_place_id=ChIJXdhcKr7paS4R3vQ_zJgENl0",
-      "checkedAt": "2026-11-24",
-      "sampleNote": "Rating and count only; individual reviews not read (2026-11-24).",
-      "praiseThemes": [],
-      "complaintThemes": []
-    },
-    "branchAge": {
-      "minMonths": 60,
-      "maxMonths": 204,
-      "level": "brand",
-      "verification": "provider-confirmed",
-      "providerAgeUrl": "https://kodingyuk.id/",
-      "sourceCheckedAt": "2026-11-24"
     }
   },
   {
@@ -663,6 +588,7 @@ export const HK_VENUES: Venue[] = [
     "sourceUrl": "https://happykamper.io/id/activities/kelas-calistung",
     "lastCheckedAt": "2026-11-24",
     "fitStatus": "media-claimed",
+    "pendingReverification": "PR #125 audit 2026-11-25: partner-listed ages and prices failed verification (wrong units, placeholder ranges). Hidden until re-checked against the provider.",
     "notes": "Happy Kamper provider name \"Rainbow Budi Agung\" matches the Maps listing \"BIMBA RAINBOW KIDS BUDI AGUNG\" in Tanah Sareal (2026-11-24). All class ages and prices are partner-listed (Happy Kamper), not provider-confirmed.",
     "priceListings": [
       {
@@ -751,6 +677,7 @@ export const HK_VENUES: Venue[] = [
     "sourceUrl": "https://happykamper.io/id/activities/kelas-bimba-tahfidz",
     "lastCheckedAt": "2026-11-24",
     "fitStatus": "media-claimed",
+    "pendingReverification": "PR #125 audit 2026-11-25: partner-listed ages and prices failed verification (wrong units, placeholder ranges). Hidden until re-checked against the provider.",
     "notes": "Maps listing matches the full provider name and Jatibening 1 address (2026-11-24). All class ages and prices are partner-listed (Happy Kamper), not provider-confirmed.",
     "priceListings": [
       {
@@ -829,6 +756,7 @@ export const HK_VENUES: Venue[] = [
     "sourceUrl": "https://happykamper.io/id/activities/membuat-figur-hewan-dengan-air-dry-clay",
     "lastCheckedAt": "2026-11-24",
     "fitStatus": "media-claimed",
+    "pendingReverification": "PR #125 audit 2026-11-25: partner-listed ages and prices failed verification (wrong units, placeholder ranges). Hidden until re-checked against the provider.",
     "notes": "Maps listing matches name and Penjaringan area (2026-11-24). All class ages and prices are partner-listed (Happy Kamper), not provider-confirmed.",
     "priceListings": [
       {
@@ -851,89 +779,6 @@ export const HK_VENUES: Venue[] = [
       "reviewCount": 47,
       "source": "Google Maps",
       "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Doki+Doki+Craft&query_place_id=ChIJSZyl6qIdai4R8hZXkdl5tII",
-      "checkedAt": "2026-11-24",
-      "sampleNote": "Rating and count only; individual reviews not read (2026-11-24).",
-      "praiseThemes": [],
-      "complaintThemes": []
-    }
-  },
-  {
-    "id": "intro-education-pamulang",
-    "chain": null,
-    "branchName": "Intro Education (Pamulang)",
-    "categories": [
-      "Enrichment"
-    ],
-    "address": "Perumahan Pamulang Permai 1, Jl Anggrek 2 No.1 Blok A20, Pamulang Bar., Kec, Kota Tangerang Selatan, Banten 15415, Indonesia",
-    "area": "Pamulang",
-    "city": "Tangerang Selatan",
-    "lat": -6.3318577,
-    "lng": 106.7322219,
-    "coordinateSource": "maps-pin",
-    "programs": [
-      {
-        "name": "Robotic and Coding Class Centre",
-        "category": "Enrichment",
-        "offering": "offered",
-        "age": {
-          "minMonths": 36,
-          "maxMonths": 144,
-          "level": "branch",
-          "verification": "listed-unconfirmed",
-          "providerAgeUrl": "https://happykamper.io/id/activities/robotic-and-coding-class-centre",
-          "sourceCheckedAt": "2026-11-24"
-        },
-        "note": "At the Pamulang centre; the home-visit variant is not a venue class. Partner-listed (Happy Kamper, checked 2026-11-24); ages are partner-listed, not provider-confirmed. Confirm with the provider."
-      },
-      {
-        "name": "Belajar Al-Quran",
-        "category": "Enrichment",
-        "offering": "offered",
-        "age": {
-          "minMonths": 36,
-          "maxMonths": 144,
-          "level": "branch",
-          "verification": "listed-unconfirmed",
-          "providerAgeUrl": "https://happykamper.io/id/activities/belajar-al-quran",
-          "sourceCheckedAt": "2026-11-24"
-        },
-        "note": "Partner-listed (Happy Kamper, checked 2026-11-24); ages are partner-listed, not provider-confirmed. Confirm with the provider."
-      }
-    ],
-    "sourceUrl": "https://happykamper.io/id/activities/robotic-and-coding-class-centre",
-    "lastCheckedAt": "2026-11-24",
-    "fitStatus": "media-claimed",
-    "notes": "Maps listing \"INTRO Education\" in Pamulang Permai matches the provider (2026-11-24). All class ages and prices are partner-listed (Happy Kamper), not provider-confirmed.",
-    "priceListings": [
-      {
-        "sourceKind": "partner",
-        "label": "Robotic and Coding Class Centre",
-        "amountIdr": 550000,
-        "unit": "per session",
-        "source": "Happy Kamper",
-        "sourceUrl": "https://happykamper.io/id/activities/robotic-and-coding-class-centre",
-        "checkedAt": "2026-11-24"
-      },
-      {
-        "sourceKind": "partner",
-        "label": "Belajar Al-Quran",
-        "amountIdr": 300000,
-        "unit": "per session",
-        "source": "Happy Kamper",
-        "sourceUrl": "https://happykamper.io/id/activities/belajar-al-quran",
-        "checkedAt": "2026-11-24"
-      }
-    ],
-    "operatingStatus": {
-      "state": "partner-listed",
-      "source": "https://www.google.com/maps/search/?api=1&query=INTRO+Education&query_place_id=ChIJV5Qv07jvaS4Ro6n1rdbRll8",
-      "checkedAt": "2026-11-24"
-    },
-    "reviews": {
-      "rating": 5,
-      "reviewCount": 6,
-      "source": "Google Maps",
-      "sourceUrl": "https://www.google.com/maps/search/?api=1&query=INTRO+Education&query_place_id=ChIJV5Qv07jvaS4Ro6n1rdbRll8",
       "checkedAt": "2026-11-24",
       "sampleNote": "Rating and count only; individual reviews not read (2026-11-24).",
       "praiseThemes": [],
@@ -972,6 +817,7 @@ export const HK_VENUES: Venue[] = [
     "sourceUrl": "https://happykamper.io/id/activities/baca-tulis-hitung-english",
     "lastCheckedAt": "2026-11-24",
     "fitStatus": "media-claimed",
+    "pendingReverification": "PR #125 audit 2026-11-25: partner-listed ages and prices failed verification (wrong units, placeholder ranges). Hidden until re-checked against the provider.",
     "notes": "Maps listing \"BIMBA RAINSTAR CIOMAS\" matches the Ciomas area on Happy Kamper (2026-11-24). All class ages and prices are partner-listed (Happy Kamper), not provider-confirmed.",
     "priceListings": [
       {
@@ -1032,6 +878,7 @@ export const HK_VENUES: Venue[] = [
     "sourceUrl": "https://happykamper.io/id/activities/kelas-renang-reguler-dasar-cabang-jagakarsa",
     "lastCheckedAt": "2026-11-24",
     "fitStatus": "media-claimed",
+    "pendingReverification": "PR #125 audit 2026-11-25: partner-listed ages and prices failed verification (wrong units, placeholder ranges). Hidden until re-checked against the provider.",
     "notes": "Maps listing \"Harahap Swimming Club\" at Situ Babakan, Jagakarsa is the same brand area as the Happy Kamper Jagakarsa branch class (2026-11-24). Harahap runs further branches (Beji, Bulungan, Ciracas, Condet, Pamulang) - not added in this batch. All class ages and prices are partner-listed (Happy Kamper), not provider-confirmed.",
     "priceListings": [
       {
@@ -1092,6 +939,7 @@ export const HK_VENUES: Venue[] = [
     "sourceUrl": "https://happykamper.io/id/activities/coba-kelas-renang-anak-di-kalideres",
     "lastCheckedAt": "2026-11-24",
     "fitStatus": "media-claimed",
+    "pendingReverification": "PR #125 audit 2026-11-25: partner-listed ages and prices failed verification (wrong units, placeholder ranges). Hidden until re-checked against the provider.",
     "notes": "Maps has The Swim Starter branches in Kalideres and Kebayoran Baru (2026-11-24); Happy Kamper lists trial classes in Kalideres, Bekasi, Cengkareng and Jakarta Selatan. Only Kalideres matches a Maps listing, so only that branch is added. All class ages and prices are partner-listed (Happy Kamper), not provider-confirmed.",
     "priceListings": [
       {
@@ -1152,6 +1000,7 @@ export const HK_VENUES: Venue[] = [
     "sourceUrl": "https://happykamper.io/id/activities/act-of-life",
     "lastCheckedAt": "2026-11-24",
     "fitStatus": "media-claimed",
+    "pendingReverification": "PR #125 audit 2026-11-25: partner-listed ages and prices failed verification (wrong units, placeholder ranges). Hidden until re-checked against the provider.",
     "notes": "Maps listing \"SKOLA\" at EduCenter BSD City matches the provider (2026-11-24). All class ages and prices are partner-listed (Happy Kamper), not provider-confirmed.",
     "priceListings": [
       {
@@ -1242,6 +1091,7 @@ export const HK_VENUES: Venue[] = [
     "sourceUrl": "https://happykamper.io/id/activities/ballet-dance-class",
     "lastCheckedAt": "2026-11-24",
     "fitStatus": "media-claimed",
+    "pendingReverification": "PR #125 audit 2026-11-25: partner-listed ages and prices failed verification (wrong units, placeholder ranges). Hidden until re-checked against the provider.",
     "notes": "Maps listing \"Cadenza Anima Music School & Art Course\" is in Sukabumi Selatan, Kebon Jeruk (Jakarta Barat); Happy Kamper labels the provider Jakarta Selatan, so the city differs between sources (2026-11-24). A separate Depok preschool listing (Cadenza Anima Preschool GDC, ages 2-5) is not added in this batch. All class ages and prices are partner-listed (Happy Kamper), not provider-confirmed.",
     "priceListings": [
       {
@@ -1288,193 +1138,4 @@ export const HK_VENUES: Venue[] = [
       "complaintThemes": []
     }
   },
-  {
-    "id": "prelude-karawaci",
-    "chain": null,
-    "branchName": "Prelude Music School (Karawaci)",
-    "categories": [
-      "Music"
-    ],
-    "address": "Semi, Ruko Barcelona, Jl. Palem Raja Raya No.2, Bencongan Indah, Kec. Karawaci, Kabupaten Tangerang, Banten 15116, Indonesia",
-    "area": "Karawaci",
-    "city": "Kabupaten Tangerang",
-    "lat": -6.220592099999999,
-    "lng": 106.6118853,
-    "coordinateSource": "maps-pin",
-    "programs": [
-      {
-        "name": "Private Guitar Class",
-        "category": "Music",
-        "offering": "offered",
-        "age": {
-          "minMonths": 48,
-          "maxMonths": 216,
-          "level": "branch",
-          "verification": "listed-unconfirmed",
-          "providerAgeUrl": "https://happykamper.io/id/activities/private-guitar-class",
-          "sourceCheckedAt": "2026-11-24"
-        },
-        "note": "Happy Kamper lists a trial option. Partner-listed (Happy Kamper, checked 2026-11-24); ages are partner-listed, not provider-confirmed. Confirm with the provider."
-      },
-      {
-        "name": "Private Piano Class",
-        "category": "Music",
-        "offering": "offered",
-        "age": {
-          "minMonths": 48,
-          "maxMonths": 216,
-          "level": "branch",
-          "verification": "listed-unconfirmed",
-          "providerAgeUrl": "https://happykamper.io/id/activities/private-piano-class",
-          "sourceCheckedAt": "2026-11-24"
-        },
-        "note": "Partner-listed (Happy Kamper, checked 2026-11-24); ages are partner-listed, not provider-confirmed. Confirm with the provider."
-      },
-      {
-        "name": "Private Vocal Class",
-        "category": "Music",
-        "offering": "offered",
-        "age": {
-          "minMonths": 36,
-          "maxMonths": 216,
-          "level": "branch",
-          "verification": "listed-unconfirmed",
-          "providerAgeUrl": "https://happykamper.io/id/activities/private-vocal-class",
-          "sourceCheckedAt": "2026-11-24"
-        },
-        "note": "Partner-listed (Happy Kamper, checked 2026-11-24); ages are partner-listed, not provider-confirmed. Confirm with the provider."
-      },
-      {
-        "name": "Private Drum Class",
-        "category": "Music",
-        "offering": "offered",
-        "age": {
-          "minMonths": 48,
-          "maxMonths": 216,
-          "level": "branch",
-          "verification": "listed-unconfirmed",
-          "providerAgeUrl": "https://happykamper.io/id/activities/private-drum-class",
-          "sourceCheckedAt": "2026-11-24"
-        },
-        "note": "Partner-listed (Happy Kamper, checked 2026-11-24); ages are partner-listed, not provider-confirmed. Confirm with the provider."
-      }
-    ],
-    "sourceUrl": "https://happykamper.io/id/activities/private-guitar-class",
-    "lastCheckedAt": "2026-11-24",
-    "fitStatus": "media-claimed",
-    "notes": "Maps listing matches name and Karawaci area (2026-11-24). All class ages and prices are partner-listed (Happy Kamper), not provider-confirmed.",
-    "priceListings": [
-      {
-        "sourceKind": "partner",
-        "label": "Private Guitar Class",
-        "amountIdr": 500000,
-        "unit": "per session",
-        "source": "Happy Kamper",
-        "sourceUrl": "https://happykamper.io/id/activities/private-guitar-class",
-        "checkedAt": "2026-11-24"
-      },
-      {
-        "sourceKind": "partner",
-        "label": "Private Piano Class",
-        "amountIdr": 500000,
-        "unit": "per session",
-        "source": "Happy Kamper",
-        "sourceUrl": "https://happykamper.io/id/activities/private-piano-class",
-        "checkedAt": "2026-11-24"
-      },
-      {
-        "sourceKind": "partner",
-        "label": "Private Vocal Class",
-        "amountIdr": 500000,
-        "unit": "per session",
-        "source": "Happy Kamper",
-        "sourceUrl": "https://happykamper.io/id/activities/private-vocal-class",
-        "checkedAt": "2026-11-24"
-      },
-      {
-        "sourceKind": "partner",
-        "label": "Private Drum Class",
-        "amountIdr": 500000,
-        "unit": "per session",
-        "source": "Happy Kamper",
-        "sourceUrl": "https://happykamper.io/id/activities/private-drum-class",
-        "checkedAt": "2026-11-24"
-      }
-    ],
-    "operatingStatus": {
-      "state": "partner-listed",
-      "source": "https://www.google.com/maps/search/?api=1&query=Prelude+Music+School&query_place_id=ChIJOXYryqb-aS4RSZJ8byg6u0o",
-      "checkedAt": "2026-11-24"
-    },
-    "reviews": {
-      "rating": 4.699999809265137,
-      "reviewCount": 35,
-      "source": "Google Maps",
-      "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Prelude+Music+School&query_place_id=ChIJOXYryqb-aS4RSZJ8byg6u0o",
-      "checkedAt": "2026-11-24",
-      "sampleNote": "Rating and count only; individual reviews not read (2026-11-24).",
-      "praiseThemes": [],
-      "complaintThemes": []
-    }
-  },
-  {
-    "id": "cultura-mandatum-bsd",
-    "chain": null,
-    "branchName": "Cultura Mandatum Music School (BSD)",
-    "categories": [
-      "Music"
-    ],
-    "address": "Ruko North Point, Jl. BSD Boulevard Utara No.20 Lt 1, Lengkong Kulon, Kec. Pagedangan, Kabupaten Tangerang, Banten 15331, Indonesia",
-    "area": "BSD City",
-    "city": "Kabupaten Tangerang",
-    "lat": -6.2890351,
-    "lng": 106.6527576,
-    "coordinateSource": "maps-pin",
-    "programs": [
-      {
-        "name": "Private music class (piano, guitar, violin, drum, vocal)",
-        "category": "Music",
-        "offering": "offered",
-        "age": {
-          "minMonths": 48,
-          "maxMonths": 216,
-          "level": "branch",
-          "verification": "listed-unconfirmed",
-          "providerAgeUrl": "https://happykamper.io/id/activities/private-music-class-untuk-piano-gitar-biola-drum-dan-vokal",
-          "sourceCheckedAt": "2026-11-24"
-        },
-        "note": "Partner-listed (Happy Kamper, checked 2026-11-24); ages are partner-listed, not provider-confirmed. Confirm with the provider."
-      }
-    ],
-    "sourceUrl": "https://happykamper.io/id/activities/private-music-class-untuk-piano-gitar-biola-drum-dan-vokal",
-    "lastCheckedAt": "2026-11-24",
-    "fitStatus": "media-claimed",
-    "notes": "Maps listing \"Cultura Mandatum Music School BSD\" at Ruko North Point, BSD matches the Pagedangan area on Happy Kamper (2026-11-24). Only 1 Maps rating. All class ages and prices are partner-listed (Happy Kamper), not provider-confirmed.",
-    "priceListings": [
-      {
-        "sourceKind": "partner",
-        "label": "Private music class",
-        "amountIdr": 650000,
-        "unit": "per session",
-        "source": "Happy Kamper",
-        "sourceUrl": "https://happykamper.io/id/activities/private-music-class-untuk-piano-gitar-biola-drum-dan-vokal",
-        "checkedAt": "2026-11-24"
-      }
-    ],
-    "operatingStatus": {
-      "state": "partner-listed",
-      "source": "https://www.google.com/maps/search/?api=1&query=Cultura+Mandatum+Music+School+BSD&query_place_id=ChIJOXA2Mej7aS4RxmgrqNqoJE0",
-      "checkedAt": "2026-11-24"
-    },
-    "reviews": {
-      "rating": 5,
-      "reviewCount": 1,
-      "source": "Google Maps",
-      "sourceUrl": "https://www.google.com/maps/search/?api=1&query=Cultura+Mandatum+Music+School+BSD&query_place_id=ChIJOXA2Mej7aS4RxmgrqNqoJE0",
-      "checkedAt": "2026-11-24",
-      "sampleNote": "Rating and count only; individual reviews not read (2026-11-24).",
-      "praiseThemes": [],
-      "complaintThemes": []
-    }
-  }
 ];

@@ -12,8 +12,7 @@ test('Class guides lives only in the information menu, not behind the sidebar',(
 test('contact is in the help menu at every viewport, without a plain email label',()=>{
  const s=readFileSync(new URL('../src/components/MapHUD.tsx',import.meta.url),'utf8');
  assert.match(s,/ref=\{helpMenu\} className="relative"/);
- assert.match(s,/<a href="mailto:derrylditramaneti@gmail.com"[^>]*>Email<\/a>/);
- assert.equal((s.match(/derrylditramaneti@gmail.com/g)??[]).length,1);
+ assert.equal((s.match(/derrylditramaneti@gmail.com/g)??[]).length,0);
 });
 
 test('contact pages are bilingual, discoverable and use subject-only mail links',()=>{

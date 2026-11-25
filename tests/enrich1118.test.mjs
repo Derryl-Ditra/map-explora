@@ -11,13 +11,13 @@ const ids=['kiddies88-maspen-cimuning','kiddies88-waterland-transyogi','kiddies8
 
 test('Nov18 adds exactly four reviewed branches without changing the previous inventory',()=>{
  assert.deepEqual(KIDDIES88_20261118.map(v=>v.id),ids);
- assert.equal(VENUES.length,183); // 2026-11-24 batch 4 (HK_VENUES): +19 partner-listed venues; total 164 -> 183.
- assert.equal(VENUES.filter(isShownToUsers).length,171); // 2026-11-24 batch 4 (HK_VENUES): +19 partner-listed venues; shown 152 -> 171, total 164 -> 183.
+ assert.equal(VENUES.length,179); // 2026-11-25 PR #125 audit fix: 4 of the 19 HK venues dropped; total 183 -> 179.
+ assert.equal(VENUES.filter(isShownToUsers).length,167); // 2026-11-25 PR #125 audit fix: 4 of the 19 HK venues dropped; shown 171 -> 167.
  assert.equal(VENUES.filter(isShownToUsers).filter(hasVerifiedAgeEvidence).length,52);
  // 2026-11-22 round F: Buumi Urban Forest priced via dated tiket.com listings.
  // 2026-11-22 round H: aquababies-bintaro and aquababies-menteng priced via the official shop page.
  // 2026-11-22 round I: kiddiegym-bogor-siliwangi priced via the official school-fees page.
- assert.equal(VENUES.filter(isShownToUsers).filter(v=>v.priceListings?.length).length,43); // 2026-11-24 batch 4 (HK_VENUES): 24 -> 43 (19 venues with Happy Kamper price listings).
+ assert.equal(VENUES.filter(isShownToUsers).filter(v=>v.priceListings?.length).length,39); // 2026-11-25 PR #125 audit fix: dropped 4 priced HK venues; 43 -> 39.
  const old=structuredClone(VENUES.filter(v=>!ids.includes(v.id))),before=structuredClone(old);
  enrich(old);assert.deepEqual(old.slice(0,before.length),before);
  assert.equal(old.length,before.length+4);

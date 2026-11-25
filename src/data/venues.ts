@@ -9020,3 +9020,5 @@ enrich1126(VENUES);
 import { HK_VENUES } from "./venues-hk";
 // 2026-11-24 batch 4: 19 Happy Kamper partner-listed venues (see venues-hk.ts).
 VENUES.push(...HK_VENUES);
+import enrich1127 from "./enrich1127";
+enrich1127(VENUES);

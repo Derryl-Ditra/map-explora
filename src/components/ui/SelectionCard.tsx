@@ -1,6 +1,7 @@
 "use client";
 
 import { hasVerifiedAgeEvidence } from "@/utils/ageMatch";
+import { venueCategories } from "@/utils/categories";
 import { buildMapsLink, canRouteVenue } from "@/utils/mapsLink";
 import { Venue } from "@/types/venue";
 import { Navigation, X, ChevronRight } from "lucide-react";
@@ -31,7 +32,7 @@ export default function SelectionCard({
           <h2 className="text-[1.0625rem] font-bold text-[#221d18] leading-snug">{name}</h2>
           <p className="text-[0.9375rem] text-[#6d675f]">
             {venue.area}
-            {venue.categories.length > 0 ? ` • ${venue.categories.join(", ")}` : ""}
+            {venueCategories(venue).length > 0 ? ` • ${venueCategories(venue).join(", ")}` : ""}
           </p>
           {venue.distance ? (
             <p className="text-[0.9375rem] font-semibold text-[#1a7a4a]">{venue.distance} km straight-line</p>
@@ -46,7 +47,7 @@ export default function SelectionCard({
           type="button"
           onClick={onClose}
           aria-label="Close place card"
-          className="w-10 h-10 shrink-0 rounded-full bg-[#f6f2ec] border border-[#e7e0d4] flex items-center justify-center"
+          className="w-11 h-11 shrink-0 rounded-full bg-[#f6f2ec] border border-[#e7e0d4] flex items-center justify-center"
         >
           <X className="w-4 h-4 text-[#4a443c]" />
         </button>
