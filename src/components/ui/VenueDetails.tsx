@@ -186,7 +186,7 @@ export default function VenueDetails({
               <p className="text-[0.875rem] text-[#6d675f]">
                 {noneVerified && <>Not confirmed for this branch. {CONFIRM_BY_PHONE} </>}
                 {mixedVerification && <>Check mark: confirmed for this branch. Other ages are provider-listed; {CONFIRM_BY_PHONE.toLowerCase()} </>}
-                {classSources.length > 0 && <>Ages from {classSources.map((s, i) => <span key={s.url}>{i > 0 && ", "}<a href={s.url} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">{s.host}</a></span>)}{classCheckedAt && `, read ${formatCheckedDate(classCheckedAt)}`}.</>}
+                {classSources.length > 0 && <>Ages from {classSources.map((s, i) => <span key={s.url}>{i > 0 && ", "}<a href={s.url} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a] inline-block py-3 -my-3">{s.host}</a></span>)}{classCheckedAt && `, read ${formatCheckedDate(classCheckedAt)}`}.</>}
               </p>
             )}
           </>
@@ -199,7 +199,7 @@ export default function VenueDetails({
           {estimates.map(estimate => {
             return <div key={estimate.name} className="flex flex-col gap-1 text-[0.9375rem]">
               <span className="font-semibold">{estimate.name}: {estimate.minMonths} to {estimate.maxMonths} months</span>
-              <div className="flex flex-wrap gap-3">{estimate.sources.map((url, i) => <a key={url} href={url} target="_blank" rel="noopener noreferrer" className="text-[#1a7a4a] underline">Source {i + 1}</a>)}</div>
+              <div className="flex flex-wrap gap-3">{estimate.sources.map((url, i) => <a key={url} href={url} target="_blank" rel="noopener noreferrer" className="text-[#1a7a4a] underline inline-block py-3 -my-3">Source {i + 1}</a>)}</div>
             </div>;
           })}
         </div>
@@ -215,8 +215,8 @@ export default function VenueDetails({
           <span className="font-bold text-[#221d18]">{ageConflict ? "Age details to confirm" : kind === "parent-review" ? "Parent review note" : "Class details to check"}</span>
           {notes.map(program => <div key={program.name} className={`text-[0.875rem] ${ageConflict ? "text-[#665026]" : "text-[#6d675f]"}`}>
             <p><strong>{program.name}:</strong> {program.note}</p>
-            {program.age.providerAgeUrl && !isDeadSourceUrl(program.age.providerAgeUrl) && <a href={program.age.providerAgeUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a] mr-3">Program source</a>}
-            {program.noteUrl && !isDeadSourceUrl(program.noteUrl) && <a href={program.noteUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">{program.noteLabel || "Other source"}</a>}
+            {program.age.providerAgeUrl && !isDeadSourceUrl(program.age.providerAgeUrl) && <a href={program.age.providerAgeUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a] mr-3 inline-block py-3 -my-3">Program source</a>}
+            {program.noteUrl && !isDeadSourceUrl(program.noteUrl) && <a href={program.noteUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a] inline-block py-3 -my-3">{program.noteLabel || "Other source"}</a>}
           </div>)}
         </section>;
       })}
