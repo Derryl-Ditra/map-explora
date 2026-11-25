@@ -402,6 +402,43 @@ const translations: Record<string,string> = {
   "PDF cell label 'Tots Gym U4'; numeric age via the official web schedule key ('3 - 4 Years'). Grid: Mon 15:00; Tue 13:00; Wed 13:00; Thu 13:00; Fri 13:00; Sat 14:00 (50/55 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.": "Label sel PDF 'Tots Gym U4'; usia numerik dari kunci jadwal web resmi ('3 - 4 Years'). Jadwal: Mon 15:00; Tue 13:00; Wed 13:00; Thu 13:00; Fri 13:00; Sat 14:00 (50/55 min; jadwal cabang, dibaca 24 Nov 2026). Konfirmasi ketersediaan ke cabang.",
   "PDF cell label 'Tots Gym U4'; numeric age via the official web schedule key ('3 - 4 Years'). Grid: Mon 15:00; Tue 13:00; Wed 14:00; Thu 14:00; Fri 14:00; Sat 12:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.": "Label sel PDF 'Tots Gym U4'; usia numerik dari kunci jadwal web resmi ('3 - 4 Years'). Jadwal: Mon 15:00; Tue 13:00; Wed 14:00; Thu 14:00; Fri 14:00; Sat 12:00 (50 min; jadwal cabang, dibaca 24 Nov 2026). Konfirmasi ketersediaan ke cabang.",
   "PDF cell label 'Tots Gym U4'; numeric age via the official web schedule key ('3 - 4 Years'). Grid: Mon 15:00; Tue 14:00; Wed 13:00; Thu 13:00; Fri 13:00; Sat 13:00; Sun 14:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.": "Label sel PDF 'Tots Gym U4'; usia numerik dari kunci jadwal web resmi ('3 - 4 Years'). Jadwal: Mon 15:00; Tue 14:00; Wed 13:00; Thu 13:00; Fri 13:00; Sat 13:00; Sun 14:00 (50 min; jadwal cabang, dibaca 24 Nov 2026). Konfirmasi ketersediaan ke cabang.",
+ // 2026-11-24 batch 4 (HK_VENUES): Happy Kamper labels and units. Already-Bahasa labels map to themselves.
+ "Majiku Pop Up Class": "Kelas Pop Up Majiku",
+ "Baby Dancing Ballet for Kiddies": "Balet Baby Dancing untuk anak",
+ "Pre Primary ballet": "Balet Pre Primary",
+ "Dance Hip Hop": "Kelas Hip Hop",
+ "Registration (Biaya pendaftaran)": "Biaya pendaftaran",
+ "Playground entry": "Tiket masuk playground",
+ "Pemula Plus Hockey": "Kelas Pemula Plus Hockey",
+ "Basic class": "Kelas Basic",
+ "Pemula 9": "Kelas Pemula 9",
+ "Pemula": "Kelas Pemula",
+ "Kids Dance Class": "Kelas dance anak",
+ "Basketball Class (Bendella Bekasi)": "Kelas basket (Bendella Bekasi)",
+ "Kelas Merakit Robot": "Kelas Merakit Robot",
+ "Kelas Coding Scratch": "Kelas Coding Scratch",
+ "Kelas Calistung": "Kelas Calistung",
+ "Kelas Bimba Tahfidz": "Kelas Bimba Tahfidz",
+ "Kelas Privat Bimba Tahfidz": "Kelas Privat Bimba Tahfidz",
+ "Kelas Mewarnai": "Kelas Mewarnai",
+ "Air Dry Clay Animal Figures": "Figur hewan dari air dry clay",
+ "Robotic and Coding Class Centre": "Kelas robotik dan coding di centre",
+ "Belajar Al-Quran": "Belajar Al-Quran",
+ "Pendaftaran awal (SPP 1 bulan + modul Bahasa Inggris pra level A)": "Pendaftaran awal (SPP 1 bulan + modul Bahasa Inggris pra level A)",
+ "Kelas Renang Reguler Dasar (Jagakarsa)": "Kelas Renang Reguler Dasar (Jagakarsa)",
+ "Coba Kelas Renang Anak (trial)": "Coba Kelas Renang Anak (trial)",
+ "Act of Life": "Kelas Act of Life",
+ "Ballet Dance Class": "Kelas balet",
+ "Piano Class": "Kelas piano",
+ "Fun Art Drawing Class": "Kelas menggambar Fun Art",
+ "Private Guitar Class": "Kelas gitar privat",
+ "Private Piano Class": "Kelas piano privat",
+ "Private Vocal Class": "Kelas vokal privat",
+ "Private Drum Class": "Kelas drum privat",
+ "Private music class": "Kelas musik privat",
+ "per entry": "per tiket masuk",
+ "per registration": "per pendaftaran",
+ "per registration bundle": "per paket pendaftaran",
 };
 export function placeText(text: string | undefined,lang: 'en'|'id',fallback=''): string {
  if(!text)return '';return lang==='en'?text:(translations[text] ?? fallback);
@@ -424,4 +461,4 @@ export function publicCaution(text:string,lang:'en'|'id') {
 export function publicAddress(address:string,lang:'en'|'id'='en') {
  const clean=address.replace(/\s*\(official location page;[^)]*\)/gi,'');
  return lang==='id'?clean.replace('Ground Floor, Outdoor Area,','Lantai dasar, area luar,'):clean;
-}
+    }

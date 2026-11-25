@@ -10,7 +10,8 @@ const visible=comparisonInventory(VENUES);
 test('comparison inventory is exactly the public non-government inventory, without mutation',()=>{
  const before=JSON.stringify(VENUES);
  assert.deepEqual(visible.map(v=>v.id).sort(),placePageInventory(VENUES).map(v=>v.id).sort());
- assert.equal(visible.length,152);assert.equal(JSON.stringify(VENUES),before);
+ // 2026-11-24 batch 4 (HK_VENUES): +19 partner-listed venues; shown 152 -> 171, total 164 -> 183.
+ assert.equal(visible.length,171);assert.equal(JSON.stringify(VENUES),before);
  const v=visible[0];
  for(const change of [{operatingStatus:{state:'maps-listed'}},{chain:'RPTRA'},{website:'https://example.go.id/'}])assert.equal(comparisonInventory([{...v,...change}]).length,0);
 });
@@ -29,7 +30,7 @@ test('coverage uses actual sourced price and rating records, not candidates',()=
  // 2026-11-22 round F: Buumi Urban Forest priced via dated tiket.com listings.
  // 2026-11-22 round H: aquababies-bintaro and aquababies-menteng priced via the official shop page (priced 21 -> 23).
  // 2026-11-22 round I: kiddiegym-bogor-siliwangi priced via the official school-fees page (priced 23 -> 24).
- assert.deepEqual(coverage(VENUES),{visible:152,priced:24,reviewed:146});
+ assert.deepEqual(coverage(VENUES),{visible:171,priced:43,reviewed:164}); // 2026-11-24 batch 4 (HK_VENUES): visible 152 -> 171; priced 24 -> 43 (19 venues with Happy Kamper price listings); reviewed 146 -> 164 (+18; kodingyuk-depok-town-center has no Maps ratings yet).
  const noPrice=visible.find(v=>!v.priceListings);assert.ok(noPrice);
  assert.equal(coverage([noPrice]).priced,0);
 });
