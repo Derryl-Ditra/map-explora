@@ -5,25 +5,25 @@ const { cardAgeSummary, cardRatingSummary, phoneHref } = await importTs('../src/
 const claim = {level:'branch',verification:'provider-confirmed',minMonths:6,maxMonths:18,providerAgeUrl:'https://provider.example/ages',sourceCheckedAt:'2026-11-08'};
 const venue = {programs:[{name:'Baby',offering:'offered',age:claim}],reviews:{rating:4.8,reviewCount:123,source:'Google Maps'}};
 test('card age overview counts separate checked ranges without filling gaps',()=>{
- assert.equal(cardAgeSummary(venue),'Verified ages: 6 to 18 months');
- assert.equal(cardAgeSummary({...venue,programs:[...venue.programs,{name:'Toddler',offering:'offered',age:{...claim,minMonths:30,maxMonths:48}}]}),'By class: 6-18 mo, 30-48 mo');
+ assert.equal(cardAgeSummary(venue),'Verified ages: 6 mo-18 mo');
+ assert.equal(cardAgeSummary({...venue,programs:[...venue.programs,{name:'Toddler',offering:'offered',age:{...claim,minMonths:30,maxMonths:48}}]}),'By class: 6 mo-18 mo, 30 mo-4 yr');
 });
 test('dense overlapping claims merge and duplicate claims stay compact',()=>{
  const programs = [6,12,18,24,30,36].map(minMonths=>({name:'Class',offering:'offered',age:{...claim,minMonths,maxMonths:minMonths+11}}));
- assert.equal(cardAgeSummary({programs}), 'By class: 6-47 mo');
- assert.equal(cardAgeSummary({...venue,branchAge:claim,programs:[...venue.programs,...venue.programs]}),'Verified ages: 6 to 18 months');
+ assert.equal(cardAgeSummary({programs}), 'By class: 6 mo-3.9 yr');
+ assert.equal(cardAgeSummary({...venue,branchAge:claim,programs:[...venue.programs,...venue.programs]}),'Verified ages: 6 mo-18 mo');
 });
 test('age overview sorts by lower bound before choosing two ranges',()=>{
  const programs = [30,6,18].map(minMonths=>({name:'Class',offering:'offered',age:{...claim,minMonths,maxMonths:minMonths+5}}));
- assert.equal(cardAgeSummary({programs}),'By class: 6-11 mo, 18-23 mo +1 more');
+ assert.equal(cardAgeSummary({programs}),'By class: 6 mo-11 mo, 18 mo-23 mo +1 more');
 });
 test('card ages decide from the best available tier, always with confirm-by-phone below verified',()=>{
  // Owner rule 2026-11-22 (follow-up): no undecided cases. Brand, listed and
  // conflicted claims still yield a decided range; only the confidence label
  // and the confirm-by-phone note change.
- assert.equal(cardAgeSummary({programs:[{...venue.programs[0],age:{...claim,level:'brand'}}]}),'Brand ages: 6 mo to 18 mo. Confirm by phone first.');
- assert.equal(cardAgeSummary({programs:[{...venue.programs[0],age:{...claim,sourceConflict:true}}]}),'Listed ages: 6 mo to 18 mo. Confirm by phone first.');
- assert.equal(cardAgeSummary({programs:[{...venue.programs[0],note:'ambiguous age boundary'}]}),'Listed ages: 6 mo to 18 mo. Confirm by phone first.');
+ assert.equal(cardAgeSummary({programs:[{...venue.programs[0],age:{...claim,level:'brand'}}]}),'Brand ages: 6 mo-18 mo. Confirm by phone first.');
+ assert.equal(cardAgeSummary({programs:[{...venue.programs[0],age:{...claim,sourceConflict:true}}]}),'Listed ages: 6 mo-18 mo. Confirm by phone first.');
+ assert.equal(cardAgeSummary({programs:[{...venue.programs[0],note:'ambiguous age boundary'}]}),'Listed ages: 6 mo-18 mo. Confirm by phone first.');
  assert.equal(cardAgeSummary({programs:[{...venue.programs[0],offering:'unknown'}]}),'Ages not published. Confirm by phone first.');
 });
 test('card rating includes source and sample count, not fabricated missing values',()=>{
