@@ -277,7 +277,7 @@ export default function MobileDrawer({
                   {categories.length === 0 ? (
                     <span>The class dataset is being verified and will appear here soon.</span>
                   ) : (
-                    <span>No places match your active filters.</span>
+                    <span>{ageActive ? "No places match this age here. Try a wider age or area." : "No places match your active filters."}</span>
                   )}
                   <button
                     type="button"
@@ -289,12 +289,8 @@ export default function MobileDrawer({
                 </div>
               ) : (
                 <>
-                  {ageActive && (
-                    <span className="text-[1rem] font-semibold text-[#14532d]">
-                      {confirmed.length === 0
-                        ? "No confirmed age overlap yet"
-                        : `Places with confirmed age overlap: ${confirmed.length}`}
-                    </span>
+                  {ageActive && confirmed.length === 0 && (
+                    <span className="text-[1rem] font-semibold text-[#14532d]">No confirmed age overlap yet</span>
                   )}
                   {confirmed.map((venue) => (
                     <VenueCard
