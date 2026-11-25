@@ -75,8 +75,8 @@ export function decidedAgeRange(v: Venue): DecidedAgeRange {
 // Parents of under-4s read months; switch to years only past 36.
 export function formatDecidedMonths(m: number): string {
   if (m <= 36) return `${m} mo`;
-  const yrs = m / 12;
-  return `${Number.isInteger(yrs) ? yrs : yrs.toFixed(1)} yr`;
+  // Whole years only; a part-year stays in months so one card never mixes "3.9 yr" with "36 mo".
+  return m % 12 === 0 ? `${m / 12} yr` : `${m} mo`;
 }
 
 export function formatDecidedRange(minMonths: number, maxMonths: number): string {
@@ -115,7 +115,7 @@ export function decidedAgeSummary(v: Venue): string {
   if (v.pendingReverification) return AGES_BEING_RECHECKED;
   const d = decidedAgeRange(v);
   if (d.confidence === "general") return `Ages not published. ${CONFIRM_BY_PHONE}`;
-  const label = d.confidence === "brand" ? "Brand ages" : "Listed ages";
+  const label = d.confidence === "brand" ? "Ages from brand site" : "Ages from provider listing";
   return `${label}: ${formatUnder5Range(d.minMonths, d.maxMonths)}. ${CONFIRM_BY_PHONE}`;
 }
 
