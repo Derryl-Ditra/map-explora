@@ -6,7 +6,7 @@ const claim = {level:'branch',verification:'provider-confirmed',minMonths:6,maxM
 const venue = {programs:[{name:'Baby',offering:'offered',age:claim}],reviews:{rating:4.8,reviewCount:123,source:'Google Maps'}};
 test('card age overview counts separate checked ranges without filling gaps',()=>{
  assert.equal(cardAgeSummary(venue),'Verified ages: 6-18 mo');
- assert.equal(cardAgeSummary({...venue,programs:[...venue.programs,{name:'Toddler',offering:'offered',age:{...claim,minMonths:30,maxMonths:48}}]}),'Verified ages: 6-18 mo, 30 mo to 4 yr');
+ assert.equal(cardAgeSummary({...venue,programs:[...venue.programs,{name:'Toddler',offering:'offered',age:{...claim,minMonths:30,maxMonths:48}}]}),'Verified ages: 6-18 mo, 30-48 mo');
 });
 test('dense overlapping claims merge and duplicate claims stay compact',()=>{
  const programs = [6,12,18,24,30,36].map(minMonths=>({name:'Class',offering:'offered',age:{...claim,minMonths,maxMonths:minMonths+11}}));
