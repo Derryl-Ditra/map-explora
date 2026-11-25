@@ -28,7 +28,7 @@ export default function PlacePage({venue:v,lang}:{venue:Venue;lang:PlaceLang}) {
  const decided=decidedAgeRange(v);
  const location=publicLocation(v,lang);
  const pending=!!v.pendingReverification;
- const uncertain=v.programs.filter(p=>p.offering!=='not-offered'&&!confirmed.includes(p));
+ const uncertain=v.programs.filter(p=>p.offering!=='not-offered'&&(p.age.minMonths??0)<60&&!confirmed.includes(p));
  // Identical note paragraphs render once per page.
  const seenNotes=new Set<string>();
  const noteOnce=(note?:string)=>{const t=publicProgramNote(note,lang);if(!t||seenNotes.has(t))return null;seenNotes.add(t);return <p>{t}</p>;};
