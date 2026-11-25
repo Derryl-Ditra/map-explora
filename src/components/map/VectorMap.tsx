@@ -50,6 +50,9 @@ const labelSpriteCache = new Map<string, ImageData>();
 
 const LABEL_SOURCE = "venue-labels";
 const LABEL_LAYER = "venue-labels";
+const DOT_LAYER = "venue-dots";
+// Names need room: below this zoom a lone place is a dot, so labels never pile on clusters.
+const LABEL_MIN_ZOOM = 14.5;
 
 function accuracyPolygon(lat: number, lng: number, meters: number): GeoJSON.Feature {
   const points: [number, number][] = [];
@@ -152,17 +155,19 @@ export default function VectorMap({
           paint: { "line-color": "#2563eb", "line-width": 1, "line-opacity": 0.3 },
         });
         ensureLabelAssets(map);
-        map.on("click", LABEL_LAYER, (e) => {
-          const id = e.features?.[0]?.properties?.venueId;
-          const v = id ? venuesRef.current.find((x) => x.id === id) : undefined;
-          if (v) onSelectRef.current(v);
-        });
-        map.on("mouseenter", LABEL_LAYER, () => {
-          map.getCanvas().style.cursor = "pointer";
-        });
-        map.on("mouseleave", LABEL_LAYER, () => {
-          map.getCanvas().style.cursor = "";
-        });
+        for (const layer of [LABEL_LAYER, DOT_LAYER]) {
+          map.on("click", layer, (e) => {
+            const id = e.features?.[0]?.properties?.venueId;
+            const v = id ? venuesRef.current.find((x) => x.id === id) : undefined;
+            if (v) onSelectRef.current(v);
+          });
+          map.on("mouseenter", layer, () => {
+            map.getCanvas().style.cursor = "pointer";
+          });
+          map.on("mouseleave", layer, () => {
+            map.getCanvas().style.cursor = "";
+          });
+        }
         renderMarkers(map);
       });
 
@@ -251,11 +256,26 @@ export default function VectorMap({
         data: { type: "FeatureCollection", features: [] },
       });
     }
+    if (!map.getLayer(DOT_LAYER)) {
+      map.addLayer({
+        id: DOT_LAYER,
+        type: "circle",
+        source: LABEL_SOURCE,
+        maxzoom: LABEL_MIN_ZOOM,
+        paint: {
+          "circle-radius": 8,
+          "circle-color": "#1a7a4a",
+          "circle-stroke-color": "#ffffff",
+          "circle-stroke-width": 2.5,
+        },
+      });
+    }
     if (!map.getLayer(LABEL_LAYER)) {
       map.addLayer({
         id: LABEL_LAYER,
         type: "symbol",
         source: LABEL_SOURCE,
+        minzoom: LABEL_MIN_ZOOM,
         layout: {
           "icon-image": ["get", "icon"],
           // Per-label pixel offset clamps every nameplate inside the
@@ -382,6 +402,7 @@ export default function VectorMap({
     if (map.getLayer(LABEL_LAYER)) {
       // Selection focus: other names fade so the chosen branch stands out.
       map.setPaintProperty(LABEL_LAYER, "icon-opacity", dimmed ? 0.3 : 1);
+      if (map.getLayer(DOT_LAYER)) map.setPaintProperty(DOT_LAYER, "circle-opacity", dimmed ? 0.3 : 1);
     }
 
     const active = venuesRef.current.find((v) => v.id === activeId);
