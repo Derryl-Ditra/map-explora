@@ -5121,4 +5121,4 @@ export default function enrich1124(venues: Venue[]) {
     note: "12-23 mo from the branch Winter term PDF class key. Grid: Mon 13:00; Tue 12:00; Wed 10:00; Thu 12:00; Fri 10:00; Sat 12:00; Sun 11:00 (50 min; branch schedule, read 24 Nov 2026). Confirm availability with the branch.",
   });
   }
-      }
+}
