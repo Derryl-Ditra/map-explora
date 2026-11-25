@@ -11,3 +11,5 @@
 .compare-location button{display:block;width:100%;margin:8px 0 0}
 .compare-location button:first-of-type{background:#1a7a4a;border-color:#1a7a4a;color:#fff}
 .compare-page{font-family:inherit}
+
+.compare-overlay:focus{outline:none}
