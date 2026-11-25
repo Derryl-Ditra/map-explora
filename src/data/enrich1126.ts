@@ -31,7 +31,7 @@ function venue(venues: Venue[], id: string): Venue {
 const TODAY = "2026-11-24";
 
 const E1_TRIAL_NOTE =
-  "Official FAQ (read 24 Nov 2026): free trial class available; booking via English 1 hotline 1500 947 or the center. No fees published. / FAQ resmi (dibaca 24 Nov 2026): tersedia free trial class; pendaftaran lewat hotline English 1 1500 947 atau center. Biaya tidak dipublikasikan.";
+  "Free trial class. Book via hotline 1500 947 or the center; no fees published.";
 
 const E1_REREAD_OS =
   /^https:\/\/english1\.co\.id\/(school\/(jakarta|tangerang|depok|bekasi|bogor)\/)?$/;
