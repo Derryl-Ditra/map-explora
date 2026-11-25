@@ -2,3 +2,7 @@
 .guides .comparison{max-width:72ch}.guides .comparison dt{font-weight:750;font-size:1.2rem;margin-top:2rem}.guides .comparison dd{margin:.8rem 0;overflow-wrap:anywhere}.guides .venue-list{overflow-wrap:anywhere}
 
 .guides .venue-list>li>h2{font-size:1.15rem;font-weight:700;line-height:inherit;margin:0}.guides .venue-list .links a{display:inline-flex;align-items:center;min-height:44px}
+
+/* 2026-11-25 mobile pass: compact place rows, collapsible city groups. */
+.guides .venue-list>li{padding:.75rem 0;line-height:1.45}.guides .venue-list>li p{margin:.25rem 0}.guides .venue-list .links{gap:0 1.25rem}
+.guides .venue-groups details{border-top:1px solid #d8d0c2}.guides .venue-groups summary{min-height:48px;display:flex;align-items:center;gap:.5rem;font-weight:700;font-size:1.1rem;cursor:pointer}.guides .venue-groups summary span{font-weight:500;color:#51483d;font-size:.95rem}.guides .venue-groups .venue-list{margin-bottom:.5rem}.guides .venue-groups .venue-list>li:first-child{border-top:0}
