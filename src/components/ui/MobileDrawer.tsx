@@ -279,13 +279,7 @@ export default function MobileDrawer({
                   ) : (
                     <span>{ageActive ? "No places match this age here. Try a wider age or area." : "No places match your active filters."}</span>
                   )}
-                  <button
-                    type="button"
-                    onClick={onResetFilters}
-                    className="text-[#1a7a4a] font-semibold underline text-[1rem] mt-1"
-                  >
-                    Reset filters
-                  </button>
+
                 </div>
               ) : (
                 <>
