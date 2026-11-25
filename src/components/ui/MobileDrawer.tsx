@@ -111,7 +111,7 @@ function VenueCard({
       )}
       <span className="text-[0.875rem] text-[#4a443c]">{cardRatingSummary(venue)}</span>
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[1rem] text-[#6d675f] truncate">
+        <span className="text-[0.9375rem] text-[#6d675f] line-clamp-2 min-w-0">
           {venueCategories(venue).join(", ")}
         </span>
         <span className="text-[1rem] font-bold text-[#1a7a4a] shrink-0">
@@ -238,12 +238,12 @@ export default function MobileDrawer({
           />
         ) : (
           <>
-            <button type="button" onClick={onLocate} disabled={isLocating} className="md:hidden shrink-0 min-h-12 rounded-xl bg-[#1a7a4a] text-white font-semibold py-2 px-3 disabled:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a]"><span className="block">{isLocating ? "Finding your location..." : hasActualLocation ? "Center on my location" : "Use my location"}</span><span className="block text-xs font-normal">{hasActualLocation ? "Location available" : "Find classes near you"}</span></button>
-            {locationNotice && <div role="status" className="flex items-center gap-2 rounded-2xl border border-[#e7e0d4] bg-white p-3 text-sm text-[#4a443c]">
+            {!locationDenied && <button type="button" onClick={onLocate} disabled={isLocating} className="md:hidden shrink-0 min-h-12 rounded-xl bg-[#1a7a4a] text-white font-semibold py-2 px-3 disabled:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a]"><span className="block">{isLocating ? "Finding your location..." : hasActualLocation ? "Center on my location" : "Use my location"}</span><span className="block text-xs font-normal">{hasActualLocation ? "Location available" : "Find classes near you"}</span></button>}
+            {locationNotice && <div role="status" className="flex items-center gap-1 rounded-xl border border-[#e7e0d4] bg-white py-1.5 pl-3 pr-1 text-sm text-[#4a443c]">
               <LocationNotice message={locationNotice} denied={locationDenied} />
               <button type="button" aria-label="Dismiss location notice" onClick={onDismissLocationNotice} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"><X className="h-4 w-4" /></button>
             </div>}
-            <div className="flex gap-2"><Link href="/for/class-costs-jakarta/" className="flex-1 min-h-12 rounded-xl border border-[#e7e0d4] bg-white px-3 flex items-center justify-center text-[#1a7a4a] font-semibold text-sm">Fees</Link></div>
+            <Link href="/for/class-costs-jakarta/" className="-mb-1 self-start text-sm font-semibold text-[#1a7a4a] underline underline-offset-2 py-1">What classes cost</Link>
             {/* Search Input */}
             <div className="relative w-full shrink-0">
               <Search className="w-4.5 h-4.5 text-[#6d675f] absolute left-4 top-1/2 -translate-y-1/2" />
