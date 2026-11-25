@@ -184,7 +184,7 @@ export default function VenueDetails({
             {classRows.length > 4 && <button type="button" onClick={() => setAllClasses((v) => !v)} aria-expanded={allClasses} className="min-h-11 self-start text-sm font-semibold text-[#14532d] rounded-md focus-visible:outline-2">{allClasses ? "Show fewer" : `Show all ${classRows.length} classes`}</button>}
             {(classSources.length > 0 || mixedVerification) && (
               <p className="text-[0.875rem] text-[#6d675f]">
-                {noneVerified && <>Not confirmed for this branch. {CONFIRM_BY_PHONE} </>}
+                {noneVerified && <>Not confirmed for this branch. </>}
                 {mixedVerification && <>Check mark: confirmed for this branch. Other ages are provider-listed; {CONFIRM_BY_PHONE.toLowerCase()} </>}
                 {classSources.length > 0 && <>Ages from {classSources.map((s, i) => <span key={s.url}>{i > 0 && ", "}<a href={s.url} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a] inline-block py-3 -my-3">{s.host}</a></span>)}{classCheckedAt && `, read ${formatCheckedDate(classCheckedAt)}`}.</>}
               </p>
