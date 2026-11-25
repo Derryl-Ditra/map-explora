@@ -94,7 +94,11 @@ export function formatUnder5Range(minMonths: number, maxMonths: number): string 
   const min = formatDecidedMonths(minMonths);
   const max = formatUnder5Max(maxMonths);
   // "under 5 yr" reads badly after a hyphen; plain units join with one.
-  return max === "under 5 yr" ? `${min} to ${max}` : `${min}-${max}`;
+  if (max === "under 5 yr") return `${min} to ${max}`;
+  // Same unit on both ends: say it once ("6-18 mo", "3-4 yr").
+  const [minNum, minUnit] = min.split(" ");
+  const [maxNum, maxUnit] = max.split(" ");
+  return minUnit === maxUnit ? `${minNum}-${maxNum} ${maxUnit}` : `${min} to ${max}`;
 }
 
 // One public line for venues whose stored ages and fees failed a verification
