@@ -13,6 +13,7 @@ import {isVerifiedAgeClaim,verifiedPrograms} from '@/utils/ageMatch';
 import RecordedFees from './RecordedFees';
 import ReviewSnapshot from './ReviewSnapshot';
 import './compare-places.css';
+const regionLabel=(v:{area:string;city:string})=>v.area.trim().toLowerCase()===v.city.trim().toLowerCase()?v.area:`${v.area} · ${v.city}`;
 
 type Lang='en'|'id';
 export default function ComparePlaces({venues,lang:initialLang,onBack,initialFix=null}:{venues:Venue[];lang:Lang;initialFix?:CompareFix|null;onBack?: (ids:[string,string])=>void}) {
@@ -58,8 +59,8 @@ export default function ComparePlaces({venues,lang:initialLang,onBack,initialFix
  const ready=pair.every(Boolean);
  const retained=picker===null?undefined:pair[1-picker];
  const currentFix=freshCompareFix(fix);
- const results=(currentFix||area||query.trim())?nearbyComparisonVenues(venues,fix).filter(v=>v.id!==retained?.id&&(!area||`${v.area} · ${v.city}`===area)&&venueMatchesSearch(v,query)):[];
- const areaOptions=[...new Set(venues.map(v=>`${v.area} · ${v.city}`))].sort();
+ const results=(currentFix||area||query.trim())?nearbyComparisonVenues(venues,fix).filter(v=>v.id!==retained?.id&&(!area||regionLabel(v)===area)&&venueMatchesSearch(v,query)):[];
+ const areaOptions=[...new Set(venues.map(v=>regionLabel(v)))].sort();
  const locationControls=<div className="compare-location">
   {currentFix?<><strong>{t('Closest first','Terdekat dahulu')}</strong><small>{t('Straight-line distance, not travel time','Jarak garis lurus, bukan waktu tempuh')}{currentFix.accuracy>1000?t(' · approximate location',' · lokasi perkiraan'):''}</small><button onClick={()=>{setFix(null);setShowArea(true);}}>{t('Change location or area','Ubah lokasi atau area')}</button></>:<><strong>{t('Start with places near you','Mulai dari tempat terdekat')}</strong><p>{t('Location sorts this list on your device. Not saved or included in links.','Lokasi mengurutkan daftar di perangkat ini. Tidak disimpan atau masuk tautan.')}</p><button disabled={locating} onClick={requestLocation}>{locating?t('Finding location…','Mencari lokasi…'):t('Use my location','Gunakan lokasi saya')}</button><button className="compare-area-toggle" onClick={()=>setShowArea(!showArea)}>{t('Choose an area instead','Pilih area saja')}</button></>}
   {locationMessage&&<p role="status">{locationMessage}</p>}
