@@ -19,7 +19,7 @@ for (const [name,input,expected] of [
 });
 test('card, English share, Indonesian share and WhatsApp agree on the union',()=>{
  const v=venue([[6,23],[24,35]]), before=structuredClone(v);
- assert.equal(cardAgeSummary(v),'By class: 6-35 mo');
+ assert.equal(cardAgeSummary(v),'By class: 6 mo-35 mo');
  assert.equal(ageSummary(v),'Ages 6-35 months, by class');
  assert.equal(ageSummary(v,'id'),'Usia 6-35 bulan, tergantung kelas');
  assert.match(buildShareText(v,'id','whatsapp'),/Usia 6-35 bulan, tergantung kelas/);
@@ -28,23 +28,27 @@ test('card, English share, Indonesian share and WhatsApp agree on the union',()=
 });
 test('overlapping card example no longer truncates to +1 more',()=>{
  const v=venue([[6,18],[12,23],[24,35]]);
- assert.equal(cardAgeSummary(v),'By class: 6-35 mo');
+ assert.equal(cardAgeSummary(v),'By class: 6 mo-35 mo');
  assert.equal(ageSummary(v),'Ages 6-35 months, by class');
 });
 test('count only separate display ranges and preserve real gaps',()=>{
  const v=venue([[6,18],[12,23],[25,35],[40,50]]);
- assert.equal(cardAgeSummary(v),'By class: 6-23 mo, 25-35 mo +1 more');
+ assert.equal(cardAgeSummary(v),'By class: 6 mo-23 mo, 25 mo-35 mo +1 more');
  assert.equal(ageSummary(v),'Ages 6-23, 25-35, 40-50 months, by class');
 });
 test('unverified claims cannot bridge a gap',()=>{
  const v=venue([[6,23],[24,24],[25,35]]); v.programs[1].age.verification='unverified';
- assert.equal(cardAgeSummary(v),'By class: 6-23 mo, 25-35 mo');
+ assert.equal(cardAgeSummary(v),'By class: 6 mo-23 mo, 25 mo-35 mo');
  assert.equal(ageSummary(v),'Ages 6-23, 25-35 months, by class');
 });
 test('single class and branch fallback keep their existing scope labels',()=>{
  const v=venue([[6,18]]);
  assert.equal(ageSummary(v),'Class 1 · 6-18 months');
- assert.equal(cardAgeSummary(v),'Verified ages: 6 to 18 months');
+ assert.equal(cardAgeSummary(v),'Verified ages: 6 mo-18 mo');
  const b={...v,programs:[],branchAge:{...claim,minMonths:6,maxMonths:35}};
  assert.equal(ageSummary(b),'6-35 months, branch statement');
+});
+test('pending re-verification hides ages and fees behind one line',()=>{
+ const v=venue([[6,18]]); v.pendingReverification='audit';
+ assert.equal(cardAgeSummary(v),'Ages and fees are being re-checked.');
 });
