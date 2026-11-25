@@ -6,7 +6,7 @@ test('Indonesian guide titles describe the same city and activity',()=>{
  assert.equal(localizeGroup({title:'Swimming classes for under 5s in Bekasi',area:'Bekasi',activity:'Swim'},'id'),'Kelas renang anak di bawah 5 tahun di Bekasi');
 });
 test('job pages include exact age plus honest cost and weather guidance in both languages',()=>{
- const en=jobPages('en'),id=jobPages('id');assert.equal(en.length,3);assert.equal(id.length,3);assert.equal(id.find(j=>j.kind==='age').months,18);assert.equal(id.find(j=>j.kind==='price').title,'Berapa biaya kelas anak di Jakarta?');
+ const en=jobPages('en'),id=jobPages('id');assert.equal(en.length,3);assert.equal(id.length,3);assert.equal(id.find(j=>j.kind==='age').months,18);assert.equal(id.find(j=>j.kind==='price').title,'Berapa biaya kelas anak di bawah 5 tahun di Jabodetabek?');
 });
 test('llms output gives actual counts, no booking promise, bilingual guide and data links',()=>{
  const text=buildLlms('id',138);assert.ok(text.includes('138'));assert.ok(text.includes('/id/activities/'));assert.ok(text.includes('/venues.json'));assert.ok(text.includes('bukan layanan pemesanan'));assert.ok(!text.includes('termurah'));
