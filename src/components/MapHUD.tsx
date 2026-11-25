@@ -15,7 +15,7 @@ import MobileDrawer from "./ui/MobileDrawer";
 import ShareCard from "./ui/ShareCard";
 import {ageBandLabel} from '@/utils/ageBands';
 import { useAppNavigation } from "@/hooks/useAppNavigation";
-import { HelpCircle, Baby, Crosshair, Loader2, MapPin, X } from "lucide-react";
+import { HelpCircle, Baby, Crosshair, Loader2, X } from "lucide-react";
 
 // Dynamic import for the map (client-only)
 const VectorMap = dynamic(() => import("./map/VectorMap"), {
@@ -155,8 +155,8 @@ export default function MapHUD({initialCompare=false, compareLang="en"}:{initial
           Back/venue names), top-center on desktop. Dismissible, auto-hides. */}
       {locationError && !locationNoticeGone && !activeVenue && mobileView === "map" && (!isDesktop || desktopCollapsed) && (
         <div className="absolute bottom-[204px] md:bottom-auto md:top-4 left-1/2 -translate-x-1/2 z-[1001] w-[min(92vw,340px)]">
-          <div className="bg-white border border-[#e7e0d4] rounded-2xl pl-3.5 pr-2 py-2.5 text-[0.9375rem] text-[#4a443c] shadow-sm flex items-center gap-2">
-            <MapPin className="w-4 h-4 text-[#92400e] shrink-0" />
+          <div className="bg-white border border-[#e7e0d4] rounded-xl pl-3 pr-1 py-1.5 text-sm text-[#4a443c] shadow-sm flex items-center gap-2">
+            
             <LocationNotice message={locationError} denied={locationErrorCode===1} />
             <button
               type="button"
@@ -237,7 +237,6 @@ export default function MapHUD({initialCompare=false, compareLang="en"}:{initial
             <Link href="/activities/" className="flex min-h-12 items-center rounded-xl px-3 hover:bg-white focus-visible:outline-2">Class guides</Link>
             <Link href="/venues.json" className="flex min-h-12 items-center rounded-xl px-3 hover:bg-white focus-visible:outline-2">Sources and public data</Link>
             <Link href="/contact/" className="flex min-h-12 items-center rounded-xl px-3 hover:bg-white focus-visible:outline-2">Contact</Link>
-            <a href="mailto:derrylditramaneti@gmail.com" className="flex min-h-12 items-center rounded-xl px-3 hover:bg-white focus-visible:outline-2">Email</a>
           </nav>}
         </div>
       </div>
