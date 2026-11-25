@@ -220,7 +220,7 @@ export default function MobileDrawer({
         ${mobileHidden ? "hidden" : "flex"} ${desktopCollapsed ? "md:hidden" : "md:flex"}
       `}
     >
-      {<button ref={handle} type="button" aria-label={showDetails ? "Close place and return to map" : "Close list and return to map"} onClick={onDismissToMap} className="md:hidden h-8 shrink-0 flex items-center justify-center touch-none cursor-grab active:cursor-grabbing"><span className="w-10 h-1 rounded-full bg-[#aaa297]" /></button>}
+      {<button ref={handle} type="button" aria-label={showDetails ? "Close place and return to map" : "Close list and return to map"} onClick={onDismissToMap} className="md:hidden h-11 shrink-0 flex items-center justify-center touch-none cursor-grab active:cursor-grabbing"><span className="w-10 h-1 rounded-full bg-[#aaa297]" /></button>}
       {!activeVenue && <div className="hidden md:flex justify-end px-4 pt-2"><button type="button" onClick={onHideSidebar} className="min-h-11 px-3 text-[#14532d] text-sm">Hide sidebar</button></div>}
       {!activeVenue && header}
 
