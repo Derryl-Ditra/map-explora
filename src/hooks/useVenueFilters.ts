@@ -9,6 +9,7 @@ import { hasVerifiedAgeEvidence } from "@/utils/ageMatch";
 import { venueOverlapsBand } from '@/utils/ageBands';
 import { venueMatchesSearch } from "@/utils/searchMatch";
 import { isShownToUsers } from "@/utils/visibility";
+import { venueCategories } from "@/utils/categories";
 
 // Only places with an official aliveness source are shown. The rest stay in the data file.
 const SHOWN_VENUES = VENUES.filter(isShownToUsers);
@@ -33,7 +34,7 @@ export function useVenueFilters(userPos: [number, number] | null) {
   };
 
   const categories = useMemo(
-    () => [...new Set(SHOWN_VENUES.flatMap((v) => v.categories))].sort(),
+    () => [...new Set(SHOWN_VENUES.flatMap((v) => venueCategories(v)))].sort(),
     []
   );
   const areas = useMemo(
@@ -52,7 +53,7 @@ export function useVenueFilters(userPos: [number, number] | null) {
 
     const base = withDistance.filter((v) => {
       if (!venueMatchesSearch(v, filters.searchQuery)) return false;
-      if (filters.category !== "ALL" && !v.categories.includes(filters.category))
+      if (filters.category !== "ALL" && !venueCategories(v).includes(filters.category))
         return false;
       if (filters.area !== "ALL" && v.area !== filters.area) return false;
       return true;
