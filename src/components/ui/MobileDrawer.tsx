@@ -8,6 +8,7 @@ import { Venue, VenueFilterState } from "@/types/venue";
 import { buildMapsLink, canRouteVenue } from "@/utils/mapsLink";
 import {matchingAgeRanges, type AgeBandId} from '@/utils/ageBands';
 import { cardAgeSummary, cardRatingSummary } from "@/utils/venueSummary";
+import { venueCategories } from "@/utils/categories";
 import { useSheetGesture } from "@/hooks/useSheetGesture";
 import FilterBar from "./FilterBar";
 import VenueDetails from "./VenueDetails";
@@ -111,7 +112,7 @@ function VenueCard({
       <span className="text-[0.875rem] text-[#4a443c]">{cardRatingSummary(venue)}</span>
       <div className="flex items-center justify-between gap-2">
         <span className="text-[1rem] text-[#6d675f] truncate">
-          {venue.categories.join(", ")}
+          {venueCategories(venue).join(", ")}
         </span>
         <span className="text-[1rem] font-bold text-[#1a7a4a] shrink-0">
           {venue.distance ? `${venue.distance} km` : ""}
@@ -242,7 +243,7 @@ export default function MobileDrawer({
               <LocationNotice message={locationNotice} denied={locationDenied} />
               <button type="button" aria-label="Dismiss location notice" onClick={onDismissLocationNotice} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"><X className="h-4 w-4" /></button>
             </div>}
-            <div className="flex gap-2"><Link href="/for/class-costs-jakarta/" className="flex-1 min-h-12 rounded-xl border border-[#e7e0d4] bg-white px-3 flex items-center justify-center text-[#1a7a4a] font-semibold text-sm">Fees · Biaya</Link></div>
+            <div className="flex gap-2"><Link href="/for/class-costs-jakarta/" className="flex-1 min-h-12 rounded-xl border border-[#e7e0d4] bg-white px-3 flex items-center justify-center text-[#1a7a4a] font-semibold text-sm">Fees</Link></div>
             {/* Search Input */}
             <div className="relative w-full shrink-0">
               <Search className="w-4.5 h-4.5 text-[#6d675f] absolute left-4 top-1/2 -translate-y-1/2" />
@@ -325,7 +326,7 @@ export default function MobileDrawer({
               {/* Coverage honesty + attribution live in the scroll flow. */}
               <div className="pb-2 pt-1 text-center flex flex-col gap-1">
                 <span className="text-[0.75rem] text-[#6d675f]">
-                  Baby and toddler classes in Jabodetabek. Strongest coverage for ages 0-3; classes for 4-year-olds are being added.
+                  Baby and toddler classes in Jabodetabek, for ages 0 to 4.
                 </span>
                 <span className="text-[0.6875rem] text-[#6d675f] md:hidden">
                   Map: OpenFreeMap, © OpenMapTiles, data © OpenStreetMap contributors
