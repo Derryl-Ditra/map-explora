@@ -19,7 +19,7 @@ export function cardAgeSummary(venue: Venue): string {
   if (ranges.length === 1) return `Verified ages: ${formatUnder5Range(ranges[0].minMonths!, ranges[0].maxMonths!)}`;
   const merged = mergeAgeRanges(ranges.map(age => [age.minMonths!, age.maxMonths!]));
   const visible = merged.slice(0, 2).map(([lo, hi]) => formatUnder5Range(lo, hi)).join(', ');
-  return `By class: ${visible}${merged.length > 2 ? ` +${merged.length - 2} more` : ''}`;
+  return `Verified ages: ${visible}${merged.length > 2 ? ` +${merged.length - 2} more` : ''}`;
 }
 
 export function cardRatingSummary(venue: Venue): string {
