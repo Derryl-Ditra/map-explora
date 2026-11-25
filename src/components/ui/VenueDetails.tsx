@@ -8,7 +8,7 @@ import { useState } from "react";
 import { Venue, AgeClaim } from "@/types/venue";
 import { isVerifiedAgeClaim, verifiedPrograms } from "@/utils/ageMatch";
 import { canRouteVenue } from "@/utils/mapsLink";
-import { decidedAgeRange, formatDecidedRange, CONFIRM_BY_PHONE, isTrueBrandProgram, ageSourceLabel } from "@/utils/decideAge";
+import { decidedAgeRange, formatDecidedRange, CONFIRM_BY_PHONE, isTrueBrandProgram, ageSourceLabel, AGES_BEING_RECHECKED } from "@/utils/decideAge";
 import { formatIsoMonth, trendVerdict } from "@/utils/reviewPulse";
 import {
   Phone,
@@ -141,6 +141,8 @@ export default function VenueDetails({
   );
   // Owner rule 2026-11-22 (follow-up): always a decided range, never a shrug.
   const decided = decidedAgeRange(venue);
+  // Stored ages and fees failed a verification pass: hide the numbers, show one line.
+  const pending = !!venue.pendingReverification;
   const [allClasses, setAllClasses] = useState(false);
   const estimates = estimatedPrograms(venue);
   const branchAge = venue.branchAge && isVerifiedAgeClaim(venue.branchAge) ? venue.branchAge : null;
@@ -165,7 +167,9 @@ export default function VenueDetails({
           <span className="font-bold text-[1rem] text-[#221d18]">Classes by age</span>
           {(offered.length > 0 || branchAge) && <span className="ml-auto text-sm text-[#14532d] font-semibold flex items-center gap-1"><ShieldCheck className="w-3.5 h-3.5"/>Verified</span>}
         </div>
-        {offered.length === 0 && !branchAge ? (
+        {pending ? (
+          <span className="text-[1rem] text-[#6d675f]">{AGES_BEING_RECHECKED}</span>
+        ) : offered.length === 0 && !branchAge ? (
           <span className="text-[1rem] text-[#6d675f]">
             {decided.confidence === "general"
               ? `Ages not published. ${CONFIRM_BY_PHONE}`
@@ -196,7 +200,7 @@ export default function VenueDetails({
 
       </div>
 
-      {brandPrograms.length > 0 && (
+      {brandPrograms.length > 0 && !pending && (
         <div className="py-3 border-b border-[#e7e0d4] flex flex-col gap-2">
           <span className="font-bold">Brand program ages</span>
           {brandPrograms.map((p) => (
@@ -207,7 +211,7 @@ export default function VenueDetails({
         </div>
       )}
 
-      {otherPrograms.length > 0 && (
+      {otherPrograms.length > 0 && !pending && (
         <div className="py-3 border-b border-[#e7e0d4] flex flex-col gap-2">
           <span className="font-bold">Other recorded class ages</span>
           {otherPrograms.map((p) => (
@@ -218,7 +222,7 @@ export default function VenueDetails({
         </div>
       )}
 
-      {estimates.length > 0 && (
+      {estimates.length > 0 && !pending && (
         <div className="py-3 border-b border-[#e7e0d4] flex flex-col gap-3">
           <span className="font-bold">Estimated ages</span>
           {estimates.map(estimate => {
@@ -344,7 +348,7 @@ export default function VenueDetails({
       )}
 
       {/* Prices: provenance belongs to each listing; legacy entries default to partner. */}
-      {venue.priceListings && venue.priceListings.length > 0 && (
+      {!pending && venue.priceListings && venue.priceListings.length > 0 && (
         <div className="py-3 border-b border-[#e7e0d4] flex flex-col gap-2.5" data-testid="price-listings">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-2">
