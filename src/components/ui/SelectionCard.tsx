@@ -47,7 +47,7 @@ export default function SelectionCard({
           type="button"
           onClick={onClose}
           aria-label="Close place card"
-          className="w-10 h-10 shrink-0 rounded-full bg-[#f6f2ec] border border-[#e7e0d4] flex items-center justify-center"
+          className="w-11 h-11 shrink-0 rounded-full bg-[#f6f2ec] border border-[#e7e0d4] flex items-center justify-center"
         >
           <X className="w-4 h-4 text-[#4a443c]" />
         </button>
