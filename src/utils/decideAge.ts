@@ -83,16 +83,36 @@ export function formatDecidedRange(minMonths: number, maxMonths: number): string
   return `${formatDecidedMonths(minMonths)} to ${formatDecidedMonths(maxMonths)}`;
 }
 
+// Under-5 map: venue-level summary ranges stop at the map's ceiling. A range
+// reaching past 59 months displays as "under 5 yr" instead of "4.9 yr" or
+// "5.9 yr"; the full stored range still shows on each class row.
+export function formatUnder5Max(maxMonths: number): string {
+  return maxMonths > 59 ? "under 5 yr" : formatDecidedMonths(maxMonths);
+}
+
+export function formatUnder5Range(minMonths: number, maxMonths: number): string {
+  const min = formatDecidedMonths(minMonths);
+  const max = formatUnder5Max(maxMonths);
+  // "under 5 yr" reads badly after a hyphen; plain units join with one.
+  return max === "under 5 yr" ? `${min} to ${max}` : `${min}-${max}`;
+}
+
+// One public line for venues whose stored ages and fees failed a verification
+// pass (pendingReverification on the record). The numbers stay in the data,
+// hidden on every surface, until they are re-checked against the provider.
+export const AGES_BEING_RECHECKED = "Ages and fees are being re-checked.";
+
 // Canonical low-confidence note (QC on PR #106): one wording across list,
 // card and place page, sentences joined by a period, never a spaced hyphen.
 export const CONFIRM_BY_PHONE = "Confirm by phone first.";
 
 // Card-safe one-line summary of the decided range for non-verified venues.
 export function decidedAgeSummary(v: Venue): string {
+  if (v.pendingReverification) return AGES_BEING_RECHECKED;
   const d = decidedAgeRange(v);
   if (d.confidence === "general") return `Ages not published. ${CONFIRM_BY_PHONE}`;
   const label = d.confidence === "brand" ? "Brand ages" : "Listed ages";
-  return `${label}: ${formatDecidedRange(d.minMonths, d.maxMonths)}. ${CONFIRM_BY_PHONE}`;
+  return `${label}: ${formatUnder5Range(d.minMonths, d.maxMonths)}. ${CONFIRM_BY_PHONE}`;
 }
 
 // QC on PR #106: the "Brand program ages" card section is reserved for true
