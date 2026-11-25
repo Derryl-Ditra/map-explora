@@ -74,7 +74,7 @@ export function decidedAgeRange(v: Venue): DecidedAgeRange {
 
 // Parents of under-4s read months; switch to years only past 36.
 export function formatDecidedMonths(m: number): string {
-  if (m <= 36) return `${m} mo`;
+  if (m < 60) return `${m} mo`;
   // Whole years only; a part-year stays in months so one card never mixes "3.9 yr" with "36 mo".
   return m % 12 === 0 ? `${m / 12} yr` : `${m} mo`;
 }
@@ -87,14 +87,13 @@ export function formatDecidedRange(minMonths: number, maxMonths: number): string
 // reaching past 59 months displays as "under 5 yr" instead of "4.9 yr" or
 // "5.9 yr"; the full stored range still shows on each class row.
 export function formatUnder5Max(maxMonths: number): string {
-  return maxMonths > 59 ? "under 5 yr" : formatDecidedMonths(maxMonths);
+  return formatDecidedMonths(Math.min(maxMonths, 59));
 }
 
 export function formatUnder5Range(minMonths: number, maxMonths: number): string {
   const min = formatDecidedMonths(minMonths);
   const max = formatUnder5Max(maxMonths);
   // "under 5 yr" reads badly after a hyphen; plain units join with one.
-  if (max === "under 5 yr") return `${min} to ${max}`;
   // Same unit on both ends: say it once ("6-18 mo", "3-4 yr").
   const [minNum, minUnit] = min.split(" ");
   const [maxNum, maxUnit] = max.split(" ");
