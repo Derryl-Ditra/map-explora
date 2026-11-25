@@ -14,7 +14,8 @@ export function isVerifiedAgeClaim(age: AgeClaim, note?: string): boolean {
 }
 
 export function verifiedPrograms(v: Venue) {
-  return v.programs.filter(p => p.offering === "offered" && isVerifiedAgeClaim(p.age, p.note));
+  // Map Explora is under-5 only: classes that start at 5 years or older stay in the data but never show.
+  return v.programs.filter(p => p.offering === "offered" && isVerifiedAgeClaim(p.age, p.note) && !(p.age.minMonths !== null && p.age.minMonths >= 60));
 }
 
 export function hasVerifiedAgeEvidence(v: Venue): boolean {
