@@ -8,7 +8,7 @@ import { useState } from "react";
 import { Venue, AgeClaim } from "@/types/venue";
 import { isVerifiedAgeClaim, verifiedPrograms } from "@/utils/ageMatch";
 import { canRouteVenue } from "@/utils/mapsLink";
-import { decidedAgeRange, formatDecidedRange, CONFIRM_BY_PHONE, isTrueBrandProgram, ageSourceLabel, AGES_BEING_RECHECKED } from "@/utils/decideAge";
+import { decidedAgeRange, formatDecidedRange, formatDecidedMonths, formatUnder5Range, CONFIRM_BY_PHONE, isTrueBrandProgram, AGES_BEING_RECHECKED } from "@/utils/decideAge";
 import { formatIsoMonth, trendVerdict } from "@/utils/reviewPulse";
 import {
   Phone,
@@ -29,13 +29,6 @@ interface VenueDetailsProps {
 
 const REPORTS_KEY = "map-explora-venue-reports";
 
-function formatMonths(m: number): string {
-  // Parents of under-4s read months; switch to years only past 36.
-  if (m <= 36) return `${m} mo`;
-  const yrs = m / 12;
-  return `${Number.isInteger(yrs) ? yrs : yrs.toFixed(1)} yr`;
-}
-
 function formatIdr(n: number): string {
   return `Rp ${n.toLocaleString("id-ID")}`;
 }
@@ -48,9 +41,13 @@ function formatCheckedDate(iso: string): string {
 
 function formatAgeRange(age: AgeClaim): string {
   if (age.minMonths === null && age.maxMonths === null) return "ages not stated";
-  const lo = age.minMonths === null ? "0 mo" : formatMonths(age.minMonths);
-  if (age.maxMonths === null) return `from ${lo}`;
-  return `${lo} - ${formatMonths(age.maxMonths)}`;
+  const lo = age.minMonths ?? 0;
+  if (age.maxMonths === null) return `from ${formatDecidedMonths(lo)}`;
+  return formatUnder5Range(lo, age.maxMonths);
+}
+
+function hostOf(url: string): string {
+  try { return new URL(url).hostname.replace(/^www\./, ""); } catch { return url; }
 }
 
 // QC on PR #106: settled claims get a tiny inline tag on their own class row,
@@ -139,6 +136,15 @@ export default function VenueDetails({
   const otherPrograms = venue.programs.filter(
     (p) => p.offering === "offered" && !offered.includes(p) && !isTrueBrandProgram(p) && p.age.minMonths != null && p.age.maxMonths != null
   );
+  // One list: verified classes first, then brand and provider-listed ones.
+  const classRows = [
+    ...offered.map((p) => ({ p, verified: true })),
+    ...[...brandPrograms, ...otherPrograms].map((p) => ({ p, verified: false })),
+  ].filter((row, i, all) => all.findIndex((r) => r.p.name === row.p.name) === i);
+  const mixedVerification = classRows.some((r) => r.verified) && classRows.some((r) => !r.verified);
+  const sourceUrls = classRows.map((r) => r.p.age.providerAgeUrl).filter((u): u is string => !!u && !isDeadSourceUrl(u));
+  const classSources = [...new Map(sourceUrls.map((u) => [hostOf(u), { host: hostOf(u), url: u }])).values()];
+  const classCheckedAt = classRows.map((r) => r.p.age.sourceCheckedAt).filter((d): d is string => !!d).sort().at(-1);
   // Owner rule 2026-11-22 (follow-up): always a decided range, never a shrug.
   const decided = decidedAgeRange(venue);
   // Stored ages and fees failed a verification pass: hide the numbers, show one line.
@@ -160,67 +166,41 @@ export default function VenueDetails({
         {mapPeek && <button type="button" onClick={onExpandDetails} className="md:hidden min-h-11 text-sm font-semibold text-[#14532d] text-left">See classes and reviews</button>}
       </div>
 
-      {/* Classes by age: the first thing a parent scans */}
-      <div className="pb-4 border-b border-[#e7e0d4] flex flex-col gap-3">
-        <div className="flex items-center gap-2">
-          
-          <span className="font-bold text-[1rem] text-[#221d18]">Classes by age</span>
-          {(offered.length > 0 || branchAge) && <span className="ml-auto text-sm text-[#14532d] font-semibold flex items-center gap-1"><ShieldCheck className="w-3.5 h-3.5"/>Verified</span>}
-        </div>
+      {/* Classes: one list, one source line. The first thing a parent scans. */}
+      <section className="pb-4 border-b border-[#e7e0d4] flex flex-col gap-2" aria-label="Classes by age">
+        <h3 className="font-bold text-[1rem] text-[#221d18]">Classes by age</h3>
         {pending ? (
           <span className="text-[1rem] text-[#6d675f]">{AGES_BEING_RECHECKED}</span>
-        ) : offered.length === 0 && !branchAge ? (
+        ) : classRows.length === 0 && !branchAge ? (
           <span className="text-[1rem] text-[#6d675f]">
             {decided.confidence === "general"
               ? `Ages not published. ${CONFIRM_BY_PHONE}`
-              : brandPrograms.length > 0 || otherPrograms.length > 0
-                // QC on PR #106: the section below already lists the ranges;
-                // repeating the merged range here read as the same fact 3x.
-                ? `${decided.confidence === "brand" ? "Brand" : "Listed"} ages below. ${CONFIRM_BY_PHONE}`
-                : `${decided.confidence === "brand" ? "Brand" : "Listed"} ages: ${formatDecidedRange(decided.minMonths, decided.maxMonths)}. ${CONFIRM_BY_PHONE}`}
+              : `${decided.confidence === "brand" ? "Brand" : "Listed"} ages: ${formatDecidedRange(decided.minMonths, decided.maxMonths)}. ${CONFIRM_BY_PHONE}`}
           </span>
         ) : (
-          <div className="flex flex-col gap-2 pt-0">
-            {branchAge && (
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="text-[1rem] font-medium text-[#221d18]">
-                  Branch statement: {formatAgeRange(branchAge)}
-                </span>
-              </div>
+          <>
+            {branchAge && <p className="text-[1rem] font-medium text-[#221d18]">Branch statement: {formatAgeRange(branchAge)}</p>}
+            <ul className="flex flex-col divide-y divide-[#efe9de]">
+              {(allClasses ? classRows : classRows.slice(0, 4)).map(({ p, verified }) => (
+                <li key={p.name} className="flex items-baseline justify-between gap-4 py-1.5 text-[1rem] leading-6">
+                  <span className="min-w-0">{p.name}<BestAvailableTag age={p.age} /></span>
+                  <span className="shrink-0 text-[#4a443c] tabular-nums flex items-center gap-1">
+                    {verified && <ShieldCheck aria-label="Confirmed for this branch" className="w-3.5 h-3.5 text-[#14532d]" />}
+                    {formatAgeRange(p.age)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            {classRows.length > 4 && <button type="button" onClick={() => setAllClasses((v) => !v)} aria-expanded={allClasses} className="min-h-11 self-start text-sm font-semibold text-[#14532d] rounded-md focus-visible:outline-2">{allClasses ? "Show fewer" : `Show all ${classRows.length} classes`}</button>}
+            {(classSources.length > 0 || mixedVerification) && (
+              <p className="text-[0.875rem] text-[#6d675f]">
+                {mixedVerification && <>Check mark: confirmed for this branch. Other ages are provider-listed; {CONFIRM_BY_PHONE.toLowerCase()} </>}
+                {classSources.length > 0 && <>Ages from {classSources.map((s, i) => <span key={s.url}>{i > 0 && ", "}<a href={s.url} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">{s.host}</a></span>)}{classCheckedAt && `, read ${formatCheckedDate(classCheckedAt)}`}.</>}
+              </p>
             )}
-            {(allClasses ? offered : offered.slice(0,3)).map((p) => (
-              <div key={p.name} className="flex items-start justify-between gap-4 text-[1rem] leading-6">
-                <span className="min-w-0">{p.name}<BestAvailableTag age={p.age} /></span><span className="shrink-0 text-[#6d675f]">{formatAgeRange(p.age)}</span>
-              </div>
-            ))}
-            {offered.length > 3 && <button type="button" onClick={()=>setAllClasses(v=>!v)} aria-expanded={allClasses} className="min-h-11 self-start text-sm font-semibold text-[#14532d] rounded-md focus-visible:outline-2">{allClasses ? "Show fewer" : `Show all ${offered.length} classes`}</button>}
-
-          </div>
+          </>
         )}
-
-      </div>
-
-      {brandPrograms.length > 0 && !pending && (
-        <div className="py-3 border-b border-[#e7e0d4] flex flex-col gap-2">
-          <span className="font-bold">Brand program ages</span>
-          {brandPrograms.map((p) => (
-            <div key={p.name} className="flex items-start justify-between gap-4 text-[1rem] leading-6">
-              <span className="min-w-0">{p.name}<BestAvailableTag age={p.age} /></span><span className="shrink-0 text-[#6d675f]">{formatAgeRange(p.age)}</span>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {otherPrograms.length > 0 && !pending && (
-        <div className="py-3 border-b border-[#e7e0d4] flex flex-col gap-2">
-          <span className="font-bold">Other recorded class ages</span>
-          {otherPrograms.map((p) => (
-            <div key={p.name} className="flex items-start justify-between gap-4 text-[1rem] leading-6">
-              <span className="min-w-0">{p.name}<BestAvailableTag age={p.age} /></span><span className="shrink-0 text-[#6d675f]">{formatAgeRange(p.age)}{p.age.providerAgeUrl && !isDeadSourceUrl(p.age.providerAgeUrl) && ageSourceLabel(p) && <> · <a href={p.age.providerAgeUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a]">{ageSourceLabel(p)}</a></>}</span>
-            </div>
-          ))}
-        </div>
-      )}
+      </section>
 
       {estimates.length > 0 && !pending && (
         <div className="py-3 border-b border-[#e7e0d4] flex flex-col gap-3">
@@ -240,7 +220,7 @@ export default function VenueDetails({
         const notes = venue.programs.filter(program => (program.noteKind ?? (program.age.sourceConflict ? "age-conflict" : undefined)) === kind);
         if (!notes.length) return null;
         const ageConflict = kind === "age-conflict";
-        return <section key={kind} className={ageConflict ? "rounded-xl bg-[#fff8e8] border border-[#ead9ae] p-3.5 flex flex-col gap-2" : "pl-3 py-2 border-l-2 border-[#d4cbbf] flex flex-col gap-2"} data-testid={ageConflict ? "age-conflicts" : "program-notes"}>
+        return <section key={kind} className={ageConflict ? "rounded-xl bg-[#fff8e8] border border-[#ead9ae] p-3.5 flex flex-col gap-2" : "py-2 flex flex-col gap-2"} data-testid={ageConflict ? "age-conflicts" : "program-notes"}>
           <span className="font-bold text-[#221d18]">{ageConflict ? "Age details to confirm" : kind === "parent-review" ? "Parent review note" : "Class details to check"}</span>
           {notes.map(program => <div key={program.name} className={`text-[0.875rem] ${ageConflict ? "text-[#665026]" : "text-[#6d675f]"}`}>
             <p><strong>{program.name}:</strong> {program.note}</p>
@@ -312,7 +292,7 @@ export default function VenueDetails({
           )}
           {venue.reviews.latestReview?.date && (
             <span className="text-[0.9375rem] text-[#6d675f]">
-              Latest review: {venue.reviews.latestReview.approximate ? formatIsoMonth(venue.reviews.latestReview.date) : venue.reviews.latestReview.date}{venue.reviews.checkedAt && ` · checked ${venue.reviews.checkedAt}`}.
+              Latest review: {venue.reviews.latestReview.approximate ? formatIsoMonth(venue.reviews.latestReview.date) : formatCheckedDate(venue.reviews.latestReview.date)}{venue.reviews.checkedAt && `, checked ${formatCheckedDate(venue.reviews.checkedAt)}`}.
             </span>
           )}
           {venue.reviews.sourceUrl && (
@@ -330,7 +310,7 @@ export default function VenueDetails({
       <details className="border-b border-[#e7e0d4] pb-3"><summary className="min-h-11 cursor-pointer text-sm text-[#6d675f] flex items-center justify-between">Address and travel details<ChevronDown className="w-4 h-4"/></summary><p className="text-sm leading-6">{publicLocation(venue).address}</p></details>
 
       {/* One travel-note panel retains every location disclaimer without repeated alerts. */}
-      {(publicLocation(venue).notice || venue.caution) && <section className="pl-3 py-2 border-l-2 border-[#d4cbbf] flex flex-col gap-2 text-[0.9375rem] text-[#6d675f]">
+      {(publicLocation(venue).notice || venue.caution) && <section className="py-2 flex flex-col gap-2 text-[0.9375rem] text-[#6d675f]">
         <h3 className="font-semibold text-[#4a443c]">Before you travel</h3>
         {publicLocation(venue).notice && <p>{publicLocation(venue).notice}</p>}
         {venue.caution && <p>{venue.caution}</p>}
