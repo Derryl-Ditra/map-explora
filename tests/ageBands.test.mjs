@@ -16,5 +16,5 @@ test('partial overlap matches without requiring the entire band and rejects unkn
  assert.equal(api.venueOverlapsBand(venue(claim(18,24,{level:'brand'})),'18-23'),false);
 });
 test('row ranges come only from verified evidence overlapping the selection',()=>{
- assert.deepEqual(api.matchingAgeRanges(venue(claim(18,24)),'18-23'),['18 to 24 months']);
+ assert.deepEqual(api.matchingAgeRanges(venue(claim(18,24)),'18-23'),['18-24 mo']);
 });
