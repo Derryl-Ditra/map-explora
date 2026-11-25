@@ -154,7 +154,7 @@ export default function MapHUD({initialCompare=false, compareLang="en"}:{initial
       {/* Location permission notice: above the sheet on phones (never over
           Back/venue names), top-center on desktop. Dismissible, auto-hides. */}
       {locationError && !locationNoticeGone && !activeVenue && mobileView === "map" && (!isDesktop || desktopCollapsed) && (
-        <div className="absolute bottom-[204px] md:bottom-auto md:top-4 left-1/2 -translate-x-1/2 z-[1001] w-[min(92vw,340px)]">
+        <div className="absolute top-[76px] md:top-4 left-1/2 -translate-x-1/2 z-[1001] w-[min(92vw,340px)]">
           <div className="bg-white border border-[#e7e0d4] rounded-xl pl-3 pr-1 py-1.5 text-sm text-[#4a443c] shadow-sm flex items-center gap-2">
             
             <LocationNotice message={locationError} denied={locationErrorCode===1} />
@@ -212,7 +212,7 @@ export default function MapHUD({initialCompare=false, compareLang="en"}:{initial
         ) : (
           /* Phone, no fix yet: a labeled invitation. Hidden in the list
              view, where the list has its own locate button. */
-          (!activeVenue && mobileView === "map") && (
+          (!activeVenue && mobileView === "map" && locationErrorCode!==1) && (
             <button
               type="button"
               onClick={handleLocate}
