@@ -10,7 +10,7 @@ test('card age overview counts separate checked ranges without filling gaps',()=
 });
 test('dense overlapping claims merge and duplicate claims stay compact',()=>{
  const programs = [6,12,18,24,30,36].map(minMonths=>({name:'Class',offering:'offered',age:{...claim,minMonths,maxMonths:minMonths+11}}));
- assert.equal(cardAgeSummary({programs}), 'Verified ages: 6 mo to 3.9 yr');
+ assert.equal(cardAgeSummary({programs}), 'Verified ages: 6-47 mo');
  assert.equal(cardAgeSummary({...venue,branchAge:claim,programs:[...venue.programs,...venue.programs]}),'Verified ages: 6-18 mo');
 });
 test('age overview sorts by lower bound before choosing two ranges',()=>{
@@ -21,9 +21,9 @@ test('card ages decide from the best available tier, always with confirm-by-phon
  // Owner rule 2026-11-22 (follow-up): no undecided cases. Brand, listed and
  // conflicted claims still yield a decided range; only the confidence label
  // and the confirm-by-phone note change.
- assert.equal(cardAgeSummary({programs:[{...venue.programs[0],age:{...claim,level:'brand'}}]}),'Brand ages: 6-18 mo. Confirm by phone first.');
- assert.equal(cardAgeSummary({programs:[{...venue.programs[0],age:{...claim,sourceConflict:true}}]}),'Listed ages: 6-18 mo. Confirm by phone first.');
- assert.equal(cardAgeSummary({programs:[{...venue.programs[0],note:'ambiguous age boundary'}]}),'Listed ages: 6-18 mo. Confirm by phone first.');
+ assert.equal(cardAgeSummary({programs:[{...venue.programs[0],age:{...claim,level:'brand'}}]}),'Ages from brand site: 6-18 mo. Confirm by phone first.');
+ assert.equal(cardAgeSummary({programs:[{...venue.programs[0],age:{...claim,sourceConflict:true}}]}),'Ages from provider listing: 6-18 mo. Confirm by phone first.');
+ assert.equal(cardAgeSummary({programs:[{...venue.programs[0],note:'ambiguous age boundary'}]}),'Ages from provider listing: 6-18 mo. Confirm by phone first.');
  assert.equal(cardAgeSummary({programs:[{...venue.programs[0],offering:'unknown'}]}),'Ages not published. Confirm by phone first.');
 });
 test('card rating includes source and sample count, not fabricated missing values',()=>{
