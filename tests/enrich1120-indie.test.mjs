@@ -28,5 +28,5 @@ test('Nov20 independents: exact official age bands',()=>{
  assert.equal(h.lat,-6.2448765);assert.equal(h.lng,106.6739842);
  for(const id of ids)assert.ok(VENUES.find(v=>v.id===id).programs.every(p=>p.age.maxMonths<=72&&p.age.minMonths<60));
  assert.ok(!VENUES.find(v=>v.id===ids[0]).programs.some(p=>p.age.maxMonths>60));
- assert.equal(VENUES.filter(isShownToUsers).length,171); // 2026-11-24 batch 4 (HK_VENUES): +19 partner-listed venues; shown 152 -> 171, total 164 -> 183.
+ assert.equal(VENUES.filter(isShownToUsers).length,167); // 2026-11-25 PR #125 audit fix: 4 of the 19 HK venues dropped; shown 171 -> 167.
 });
