@@ -98,6 +98,10 @@ export interface Venue {
   //  branch-category-confirmed-live-undated, branch-candidate-live-undated,
   //  official-chain-program, media-claimed, official-global-unverified-local,
   //  unvalidated-extraction, unknown)
+  // Set when a record's stored ages/prices failed a verification pass: the UI
+  // hides the numbers and shows one re-check line instead. The values stay in
+  // the data (with their sources) and return to view once re-checked.
+  pendingReverification?: string;
   notes?: string;
   // Short reviewed note shown on the card as plain muted text. Not a warning;
   // unresolved location or identity warnings belong in caution instead.
