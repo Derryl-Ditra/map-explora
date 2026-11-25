@@ -15,7 +15,7 @@ export function ContactContent({lang}:{lang:Lang}) {
   return <>
     <h1>{id?'Hubungi Map Explora':'Contact Map Explora'}</h1>
     <p>{id?'Ada informasi yang perlu ditambahkan atau diperbaiki? Pilih topik di bawah untuk membuka aplikasi email Anda.':'Have something to add or correct? Choose a topic below to open your email app.'}</p>
-    <p><a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></p>
+    <p><a className="tap" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></p>
     <ul className="venue-list">{topics.map(topic=><li key={topic.subject}><h2><a href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(topic.subject)}`}>{id?topic.id:topic.en}</a></h2><p>{id?topic.detailId:topic.detailEn}</p></li>)}</ul>
     <p>{id?'Untuk jadwal, biaya, pemesanan dan kecocokan kelas, hubungi penyedia kelas langsung. Map Explora bukan layanan pemesanan.':'For schedules, prices, bookings and class suitability, contact the class provider directly. Map Explora is not a booking service.'}</p>
     <p><Link href="/venues.json">{id?'Lihat sumber dan data tempat':'View sources and public venue data'}</Link></p>
