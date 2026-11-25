@@ -71,6 +71,18 @@ function accuracyPolygon(lat: number, lng: number, meters: number): GeoJSON.Feat
   };
 }
 
+// Granted location: show the nearest few places with the user, not one street.
+function fitNearest(map: MapLibre.Map, venues: Venue[], userPos: [number, number]) {
+  const near = venues
+    .map((v) => ({ v, d: Math.hypot(v.lat - userPos[0], (v.lng - userPos[1]) * Math.cos((userPos[0] * Math.PI) / 180)) }))
+    .sort((a, b) => a.d - b.d)
+    .slice(0, 4);
+  if (near.length === 0) { map.easeTo({ center: [userPos[1], userPos[0]], zoom: 13, duration: cameraDuration(800) }); return; }
+  const lngs = [userPos[1], ...near.map(({ v }) => v.lng)], lats = [userPos[0], ...near.map(({ v }) => v.lat)];
+  const b: [[number, number], [number, number]] = [[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]];
+  map.fitBounds(b, { padding: 70, maxZoom: 14, duration: cameraDuration(800) });
+}
+
 export default function VectorMap({
   venues,
   activeVenueId,
@@ -136,7 +148,7 @@ export default function VectorMap({
         readyRef.current = true;
         const requested = recenterRef.current;
         if (requested.recenterTick && requested.userPos) {
-          map.easeTo({ center: [requested.userPos[1], requested.userPos[0]], zoom: 15, duration: cameraDuration(800) });
+          fitNearest(map, venuesRef.current, requested.userPos);
         }
         map.addSource("user-accuracy", {
           type: "geojson",
@@ -542,7 +554,7 @@ export default function VectorMap({
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !readyRef.current || !userPos || !recenterTick) return;
-    map.easeTo({ center: [userPos[1], userPos[0]], zoom: 15, duration: cameraDuration(800) });
+    fitNearest(map, venuesRef.current, userPos);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recenterTick]);
 
