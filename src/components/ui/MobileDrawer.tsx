@@ -12,7 +12,7 @@ import { venueCategories } from "@/utils/categories";
 import { useSheetGesture } from "@/hooks/useSheetGesture";
 import FilterBar from "./FilterBar";
 import VenueDetails from "./VenueDetails";
-import { Search, MapPin, HelpCircle, ShieldCheck, Navigation, ArrowLeft, Share2, ExternalLink, X } from "lucide-react";
+import { Search, MapPin, HelpCircle, ShieldCheck, Navigation, ArrowLeft, Share2, ExternalLink, Phone, X } from "lucide-react";
 
 interface MobileDrawerProps {
   desktopCollapsed: boolean;
@@ -277,24 +277,14 @@ export default function MobileDrawer({
                   {categories.length === 0 ? (
                     <span>The class dataset is being verified and will appear here soon.</span>
                   ) : (
-                    <span>No places match your active filters.</span>
+                    <span>{ageActive ? "No places match this age here. Try a wider age or area." : "No places match your active filters."}</span>
                   )}
-                  <button
-                    type="button"
-                    onClick={onResetFilters}
-                    className="text-[#1a7a4a] font-semibold underline text-[1rem] mt-1"
-                  >
-                    Reset filters
-                  </button>
+
                 </div>
               ) : (
                 <>
-                  {ageActive && (
-                    <span className="text-[1rem] font-semibold text-[#14532d]">
-                      {confirmed.length === 0
-                        ? "No confirmed age overlap yet"
-                        : `Places with confirmed age overlap: ${confirmed.length}`}
-                    </span>
+                  {ageActive && confirmed.length === 0 && (
+                    <span className="text-[1rem] font-semibold text-[#14532d]">No confirmed age overlap yet</span>
                   )}
                   {confirmed.map((venue) => (
                     <VenueCard
@@ -342,13 +332,14 @@ export default function MobileDrawer({
         </nav>
       )}
       {activeVenue && showDetails && (
-        <nav aria-label="Place actions" className=" shrink-0 border-t border-[#e7e0d4] bg-[#f6f2ec] px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2">
+        <nav aria-label="Place actions" className=" shrink-0 border-t border-[#e7e0d4] bg-[#f6f2ec] px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] grid grid-cols-[auto_minmax(0,1fr)_auto_auto] items-center gap-2">
           <button type="button" onClick={onDismissToMap} aria-label="Back to map" className="min-h-12 min-w-12 px-2 flex flex-col items-center justify-center gap-0.5 rounded-xl text-[#1a7a4a] hover:bg-[#e3f2e8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a] font-semibold text-xs leading-tight">
             <ArrowLeft aria-hidden="true" className="w-4 h-4" /><span>Map</span>
           </button>
           <a href={buildMapsLink(activeVenue)} target="_blank" rel="noopener noreferrer" className="min-h-12 min-w-0 flex items-center justify-center gap-1.5 px-2 rounded-full bg-[#1a7a4a] text-white hover:bg-[#145c38] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a] font-bold text-[1rem]" aria-label={!canRouteVenue(activeVenue) ? "Search in Google Maps" : "Directions in Google Maps"}>
             <Navigation className="w-4 h-4" />{!canRouteVenue(activeVenue) ? "Search Maps" : "Directions"}<ExternalLink className="w-3.5 h-3.5" />
           </a>
+          {activeVenue.phone ? <a href={`tel:${activeVenue.phone.replace(/[^+0-9]/g, "")}`} aria-label={`Call ${activeVenue.branchName}`} className="min-h-12 min-w-12 px-2 flex flex-col items-center justify-center gap-0.5 rounded-xl border border-[#1a7a4a] bg-white text-[#1a7a4a] hover:bg-[#e3f2e8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a] font-semibold text-xs leading-tight"><Phone aria-hidden="true" className="w-4 h-4" /><span>Call</span></a> : <span aria-hidden="true" />}
           <button type="button" onClick={onOpenShare} className="min-h-12 min-w-12 px-2 flex flex-col items-center justify-center gap-0.5 rounded-xl border border-[#1a7a4a] bg-white text-[#1a7a4a] hover:bg-[#e3f2e8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a7a4a] font-semibold text-xs leading-tight"><Share2 aria-hidden="true" className="w-4 h-4" /><span>Share</span></button>
         </nav>
       )}

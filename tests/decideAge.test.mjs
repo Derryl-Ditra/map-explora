@@ -50,7 +50,7 @@ test('summaries below verified confidence always ask to confirm by phone first',
     assert.match(decidedAgeSummary(v), /Confirm by phone first\./, `${v.id} summary`);
     assert.doesNotMatch(decidedAgeSummary(v), / - /, `${v.id} summary has no spaced hyphen`);
   }
-  assert.equal(decidedAgeSummary(VENUES.find((x) => x.id === 'sparks-swim-bintaro-utown')), 'Brand ages: 6 mo to under 5 yr. Confirm by phone first.');
+  assert.equal(decidedAgeSummary(VENUES.find((x) => x.id === 'sparks-swim-bintaro-utown')), 'Ages from brand site: 6-59 mo. Confirm by phone first.');
   assert.equal(decidedAgeSummary(VENUES.find((x) => x.id === 'gymnademics-bintaro')), 'Ages not published. Confirm by phone first.');
 });
 

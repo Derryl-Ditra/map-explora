@@ -123,7 +123,7 @@ export default function VenueDetails({
   // neutral label with their source named per item, below.
   const brandPrograms = venue.programs.filter((p) => !offered.includes(p) && isTrueBrandProgram(p));
   const otherPrograms = venue.programs.filter(
-    (p) => p.offering === "offered" && !offered.includes(p) && !isTrueBrandProgram(p) && p.age.minMonths != null && p.age.maxMonths != null
+    (p) => p.offering === "offered" && (p.age.minMonths ?? 0) < 60 && !offered.includes(p) && !isTrueBrandProgram(p) && p.age.minMonths != null && p.age.maxMonths != null
   );
   // One list: verified classes first, then brand and provider-listed ones.
   const classRows = [
@@ -184,7 +184,7 @@ export default function VenueDetails({
             {classRows.length > 4 && <button type="button" onClick={() => setAllClasses((v) => !v)} aria-expanded={allClasses} className="min-h-11 self-start text-sm font-semibold text-[#14532d] rounded-md focus-visible:outline-2">{allClasses ? "Show fewer" : `Show all ${classRows.length} classes`}</button>}
             {(classSources.length > 0 || mixedVerification) && (
               <p className="text-[0.875rem] text-[#6d675f]">
-                {noneVerified && <>Not confirmed for this branch. {CONFIRM_BY_PHONE} </>}
+                {noneVerified && <>Not confirmed for this branch. </>}
                 {mixedVerification && <>Check mark: confirmed for this branch. Other ages are provider-listed; {CONFIRM_BY_PHONE.toLowerCase()} </>}
                 {classSources.length > 0 && <>Ages from {classSources.map((s, i) => <span key={s.url}>{i > 0 && ", "}<a href={s.url} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a] inline-block py-3 -my-3">{s.host}</a></span>)}{classCheckedAt && `, read ${formatCheckedDate(classCheckedAt)}`}.</>}
               </p>
@@ -296,7 +296,7 @@ export default function VenueDetails({
 
       <div className="flex flex-nowrap items-center justify-between gap-1 py-1">
         <OfficialLinks venue={venue}/>
-        <button type="button" onClick={()=>window.dispatchEvent(new CustomEvent("map-explora-compare",{detail:venue.id}))} className="min-h-11 text-sm font-semibold text-[#14532d] rounded-md focus-visible:outline-2">Compare this place</button>
+        <button type="button" onClick={()=>window.dispatchEvent(new CustomEvent("map-explora-compare",{detail:venue.id}))} className="min-h-12 px-3 text-base font-semibold text-[#14532d] rounded-md focus-visible:outline-2">Compare this place</button>
       </div>
       <details className="border-b border-[#e7e0d4] pb-3"><summary className="min-h-11 cursor-pointer text-sm text-[#6d675f] flex items-center justify-between">Address and travel details<ChevronDown className="w-4 h-4"/></summary><p className="text-sm leading-6">{publicLocation(venue).address}</p></details>
 
@@ -326,9 +326,6 @@ export default function VenueDetails({
               <Banknote aria-hidden="true" className="w-5 h-5 text-[#6d675f]" />
               <span className="font-bold text-[1rem] text-[#221d18]">Price</span>
             </div>
-            <span className="text-[0.8125rem] font-bold px-2 py-1 rounded-full shrink-0 bg-[#f1ece2] text-[#4a443c]">
-              Listed prices
-            </span>
           </div>
           {venue.priceListings.map((pl) => (
             <div key={`${pl.label}-${pl.sourceUrl}`} className="flex flex-col gap-0.5">
@@ -338,9 +335,8 @@ export default function VenueDetails({
                   <span className="text-[#6d675f]"> (list price <s>{formatIdr(pl.listPriceIdr)}</s>)</span>
                 ) : null}
               </span>
-              <span className="text-[0.8125rem] font-bold text-[#4a443c]">{pl.sourceKind === "official" ? "Official-listed" : "Partner-listed"}</span>
-              <span className="text-[0.9375rem] text-[#4a443c]">{pl.label}</span>
-              {pl.note && pl.note.split("; ").map((row, ri) => (
+              <span className="text-[0.9375rem] text-[#4a443c]">{pl.label}{pl.sourceKind === "official" ? "" : " (partner listing)"}</span>
+              {pl.note && pl.note.split("; ").slice(0, 2).map((row, ri) => (
                 <span key={ri} className="text-[0.875rem] text-[#6d675f]">{row}</span>
               ))}
               {pl.schedule && <span className="text-[0.9375rem] text-[#4a443c]">{pl.schedule}</span>}
@@ -359,7 +355,7 @@ export default function VenueDetails({
       {venue.distance ? <p className="text-sm text-[#6d675f]">Straight-line distance: {venue.distance} km</p> : null}
 
       {/* Phone */}
-      {venue.phone && venue.phoneScope === "shared-enquiry" && <p className="text-[0.875rem] text-[#6d675f]">Shared enquiry number</p>}
+      {venue.phone && venue.phoneScope === "shared-enquiry" && <p className="text-[0.875rem] text-[#6d675f]">Chain enquiry line, not this branch</p>}
       {venue.phone && (
         <div className="flex items-center gap-1.5 text-[1rem] text-[#4a443c]">
           <Phone aria-hidden="true" className="w-4 h-4 text-[#6d675f] shrink-0" />

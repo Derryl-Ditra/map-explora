@@ -47,6 +47,6 @@ import {readFileSync} from 'node:fs';
 test('map and bilingual place page distinguish a shared enquiry number',()=>{
  const map=readFileSync(new URL('../src/components/ui/VenueDetails.tsx',import.meta.url),'utf8');
  const page=readFileSync(new URL('../src/components/PlacePage.tsx',import.meta.url),'utf8');
- assert.match(map,/venue.phoneScope === "shared-enquiry"/);assert.match(map,/Shared enquiry number/);
- assert.match(page,/v.phoneScope==='shared-enquiry'/);assert.match(page,/Nomor informasi bersama/);
+ assert.match(map,/venue.phoneScope === "shared-enquiry"/);assert.match(map,/Chain enquiry line/);
+ assert.match(page,/v.phoneScope==='shared-enquiry'/);assert.match(page,/Nomor pusat/);
 });
