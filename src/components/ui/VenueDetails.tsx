@@ -123,7 +123,7 @@ export default function VenueDetails({
   // neutral label with their source named per item, below.
   const brandPrograms = venue.programs.filter((p) => !offered.includes(p) && isTrueBrandProgram(p));
   const otherPrograms = venue.programs.filter(
-    (p) => p.offering === "offered" && !offered.includes(p) && !isTrueBrandProgram(p) && p.age.minMonths != null && p.age.maxMonths != null
+    (p) => p.offering === "offered" && (p.age.minMonths ?? 0) < 60 && !offered.includes(p) && !isTrueBrandProgram(p) && p.age.minMonths != null && p.age.maxMonths != null
   );
   // One list: verified classes first, then brand and provider-listed ones.
   const classRows = [
