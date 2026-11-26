@@ -108,6 +108,6 @@ export default function enrich1131(venues: Venue[]) {
   for (const v of venues) {
     const r = REFRESH[v.id];
     if (!r || !v.reviews) continue;
-    v.reviews = { ...v.reviews, rating: r[0], reviewCount: r[1] };
+    v.reviews = { ...v.reviews, rating: r[0], reviewCount: r[1], ratingReadAt: "2026-11-27" };
   }
 }
