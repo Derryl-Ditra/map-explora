@@ -367,6 +367,17 @@ export default function VenueDetails({
         </div>
       )}
 
+      {venue.openingHours && (
+        <p className="text-[1rem] text-[#4a443c]">
+          Hours: {venue.openingHours.text}
+          <span className="block text-[0.875rem] text-[#6d675f]">
+            From{" "}
+            <a href={venue.openingHours.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline text-[#1a7a4a] font-semibold">official site</a>
+            , read {formatCheckedDate(venue.openingHours.checkedAt)}
+          </span>
+        </p>
+      )}
+
       {/* Why we list this: verification detail, one level down */}
       <div className="border-t border-[#e7e0d4] pt-1">
         <button
