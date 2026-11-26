@@ -2,6 +2,7 @@
 import { publicLocation } from "@/utils/publicLocation";
 import { isDeadSourceUrl } from "@/data/deadLinks";
 import { phoneHref } from "@/utils/venueSummary";
+import { hoursLabel } from "@/utils/openingHours";
 import { estimatedPrograms } from "@/data/age-estimates";
 
 import { useState } from "react";
@@ -365,6 +366,17 @@ export default function VenueDetails({
             </a>
           ) : <span>{venue.phone}</span>}
         </div>
+      )}
+
+      {venue.openingHours && (
+        <p className="text-[1rem] text-[#4a443c]">
+          {hoursLabel(venue.openingHours.kind, "en")}: {venue.openingHours.text}
+          <span className="block text-[0.875rem] text-[#6d675f]">
+            From{" "}
+            <a href={venue.openingHours.sourceUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center min-h-11 underline text-[#1a7a4a] font-semibold">official site</a>
+            , read {formatCheckedDate(venue.openingHours.checkedAt)}
+          </span>
+        </p>
       )}
 
       {/* Why we list this: verification detail, one level down */}
