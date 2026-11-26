@@ -21,7 +21,7 @@ const branches = [
   {
     id: "kiddies88-waterland-transyogi", branchName: "Waterland Transyogi (Cileungsi)",
     address: "Waterland Metland Transyogi, Jl. Metland Transyogi, Cileungsi, Kabupaten Bogor",
-    area: "Cileungsi", city: "Bogor", lat: -6.3977321, lng: 106.9777077,
+    area: "Cileungsi", city: "Kabupaten Bogor", lat: -6.3977321, lng: 106.9777077,
     pdf: "https://drive.google.com/file/d/1EokIuYD1j6X3sJogdp-OvJDfYsTbeqvq/view?usp=drivesdk",
     maps: "https://www.google.com/maps/place/Waterland+Metland+Transyogi/@-6.3977268,106.9751328,17z/data=!3m1!4b1!4m6!3m5!1s0x2e6995fdca64783f:0xfedb580d6d020f3a!8m2!3d-6.3977321!4d106.9777077!16s%2Fg%2F11h3gpsr5l?entry=ttu&g_ep=EgoyMDI2MTExMC4wIKXMDSoASAFQAw%3D%3D",
     warning: "Pool reviews, not class reviews: one customer about two weeks ago raised maintenance and slide/toilet/shower cleanliness concerns. This is a customer account, not a safety finding. Inspect the facilities before enrolling.", phone: "+62 851-1760-8806", rating: 4.4, reviewCount: 183,
@@ -30,7 +30,7 @@ const branches = [
   {
     id: "kiddies88-havana-setiamekar", branchName: "Havana Sport Club (Setiamekar)",
     address: "Havana Sport Club, Jl. Raya Setiamekar No.1, Setiamekar, Tambun Selatan, Kabupaten Bekasi",
-    area: "Setiamekar", city: "Bekasi", lat: -6.2341421, lng: 107.042842,
+    area: "Setiamekar", city: "Kabupaten Bekasi", lat: -6.2341421, lng: 107.042842,
     pdf: "https://drive.google.com/file/d/1PE75BYM3uzs474VxAlt6xzaYxVImYgDO/view?usp=drivesdk",
     maps: "https://www.google.com/maps/place/Havana+Sport+Club/@-6.2341368,107.0402671,17z/data=!3m1!4b1!4m6!3m5!1s0x2e698ee6043f9fed:0x61082768917e82f6!8m2!3d-6.2341421!4d107.042842!16s%2Fg%2F1hm4mwrhg?entry=ttu&g_ep=EgoyMDI2MTExMC4wIKXMDSoASAFQAw%3D%3D",
     warning: "Pool reviews, not class reviews: recent customers raised cleanliness, service and shower-room privacy concerns. These are customer accounts, not safety findings. Inspect the changing facilities before enrolling.", phone: "+62 851-8310-6880", rating: 4.3, reviewCount: 1758,
