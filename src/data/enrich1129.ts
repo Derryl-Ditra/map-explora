@@ -3,11 +3,11 @@
 import type { Venue } from "../types/venue";
 
 const CHECKED = "2026-11-26";
-const HOURS: Record<string, { text: string; sourceUrl: string }> = {
+const HOURS: Record<string, { text: string; sourceUrl: string; kind?: "school" }> = {
   "bumi-nusantara-montessori-bsd": { text: "Mon-Fri 08:00-15:00", sourceUrl: "https://buminusantaramontessori.sch.id/" },
   // Montessori Studio entry (the site also lists a separate salon with other hours)
   "kimi-friends-montessori-gading-serpong": { text: "Mon-Sat 08:30-15:00", sourceUrl: "https://www.kimiandfriends.id/" },
-  "golden-baby-school-jakarta-garden-city": { text: "Mon-Fri 07:30-14:30", sourceUrl: "https://goldenschool.id/" },
+  "golden-baby-school-jakarta-garden-city": { text: "Mon-Fri 07:30-14:30", sourceUrl: "https://goldenschool.id/", kind: "school" },
 };
 
 export default function enrich1129(venues: Venue[]) {
