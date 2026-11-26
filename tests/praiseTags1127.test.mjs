@@ -20,3 +20,7 @@ test('Maps topic tags: praise only, counted, dated, complaint themes untouched',
   assert.equal(g.reviews.complaintThemes[0],'coach quality/favoritism');
   assert.equal(g.reviews.praiseThemes.length,1);
 });
+test('duplicate Maps topics keep the larger count; emptied venues show no tags', ()=>{
+  assert.deepEqual(VENUES.find(v=>v.id==='rockstar-academy-tsm-cibubur').reviews.praiseThemes,['patient coach (4 reviews)']);
+  for(const id of ['aquatic-baby-bintaro','sparks-swim-bintaro-utown']) assert.equal(VENUES.find(v=>v.id===id).reviews.praiseTagsReadAt,undefined);
+});
