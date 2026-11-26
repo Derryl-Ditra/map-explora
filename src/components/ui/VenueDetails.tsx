@@ -282,6 +282,11 @@ export default function VenueDetails({
               )}
             </>
           )}
+          {venue.reviews.ratingReadAt && venue.reviews.checkedAt !== venue.reviews.ratingReadAt && (
+            <span className="text-[0.9375rem] text-[#6d675f]">
+              Rating and count read {formatCheckedDate(venue.reviews.ratingReadAt)}.{(venue.reviews.praiseThemes.length > 0 || venue.reviews.complaintThemes.length > 0) && ` Themes above are from the ${formatCheckedDate(venue.reviews.checkedAt)} sample and may not match the current rating.`}
+            </span>
+          )}
           {venue.reviews.latestReview?.date && (
             <span className="text-[0.9375rem] text-[#6d675f]">
               Latest review: {venue.reviews.latestReview.approximate ? formatIsoMonth(venue.reviews.latestReview.date) : formatCheckedDate(venue.reviews.latestReview.date)}{venue.reviews.checkedAt && `, checked ${formatCheckedDate(venue.reviews.checkedAt)}`}.
