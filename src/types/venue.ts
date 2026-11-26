@@ -144,6 +144,7 @@ export interface ReviewSummary {
   source: string; // e.g. "Google Maps"
   sourceUrl?: string; // link rendered only when present
   checkedAt: string; // ISO date the reviews were looked at (NOT review posted dates)
+  ratingReadAt?: string; // ISO date rating and count were last re-read; themes and latestReview keep checkedAt
   sampleNote?: string; // bounded sample framing, e.g. "3 of 7 reviews visible"
   praiseThemes: string[]; // short paraphrased recurring themes, each evidence-backed
   complaintThemes: string[];
