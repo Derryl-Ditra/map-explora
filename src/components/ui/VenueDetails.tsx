@@ -271,6 +271,9 @@ export default function VenueDetails({
                   {venue.reviews.praiseThemes.join("; ")}
                 </div>
               )}
+              {venue.reviews.praiseTagsReadAt && venue.reviews.praiseThemes.length > 0 && (
+                <div className="text-[0.9375rem] text-[#6d675f]">{praiseTagCaption(formatCheckedDate(venue.reviews.praiseTagsReadAt), "en")}</div>
+              )}
               {venue.reviews.complaintThemes.length > 0 && (
                 <div className="text-[0.9375rem] text-[#4a443c]">
                   <span className="font-semibold text-[#221d18]">
@@ -283,12 +286,9 @@ export default function VenueDetails({
               )}
             </>
           )}
-          {venue.reviews.praiseTagsReadAt && venue.reviews.praiseThemes.length > 0 && (
-            <span className="text-[0.9375rem] text-[#6d675f]">{praiseTagCaption(formatCheckedDate(venue.reviews.praiseTagsReadAt), "en")}</span>
-          )}
           {venue.reviews.ratingReadAt && venue.reviews.checkedAt !== venue.reviews.ratingReadAt && (
             <span className="text-[0.9375rem] text-[#6d675f]">
-              Rating and count read {formatCheckedDate(venue.reviews.ratingReadAt)}.{(venue.reviews.complaintThemes.length > 0 || (venue.reviews.praiseThemes.length > 0 && !venue.reviews.praiseTagsReadAt)) && ` ${venue.reviews.praiseTagsReadAt ? "Concerns" : "Themes"} above are from the ${formatCheckedDate(venue.reviews.checkedAt)} sample and may not match the current rating.`}
+              Rating and count read {formatCheckedDate(venue.reviews.ratingReadAt)}.{(venue.reviews.complaintThemes.length > 0 || (venue.reviews.praiseThemes.length > 0 && !venue.reviews.praiseTagsReadAt)) && ` ${venue.reviews.praiseThemes.length > 0 && !venue.reviews.praiseTagsReadAt ? "Themes" : "Concerns"} above are from the ${formatCheckedDate(venue.reviews.checkedAt)} sample and may not match the current rating.`}
             </span>
           )}
           {venue.reviews.latestReview?.date && (
