@@ -92,7 +92,7 @@ export interface Venue {
   phone?: string;
   phoneScope?: "shared-enquiry"; // omit for existing unspecified phone records
   // Opening hours as printed on the provider's own page for THIS branch (2026-11-26, owner yes).
-  // text is language-neutral (e.g. "Mon-Sat 08:30-15:00"); never inferred, official-page hours carry no source field; source "google-maps" (owner yes 2026-11-27) is read from the Maps listing and always labelled.
+  // text is language-neutral (e.g. "Mon-Sat 08:30-15:00"); never inferred, official-page hours carry no source field; source "google-maps" (owner reply "Go with your rec" relayed 2026-11-27, to be confirmed by the owner before merge) is read from the Maps listing and always labelled.
   openingHours?: { text: string; sourceUrl: string; checkedAt: string; kind?: "school"; source?: "google-maps" }; // kind "school" = the page prints school/office hours, not class times
   sourceUrl: string; // where this branch record came from
   lastCheckedAt: string | null; // ISO date this record was checked; null = never
@@ -144,6 +144,7 @@ export interface ReviewSummary {
   source: string; // e.g. "Google Maps"
   sourceUrl?: string; // link rendered only when present
   checkedAt: string; // ISO date the reviews were looked at (NOT review posted dates)
+  ratingReadAt?: string; // ISO date rating and count were last re-read; themes and latestReview keep checkedAt
   sampleNote?: string; // bounded sample framing, e.g. "3 of 7 reviews visible"
   praiseThemes: string[]; // short paraphrased recurring themes, each evidence-backed
   complaintThemes: string[];
