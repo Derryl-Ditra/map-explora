@@ -9022,3 +9022,5 @@ import { HK_VENUES } from "./venues-hk";
 VENUES.push(...HK_VENUES);
 import enrich1127 from "./enrich1127";
 enrich1127(VENUES);
+import enrich1128 from "./enrich1128";
+enrich1128(VENUES);
