@@ -108,7 +108,7 @@ const TAGS: Record<string, string[]> = {
   "rockstar-academy-pesona-square": ["comfortable place (29 reviews)", "spacious place (13 reviews)", "patient coach (4 reviews)"],
   "rockstar-academy-pik-avenue": ["comfortable place (18 reviews)"],
   "rockstar-academy-pluit-village": ["clean place (16 reviews)", "spacious place (11 reviews)", "patient coaches (5 reviews)"],
-  "rockstar-academy-tsm-cibubur": ["patient coach (3 reviews)"],
+  "rockstar-academy-tsm-cibubur": ["patient coach (4 reviews)"],
   "smartkidz-kelapa-gading": ["good teachers (11 reviews)", "strategic location (2 reviews)"],
   "sparks-sports-academy-bsd-tangerang": ["friendly staff (8 reviews)", "cleanliness (5 reviews)", "kid-friendly (5 reviews)"],
   "sparks-sports-academy-cibinong": ["comfortable class (14 reviews)", "cleanliness (4 reviews)", "child-friendly (4 reviews)"],
