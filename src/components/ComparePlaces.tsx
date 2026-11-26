@@ -8,12 +8,12 @@ import {venueName} from '@/utils/discovery';
 import {venueMatchesSearch} from '@/utils/searchMatch';
 import {placePath,placeMapUrl} from '@/utils/placePages';
 import {publicLocation} from '@/utils/publicLocation';
-import {publicCaution,publicProgramNote,placeText} from '@/utils/placeLanguage';
+import {publicCaution,publicProgramNote,placeText,displayCity} from '@/utils/placeLanguage';
 import {isVerifiedAgeClaim,verifiedPrograms} from '@/utils/ageMatch';
 import RecordedFees from './RecordedFees';
 import ReviewSnapshot from './ReviewSnapshot';
 import './compare-places.css';
-const regionLabel=(v:{area:string;city:string})=>v.area.trim().toLowerCase()===v.city.trim().toLowerCase()?v.area:`${v.area} · ${v.city}`;
+const regionLabel=(v:{area:string;city:string})=>{const c=displayCity(v.city);return v.area.trim().toLowerCase()===c.trim().toLowerCase()?v.area:`${v.area} · ${c}`;};
 
 type Lang='en'|'id';
 export default function ComparePlaces({venues,lang:initialLang,onBack,initialFix=null}:{venues:Venue[];lang:Lang;initialFix?:CompareFix|null;onBack?: (ids:[string,string])=>void}) {
