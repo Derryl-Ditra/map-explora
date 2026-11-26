@@ -14,3 +14,13 @@ test('opening hours: 3 official branch-level captures, all visible venues, well-
  }
  assert.equal(VENUES.find(v=>v.id==='kimi-friends-montessori-gading-serpong').openingHours.text,'Mon-Sat 08:30-15:00');
 });
+
+const {hoursTextId,hoursLabel}=await importTs('../src/utils/openingHours.ts');
+test('opening hours: Bahasa weekdays and school label',()=>{
+ assert.equal(hoursTextId('Mon-Sat 08:30-15:00'),'Sen-Sab 08:30-15:00');
+ assert.equal(hoursTextId('Mon-Fri 07:30-14:30'),'Sen-Jum 07:30-14:30');
+ assert.equal(hoursLabel('school','en'),'School hours');
+ assert.equal(hoursLabel('school','id'),'Jam sekolah');
+ assert.equal(hoursLabel(undefined,'id'),'Jam buka');
+ assert.deepEqual(withHours.filter(v=>v.openingHours.kind==='school').map(v=>v.id),['golden-baby-school-jakarta-garden-city']);
+});
