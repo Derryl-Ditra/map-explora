@@ -1,5 +1,5 @@
-// Opening hours read from each venue's Google Maps listing on 2026-11-27 (owner yes, labelled "From Google Maps").
-// Official-page hours (enrich1129) always win. Seven-day table read as printed; ambiguous cells were skipped, never guessed.
+// Opening hours read from each venue's Google Maps listing on 2026-11-27 (owner reply "Go with your rec" relayed by parent; owner to confirm before merge; labelled "From Google Maps").
+// Official-page hours (enrich1129) always win. Seven-day table read as printed; host school/club hours (harahap-jagakarsa, kiddies88-havana-setiamekar) and ambiguous cells were skipped, never guessed.
 import type { Venue } from "../types/venue";
 
 const HOURS: Record<string, string> = {
@@ -60,7 +60,6 @@ const HOURS: Record<string, string> = {
   "gogrow-tanjung-duren": "Mon-Sun 10:00-21:00",
   "golden-baby-school-jakarta-garden-city": "Mon-Fri 07:00-15:30, Sat-Sun closed",
   "gymnademics-gading-serpong": "Mon-Fri 08:00-17:00, Sat-Sun closed",
-  "harahap-jagakarsa": "Mon-Sun 07:00-17:00",
   "i-can-read-alam-sutera": "Mon-Fri 10:00-19:00, Sat-Sun closed",
   "i-can-read-bsd": "Mon-Fri 09:30-18:30, Sat 10:00-15:00, Sun closed",
   "i-can-read-bsd2": "Mon-Fri 10:00-19:00, Sat 10:00-15:00, Sun closed",
@@ -85,7 +84,6 @@ const HOURS: Record<string, string> = {
   "i-can-read-sunter": "Mon-Fri 10:00-18:00, Sat 09:00-12:30, Sun closed",
   "i-can-read-tebet": "Mon-Fri 10:00-19:00, Sat 09:00-15:00, Sun closed",
   "kiddiegym-bogor-siliwangi": "Mon-Fri 08:00-16:00, Sat 08:00-13:00, Sun closed",
-  "kiddies88-havana-setiamekar": "Mon-Thu 07:00-17:00, Fri-Sun 06:30-18:00",
   "kiddies88-waterland-transyogi": "Mon-Fri 07:30-17:00, Sat-Sun 07:00-18:00",
   "kidztiara-bantar-gebang": "Mon-Fri 13:00-21:45, Sat-Sun 10:00-21:45",
   "kimi-friends-montessori-gading-serpong": "Mon-Sat 08:30-15:00, Sun closed",
