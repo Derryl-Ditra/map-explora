@@ -91,6 +91,9 @@ export interface Venue {
   tiktok?: string;
   phone?: string;
   phoneScope?: "shared-enquiry"; // omit for existing unspecified phone records
+  // Opening hours as printed on the provider's own page for THIS branch (2026-11-26, owner yes).
+  // text is language-neutral (e.g. "Mon-Sat 08:30-15:00"); never inferred, never from Maps/partners.
+  openingHours?: { text: string; sourceUrl: string; checkedAt: string };
   sourceUrl: string; // where this branch record came from
   lastCheckedAt: string | null; // ISO date this record was checked; null = never
   fitStatus: string; // raw verification status code from the reviewed dataset
