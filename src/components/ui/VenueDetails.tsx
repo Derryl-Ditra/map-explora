@@ -3,6 +3,7 @@ import { publicLocation } from "@/utils/publicLocation";
 import { isDeadSourceUrl } from "@/data/deadLinks";
 import { phoneHref } from "@/utils/venueSummary";
 import { hoursLabel, hoursCaption } from "@/utils/openingHours";
+import { praiseTagCaption } from "@/utils/praiseTags";
 import { estimatedPrograms } from "@/data/age-estimates";
 
 import { useState } from "react";
@@ -282,9 +283,12 @@ export default function VenueDetails({
               )}
             </>
           )}
+          {venue.reviews.praiseTagsReadAt && venue.reviews.praiseThemes.length > 0 && (
+            <span className="text-[0.9375rem] text-[#6d675f]">{praiseTagCaption(formatCheckedDate(venue.reviews.praiseTagsReadAt), "en")}</span>
+          )}
           {venue.reviews.ratingReadAt && venue.reviews.checkedAt !== venue.reviews.ratingReadAt && (
             <span className="text-[0.9375rem] text-[#6d675f]">
-              Rating and count read {formatCheckedDate(venue.reviews.ratingReadAt)}.{(venue.reviews.praiseThemes.length > 0 || venue.reviews.complaintThemes.length > 0) && ` Themes above are from the ${formatCheckedDate(venue.reviews.checkedAt)} sample and may not match the current rating.`}
+              Rating and count read {formatCheckedDate(venue.reviews.ratingReadAt)}.{(venue.reviews.complaintThemes.length > 0 || (venue.reviews.praiseThemes.length > 0 && !venue.reviews.praiseTagsReadAt)) && ` ${venue.reviews.praiseTagsReadAt ? "Concerns" : "Themes"} above are from the ${formatCheckedDate(venue.reviews.checkedAt)} sample and may not match the current rating.`}
             </span>
           )}
           {venue.reviews.latestReview?.date && (
