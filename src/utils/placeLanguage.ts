@@ -444,7 +444,11 @@ const translations: Record<string,string> = {
 export function placeText(text: string | undefined,lang: 'en'|'id',fallback=''): string {
  if(!text)return '';return lang==='en'?text:(translations[text] ?? fallback);
 }
-export function placeRegion(city:string,area:string) { return city.trim().toLowerCase()===area.trim().toLowerCase()?city:`${city} · ${area}`; }
+// 2026-11-26 (owner decision on PR #128, option 2): regency records whose short
+// area label matches the regency name display under that short label, so
+// Kabupaten Bogor places group with Kota Bogor places under "Bogor".
+export function displayCity(city:string):string { return city==="Kabupaten Bogor"?"Bogor":city; }
+export function placeRegion(city:string,area:string) { const c=displayCity(city); return c.trim().toLowerCase()===area.trim().toLowerCase()?area:`${c} · ${area}`; }
 
 export function publicProgramNote(text:string|undefined,lang:'en'|'id') {
  if(!text)return '';
