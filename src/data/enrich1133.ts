@@ -1,5 +1,6 @@
 // Praise tags from Google Maps' own review topic tags, read 2026-11-27 (one visit per venue).
-// Each string carries how many reviews Maps says mention that topic. Only positive-valence tags with 2+ reviews.
+// Each string carries how many reviews Maps says mention that topic (a count of mentions, not of praise).
+// Only positive-wording tags with 2+ reviews, top 3 strictly by count, duplicates collapsed to the larger count.
 // Complaint themes, latest-review month and checkedAt are untouched: the tags say nothing about complaints.
 import type { Venue } from "../types/venue";
 
@@ -10,7 +11,6 @@ const TAGS: Record<string, string[]> = {
   "anak-air-limo": ["experienced coach (5 reviews)", "clean place (5 reviews)", "warm water pool (3 reviews)"],
   "anak-air-pondok-indah": ["child-friendly (5 reviews)", "cozy place (3 reviews)", "strategic location (2 reviews)"],
   "aquababies-menteng": ["friendly coach (7 reviews)", "strategic location (3 reviews)"],
-  "aquatic-baby-bintaro": ["be patient (2 reviews)"],
   "aquatic-baby-rumabona-cikini-bintaro": ["kid-friendly (5 reviews)", "spacious swimming pool (2 reviews)", "fun activities (2 reviews)"],
   "bimba-rainbow-budi-agung": ["good teacher (16 reviews)", "patient female staff (2 reviews)"],
   "bintaro-inline-skate": ["patient coach (3 reviews)", "happy kids (2 reviews)"],
@@ -29,11 +29,11 @@ const TAGS: Record<string, string[]> = {
   "english-1-ciledug-tangerang": ["friendly teacher (58 reviews)", "cleanliness (32 reviews)", "kid-friendly (30 reviews)"],
   "english-1-cileungsi": ["friendly staff (14 reviews)", "fun learning (5 reviews)", "cozy place to learn english (2 reviews)"],
   "english-1-cinere-depok": ["friendly teachers (18 reviews)", "comfortable place (18 reviews)", "interactive lessons (3 reviews)"],
-  "english-1-cipete": ["comfort (5 reviews)", "child-friendly (4 reviews)", "cleanliness (3 reviews)"],
+  "english-1-cipete": ["child-friendly (4 reviews)", "cleanliness (3 reviews)", "patient teacher (2 reviews)"],
   "english-1-grand-wisata": ["friendly staff (2 reviews)", "fun learning (2 reviews)"],
   "english-1-jagakarsa-tanjung-barat": ["comfortable place (98 reviews)", "cleanliness (46 reviews)", "strategic location (34 reviews)"],
   "english-1-jatiasih": ["cleanliness (2 reviews)"],
-  "english-1-kemang-pratama": ["comfort (4 reviews)", "communicative tool (2 reviews)", "kid-friendly (2 reviews)"],
+  "english-1-kemang-pratama": ["kid-friendly (2 reviews)"],
   "english-1-kota-wisata": ["child-friendly (3 reviews)", "comfortable place (2 reviews)"],
   "english-1-margonda-depok": ["clean restrooms (5 reviews)", "cozy atmosphere (3 reviews)", "interactive lesson (2 reviews)"],
   "english-1-pajajaran": ["comfortable place (120 reviews)", "child-friendly (39 reviews)", "cleanliness (29 reviews)"],
@@ -73,7 +73,7 @@ const TAGS: Record<string, string[]> = {
   "i-can-read-green-lake-city": ["friendly teachers (9 reviews)", "friendly staff (8 reviews)", "friendly admin (2 reviews)"],
   "i-can-read-karawaci": ["friendly teacher (32 reviews)", "friendly staff (21 reviews)", "communicative teacher (4 reviews)"],
   "i-can-read-kelapa-gading": ["friendly staff (4 reviews)", "experienced teacher (2 reviews)", "fun class (2 reviews)"],
-  "i-can-read-kemang": ["friendly staff (6 reviews)", "engaging lessons (2 reviews)", "comfort (2 reviews)"],
+  "i-can-read-kemang": ["friendly staff (6 reviews)", "engaging lessons (2 reviews)"],
   "i-can-read-menteng": ["patient instructor (2 reviews)"],
   "i-can-read-modernland": ["friendly teachers (32 reviews)", "friendly staff (32 reviews)", "cleanliness (25 reviews)"],
   "i-can-read-permata-hijau": ["friendly teachers (28 reviews)", "kind teachers (13 reviews)", "helpful admin (11 reviews)"],
@@ -88,7 +88,7 @@ const TAGS: Record<string, string[]> = {
   "kidztiara-bantar-gebang": ["comfortable place (34 reviews)", "spacious place (25 reviews)"],
   "kimi-friends-montessori-gading-serpong": ["child-friendly (2 reviews)"],
   "majiku-larangan": ["happy kids (5 reviews)", "patient female staff (2 reviews)", "fun learning (2 reviews)"],
-  "membumi-playspace-cibubur": ["kind miss (7 reviews)", "friendly teacher (6 reviews)"],
+  "membumi-playspace-cibubur": ["friendly teacher (6 reviews)"],
   "music-wonderworld-bsd": ["fun teacher (9 reviews)", "comfortable place (6 reviews)", "cleanliness (6 reviews)"],
   "rockstar-academy-aeon-mall-bsd-city": ["spacious place (7 reviews)"],
   "rockstar-academy-aeon-mall-deltamas": ["patient trainer (2 reviews)", "helpful sales staff (2 reviews)", "spacious (2 reviews)"],
@@ -108,10 +108,10 @@ const TAGS: Record<string, string[]> = {
   "rockstar-academy-pesona-square": ["comfortable place (29 reviews)", "spacious place (13 reviews)", "patient coach (4 reviews)"],
   "rockstar-academy-pik-avenue": ["comfortable place (18 reviews)"],
   "rockstar-academy-pluit-village": ["clean place (16 reviews)", "spacious place (11 reviews)", "patient coaches (5 reviews)"],
-  "rockstar-academy-tsm-cibubur": ["patient coach (4 reviews)", "patient coach (3 reviews)"],
+  "rockstar-academy-tsm-cibubur": ["patient coach (3 reviews)"],
   "smartkidz-kelapa-gading": ["good teachers (11 reviews)", "strategic location (2 reviews)"],
   "sparks-sports-academy-bsd-tangerang": ["friendly staff (8 reviews)", "cleanliness (5 reviews)", "kid-friendly (5 reviews)"],
-  "sparks-sports-academy-cibinong": ["comfortable class (14 reviews)", "wide (5 reviews)", "cleanliness (4 reviews)"],
+  "sparks-sports-academy-cibinong": ["comfortable class (14 reviews)", "cleanliness (4 reviews)", "child-friendly (4 reviews)"],
   "sparks-sports-academy-cikarang": ["friendly coach (81 reviews)", "comfortable place (58 reviews)", "kid-friendly (46 reviews)"],
   "sparks-sports-academy-harapan-indah-bekasi": ["baby-friendly (9 reviews)", "good coach (6 reviews)", "cleanliness (4 reviews)"],
   "sparks-sports-academy-kalimalang": ["friendly coach (38 reviews)", "comfortable place (18 reviews)", "cleanliness (15 reviews)"],
@@ -122,17 +122,16 @@ const TAGS: Record<string, string[]> = {
   "sparks-sports-academy-mrg": ["friendly coach (18 reviews)", "kid-friendly (5 reviews)", "friendly and kind coach (4 reviews)"],
   "sparks-sports-academy-pajajaran-bogor": ["cleanliness (12 reviews)", "spacious (7 reviews)", "friendly instructors (6 reviews)"],
   "sparks-sports-academy-pamulang": ["complete facilities (11 reviews)", "cleanliness (7 reviews)", "friendly staff (6 reviews)"],
-  "sparks-sports-academy-pejaten": ["kid-friendly (6 reviews)", "comfort (3 reviews)", "spacious room (2 reviews)"],
+  "sparks-sports-academy-pejaten": ["kid-friendly (6 reviews)", "spacious room (2 reviews)", "cleanliness (2 reviews)"],
   "sparks-sports-academy-siliwangi": ["kid-friendly (6 reviews)", "clean room (3 reviews)", "child-friendly coach (2 reviews)"],
   "sparks-sports-academy-sunter": ["friendly coach (6 reviews)", "comfortable place (6 reviews)", "patient coaches (2 reviews)"],
   "sparks-sports-academy-tangerang-city": ["comfortable class (35 reviews)", "cleanliness (19 reviews)", "clean restrooms (6 reviews)"],
   "sparks-sports-academy-tanjung-duren": ["comfortable place (10 reviews)", "kid-friendly (6 reviews)", "patient coach (4 reviews)"],
   "sparks-sports-academy-teras-kota-bsd": ["comfortable place (9 reviews)", "fun for kids (5 reviews)", "cleanliness (4 reviews)"],
-  "sparks-swim-bintaro-utown": ["be patient (4 reviews)"],
   "sparks-swim-kalimalang": ["professional coach (14 reviews)", "warm water (6 reviews)", "complete equipment (2 reviews)"],
   "sparks-swim-karawaci": ["friendly coach (13 reviews)", "cleanliness (4 reviews)", "comfortable place (4 reviews)"],
-  "sparks-swim-pamulang": ["friendly trainer (5 reviews)", "wide (3 reviews)", "patient instructor (2 reviews)"],
-  "star-station-penjaringan": ["comfort (9 reviews)", "cleanliness (8 reviews)", "spacious (6 reviews)"],
+  "sparks-swim-pamulang": ["friendly trainer (5 reviews)", "patient instructor (2 reviews)"],
+  "star-station-penjaringan": ["cleanliness (8 reviews)", "spacious (6 reviews)", "comfortable place (4 reviews)"],
   "studiorenang-bsd-north-point": ["warm water (6 reviews)", "patient coach (5 reviews)", "friendly staff (5 reviews)"],
   "studiorenang-gading-serpong": ["warm water pool (72 reviews)", "comfortable pool (71 reviews)", "comfortable place (50 reviews)"],
   "studiorenang-kelapa-gading": ["friendly coach (138 reviews)", "patient coach (44 reviews)", "clean place (35 reviews)"],
@@ -140,12 +139,10 @@ const TAGS: Record<string, string[]> = {
   "the-funtastic-gym-pondok-indah": ["kid-friendly (15 reviews)", "friendly instructors (6 reviews)", "friendly teachers (6 reviews)"],
 };
 
-const NOTE = " Praise tags are Google Maps topic tags (reviews mentioning each), read 2026-11-27.";
-
 export default function enrich1133(venues: Venue[]) {
   for (const v of venues) {
     const tags = TAGS[v.id];
     if (!tags || !v.reviews || v.reviews.praiseThemes.length > 0) continue;
-    v.reviews = { ...v.reviews, praiseThemes: tags, sampleNote: (v.reviews.sampleNote ?? "") + NOTE };
+    v.reviews = { ...v.reviews, praiseThemes: tags, praiseTagsReadAt: "2026-11-27" };
   }
 }
