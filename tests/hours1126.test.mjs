@@ -38,3 +38,15 @@ test('opening hours from Google Maps: labelled, dated, well-formed, never over o
  assert.equal(VENUES.find(v=>v.id==='kimi-friends-montessori-gading-serpong').openingHours.source,undefined);
  assert.equal(hoursTextId('Mon closed, Tue-Fri 08:30-17:00'),'Sen tutup, Sel-Jum 08:30-17:00');
 });
+
+test('Maps hours: venue-hours label and class-time caption; host-club and school hours skipped',async()=>{
+ const {hoursLabel,hoursCaption}=await importTs('../src/utils/openingHours.ts');
+ assert.equal(hoursLabel(undefined,'en','google-maps'),'Venue hours');
+ assert.equal(hoursLabel(undefined,'id','google-maps'),'Jam buka tempat');
+ assert.equal(hoursLabel(undefined,'en'),'Opening hours');
+ assert.equal(hoursCaption('google-maps','id'),'Jadwal kelas bisa beda. Konfirmasi lewat telepon.');
+ assert.equal(hoursCaption(undefined,'en'),'');
+ for(const id of ['harahap-jagakarsa','kiddies88-havana-setiamekar']) assert.equal(VENUES.find(v=>v.id===id).openingHours,undefined);
+ // split-shift rows (two ranges for one day group) never match the stored format
+ for(const v of VENUES.filter(v=>v.openingHours?.source==='google-maps')) assert.ok(!/\d\d:\d\d-\d\d:\d\d[,;]? ?\d\d:\d\d/.test(v.openingHours.text));
+});
