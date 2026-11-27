@@ -79,6 +79,8 @@ export const HK_VENUES: Venue[] = [
     "id": "dposture-jatisampurna",
     "chain": null,
     "branchName": "D'Posture Dance & Fit (Jatisampurna)",
+   phone: "+62 811-3900-083",
+   website: "https://dposture.com/",
     "categories": [
       "Dance"
     ],
@@ -186,6 +188,7 @@ export const HK_VENUES: Venue[] = [
     "id": "smartkidz-kelapa-gading",
     "chain": null,
     "branchName": "SMARTKIDZ (Kelapa Gading)",
+   website: "https://smartkidz.co.id/cabang/kelapa-gading",
     "categories": [
       "Enrichment"
     ],
@@ -308,6 +311,8 @@ export const HK_VENUES: Venue[] = [
     "id": "bintaro-inline-skate",
     "chain": null,
     "branchName": "Bintaro Inline Skate (Bintaro Xchange)",
+   phone: "+62 812-1134-5234",
+   website: "https://bintaroinlineskate.com/",
     "categories": [
       "Gym & Movement"
     ],
@@ -850,6 +855,7 @@ export const HK_VENUES: Venue[] = [
     "id": "harahap-jagakarsa",
     "chain": null,
     "branchName": "Harahap Swimming School (Jagakarsa)",
+   website: "https://harahapswimming.com/lokasi-jadwal-latihan-cabang-jagakarsa/",
     "categories": [
       "Swim"
     ],
@@ -911,6 +917,8 @@ export const HK_VENUES: Venue[] = [
     "id": "swim-starter-kalideres",
     "chain": null,
     "branchName": "The Swim Starter (Kalideres)",
+   phone: "+62 856-7872-804",
+   website: "https://www.theswimstarter.com/id/locations/citra-1/",
     "categories": [
       "Swim"
     ],
@@ -972,6 +980,8 @@ export const HK_VENUES: Venue[] = [
     "id": "skola-bsd",
     "chain": null,
     "branchName": "SKOLA Indonesia (EduCenter BSD)",
+   phone: "+62 811-1200-0096",
+   website: "https://skola.sch.id/",
     "categories": [
       "Enrichment"
     ],
@@ -1033,6 +1043,8 @@ export const HK_VENUES: Venue[] = [
     "id": "cadenza-anima-kebon-jeruk",
     "chain": null,
     "branchName": "Cadenza Anima Music & Art (Kebon Jeruk)",
+   phone: "+62 877-2694-7444",
+   website: "https://cadenzaanima.com/",
     "categories": [
       "Dance",
       "Music",

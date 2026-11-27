@@ -2,7 +2,8 @@
 import { publicLocation } from "@/utils/publicLocation";
 import { isDeadSourceUrl } from "@/data/deadLinks";
 import { phoneHref } from "@/utils/venueSummary";
-import { hoursLabel } from "@/utils/openingHours";
+import { hoursLabel, hoursCaption } from "@/utils/openingHours";
+import { praiseTagCaption } from "@/utils/praiseTags";
 import { estimatedPrograms } from "@/data/age-estimates";
 
 import { useState } from "react";
@@ -270,6 +271,9 @@ export default function VenueDetails({
                   {venue.reviews.praiseThemes.join("; ")}
                 </div>
               )}
+              {venue.reviews.praiseTagsReadAt && venue.reviews.praiseThemes.length > 0 && (
+                <div className="text-[0.9375rem] text-[#6d675f]">{praiseTagCaption(formatCheckedDate(venue.reviews.praiseTagsReadAt), "en")}</div>
+              )}
               {venue.reviews.complaintThemes.length > 0 && (
                 <div className="text-[0.9375rem] text-[#4a443c]">
                   <span className="font-semibold text-[#221d18]">
@@ -281,6 +285,11 @@ export default function VenueDetails({
                 </div>
               )}
             </>
+          )}
+          {venue.reviews.ratingReadAt && venue.reviews.checkedAt !== venue.reviews.ratingReadAt && (
+            <span className="text-[0.9375rem] text-[#6d675f]">
+              Rating and count read {formatCheckedDate(venue.reviews.ratingReadAt)}.{(venue.reviews.complaintThemes.length > 0 || (venue.reviews.praiseThemes.length > 0 && !venue.reviews.praiseTagsReadAt)) && ` ${venue.reviews.praiseThemes.length > 0 && !venue.reviews.praiseTagsReadAt ? "Themes" : "Concerns"} above are from the ${formatCheckedDate(venue.reviews.checkedAt)} sample and may not match the current rating.`}
+            </span>
           )}
           {venue.reviews.latestReview?.date && (
             <span className="text-[0.9375rem] text-[#6d675f]">
@@ -370,11 +379,11 @@ export default function VenueDetails({
 
       {venue.openingHours && (
         <p className="text-[1rem] text-[#4a443c]">
-          {hoursLabel(venue.openingHours.kind, "en")}: {venue.openingHours.text}
+          {hoursLabel(venue.openingHours.kind, "en", venue.openingHours.source)}: {venue.openingHours.text}
           <span className="block text-[0.875rem] text-[#6d675f]">
             From{" "}
-            <a href={venue.openingHours.sourceUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center min-h-11 underline text-[#1a7a4a] font-semibold">official site</a>
-            , read {formatCheckedDate(venue.openingHours.checkedAt)}
+            <a href={venue.openingHours.sourceUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center min-h-11 underline text-[#1a7a4a] font-semibold">{venue.openingHours.source === "google-maps" ? "Google Maps" : "official site"}</a>
+            , read {formatCheckedDate(venue.openingHours.checkedAt)}. {hoursCaption(venue.openingHours.source, "en")}
           </span>
         </p>
       )}

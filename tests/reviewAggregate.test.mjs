@@ -4,7 +4,7 @@ import { importTs } from './loadTs.mjs';
 const { VENUES } = await importTs('../src/data/venues.ts');
 test('aggregate refresh keeps source dates and unknown ratings honest', () => {
  const v = id => VENUES.find(v => v.id === id);
- assert.equal(v('sparks-sports-academy-kemang-ampera').reviews.rating, 4.6);
+ assert.equal(v('sparks-sports-academy-kemang-ampera').reviews.rating, 4.8); // refreshed 2026-11-27 (was 4.6)
  assert.equal(v('i-can-read-bintaro').reviews.reviewCount, 726);
  assert.equal(v('english-1-pamulang-tangerang').reviews.rating, 4.8);
  assert.equal(v('sparks-sports-academy-cibubur').reviews?.rating ?? null, null);
