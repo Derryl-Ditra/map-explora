@@ -2,7 +2,7 @@
 import { publicLocation } from "@/utils/publicLocation";
 import { isDeadSourceUrl } from "@/data/deadLinks";
 import { phoneHref } from "@/utils/venueSummary";
-import { hoursLabel, hoursCaption } from "@/utils/openingHours";
+import { hoursLabel, hoursCaption, hoursTextId } from "@/utils/openingHours";
 import { praiseTagCaption } from "@/utils/praiseTags";
 import { estimatedPrograms } from "@/data/age-estimates";
 
@@ -100,6 +100,15 @@ export default function VenueDetails({
   const [reportText, setReportText] = useState("");
   const [reportSaved, setReportSaved] = useState(false);
   const [whyOpen, setWhyOpen] = useState(false);
+  // Hours block only: EN/ID switch, remembered on this device. The rest of the card stays English.
+  const [hoursLang, setHoursLangState] = useState<"en" | "id">(() => {
+    if (typeof window === "undefined") return "en";
+    try { return window.localStorage.getItem("map-explora-hours-lang") === "id" ? "id" : "en"; } catch { return "en"; }
+  });
+  const setHoursLang = (l: "en" | "id") => {
+    setHoursLangState(l);
+    try { window.localStorage.setItem("map-explora-hours-lang", l); } catch { /* storage blocked */ }
+  };
 
   const saveReport = () => {
     if (!reportText.trim()) return;
@@ -379,12 +388,20 @@ export default function VenueDetails({
 
       {venue.openingHours && (
         <p className="text-[1rem] text-[#4a443c]">
-          {hoursLabel(venue.openingHours.kind, "en", venue.openingHours.source)}: {venue.openingHours.text}
+          {hoursLabel(venue.openingHours.kind, hoursLang, venue.openingHours.source)}: {hoursLang === "id" ? hoursTextId(venue.openingHours.text) : venue.openingHours.text}
           <span className="block text-[0.875rem] text-[#6d675f]">
-            From{" "}
-            <a href={venue.openingHours.sourceUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center min-h-11 underline text-[#1a7a4a] font-semibold">{venue.openingHours.source === "google-maps" ? "Google Maps" : "official site"}</a>
-            , read {formatCheckedDate(venue.openingHours.checkedAt)}. {hoursCaption(venue.openingHours.source, "en")}
+            {hoursLang === "id" ? "Dari" : "From"}{" "}
+            <a href={venue.openingHours.sourceUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center min-h-11 underline text-[#1a7a4a] font-semibold">{venue.openingHours.source === "google-maps" ? "Google Maps" : hoursLang === "id" ? "situs resmi" : "official site"}</a>
+            {hoursLang === "id" ? ", dibaca " : ", read "}{formatCheckedDate(venue.openingHours.checkedAt)}. {hoursCaption(venue.openingHours.source, hoursLang)}
           </span>
+          <button
+            type="button"
+            onClick={() => setHoursLang(hoursLang === "id" ? "en" : "id")}
+            lang={hoursLang === "id" ? "en" : "id"}
+            className="inline-flex items-center min-h-11 underline text-[#1a7a4a] font-semibold text-[0.875rem]"
+          >
+            {hoursLang === "id" ? "Show hours in English" : "Tampilkan jam dalam Bahasa"}
+          </button>
         </p>
       )}
 
