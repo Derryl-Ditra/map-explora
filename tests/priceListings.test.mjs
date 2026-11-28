@@ -19,14 +19,14 @@ test('price card shows partner-listed label, source link and read date',()=>{
 });
 
 test('Nov13 official prices preserve source kind, branch and exclusions',()=>{
- const expected={'anak-air-grand-cibubur':715000,'anak-air-kebagusan':715000,'anak-air-kemang':825000,'anak-air-limo':605000,'anak-air-pondok-indah':825000,'golden-baby-school-jakarta-garden-city':100000,'gymnademics-gading-serpong':1000000,'membumi-playspace-cibubur':734000};
+ const expected={'anak-air-grand-cibubur':715000,'anak-air-kebagusan':715000,'anak-air-kemang':825000,'anak-air-limo':605000,'anak-air-pondok-indah':825000,'golden-baby-school-jakarta-garden-city':100000,'gymnademics-gading-serpong':1000000};
  for(const [id,amount] of Object.entries(expected)){
   const ps=VENUES.find(v=>v.id===id).priceListings;
   assert.equal(ps[0].amountIdr,amount,id);
-  for(const p of ps){assert.equal(p.sourceKind,'official',id);assert.equal(p.checkedAt,id==='membumi-playspace-cibubur'?'2026-11-13':(p.amountIdr===275000?'2026-11-28':'2026-11-27'));assert.ok(p.note);}
+  for(const p of ps){assert.equal(p.sourceKind,'official',id);assert.equal(p.checkedAt,(p.amountIdr===275000?'2026-11-28':'2026-11-27'));assert.ok(p.note);}
  }
  for(const v of VENUES.filter(v=>v.id.startsWith('anak-air'))){assert.equal(v.priceListings[1].amountIdr,275000);assert.match(v.priceListings[1].unit,/registration/);}
- const m=VENUES.find(v=>v.id==='membumi-playspace-cibubur');assert.match(m.priceListings[0].label,/estimated/);assert.match(m.priceListings[0].note,/185,000/);assert.match(m.priceListings[0].note,/Full T&C/);
+ assert.equal(VENUES.find(v=>v.id==='membumi-playspace-cibubur').priceListings,undefined); // hidden until re-read, 28 Nov
  const g=VENUES.find(v=>v.id==='gymnademics-gading-serpong');assert.match(g.priceListings[0].note,/non-refundable/);
 });
 test('price card distinguishes official listings and legacy partners per row',()=>{
