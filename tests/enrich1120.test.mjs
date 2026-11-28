@@ -56,5 +56,5 @@ test('Nov20 inventory counts move only on the BLS age upgrade',()=>{
  // 2026-11-22 round F: Buumi Urban Forest priced via dated tiket.com listings.
  // 2026-11-22 round H: aquababies-bintaro and aquababies-menteng priced via the official shop page.
  // 2026-11-22 round I: kiddiegym-bogor-siliwangi priced via the official school-fees page.
- assert.equal(VENUES.filter(isShownToUsers).filter(v=>v.priceListings?.length).length,39); // 2026-11-25 PR #125 audit fix: dropped 4 priced HK venues; 43 -> 39.
+ assert.equal(VENUES.filter(isShownToUsers).filter(v=>v.priceListings?.length).length,38); // 2026-11-28: Membumi prices hidden until re-read; 39 -> 38.  2026-11-25 PR #125 audit fix: dropped 4 priced HK venues; 43 -> 39.
 });

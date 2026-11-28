@@ -9038,3 +9038,5 @@ import enrich1130 from "./enrich1130";
 enrich1130(VENUES);
 import enrich1135 from "./enrich1135";
 enrich1135(VENUES);
+import enrich1136 from "./enrich1136";
+enrich1136(VENUES);

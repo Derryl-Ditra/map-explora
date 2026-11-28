@@ -9,5 +9,4 @@ test('2026-11-27 price re-read: only confirmed listings re-dated, amounts unchan
   assert.deepEqual(get('deen-haus-alkahf-bintaro').map(p=>[p.amountIdr,p.checkedAt]),[[150000,'2026-11-27'],[590000,'2026-11-27'],[1000000,'2026-11-27']]);
   assert.equal(get('golden-baby-school-jakarta-garden-city')[0].amountIdr,100000);
   assert.equal(get('gymnademics-gading-serpong')[0].checkedAt,'2026-11-27');
-  assert.equal(get('membumi-playspace-cibubur')[0].checkedAt,'2026-11-13'); // page now shows a December timetable; not re-confirmed
 });

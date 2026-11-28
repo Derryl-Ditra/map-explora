@@ -9,6 +9,6 @@ test('2026-11-28 price re-read: only confirmed listings re-dated, amounts unchan
   }
   assert.equal(get('buumi-playscape-pacific-place').find(p=>p.amountIdr===225000).checkedAt,'2026-11-28');
   assert.equal(get('morning-nest-preschool-bojongsari').find(p=>p.amountIdr===1200000).checkedAt,'2026-11-28');
-  assert.equal(get('membumi-playspace-cibubur')[0].checkedAt,'2026-11-13'); // take.app no longer shows these prices
+  assert.equal(VENUES.find(v=>v.id==='membumi-playspace-cibubur').priceListings,undefined); // take.app no longer shows these prices; hidden until re-read
   assert.equal(get('kinderra-play-cakung')[0].checkedAt,'2026-11-11'); // page only shows a from-price
 });
