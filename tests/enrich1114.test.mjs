@@ -15,7 +15,7 @@ test('Nov14 adds an official contact and a narrowly labelled partner play ticket
  assert.equal(b.priceListings.length,3);
  const p=b.priceListings[0];
  assert.equal(p.amountIdr,225000);assert.equal(p.sourceKind,'partner');
- assert.equal(p.checkedAt,'2026-11-14');
+ assert.equal(p.checkedAt,'2026-11-28');
  assert.match(p.sourceUrl,/pacific-place-playground$/);
  assert.match(p.label,/not class tuition/);assert.match(p.note,/No refund or rescheduling/);
  // 2026-11-22 QC price-note cut: keeper rows only, translated per row.
