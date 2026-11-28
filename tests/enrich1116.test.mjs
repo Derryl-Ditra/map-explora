@@ -9,7 +9,7 @@ test('Nov16 two reviewed partner branches do not become verified age matches',()
  for(const id of ['sociable-inclusive-learning-meruya','morning-nest-preschool-bojongsari']){
   const v=VENUES.find(v=>v.id===id);assert.ok(v);assert.equal(v.operatingStatus.state,'partner-listed');assert.equal(v.coordinateSource,'maps-pin');
   assert.equal(verifiedPrograms(v).length,0);assert.equal(hasVerifiedAgeEvidence(v),false);assert.equal(v.reviews,undefined);
-  for(const p of v.priceListings){assert.equal(p.sourceKind,'partner');assert.equal(p.checkedAt,'2026-11-16');for(const k of ['label','unit','note'])assert.ok(placeText(p[k],'id'));}
+  for(const p of v.priceListings){assert.equal(p.sourceKind,'partner');assert.equal(p.checkedAt,id==='morning-nest-preschool-bojongsari'&&p.amountIdr===1200000?'2026-11-28':'2026-11-16');for(const k of ['label','unit','note'])assert.ok(placeText(p[k],'id'));}
  }
 });
 test('Nov16 excludes unresolved red-flag or identity leads',()=>{
